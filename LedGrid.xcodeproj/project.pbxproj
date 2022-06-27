@@ -7,18 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */; };
 		5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B42527F0D7E60039F621 /* LedGridApp.swift */; };
 		5799B42827F0D7E60039F621 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B42727F0D7E60039F621 /* ContentView.swift */; };
 		5799B42A27F0D7E70039F621 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5799B42927F0D7E70039F621 /* Assets.xcassets */; };
 		5799B42D27F0D7E70039F621 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5799B42C27F0D7E70039F621 /* Preview Assets.xcassets */; };
+		5799B43427F0D89D0039F621 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B43327F0D89D0039F621 /* GridView.swift */; };
+		5799B43627F0D8AA0039F621 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B43527F0D8AA0039F621 /* SquareView.swift */; };
+		57C96D9E27F1D295008C52BB /* DrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9D27F1D295008C52BB /* DrawViewModel.swift */; };
+		57C96DA027F1D390008C52BB /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9F27F1D390008C52BB /* Utility.swift */; };
+		57C96DA727F3A266008C52BB /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DA627F3A266008C52BB /* DrawView.swift */; };
+		57C96DAC27F3A641008C52BB /* GridListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAB27F3A641008C52BB /* GridListView.swift */; };
+		57C96DAE27F3A702008C52BB /* MiniGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAD27F3A702008C52BB /* MiniGridView.swift */; };
+		57C96DB027F45B56008C52BB /* SentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAF27F45B56008C52BB /* SentView.swift */; };
+		57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB127F45B93008C52BB /* ReceivedView.swift */; };
+		57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB427F45C01008C52BB /* SettingsView.swift */; };
+		57C96DB727FA0577008C52BB /* PeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB627FA0577008C52BB /* PeripheralManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		5799B42227F0D7E60039F621 /* LedGrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LedGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5799B42527F0D7E60039F621 /* LedGridApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedGridApp.swift; sourceTree = "<group>"; };
 		5799B42727F0D7E60039F621 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5799B42927F0D7E70039F621 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5799B42C27F0D7E70039F621 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5799B43327F0D89D0039F621 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		5799B43527F0D8AA0039F621 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		57A929692802BBAA0096CC96 /* LedGrid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LedGrid.entitlements; sourceTree = "<group>"; };
+		57A9296A28031F790096CC96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		57C96D9D27F1D295008C52BB /* DrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewModel.swift; sourceTree = "<group>"; };
+		57C96D9F27F1D390008C52BB /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		57C96DA627F3A266008C52BB /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		57C96DAB27F3A641008C52BB /* GridListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridListView.swift; sourceTree = "<group>"; };
+		57C96DAD27F3A702008C52BB /* MiniGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniGridView.swift; sourceTree = "<group>"; };
+		57C96DAF27F45B56008C52BB /* SentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentView.swift; sourceTree = "<group>"; };
+		57C96DB127F45B93008C52BB /* ReceivedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedView.swift; sourceTree = "<group>"; };
+		57C96DB427F45C01008C52BB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		57C96DB627FA0577008C52BB /* PeripheralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +77,16 @@
 		5799B42427F0D7E60039F621 /* LedGrid */ = {
 			isa = PBXGroup;
 			children = (
+				57A9296A28031F790096CC96 /* Info.plist */,
+				57A929692802BBAA0096CC96 /* LedGrid.entitlements */,
 				5799B42527F0D7E60039F621 /* LedGridApp.swift */,
 				5799B42727F0D7E60039F621 /* ContentView.swift */,
+				57C96DB627FA0577008C52BB /* PeripheralManager.swift */,
+				57C96DA927F3A622008C52BB /* Common */,
+				57C96DAA27F3A632008C52BB /* Sent */,
+				57C96DA827F3A361008C52BB /* Draw */,
+				57C96DB327F45BF4008C52BB /* Settings */,
+				57C96D9F27F1D390008C52BB /* Utility.swift */,
 				5799B42927F0D7E70039F621 /* Assets.xcassets */,
 				5799B42B27F0D7E70039F621 /* Preview Content */,
 			);
@@ -65,6 +99,44 @@
 				5799B42C27F0D7E70039F621 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		57C96DA827F3A361008C52BB /* Draw */ = {
+			isa = PBXGroup;
+			children = (
+				57C96DA627F3A266008C52BB /* DrawView.swift */,
+				57C96D9D27F1D295008C52BB /* DrawViewModel.swift */,
+				5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */,
+				5799B43327F0D89D0039F621 /* GridView.swift */,
+			);
+			path = Draw;
+			sourceTree = "<group>";
+		};
+		57C96DA927F3A622008C52BB /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				57C96DAB27F3A641008C52BB /* GridListView.swift */,
+				57C96DAD27F3A702008C52BB /* MiniGridView.swift */,
+				5799B43527F0D8AA0039F621 /* SquareView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		57C96DAA27F3A632008C52BB /* Sent */ = {
+			isa = PBXGroup;
+			children = (
+				57C96DAF27F45B56008C52BB /* SentView.swift */,
+				57C96DB127F45B93008C52BB /* ReceivedView.swift */,
+			);
+			path = Sent;
+			sourceTree = "<group>";
+		};
+		57C96DB327F45BF4008C52BB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				57C96DB427F45C01008C52BB /* SettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +210,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				5799B42827F0D7E60039F621 /* ContentView.swift in Sources */,
+				57C96DAC27F3A641008C52BB /* GridListView.swift in Sources */,
+				57C96D9E27F1D295008C52BB /* DrawViewModel.swift in Sources */,
+				57C96DA727F3A266008C52BB /* DrawView.swift in Sources */,
+				5799B43427F0D89D0039F621 /* GridView.swift in Sources */,
+				57C96DB727FA0577008C52BB /* PeripheralManager.swift in Sources */,
+				57C96DB027F45B56008C52BB /* SentView.swift in Sources */,
+				57C96DAE27F3A702008C52BB /* MiniGridView.swift in Sources */,
+				57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */,
+				57C96DA027F1D390008C52BB /* Utility.swift in Sources */,
 				5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */,
+				5799B43627F0D8AA0039F621 /* SquareView.swift in Sources */,
+				5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */,
+				57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,7 +280,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -251,7 +335,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -266,17 +350,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LedGrid/Preview Content\"";
-				DEVELOPMENT_TEAM = GJT7QA75QG;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LedGrid/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Allow this app to use Bluetooth?";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Allow this app to connect to LedGrid?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -284,9 +374,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -295,17 +386,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LedGrid/Preview Content\"";
-				DEVELOPMENT_TEAM = GJT7QA75QG;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LedGrid/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Allow this app to use Bluetooth?";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Allow this app to connect to LedGrid?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -313,9 +410,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
