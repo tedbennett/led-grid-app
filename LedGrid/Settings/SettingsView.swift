@@ -30,14 +30,13 @@ struct SettingsView: View {
             Form {
                 Section(header: Text("LED Grid Device")) {
                     if manager.connected {
-                        Text("Connected to \(manager.peripheral?.name ?? "Unknown Grid")")
+                        Text("Connected to \(Utility.development ? "Ted's" : "Mina's") Grid")
                         Button {
                             manager.disconnect()
                         } label: {
                             Text("Disconnect").foregroundColor(.red)
                         }
                     } else {
-                        
                         Button {
                             manager.startScanning()
                         } label: {

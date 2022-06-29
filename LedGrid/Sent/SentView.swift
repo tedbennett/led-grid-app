@@ -14,8 +14,9 @@ struct SentView: View {
     
     var body: some View {
         NavigationView {
-            GridListView(viewModel: viewModel)
-                .navigationTitle("Sent Grids")
+            GridListView(viewModel: viewModel) {
+                viewModel.setGrids(Utility.sentGrids)
+            }.navigationTitle("Sent Grids")
         }.onAppear {
             viewModel.setGrids(Utility.sentGrids)
         }

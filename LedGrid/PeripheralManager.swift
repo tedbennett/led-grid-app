@@ -11,9 +11,9 @@ import CoreBluetooth
 class PeripheralManager: NSObject, ObservableObject {
     static var shared = PeripheralManager()
     
-    private var SERVICE_UUID = CBUUID(string: "6e400001-b5a3-f393-e0a9-e50e24dcca9e")
-    private var COLOR_CHARACTERISTIC_UUID = CBUUID(string: "6e400002-b5a3-f393-e0a9-e50e24dcca9e")
-    private var CONFIG_CHARACTERISTIC_UUID = CBUUID(string: "6e400003-b5a3-f393-e0a9-e50e24dcca9e")
+    private var SERVICE_UUID = CBUUID(string: Utility.development ? "6e400001-b5a3-f393-e0a9-e50e24dcca9e" : "6e400001-b5a3-f393-e0a9-e50e24dcca9f")
+    private var COLOR_CHARACTERISTIC_UUID = CBUUID(string: Utility.development ? "6e400002-b5a3-f393-e0a9-e50e24dcca9e" : "6e400002-b5a3-f393-e0a9-e50e24dcca9f")
+    private var CONFIG_CHARACTERISTIC_UUID = CBUUID(string: Utility.development ? "6e400003-b5a3-f393-e0a9-e50e24dcca9e" : "6e400003-b5a3-f393-e0a9-e50e24dcca9f")
     
     private override init() {
         super.init()
@@ -120,6 +120,7 @@ extension PeripheralManager: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         self.peripheral = nil
+        
         connected = false
     }
 }

@@ -11,38 +11,49 @@ struct DrawView: View {
     @StateObject var viewModel = DrawViewModel()
     @Environment(\.scenePhase) var scenePhase
     
-    var buttons: some View {
-        HStack {
-            Spacer()
+    var headerButtons: some View {
+        HStack(alignment: .center, spacing: 5) {
             Button {
-                viewModel.clearGrid()
+                viewModel.sendGridToDevice()
             } label: {
-                Text("Clear")
-                    .font(.system(.title3, design: .rounded).bold())
-                    .foregroundColor(.red)
+                Text("Preview").font(.system(.title3, design: .rounded).bold())
                     .padding()
-            }.background(Color(uiColor: .systemGray6))
+            }.disabled(!PeripheralManager.shared.connected).background(Color(uiColor: .systemGray6))
                 .cornerRadius(15)
-                .padding(.trailing, 5)
-            Button {
-                viewModel.sendGrid()
-            } label: {
-                Text("Send").font(.system(.title3, design: .rounded).bold())
-                    .padding()
-            }.background(Color(uiColor: .systemGray6))
-                .cornerRadius(15)
-                .padding(.leading, 5)
-            Spacer()
+            Menu("...") {
+                Button {
+                    viewModel.isLiveEditing.toggle()
+                } label: {
+                    Text("\(viewModel.isLiveEditing ? "Stop" : "Start") Live Preview")
+                }.disabled(!PeripheralManager.shared.connected)
+                Button {
+                    viewModel.clearGrid()
+                } label: {
+                    Text("Clear").tint(.red)
+                }
+            }
+            .font(.system(.title3, design: .rounded).bold())
+            .padding()
+            .background(Color(uiColor: .systemGray6))
+            .cornerRadius(15)
         }
     }
     
+    
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 20) {
+                headerButtons
                 GridView(viewModel: viewModel)
                 ColorPickerView(viewModel: viewModel)
-                
-                buttons
+                Button {
+                    viewModel.uploadGrid()
+                } label: {
+                    Text("Send to \(Utility.development ? "Mina" : "Ted")")
+                        .font(.system(.title3, design: .rounded).bold())
+                        .padding()
+                }.background(Color(uiColor: .systemGray6))
+                    .cornerRadius(15)
             }
             .navigationTitle("Draw Something")
             .onAppear {
@@ -60,5 +71,6 @@ struct DrawView: View {
 struct DrawView_Previews: PreviewProvider {
     static var previews: some View {
         DrawView()
+            .previewDevice("iPhone 13 mini")
     }
 }

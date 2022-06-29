@@ -7,30 +7,6 @@
 
 import SwiftUI
 
-struct ColorGrid: Identifiable, Codable {
-    var name: String
-    var id: String
-    var grid: [[Color]]
-    var sentAt: Date = Date()
-    
-    func toHex() -> [String] {
-        return grid.flatMap { $0 }.map { $0.hex }
-    }
-    
-    mutating func updateDate() {
-        sentAt = Date()
-    }
-    
-    static func example(color: Color) -> ColorGrid {
-        return ColorGrid(
-            name: "Example",
-            id: UUID().uuidString,
-            grid: Array(repeating: Array(repeating: color, count: 8), count: 8),
-            sentAt: Date()
-        )
-    }
-}
-
 class GridListViewModel: ObservableObject {
     @Published var grids: [ColorGrid]
     
@@ -51,12 +27,14 @@ class GridListViewModel: ObservableObject {
     }
     
     func setGrids(_ grids: [ColorGrid]) {
-        self.grids = grids
+        self.grids = grids.sorted(by: { $0.sentAt > $1.sentAt })
     }
 }
 
 struct GridListView: View {
     @ObservedObject var viewModel: GridListViewModel
+    
+    var onRefresh: () -> Void
     
     let columns = [
         GridItem(.flexible()),
@@ -91,13 +69,16 @@ struct GridListView: View {
     }
     
     var body: some View {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 30) {
-                    ForEach(viewModel.grids) { item in
-                        gridButton(item: item)
-                    }
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 30) {
+                ForEach(viewModel.grids) { item in
+                    gridButton(item: item)
                 }
-                .padding(.horizontal)
+            }
+            .padding(.horizontal)
+            .refreshable {
+                onRefresh()
+            }
         }
     }
 }

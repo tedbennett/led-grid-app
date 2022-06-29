@@ -31,6 +31,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             completionHandler: {_, _ in }
         )
         application.registerForRemoteNotifications()
+        
+        if launchOptions?[.remoteNotification] != nil {
+            // Set tab
+        }
         return true
     }
     
@@ -39,6 +43,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didReceiveRemoteNotification userInfo: [AnyHashable: Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
     ) {
+        if let aps = userInfo["aps"] as? String,
+           let data = aps.data(using: .utf8),
+           let grid = try? JSONDecoder().decode(ColorGrid.self, from: data) {
+            Utility.receivedGrids.append(grid)
+        }
+        
         completionHandler(UIBackgroundFetchResult.newData)
     }
 }
@@ -50,10 +60,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        let userInfo = notification.request.content.userInfo
-        
-        print(userInfo)
-        
+
         completionHandler([[.banner, .badge, .sound]])
     }
     
@@ -61,6 +68,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         _ application: UIApplication,
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
     ) {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        print(token)
         print("did register")
     }
     
