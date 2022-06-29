@@ -12,10 +12,14 @@ struct ReceivedView: View {
         Utility.receivedGrids = $0
     }
     
+    @Binding var unopenedGrids: Int
+    
     var body: some View {
         NavigationView {
             GridListView(viewModel: viewModel) {
                 viewModel.setGrids(Utility.receivedGrids)
+            } onSelectGrid: {
+                unopenedGrids = Utility.receivedGrids.reduce(0, { a, b in !b.opened ? a + 1 : a })
             }
             .navigationTitle("Received Grids")
         }.onAppear {
@@ -26,6 +30,6 @@ struct ReceivedView: View {
 
 struct ReceivedView_Previews: PreviewProvider {
     static var previews: some View {
-        ReceivedView()
+        ReceivedView(unopenedGrids: .constant(0))
     }
 }

@@ -10,10 +10,11 @@ import SwiftUI
 @main
 struct LedGridApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @State private var selection = 0
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(selection: $selection)
         }
     }
 }

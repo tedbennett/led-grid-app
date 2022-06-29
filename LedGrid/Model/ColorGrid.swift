@@ -11,11 +11,13 @@ struct ColorGrid: Identifiable, Codable {
     var id: String
     var grid: [[Color]]
     var sentAt: Date
+    var opened: Bool
     
     init(id: String, grid: [[Color]], sentAt: Date = Date()) {
         self.id = id
         self.grid = grid
         self.sentAt = sentAt
+        self.opened = true
     }
     
     init(id: String, grid: [String], sentAt: Date = Date()) {
@@ -23,6 +25,7 @@ struct ColorGrid: Identifiable, Codable {
         let ranges = (0..<8).map { ($0 * 8)..<($0 * 8 + 8) }
         self.grid = ranges.map { range in range.map { Color(hexString: grid[$0]) } }
         self.sentAt = sentAt
+        self.opened = false
     }
     
     func toHex() -> [String] {
@@ -34,10 +37,12 @@ struct ColorGrid: Identifiable, Codable {
     }
     
     static func example(color: Color) -> ColorGrid {
-        return ColorGrid(
+        var grid = ColorGrid(
             id: UUID().uuidString,
             grid: Array(repeating: Array(repeating: color, count: 8), count: 8)
         )
+        grid.opened = Int.random(in: 0..<2) > 0
+        return grid
     }
 }
 

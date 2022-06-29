@@ -17,6 +17,15 @@ class GridListViewModel: ObservableObject {
         self.onSave = onSave
     }
     
+    func onSelectGrid(_ item: ColorGrid) {
+        PeripheralManager.shared.sendToDevice(colors: item.toHex())
+        if !item.opened,
+           let index = grids.firstIndex(where: { $0.id == item.id }) {
+            grids[index].opened = true
+            save()
+        }
+    }
+    
     func removeGrid(_ item: ColorGrid) {
         grids.removeAll(where: { $0.id == item.id } )
         save()
@@ -35,6 +44,13 @@ struct GridListView: View {
     @ObservedObject var viewModel: GridListViewModel
     
     var onRefresh: () -> Void
+    var onSelectGrid: () -> Void
+    
+    init(viewModel: GridListViewModel, onRefresh: @escaping () -> Void, onSelectGrid: @escaping () -> Void = {}) {
+        self.viewModel = viewModel
+        self.onRefresh = onRefresh
+        self.onSelectGrid = onSelectGrid
+    }
     
     let columns = [
         GridItem(.flexible()),
@@ -43,11 +59,15 @@ struct GridListView: View {
     
     func gridButton(item: ColorGrid) -> some View {
         Button {
-            PeripheralManager.shared.sendToDevice(colors: item.toHex())
+            
         } label: {
             VStack {
-                MiniGridView(grid: item.grid)
-                    .drawingGroup()
+                if !item.opened {
+                    Text("Tap to View").frame(width: 101, height: 101).padding(15)
+                } else {
+                    MiniGridView(grid: item.grid)
+                        .drawingGroup()
+                }
             }.padding(15)
         }.buttonStyle(.plain)
             .background(Color(uiColor: .systemGray6))
@@ -83,13 +103,13 @@ struct GridListView: View {
     }
 }
 
-//struct GridListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GridListView(grids: [
-//            ColorGrid.example(color: .blue),
-//            ColorGrid.example(color: .pink),
-//            ColorGrid.example(color: .red),
-//            ColorGrid.example(color: .yellow),
-//        ])
-//    }
-//}
+struct GridListView_Previews: PreviewProvider {
+    static var previews: some View {
+        GridListView(viewModel: GridListViewModel(grids: [
+            ColorGrid.example(color: .blue),
+            ColorGrid.example(color: .pink),
+            ColorGrid.example(color: .red),
+            ColorGrid.example(color: .yellow),
+        ], onSave: { _ in }), onRefresh: {})
+    }
+}

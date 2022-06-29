@@ -10,14 +10,17 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var viewModel = DrawViewModel()
     @Environment(\.scenePhase) var scenePhase
+    @Binding var selection: Int
+    @State private var unopenedGrids: Int =  Utility.receivedGrids.reduce(0, { a, b in !b.opened ? a + 1 : a })
+    
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             DrawView().tabItem {
                 Label("Draw", systemImage: "pencil")
             }
-            ReceivedView().tabItem {
+            ReceivedView(unopenedGrids: $unopenedGrids).tabItem {
                 Label("Received", systemImage: "tray")
-            }
+            }.badge(unopenedGrids)
             SentView().tabItem {
                 Label("Sent", systemImage: "paperplane")
             }
@@ -30,6 +33,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(selection: .constant(1))
     }
 }
