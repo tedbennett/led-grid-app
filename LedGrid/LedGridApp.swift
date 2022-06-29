@@ -46,7 +46,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) {
         if let aps = userInfo["aps"] as? String,
            let data = aps.data(using: .utf8),
-           let grid = try? JSONDecoder().decode(ColorGrid.self, from: data) {
+           var grid = try? JSONDecoder().decode(ColorGrid.self, from: data) {
+            grid.opened = false
             Utility.receivedGrids.append(grid)
         }
         

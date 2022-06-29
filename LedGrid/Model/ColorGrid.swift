@@ -13,19 +13,23 @@ struct ColorGrid: Identifiable, Codable {
     var sentAt: Date
     var opened: Bool
     
-    init(id: String, grid: [[Color]], sentAt: Date = Date()) {
+    init(id: String, grid: [[Color]], sentAt: Date = Date(), opened: Bool = true) {
         self.id = id
         self.grid = grid
         self.sentAt = sentAt
-        self.opened = true
+        self.opened = opened
     }
     
-    init(id: String, grid: [String], sentAt: Date = Date()) {
-        self.id = id
-        let ranges = (0..<8).map { ($0 * 8)..<($0 * 8 + 8) }
-        self.grid = ranges.map { range in range.map { Color(hexString: grid[$0]) } }
-        self.sentAt = sentAt
-        self.opened = false
+    enum CodingKeys: String, CodingKey {
+        case id, grid, sentAt, opened
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.grid = try container.decode([[Color]].self, forKey: .grid)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.sentAt = try container.decode(Date.self, forKey: .sentAt)
+        self.opened = (try? container.decode(Bool.self, forKey: .opened)) ?? true
     }
     
     func toHex() -> [String] {
