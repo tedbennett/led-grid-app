@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DrawView: View {
     @StateObject var viewModel = DrawViewModel()
+    @ObservedObject var peripheralManager = PeripheralManager.shared
     @Environment(\.scenePhase) var scenePhase
     
     var headerButtons: some View {
@@ -18,7 +19,7 @@ struct DrawView: View {
             } label: {
                 Text("Preview").font(.system(.title3, design: .rounded).bold())
                     .padding()
-            }.disabled(!PeripheralManager.shared.connected).background(Color(uiColor: .systemGray6))
+            }.disabled(!peripheralManager.connected).background(Color(uiColor: .systemGray6))
                 .cornerRadius(15)
             Menu("...") {
                 Button {
@@ -48,7 +49,7 @@ struct DrawView: View {
                 Button {
                     viewModel.uploadGrid()
                 } label: {
-                    Text("Send to \(Utility.development ? "Mina" : "Ted")")
+                    Text("Send to \(EnvironmentVariables.recipientId)")
                         .font(.system(.title3, design: .rounded).bold())
                         .padding()
                 }.background(Color(uiColor: .systemGray6))

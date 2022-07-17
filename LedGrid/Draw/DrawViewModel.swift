@@ -20,7 +20,10 @@ class DrawViewModel: ObservableObject {
     func setGridSquare(row: Int, col: Int) {
         grid[col][row] = currentColor
         if isLiveEditing {
-            sendGrid()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                PeripheralManager.shared.sendToDevice(colors: self.grid.flatMap { $0 }.map { $0.hex })
+            }
         }
     }
     
@@ -32,29 +35,25 @@ class DrawViewModel: ObservableObject {
         return grid.flatMap { row in row.map { $0.hex }}.joined(separator: "")
     }
     
-    func sendGrid() {
-        
-    }
-    
     func uploadGrid() {
-        if var sentGrid = Utility.sentGrids.first(where: { flattenGrid($0.grid) == flattenGrid(grid) }) {
-            sentGrid.updateDate()
-            Utility.sentGrids.removeAll(where: { $0.id == sentGrid.id })
-            Utility.sentGrids.append(sentGrid)
-            NetworkManager.shared.postGrid(sentGrid) { error in
-                // Do something with error
-            }
-        } else {
-            let colorGrid = ColorGrid(id: UUID().uuidString, grid: grid)
-            Utility.sentGrids.append(colorGrid)
-            NetworkManager.shared.postGrid(colorGrid) { error in
-                // Do something with error
-            }
+        let colorGrid = ColorGrid(id: UUID().uuidString, grid: grid)
+        Utility.sentGrids.append(colorGrid)
+        NetworkManager.shared.postGrid(colorGrid) { error in
+            // Do something with error
         }
     }
     
     func sendGridToDevice() {
-        
+        if var sentGrid = Utility.sentGrids.first(where: { flattenGrid($0.grid) == flattenGrid(grid) }) {
+            sentGrid.updateDate()
+            Utility.sentGrids.removeAll(where: { $0.id == sentGrid.id })
+            Utility.sentGrids.append(sentGrid)
+            PeripheralManager.shared.sendToDevice(colors: sentGrid.toHex())
+        } else {
+            let colorGrid = ColorGrid(id: UUID().uuidString, grid: grid)
+            Utility.sentGrids.append(colorGrid)
+            PeripheralManager.shared.sendToDevice(colors: colorGrid.toHex())
+        }
     }
     
     func clearGrid() {

@@ -44,13 +44,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didReceiveRemoteNotification userInfo: [AnyHashable: Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
     ) {
-        if let aps = userInfo["aps"] as? String,
-           let data = aps.data(using: .utf8),
-           var grid = try? JSONDecoder().decode(ColorGrid.self, from: data) {
-            grid.opened = false
+        if let grid = parseGrid(from: userInfo) {
             Utility.receivedGrids.append(grid)
         }
-        
         completionHandler(UIBackgroundFetchResult.newData)
     }
 }
@@ -62,7 +58,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-
+        print(notification.request.content.userInfo)
+        if let grid = parseGrid(from: notification.request.content.userInfo) {
+            Utility.receivedGrids.append(grid)
+        }
         completionHandler([[.banner, .badge, .sound]])
     }
     
@@ -74,6 +73,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let token = tokenParts.joined()
         print(token)
         print("did register")
+        NetworkManager.shared.postToken(token)
     }
     
     func application(
@@ -94,5 +94,23 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         print(userInfo)
         
         completionHandler()
+    }
+    
+    func parseGrid(from hashable: [AnyHashable: Any]) -> ColorGrid? {
+        guard let grid = hashable["grid"] as? [AnyHashable: Any],
+              let colors = grid["grid"] as? [[[AnyHashable: Any]]],
+              let id = grid["id"] as? String,
+              let sentAt = grid["sentAt"] as? String,
+              let date = try? Date(sentAt, strategy: .iso8601) else {
+            return nil
+        }
+        if colors.count != 8 || !colors.allSatisfy( { $0.count == 8 }) { return nil }
+        let colorGrid: [[Color]] = colors.map { row in row.map { col in
+            print(col)
+            guard let red = col["red"] as? Double, let green = col["green"] as? Double, let blue = col["blue"] as? Double else {
+                return Color(red: 0, green: 0, blue: 0)
+            }
+            return Color(red: red, green: green, blue: blue) } }
+        return ColorGrid(id: id, grid: colorGrid, sentAt: date, opened: false)
     }
 }

@@ -15,7 +15,7 @@ struct SquareView: View {
             .foregroundColor(color)
             .overlay(
                 RoundedRectangle(cornerRadius: 1)
-                    .stroke(Color(UIColor.label), lineWidth: strokeWidth)
+                    .stroke(Color(UIColor.gray), lineWidth: strokeWidth)
             )
     }
 }

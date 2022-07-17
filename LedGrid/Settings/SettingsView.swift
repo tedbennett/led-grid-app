@@ -10,13 +10,11 @@ import SwiftUI
 struct SettingsView: View {
     
     @ObservedObject var manager = PeripheralManager.shared
-    @State private var durationIndex: Int = {
-        if let index = [1, 3, 5, 10, 15, 20, 30, 60, 90, 120, 180, 240, 300].firstIndex(of: Utility.gridDuration) {
-            return index
-        }
-        return 2
-    }()
     var durationOptions = [1, 3, 5, 10, 15, 20, 30, 60, 90, 120, 180, 240, 300]
+    @State private var durationIndex: Int = [1, 3, 5, 10, 15, 20, 30, 60, 90, 120, 180, 240, 300].firstIndex {
+        $0 == Utility.gridDuration
+        
+    } ?? 2
     
     func durationToString(_ duration: Int) -> String {
         if duration < 120 {
@@ -30,7 +28,7 @@ struct SettingsView: View {
             Form {
                 Section(header: Text("LED Grid Device")) {
                     if manager.connected {
-                        Text("Connected to \(Utility.development ? "Ted's" : "Mina's") Grid")
+                        Text("Connected to \(EnvironmentVariables.userId)'s Grid")
                         Button {
                             manager.disconnect()
                         } label: {
@@ -53,8 +51,8 @@ struct SettingsView: View {
                         }
                     }.onChange(of: durationIndex) { index in
                         let duration = durationOptions[index]
-                        PeripheralManager.shared.updateConfig(config: Config(delay: Double(duration)))
-                        Utility.gridDuration = Double(duration)
+                        PeripheralManager.shared.updateConfig(config: Config(delay: duration))
+                        Utility.gridDuration = duration
                     }
                 }
                 

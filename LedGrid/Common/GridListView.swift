@@ -62,12 +62,12 @@ struct GridListView: View {
             
         } label: {
             VStack {
-                if !item.opened {
-                    Text("Tap to View").frame(width: 101, height: 101).padding(15)
-                } else {
+//                if !item.opened {
+//                    Text("Tap to View").frame(width: 101, height: 101).padding(15)
+//                } else {
                     MiniGridView(grid: item.grid)
                         .drawingGroup()
-                }
+//                }
             }.padding(15)
         }.buttonStyle(.plain)
             .background(Color(uiColor: .systemGray6))

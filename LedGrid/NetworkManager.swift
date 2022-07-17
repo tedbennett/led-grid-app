@@ -17,8 +17,11 @@ class NetworkManager {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        let payload = GridPayload(grid: grid, user: EnvironmentVariables.recipientId)
         do {
-            let data = try JSONEncoder().encode(grid)
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            let data = try encoder.encode(payload)
             request.httpBody = data
             URLSession.shared.dataTask(with: request) { _, _, error in
                 completion(error)

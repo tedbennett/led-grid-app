@@ -11,9 +11,9 @@ import CoreBluetooth
 class PeripheralManager: NSObject, ObservableObject {
     static var shared = PeripheralManager()
     
-    private var SERVICE_UUID = CBUUID(string: Utility.development ? "6e400001-b5a3-f393-e0a9-e50e24dcca9e" : "6e400001-b5a3-f393-e0a9-e50e24dcca9f")
-    private var COLOR_CHARACTERISTIC_UUID = CBUUID(string: Utility.development ? "6e400002-b5a3-f393-e0a9-e50e24dcca9e" : "6e400002-b5a3-f393-e0a9-e50e24dcca9f")
-    private var CONFIG_CHARACTERISTIC_UUID = CBUUID(string: Utility.development ? "6e400003-b5a3-f393-e0a9-e50e24dcca9e" : "6e400003-b5a3-f393-e0a9-e50e24dcca9f")
+    private var SERVICE_UUID = CBUUID(string: EnvironmentVariables.serviceUUID)
+    private var COLOR_CHARACTERISTIC_UUID = CBUUID(string:  EnvironmentVariables.colorCharacteristicUUID)
+    private var CONFIG_CHARACTERISTIC_UUID = CBUUID(string: EnvironmentVariables.configCharacteristicUUID)
     
     private override init() {
         super.init()
@@ -199,5 +199,5 @@ extension PeripheralManager: CBPeripheralDelegate {
 }
 
 struct Config: Codable {
-    var delay: Double
+    var delay: Int
 }

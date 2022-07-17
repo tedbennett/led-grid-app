@@ -18,7 +18,9 @@ struct Utility {
         }
         set {
             let data = try? JSONEncoder().encode(newValue)
-            UserDefaults.standard.set(data, forKey: "lastGrid")
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(data, forKey: "lastGrid")
+            }
         }
     }
     
@@ -32,7 +34,9 @@ struct Utility {
         }
         set {
             let data = try? JSONEncoder().encode(newValue)
-            UserDefaults.standard.set(data, forKey: "receivedGrids")
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(data, forKey: "receivedGrids")
+            }
         }
     }
     
@@ -46,16 +50,20 @@ struct Utility {
         }
         set {
             let data = try? JSONEncoder().encode(newValue)
-            UserDefaults.standard.set(data, forKey: "sentGrids")
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(data, forKey: "sentGrids")
+            }
         }
     }
     
-    static var gridDuration: Double {
+    static var gridDuration: Int {
         get {
-            let duration = UserDefaults.standard.double(forKey: "duration")
+            let duration = UserDefaults.standard.integer(forKey: "duration")
             return duration > 0 ? duration : 5
         } set {
-            UserDefaults.standard.set(newValue, forKey: "duration")
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(newValue, forKey: "duration")
+            }
         }
     }
     
