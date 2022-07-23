@@ -57,40 +57,6 @@ struct TouchableSquareView: View {
     }
 }
 
-//struct TouchOver: ViewModifier {
-//    @GestureState private var dragLocation: CGPoint = .zero
-//
-//    let onTouch: (() -> Void)?
-//
-//    func body(content: Content) -> some View {
-//        content
-//            .gesture(
-//                DragGesture(minimumDistance: 0, coordinateSpace: .global)
-//                    .updating($dragLocation) { value, state, _ in
-//                        state = value.location
-//                    }
-//            )
-//            .background(GeometryReader { geo in
-//                dragObserver(geo)
-//            })
-//    }
-//
-//    private func dragObserver(_ geo: GeometryProxy) -> some View {
-//        if geo.frame(in: .global).contains(dragLocation) {
-//            DispatchQueue.main.async {
-//                onTouch?()
-//            }
-//        }
-//        return Color.clear
-//    }
-//}
-
-//extension View {
-//    func touchOver(onTouch: (() -> Void)? = nil) -> some View {
-//        self.modifier(TouchOver(onTouch: onTouch))
-//    }
-//}
-
 class TouchOverProxy<ID: Hashable> {
     let onTouch: ((ID) -> Void)?
     

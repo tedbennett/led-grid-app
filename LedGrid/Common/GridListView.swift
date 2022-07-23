@@ -18,12 +18,7 @@ class GridListViewModel: ObservableObject {
     }
     
     func onSelectGrid(_ item: ColorGrid) {
-        PeripheralManager.shared.sendToDevice(colors: item.toHex())
-        if !item.opened,
-           let index = grids.firstIndex(where: { $0.id == item.id }) {
-            grids[index].opened = true
-            save()
-        }
+        
     }
     
     func removeGrid(_ item: ColorGrid) {
@@ -75,7 +70,7 @@ struct GridListView: View {
             .padding(.leading, 5)
             .contextMenu {
                 Button {
-                    PeripheralManager.shared.sendToDevice(colors: item.toHex())
+                    
                 } label: {
                     Label("Send to Device", systemImage: "globe")
                 }

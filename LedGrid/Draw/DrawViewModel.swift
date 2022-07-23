@@ -13,18 +13,20 @@ class DrawViewModel: ObservableObject {
     @Published var message: String = ""
     @Published var isLiveEditing: Bool = false
     
+    init() {
+        Utility.receivedGrids.forEach {
+            $0.grid.forEach { row in row.forEach { col in print(col.hex, terminator: ",") } }
+            print("")
+        }
+    }
+    
     func shouldSetGridSquare(row: Int, col: Int) -> Bool {
         return grid[col][row] != currentColor
     }
     
     func setGridSquare(row: Int, col: Int) {
         grid[col][row] = currentColor
-        if isLiveEditing {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                PeripheralManager.shared.sendToDevice(colors: self.grid.flatMap { $0 }.map { $0.hex })
-            }
-        }
+        
     }
     
     func saveGrid() {
@@ -48,11 +50,11 @@ class DrawViewModel: ObservableObject {
             sentGrid.updateDate()
             Utility.sentGrids.removeAll(where: { $0.id == sentGrid.id })
             Utility.sentGrids.append(sentGrid)
-            PeripheralManager.shared.sendToDevice(colors: sentGrid.toHex())
+        
         } else {
             let colorGrid = ColorGrid(id: UUID().uuidString, grid: grid)
             Utility.sentGrids.append(colorGrid)
-            PeripheralManager.shared.sendToDevice(colors: colorGrid.toHex())
+            
         }
     }
     
