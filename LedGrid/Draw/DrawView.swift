@@ -16,6 +16,14 @@ struct DrawView: View {
             VStack(spacing: 20) {
                 GridView(viewModel: viewModel)
                 ColorPickerView(viewModel: viewModel)
+                Button {
+                    viewModel.sendGrid()
+                } label: {
+                    Text("Send")
+                        .font(.system(.title3, design: .rounded).bold())
+                        .padding()
+                }.background(Color(uiColor: .systemGray6))
+                    .cornerRadius(15)
             }
             .navigationTitle("Draw Something")
             .onAppear {

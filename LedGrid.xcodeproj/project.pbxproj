@@ -22,6 +22,8 @@
 		57C96DB027F45B56008C52BB /* SentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAF27F45B56008C52BB /* SentView.swift */; };
 		57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB127F45B93008C52BB /* ReceivedView.swift */; };
 		57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB427F45C01008C52BB /* SettingsView.swift */; };
+		9F49EC23288D467D00BD3956 /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = 9F49EC22288D467D00BD3956 /* Auth0 */; };
+		9F49EC27288D474B00BD3956 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F49EC26288D474B00BD3956 /* Auth0.plist */; };
 		9F4FC812288CA28D00A2603F /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9F4FC811288CA28D00A2603F /* Utilities */; };
 		9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */; };
 		9FA0DDD1286CA11A00F1CB4F /* ColorGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0DDD0286CA11A00F1CB4F /* ColorGrid.swift */; };
@@ -47,6 +49,7 @@
 		57C96DB127F45B93008C52BB /* ReceivedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedView.swift; sourceTree = "<group>"; };
 		57C96DB427F45C01008C52BB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9F2E5455288C9C5E006C556C /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../../ios/Utilities; sourceTree = "<group>"; };
+		9F49EC26288D474B00BD3956 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		9F4FC80F288CA10400A2603F /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../../ios/Utilities; sourceTree = "<group>"; };
 		9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9FA0DDD0286CA11A00F1CB4F /* ColorGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGrid.swift; sourceTree = "<group>"; };
@@ -58,6 +61,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F4FC812288CA28D00A2603F /* Utilities in Frameworks */,
+				9F49EC23288D467D00BD3956 /* Auth0 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				9FA0DDCF286CA0E400F1CB4F /* Model */,
+				9F49EC26288D474B00BD3956 /* Auth0.plist */,
 				57A9296A28031F790096CC96 /* Info.plist */,
 				57A929692802BBAA0096CC96 /* LedGrid.entitlements */,
 				5799B42527F0D7E60039F621 /* LedGridApp.swift */,
@@ -190,6 +195,7 @@
 			name = LedGrid;
 			packageProductDependencies = (
 				9F4FC811288CA28D00A2603F /* Utilities */,
+				9F49EC22288D467D00BD3956 /* Auth0 */,
 			);
 			productName = LedGrid;
 			productReference = 5799B42227F0D7E60039F621 /* LedGrid.app */;
@@ -219,6 +225,9 @@
 				Base,
 			);
 			mainGroup = 5799B41927F0D7E60039F621;
+			packageReferences = (
+				9F49EC21288D467D00BD3956 /* XCRemoteSwiftPackageReference "Auth0" */,
+			);
 			productRefGroup = 5799B42327F0D7E60039F621 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -235,6 +244,7 @@
 			files = (
 				5799B42D27F0D7E70039F621 /* Preview Assets.xcassets in Resources */,
 				5799B42A27F0D7E70039F621 /* Assets.xcassets in Resources */,
+				9F49EC27288D474B00BD3956 /* Auth0.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,7 +489,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		9F49EC21288D467D00BD3956 /* XCRemoteSwiftPackageReference "Auth0" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/auth0/Auth0.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		9F49EC22288D467D00BD3956 /* Auth0 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F49EC21288D467D00BD3956 /* XCRemoteSwiftPackageReference "Auth0" */;
+			productName = Auth0;
+		};
 		9F4FC811288CA28D00A2603F /* Utilities */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Utilities;

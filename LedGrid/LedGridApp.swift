@@ -12,6 +12,13 @@ struct LedGridApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State private var selection = 0
     
+    init() {
+        guard NetworkManager.shared.credentialManager.hasValid() else {
+            // Show login
+            return
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView(selection: $selection)
@@ -73,7 +80,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let token = tokenParts.joined()
         print(token)
         print("did register")
-        NetworkManager.shared.postToken(token)
+//        NetworkManager.shared.postToken(token)
     }
     
     func application(

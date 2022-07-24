@@ -6,16 +6,25 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
 struct SettingsView: View {
-    
-    
+        
     var body: some View {
         NavigationView {
-            Form {
-                
-                
-                
+            VStack {
+                SignInWithAppleButton(.signUp) { request in
+                    request.requestedScopes = [.fullName, .email]
+                } onCompletion: { result in
+                    switch result {
+                    case .success(let authResults):
+                        Task {
+                            try? await NetworkManager.shared.handleSignInWithApple(authorization: authResults)
+                        }
+                    case .failure(let error):
+                        print("Authorisation failed: \(error.localizedDescription)")
+                    }
+                }
             }.navigationTitle("Settings")
         }
     }

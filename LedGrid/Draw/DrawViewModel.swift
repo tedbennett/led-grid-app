@@ -13,13 +13,6 @@ class DrawViewModel: ObservableObject {
     @Published var message: String = ""
     @Published var isLiveEditing: Bool = false
     
-    init() {
-        Utility.receivedGrids.forEach {
-            $0.grid.forEach { row in row.forEach { col in print(col.hex, terminator: ",") } }
-            print("")
-        }
-    }
-    
     func shouldSetGridSquare(row: Int, col: Int) -> Bool {
         return grid[col][row] != currentColor
     }
@@ -37,12 +30,12 @@ class DrawViewModel: ObservableObject {
         return grid.flatMap { row in row.map { $0.hex }}.joined(separator: "")
     }
     
-    func uploadGrid() {
+    func sendGrid() {
         let colorGrid = ColorGrid(id: UUID().uuidString, grid: grid)
         Utility.sentGrids.append(colorGrid)
-        NetworkManager.shared.postGrid(colorGrid) { error in
+//        NetworkManager.shared.postGrid(colorGrid) { error in
             // Do something with error
-        }
+//        }
     }
     
     func sendGridToDevice() {

@@ -66,6 +66,30 @@ struct Utility {
             }
         }
     }
+    static var userId: String? {
+        get {
+            UserDefaults.standard.string(forKey: "userId")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "userId")
+        }
+    }
     
-    static var development: Bool = true
- }
+    static var launchedBefore: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: "launchedBefore")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "launchedBefore")
+        }
+    }
+    
+    static var lastOpenedVersion: String? {
+        get {
+            UserDefaults.standard.string(forKey: "lastOpenedVersion")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "lastOpenedVersion")
+        }
+    }
+}
