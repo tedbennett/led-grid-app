@@ -80,7 +80,13 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let token = tokenParts.joined()
         print(token)
         print("did register")
-//        NetworkManager.shared.postToken(token)
+        Task {
+            do {
+                try await NetworkManager.shared.registerDevice(with: token)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func application(
