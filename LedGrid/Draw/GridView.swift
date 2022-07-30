@@ -52,7 +52,8 @@ struct TouchableSquareView: View {
     
     var body: some View {
         SquareView(color: color)
-        .frame(width: 40, height: 40)
+            .aspectRatio(contentMode: .fit)
+//        .frame(width: 40, height: 40)
         .touchOver(id: id, proxy: proxy)
     }
 }

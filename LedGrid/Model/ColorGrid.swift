@@ -20,6 +20,16 @@ struct ColorGrid: Identifiable, Codable {
         self.opened = opened
     }
     
+    init(pixelArt: PixelArt) {
+        self.init(
+            id: pixelArt.id,
+            grid: pixelArt.grid.map{row in row.map { col in Color(hexString: col)}},
+            sentAt:  Date(),
+            opened: false
+        )
+    }
+    
+    
     enum CodingKeys: String, CodingKey {
         case id, grid, sentAt, opened
     }
@@ -59,10 +69,9 @@ extension Color {
     }
     
     init(hexString: String) {
-        let parsed = Int(hexString.suffix(6)) ?? 0
+        let parsed = Int(hexString.suffix(6), radix: 16) ?? 0
         self.init(hex: parsed)
     }
-    
     var hex: String {
         let uiColor = UIColor(self)
         var r:CGFloat = 0

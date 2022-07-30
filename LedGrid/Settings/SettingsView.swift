@@ -9,29 +9,97 @@ import SwiftUI
 import AuthenticationServices
 
 struct SettingsView: View {
-        
+    @ObservedObject var manager = UserManager.shared
+    @Binding var loggedIn: Bool
+    @State private var friends = Utility.friends
+    @State private var showEditView = false
+    
+    
+    func presentShareSheet() {
+        guard let userId = Utility.user?.id,
+              let url = URL(string: "https://d129fc43yw8q6h.cloudfront.net/user/\(userId)") else { return }
+        let message = "Add me on Pixee to share pixel art!"
+        let activityVC = UIActivityViewController(activityItems: [message, url], applicationActivities: nil)
+        UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
+    }
+    
     var body: some View {
         NavigationView {
-            VStack {
-                SignInWithAppleButton(.signUp) { request in
-                    request.requestedScopes = [.fullName, .email]
-                } onCompletion: { result in
-                    switch result {
-                    case .success(let authResults):
-                        Task {
-                            try? await NetworkManager.shared.handleSignInWithApple(authorization: authResults)
+            List {
+                Section {
+                    Text(UserManager.shared.user?.fullName ?? "Unknown name")
+                } header: {
+                    HStack {
+                        Text("Name")
+                        Spacer()
+                        NavigationLink(isActive: $showEditView) {
+                            EditNameView(isPresented: $showEditView)
+                        } label: {
+                            Text("Edit")
                         }
-                    case .failure(let error):
-                        print("Authorisation failed: \(error.localizedDescription)")
                     }
                 }
-            }.navigationTitle("Settings")
+                Section("Email") {
+                    Text(UserManager.shared.user?.email ?? "Unknown email").foregroundColor(.gray)
+                }
+                
+                Section {
+                    ForEach(manager.friends) { friend in
+                        Text(friend.fullName ?? "Unknown Friend")
+                            .swipeActions(allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    manager.removeFriend(id: friend.id)
+                                } label: {
+                                    Label("Remove", systemImage: "trash.fill")
+                                }
+                            }
+                    }
+                } header: {
+                    HStack {
+                        Text("Friends")
+                        Spacer()
+                        Button {
+                            presentShareSheet()
+                        } label: {
+                            Image(systemName: "person.badge.plus")
+                                .font(.title3)
+                        }
+                    }
+                }
+            }.navigationTitle("Settings").toolbar {
+                Button {
+                    NetworkManager.shared.logout()
+                    loggedIn = false
+                } label: {
+                    Text("Logout")
+                }
+            }
         }
     }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(loggedIn: .constant(true))
+    }
+}
+
+struct EditNameView: View {
+    @Binding var isPresented: Bool
+    @State private var fullName = UserManager.shared.user?.fullName ?? ""
+    var body: some View {
+        Form {
+            Section("Full Name") {
+                TextField("Full Name", text: $fullName)
+            }
+            Button {
+                Task {
+                await UserManager.shared.updateUser(fullName: fullName)
+                }
+                isPresented = false
+            } label: {
+                Text("Save")
+            }
+        }.navigationTitle("Edit Name")
     }
 }

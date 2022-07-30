@@ -66,12 +66,44 @@ struct Utility {
             }
         }
     }
-    static var userId: String? {
+    
+    static var user: User? {
         get {
-            UserDefaults.standard.string(forKey: "userId")
+            guard let data = UserDefaults.standard.data(forKey: "user") else {
+                return nil
+            }
+            return try? JSONDecoder().decode(User.self, from: data)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "userId")
+            let data = try? JSONEncoder().encode(newValue)
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(data, forKey: "user")
+            }
+        }
+    }
+    
+    static var friends: [User] {
+        get {
+            guard let data = UserDefaults.standard.data(forKey: "friends"),
+                  let users = try? JSONDecoder().decode([User].self, from: data) else {
+                return []
+            }
+            return users
+        }
+        set {
+            let data = try? JSONEncoder().encode(newValue)
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(data, forKey: "friends")
+            }
+        }
+    }
+    
+    static var lastSelectedFriends: [String] {
+        get {
+            UserDefaults.standard.array(forKey: "lastSelectedFriends") as? [String] ?? []
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "lastSelectedFriends")
         }
     }
     

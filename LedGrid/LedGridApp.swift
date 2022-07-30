@@ -11,17 +11,22 @@ import SwiftUI
 struct LedGridApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State private var selection = 0
-    
+    @State private var loggedIn = false
+
     init() {
-        guard NetworkManager.shared.credentialManager.hasValid() else {
-            // Show login
-            return
+        
+        if NetworkManager.shared.credentialManager.canRenew() {
+            Task {
+                if let grids = try? await NetworkManager.shared.getGrids(after: nil) {
+                    GridManager.shared.receivedGrids =  grids.map { ColorGrid(pixelArt: $0) }
+                }
+            }
         }
     }
     
     var body: some Scene {
         WindowGroup {
-            ContentView(selection: $selection)
+            ContentView()
         }
     }
 }
@@ -40,21 +45,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         )
         application.registerForRemoteNotifications()
         
-        if launchOptions?[.remoteNotification] != nil {
-            // Set tab
-        }
         return true
-    }
-    
-    func application(
-        _ application: UIApplication,
-        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
-    ) {
-        if let grid = parseGrid(from: userInfo) {
-            Utility.receivedGrids.append(grid)
-        }
-        completionHandler(UIBackgroundFetchResult.newData)
     }
 }
 
@@ -65,9 +56,8 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        print(notification.request.content.userInfo)
-        if let grid = parseGrid(from: notification.request.content.userInfo) {
-            Utility.receivedGrids.append(grid)
+        Task {
+            await GridManager.shared.handleReceivedNotification()
         }
         completionHandler([[.banner, .badge, .sound]])
     }
@@ -78,8 +68,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     ) {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
-        print(token)
-        print("did register")
         Task {
             do {
                 try await NetworkManager.shared.registerDevice(with: token)
@@ -93,37 +81,5 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         _ application: UIApplication,
         didFailToRegisterForRemoteNotificationsWithError error: Error
     ) {
-        print("failed to register")
-        
-    }
-    
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        didReceive response: UNNotificationResponse,
-        withCompletionHandler completionHandler: @escaping () -> Void
-    ) {
-        let userInfo = response.notification.request.content.userInfo
-        
-        print(userInfo)
-        
-        completionHandler()
-    }
-    
-    func parseGrid(from hashable: [AnyHashable: Any]) -> ColorGrid? {
-        guard let grid = hashable["grid"] as? [AnyHashable: Any],
-              let colors = grid["grid"] as? [[[AnyHashable: Any]]],
-              let id = grid["id"] as? String,
-              let sentAt = grid["sentAt"] as? String,
-              let date = try? Date(sentAt, strategy: .iso8601) else {
-            return nil
-        }
-        if colors.count != 8 || !colors.allSatisfy( { $0.count == 8 }) { return nil }
-        let colorGrid: [[Color]] = colors.map { row in row.map { col in
-            print(col)
-            guard let red = col["red"] as? Double, let green = col["green"] as? Double, let blue = col["blue"] as? Double else {
-                return Color(red: 0, green: 0, blue: 0)
-            }
-            return Color(red: red, green: green, blue: blue) } }
-        return ColorGrid(id: id, grid: colorGrid, sentAt: date, opened: false)
     }
 }

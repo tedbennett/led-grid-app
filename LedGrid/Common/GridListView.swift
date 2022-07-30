@@ -52,42 +52,39 @@ struct GridListView: View {
         GridItem(.flexible())
     ]
     
-    func gridButton(item: ColorGrid) -> some View {
-        Button {
-            
-        } label: {
-            VStack {
-//                if !item.opened {
-//                    Text("Tap to View").frame(width: 101, height: 101).padding(15)
-//                } else {
-                    MiniGridView(grid: item.grid)
-                        .drawingGroup()
+//    func gridButton(item: ColorGrid) -> some View {
+//        Button {
+//
+//        } label: {
+//            VStack {
+//                    MiniGridView(grid: item.grid)
+//                        .drawingGroup()
+//            }.padding(15)
+//        }.buttonStyle(.plain)
+//            .background(Color(uiColor: .systemGray6))
+//            .cornerRadius(15)
+//            .padding(.leading, 5)
+//            .contextMenu {
+//                Button {
+//
+//                } label: {
+//                    Label("Send to Device", systemImage: "globe")
 //                }
-            }.padding(15)
-        }.buttonStyle(.plain)
-            .background(Color(uiColor: .systemGray6))
-            .cornerRadius(15)
-            .padding(.leading, 5)
-            .contextMenu {
-                Button {
-                    
-                } label: {
-                    Label("Send to Device", systemImage: "globe")
-                }
-                
-                Button(role: .destructive) {
-                    viewModel.removeGrid(item)
-                } label: {
-                    Label("Delete", systemImage: "xmark").tint(.red)
-                }
-            }
-    }
+//
+//                Button(role: .destructive) {
+//                    viewModel.removeGrid(item)
+//                } label: {
+//                    Label("Delete", systemImage: "xmark").tint(.red)
+//                }
+//            }
+//    }
     
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 30) {
                 ForEach(viewModel.grids) { item in
-                    gridButton(item: item)
+                    MiniGridView(grid: item.grid)
+                        .drawingGroup()
                 }
             }
             .padding(.horizontal)

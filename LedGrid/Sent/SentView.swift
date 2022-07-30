@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct SentView: View {
-    @StateObject var viewModel = GridListViewModel(grids: Utility.sentGrids.sorted(by: {$0.sentAt > $1.sentAt})) {
-        Utility.sentGrids = $0
-    }
-    
+    @ObservedObject var manager = GridManager.shared
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     var body: some View {
         NavigationView {
-            GridListView(viewModel: viewModel) {
-                viewModel.setGrids(Utility.sentGrids)
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 30) {
+                    ForEach(manager.sentGrids) { item in
+                        MiniGridView(grid: item.grid)
+                            .drawingGroup()
+                    }
+                }
+                .padding(.horizontal)
+                
             }.navigationTitle("Sent Grids")
-        }.onAppear {
-            viewModel.setGrids(Utility.sentGrids)
         }
     }
 }
@@ -28,3 +34,4 @@ struct SentView_Previews: PreviewProvider {
         SentView()
     }
 }
+

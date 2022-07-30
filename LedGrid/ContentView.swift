@@ -6,28 +6,76 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct ContentView: View {
     @StateObject var viewModel = DrawViewModel()
     @Environment(\.scenePhase) var scenePhase
-    @Binding var selection: Int
-    @State private var unopenedGrids: Int =  Utility.receivedGrids.reduce(0, { a, b in !b.opened ? a + 1 : a })
+    @State private var loggedIn = false
     
-    var body: some View {
-        TabView(selection: $selection) {
-            DrawView().tabItem {
-                Label("Draw", systemImage: "pencil")
-            }
-            ReceivedView(unopenedGrids: $unopenedGrids).tabItem {
-                Label("Received", systemImage: "tray")
-            }.badge(unopenedGrids)
-            SentView().tabItem {
-                Label("Sent", systemImage: "paperplane")
-            }
-            SettingsView().tabItem {
-                Label("Settings", systemImage: "gear")
+    @State private var addedFriend = false
+    @State private var failedToAddFriend = false
+    @State private var alreadyFriend = false
+    
+    func parseUrl(_ url: URL) {
+        guard url.pathComponents.count == 3,
+              url.pathComponents[1] == "user" else {
+            return
+        }
+        let id = url.pathComponents[2]
+        Task {
+            do {
+                let added = try await UserManager.shared.addFriend(id: id)
+                await MainActor.run {
+                    if added {
+                        addedFriend.toggle()
+                    } else {
+                        alreadyFriend.toggle()
+                    }
+                }
+            } catch {
+                failedToAddFriend.toggle()
             }
         }
+    }
+    
+    var body: some View {
+        if loggedIn {
+            TabView() {
+                DrawView().tabItem {
+                    Label("Draw", systemImage: "pencil")
+                }
+                ReceivedView().tabItem {
+                    Label("Received", systemImage: "tray")
+                }
+                SentView().tabItem {
+                    Label("Sent", systemImage: "paperplane")
+                }
+                SettingsView(loggedIn: $loggedIn).tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
+            }.onOpenURL { parseUrl($0) }
+                .toast(isPresenting: $addedFriend) {
+                    AlertToast(type: .complete(.gray), title: "Added friend")
+                }
+                .toast(isPresenting: $alreadyFriend) {
+                    AlertToast(type: .error(.gray), title: "Already fdded friend")
+                }
+                .toast(isPresenting: $failedToAddFriend) {
+                    AlertToast(type: .error(.gray), title: "Failed to add friend")
+                }
+            
+        } else {
+            LoginView(loggedIn: $loggedIn)
+                .onAppear {
+                    if NetworkManager.shared.credentialManager.canRenew() && Utility.user?.id != nil {
+                        loggedIn = true
+                    } else {
+                        NetworkManager.shared.logout()
+                    }
+                }
+        }
+        
     }
 }
 

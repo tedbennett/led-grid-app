@@ -39,18 +39,38 @@ class NetworkManager: Network {
             return
         }
         
-        let credentials = try await Auth0.authentication().login(appleAuthorizationCode: authorizationCode, fullName: appleIDCredential.fullName).start()
+        let credentials = try await Auth0.authentication().login(appleAuthorizationCode: authorizationCode, fullName: appleIDCredential.fullName, audience: "https://com.edwardbennett.LedGrid", scope: "offline_access").start()
         
         let _ = credentialManager.store(credentials: credentials)
-        Utility.userId = appleIDCredential.user
+        
+       
         if try await !checkUserExists(id: appleIDCredential.user) {
+            UserManager.shared.setUser(User(
+                id: appleIDCredential.user,
+                fullName: appleIDCredential.fullName?.formatted(),
+                givenName: appleIDCredential.fullName?.givenName,
+                email: appleIDCredential.email
+            ))
             try await createAccount(id: appleIDCredential.user, fullName: appleIDCredential.fullName?.formatted(), givenName: appleIDCredential.fullName?.givenName, email: appleIDCredential.email)
+        } else {
+            let user = try await getUser(id: appleIDCredential.user)
+            UserManager.shared.setUser(user)
         }
         
     }
     
+    func logout() {
+        _ = credentialManager.clear()
+    }
+    
+    func deleteAccount() {
+        
+        logout()
+        // Delete account endpoint
+    }
+    
     func getGrid(id: String) async throws -> PixelArt {
-        guard let userId = Utility.userId else { throw ApiError.noUser }
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let url = getUrl(endpoints: [.user, .dynamic(userId), .grid, .dynamic(id)])
         let headers = try await getToken()
         
@@ -58,7 +78,7 @@ class NetworkManager: Network {
     }
     
     func getGrids(after: Date?) async throws -> [PixelArt] {
-        guard let userId = Utility.userId else { throw ApiError.noUser }
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let queries: [String: String] = after != nil ? ["after": after!.ISO8601Format()] : [:]
         let url = getUrl(endpoints: [.user, .dynamic(userId), .grid], queries: queries)
         let headers = try await getToken()
@@ -66,11 +86,13 @@ class NetworkManager: Network {
         return try await getRequest(url: url, headers: headers)
     }
     
-    func createGrid(grid: PixelArt) async throws {
+    func createGrid(id: String, grid: [[String]]) async throws {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        let payload = PixelArt(user: userId, grid: grid, id: id)
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.dateEncodingStrategy = .iso8601
-        let data = try encoder.encode(grid)
+        let data = try encoder.encode(payload)
         let url = getUrl(endpoints: [.grid])
         
         let headers = try await getToken()
@@ -79,9 +101,8 @@ class NetworkManager: Network {
     }
     
     func sendGrid(id: String, to recipient: String) async throws {
-        guard let userId = Utility.userId else { throw ApiError.noUser }
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let payload = [
-            "sender": userId,
             "receiver": recipient
         ]
         let data = try JSONSerialization.data(withJSONObject: payload)
@@ -89,7 +110,7 @@ class NetworkManager: Network {
         
         let headers = try await getToken()
         
-        let _ = try await makeRequest(url: url, body: data, method: .put, headers: headers)
+        let _ = try await makeRequest(url: url, body: data, method: .post, headers: headers)
     }
     
     func getUser(id: String) async throws -> User {
@@ -126,7 +147,7 @@ class NetworkManager: Network {
     }
     
     func registerDevice(with token: String) async throws {
-        guard let userId = Utility.userId else { throw ApiError.noUser }
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let payload = ["device": token]
         let data = try JSONSerialization.data(withJSONObject: payload)
         let url = getUrl(endpoints: [.user, .dynamic(userId), .device])
@@ -169,7 +190,7 @@ enum Endpoint {
     }
 }
 
-struct User: Codable {
+struct User: Codable, Identifiable {
     var id: String
     var fullName: String?
     var givenName: String?
@@ -179,6 +200,6 @@ struct User: Codable {
 struct PixelArt: Codable, Identifiable {
     var user: String
     var grid: [[String]]
-    var sentAt: Date
+//    var sentAt: Date?
     var id: String
 }

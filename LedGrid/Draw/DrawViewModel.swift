@@ -9,9 +9,15 @@ import SwiftUI
 
 class DrawViewModel: ObservableObject {
     @Published var grid: [[Color]] = Utility.lastGrid
-    @Published var currentColor: Color = .blue
+    @Published var currentColor: Color = .red
     @Published var message: String = ""
     @Published var isLiveEditing: Bool = false
+    @Published var selectedUsers: [String] = Utility.lastSelectedFriends
+    
+    @Published var sendingGrid = false
+    
+    @Published var sentGrid = false
+    @Published var failedToSendGrid = false
     
     func shouldSetGridSquare(row: Int, col: Int) -> Bool {
         return grid[col][row] != currentColor
@@ -26,28 +32,27 @@ class DrawViewModel: ObservableObject {
         Utility.lastGrid = grid
     }
     
+    var hexGrid: [[String]] {
+        grid.map { row in row.map { $0.hex } }
+    }
+    
     private func flattenGrid(_ grid: [[Color]]) -> String {
         return grid.flatMap { row in row.map { $0.hex }}.joined(separator: "")
     }
     
     func sendGrid() {
-        let colorGrid = ColorGrid(id: UUID().uuidString, grid: grid)
-        Utility.sentGrids.append(colorGrid)
-//        NetworkManager.shared.postGrid(colorGrid) { error in
-            // Do something with error
-//        }
-    }
-    
-    func sendGridToDevice() {
-        if var sentGrid = Utility.sentGrids.first(where: { flattenGrid($0.grid) == flattenGrid(grid) }) {
-            sentGrid.updateDate()
-            Utility.sentGrids.removeAll(where: { $0.id == sentGrid.id })
-            Utility.sentGrids.append(sentGrid)
-        
-        } else {
-            let colorGrid = ColorGrid(id: UUID().uuidString, grid: grid)
-            Utility.sentGrids.append(colorGrid)
-            
+        sendingGrid = true
+        Task {
+            Utility.lastSelectedFriends = selectedUsers
+            let success = await GridManager.shared.sendGrid(grid, to: selectedUsers)
+            await MainActor.run {
+                sendingGrid = false
+                if success {
+                    sentGrid = true
+                } else {
+                    failedToSendGrid = true
+                }
+            }
         }
     }
     
