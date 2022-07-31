@@ -18,7 +18,7 @@ struct LedGridApp: App {
         if NetworkManager.shared.credentialManager.canRenew() {
             Task {
                 if let grids = try? await NetworkManager.shared.getGrids(after: nil) {
-                    GridManager.shared.receivedGrids =  grids.map { ColorGrid(pixelArt: $0) }
+                    GridManager.shared.receivedGrids =  grids
                 }
             }
         }
@@ -38,12 +38,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         UNUserNotificationCenter.current().delegate = self
         
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: authOptions,
-            completionHandler: {_, _ in }
-        )
-        application.registerForRemoteNotifications()
+//        application.registerForRemoteNotifications()
         
         return true
     }

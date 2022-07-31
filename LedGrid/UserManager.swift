@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NotificationCenter
 
 class UserManager: ObservableObject {
     static var shared = UserManager()
@@ -55,5 +56,17 @@ class UserManager: ObservableObject {
     
     func removeFriend(id: String) {
         friends = friends.filter { $0.id != id }
+    }
+    
+    func requestNotificationPermissions() {
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: {_, _ in
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
+        )
     }
 }

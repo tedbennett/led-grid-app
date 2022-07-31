@@ -70,6 +70,7 @@ struct ContentView: View {
                 .onAppear {
                     if NetworkManager.shared.credentialManager.canRenew() && Utility.user?.id != nil {
                         loggedIn = true
+                        UserManager.shared.requestNotificationPermissions()
                     } else {
                         NetworkManager.shared.logout()
                     }

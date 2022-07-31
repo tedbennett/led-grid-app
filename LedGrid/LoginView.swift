@@ -23,6 +23,7 @@ struct LoginView: View {
                     Task {
                         do {
                             try await NetworkManager.shared.handleSignInWithApple(authorization: authResults)
+                            UserManager.shared.requestNotificationPermissions()
                             await MainActor.run {
                                 loggedIn = true
                             }

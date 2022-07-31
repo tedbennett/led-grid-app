@@ -31,19 +31,49 @@ struct ColorGrid: Identifiable, Codable {
     
     
     enum CodingKeys: String, CodingKey {
-        case id, grid, sentAt, opened
+        case id, grid, sentAt, opened, gridSize
+    }
+    
+    private static func parseGrid(from string: String, size: GridSize) -> [[Color]] {
+        let components = string.components(withMaxLength: 6).map { Color(hexString: $0) }
+        return (0..<size.rawValue).map {
+            let index = $0 * size.rawValue
+            return Array(components[index..<(index + size.rawValue)])
+        }
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.grid = try container.decode([[Color]].self, forKey: .grid)
+        let gridSize = try container.decode(GridSize.self, forKey: .gridSize)
+        let encodedGrid = try container.decode(String.self, forKey: .grid)
+        
+        self.grid = ColorGrid.parseGrid(from: encodedGrid, size: gridSize)
         self.id = try container.decode(String.self, forKey: .id)
         self.sentAt = try container.decode(Date.self, forKey: .sentAt)
         self.opened = (try? container.decode(Bool.self, forKey: .opened)) ?? true
     }
     
-    func toHex() -> [String] {
-        return grid.flatMap { $0 }.map { $0.hex }
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        let encoded: [String] = self.grid.flatMap { row in row.map { col in col.hex } }
+        try container.encode(encoded.joined(), forKey: .grid)
+        try container.encode(GridSize(rawValue: self.grid.count), forKey: .gridSize)
+        try container.encode(sentAt, forKey: .sentAt)
+        try container.encode(id, forKey: .id)
+        try container.encode(opened, forKey: .opened)
+    }
+    
+    func toHex() -> String {
+        grid.flatMap { row in row.map { col in col.hex } }.joined(separator: "")
+    }
+    
+    var size: GridSize {
+        switch grid.count {
+        case 8: return .small
+        case 12: return .medium
+        case 16: return .large
+        default: return .small
+        }
     }
     
     mutating func updateDate() {
@@ -81,9 +111,9 @@ extension Color {
         
         uiColor.getRed(&r, green: &g, blue: &b, alpha: &a)
         
-        let rgb:Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
+        let rgb: Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
         
-        return String(format:"#%06x", rgb)
+        return String(format:"%06x", rgb)
     }
 }
 
@@ -134,3 +164,18 @@ extension Color: Codable {
     }
 }
 
+enum GridSize: Int, Codable {
+    case small = 8
+    case medium = 12
+    case large = 16
+}
+
+extension String {
+    func components(withMaxLength length: Int) -> [String] {
+        return stride(from: 0, to: self.count, by: length).map {
+            let start = self.index(self.startIndex, offsetBy: $0)
+            let end = self.index(start, offsetBy: length, limitedBy: self.endIndex) ?? self.endIndex
+            return String(self[start..<end])
+        }
+    }
+}

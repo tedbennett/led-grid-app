@@ -77,9 +77,9 @@ class NetworkManager: Network {
         return try await getRequest(url: url, headers: headers)
     }
     
-    func getGrids(after: Date?) async throws -> [PixelArt] {
+    func getGrids(after: Date?) async throws -> [ColorGrid] {
         guard let userId = Utility.user?.id else { throw ApiError.noUser }
-        let queries: [String: String] = after != nil ? ["after": after!.ISO8601Format()] : [:]
+        let queries: [String: String] = after != nil ? ["after": "\(after!.timeIntervalSince1970)"] : [:]
         let url = getUrl(endpoints: [.user, .dynamic(userId), .grid], queries: queries)
         let headers = try await getToken()
         
@@ -91,7 +91,7 @@ class NetworkManager: Network {
         let payload = PixelArt(user: userId, grid: grid, id: id)
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
-        encoder.dateEncodingStrategy = .iso8601
+        encoder.dateEncodingStrategy = .secondsSince1970
         let data = try encoder.encode(payload)
         let url = getUrl(endpoints: [.grid])
         
@@ -100,13 +100,16 @@ class NetworkManager: Network {
         let _ = try await makeRequest(url: url, body: data, method: .put, headers: headers)
     }
     
-    func sendGrid(id: String, to recipient: String) async throws {
+    func sendGrid(id: String, to recipient: String, grid: String, gridSize: GridSize) async throws {
         guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let payload = [
-            "receiver": recipient
-        ]
+            "receiver": recipient,
+            "id": id,
+            "grid": grid,
+            "grid_size": gridSize.rawValue
+        ] as [String : Any]
         let data = try JSONSerialization.data(withJSONObject: payload)
-        let url = getUrl(endpoints: [.user, .dynamic(userId), .grid, .dynamic(id), .send])
+        let url = getUrl(endpoints: [.user, .dynamic(userId), .grid])
         
         let headers = try await getToken()
         
@@ -124,7 +127,7 @@ class NetworkManager: Network {
         let payload = User(id: id, fullName: fullName, givenName: givenName, email: email)
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
-        encoder.dateEncodingStrategy = .iso8601
+        encoder.dateEncodingStrategy = .secondsSince1970
         let data = try encoder.encode(payload)
         let url = getUrl(endpoints: [.user])
         
@@ -137,7 +140,7 @@ class NetworkManager: Network {
         let payload = User(id: id, fullName: fullName, givenName: givenName, email: email)
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
-        encoder.dateEncodingStrategy = .iso8601
+        encoder.dateEncodingStrategy = .secondsSince1970
         let data = try encoder.encode(payload)
         let url = getUrl(endpoints: [.user, .dynamic(id)])
         

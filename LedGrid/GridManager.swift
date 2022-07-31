@@ -35,9 +35,13 @@ class GridManager: ObservableObject {
         }
         
         do {
-            try await NetworkManager.shared.createGrid(id: id, grid: toHex(grid))
             for user in users {
-                try await NetworkManager.shared.sendGrid(id: id, to: user)
+                try await NetworkManager.shared.sendGrid(
+                    id: id,
+                    to: user,
+                    grid: colorGrid.toHex(),
+                    gridSize: colorGrid.size
+                )
             }
             return true
         } catch {
@@ -48,9 +52,9 @@ class GridManager: ObservableObject {
     
     func refreshReceivedGrids() async {
         do {
-            let pixels = try await NetworkManager.shared.getGrids(after: nil)
+            let grids = try await NetworkManager.shared.getGrids(after: nil)
             await MainActor.run {
-                receivedGrids = pixels.map { ColorGrid(pixelArt: $0) }
+                receivedGrids = grids
             }
         } catch {
             print(error.localizedDescription)
