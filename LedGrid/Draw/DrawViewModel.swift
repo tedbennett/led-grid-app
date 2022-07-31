@@ -8,7 +8,10 @@
 import SwiftUI
 
 class DrawViewModel: ObservableObject {
-    @Published var grid: [[Color]] = Utility.lastGrid
+    
+    typealias Grid = [[Color]]
+    
+    @Published var grid: Grid = Utility.lastGrid
     @Published var currentColor: Color = .red
     @Published var message: String = ""
     @Published var isLiveEditing: Bool = false
@@ -18,6 +21,38 @@ class DrawViewModel: ObservableObject {
     
     @Published var sentGrid = false
     @Published var failedToSendGrid = false
+    
+    @Published var undoStates: [Grid] = []
+    @Published var redoStates: [Grid] = []
+    private var currentState: Grid = Utility.lastGrid
+    
+    func undo() {
+        guard let previousState = undoStates.popLast() else { return }
+        let currentState = grid
+        redoStates.append(currentState)
+        grid = previousState
+        self.currentState = previousState
+        
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+    }
+    
+    func redo() {
+        guard let previousState = redoStates.popLast() else { return }
+        let currentState = grid
+        undoStates.append(currentState)
+        grid = previousState
+        self.currentState = previousState
+        
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+    }
+    
+    func pushUndoState() {
+        redoStates.removeAll()
+        if currentState != grid {
+            undoStates.append(currentState)
+            currentState = grid
+        }
+    }
     
     func shouldSetGridSquare(row: Int, col: Int) -> Bool {
         return grid[col][row] != currentColor
@@ -58,7 +93,8 @@ class DrawViewModel: ObservableObject {
     
     func clearGrid() {
         grid = Array(repeating: Array(repeating: Color.black, count: 8), count: 8)
-        saveGrid()
+        pushUndoState()
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
 }
 

@@ -36,6 +36,17 @@ struct GridView: View {
         }) { proxy in
             grid(proxy: proxy)
         }
+        .simultaneousGesture(
+            DragGesture()
+                .onEnded { _ in
+                    viewModel.pushUndoState()
+                }
+        ).simultaneousGesture(
+            TapGesture()
+                .onEnded { _ in
+                    viewModel.pushUndoState()
+                }
+        )
     }
 }
 
@@ -53,8 +64,8 @@ struct TouchableSquareView: View {
     var body: some View {
         SquareView(color: color)
             .aspectRatio(contentMode: .fit)
-//        .frame(width: 40, height: 40)
-        .touchOver(id: id, proxy: proxy)
+        //        .frame(width: 40, height: 40)
+            .touchOver(id: id, proxy: proxy)
     }
 }
 
