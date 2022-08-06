@@ -17,6 +17,27 @@ struct ContentView: View {
     @State private var failedToAddFriend = false
     @State private var alreadyFriend = false
     
+    @ObservedObject var gridManager =  GridManager.shared
+    
+    init() {
+        let systemFont = UIFont.systemFont(ofSize: 36, weight: .bold)
+        var font: UIFont
+        
+        if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
+            font = UIFont(descriptor: descriptor, size: 36)
+        } else {
+            font = systemFont
+        }
+        let strokeTextAttributes = [
+          NSAttributedString.Key.strokeColor : UIColor.label,
+          NSAttributedString.Key.foregroundColor : UIColor.systemBackground,
+          NSAttributedString.Key.font : font,
+          NSAttributedString.Key.strokeWidth : 4]
+          as [NSAttributedString.Key : Any]
+
+        UINavigationBar.appearance().largeTitleTextAttributes = strokeTextAttributes
+    }
+    
     func parseUrl(_ url: URL) {
         guard url.pathComponents.count == 3,
               url.pathComponents[1] == "user" else {
@@ -47,7 +68,7 @@ struct ContentView: View {
                 }
                 ReceivedView().tabItem {
                     Label("Received", systemImage: "tray")
-                }
+                }.badge(gridManager.receivedGrids.filter({!$0.opened}).count)
                 SentView().tabItem {
                     Label("Sent", systemImage: "paperplane")
                 }

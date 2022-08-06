@@ -95,13 +95,13 @@ struct GridListView: View {
     }
 }
 
-struct GridListView_Previews: PreviewProvider {
-    static var previews: some View {
-        GridListView(viewModel: GridListViewModel(grids: [
-            ColorGrid.example(color: .blue),
-            ColorGrid.example(color: .pink),
-            ColorGrid.example(color: .red),
-            ColorGrid.example(color: .yellow),
-        ], onSave: { _ in }), onRefresh: {})
-    }
-}
+//struct GridListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GridListView(viewModel: GridListViewModel(grids: [
+//            ColorGrid.example(color: .blue),
+//            ColorGrid.example(color: .pink),
+//            ColorGrid.example(color: .red),
+//            ColorGrid.example(color: .yellow),
+//        ], onSave: { _ in }), onRefresh: {})
+//    }
+//}

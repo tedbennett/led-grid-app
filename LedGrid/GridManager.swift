@@ -10,7 +10,12 @@ import SwiftUI
 
 class GridManager: ObservableObject {
     static var shared = GridManager()
-    private init() { }
+    private init() {
+        Task {
+//            await refreshSentGrids()
+            await refreshReceivedGrids()
+        }
+    }
     @Published var sentGrids = Utility.sentGrids {
         didSet {
             Utility.sentGrids = sentGrids
@@ -20,6 +25,7 @@ class GridManager: ObservableObject {
     @Published var receivedGrids = Utility.receivedGrids {
         didSet {
             Utility.receivedGrids = receivedGrids
+            print( Utility.receivedGrids)
         }
     }
     
@@ -28,21 +34,21 @@ class GridManager: ObservableObject {
     }
     
     func sendGrid(_ grid: [[Color]], to users: [String]) async -> Bool {
+        guard let userId = Utility.user?.id else { return false }
         let id = UUID().uuidString
-        let colorGrid = ColorGrid(id: id, grid: grid)
-        await MainActor.run {
-            sentGrids.insert(colorGrid, at: 0)
-        }
+        let colorGrid = ColorGrid(id: id, grid: grid, sender: userId, receiver: users)
         
         do {
-            for user in users {
-                try await NetworkManager.shared.sendGrid(
-                    id: id,
-                    to: user,
-                    grid: colorGrid.toHex(),
-                    gridSize: colorGrid.size
-                )
+            try await NetworkManager.shared.sendGrid(
+                id: id,
+                to: users,
+                grid: colorGrid.toHex(),
+                gridSize: colorGrid.size
+            )
+            await MainActor.run {
+                sentGrids.insert(colorGrid, at: 0)
             }
+            
             return true
         } catch {
             print(error.localizedDescription)
@@ -52,13 +58,40 @@ class GridManager: ObservableObject {
     
     func refreshReceivedGrids() async {
         do {
-            let grids = try await NetworkManager.shared.getGrids(after: nil)
+            let grids = try await NetworkManager.shared.getGrids(after: receivedGrids.isEmpty ? nil : Utility.lastReceivedFetchDate)
+            Utility.lastReceivedFetchDate = Date()
             await MainActor.run {
-                receivedGrids = grids
+                receivedGrids.insert(contentsOf: grids, at: 0)
             }
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    func refreshSentGrids() async {
+        do {
+            let grids = try await NetworkManager.shared.getSentGrids(after: nil)
+            await MainActor.run {
+                sentGrids = grids
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func toggleHideSentGrid(id: String) {
+        guard let index = sentGrids.firstIndex(where: { $0.id == id }) else { return }
+        sentGrids[index].hidden.toggle()
+    }
+    
+    func toggleHideReceivedGrid(id: String) {
+        guard let index = receivedGrids.firstIndex(where: { $0.id == id }) else { return }
+        receivedGrids[index].hidden.toggle()
+    }
+    
+    func markGridOpened(id: String) {
+        guard let index = receivedGrids.firstIndex(where: { $0.id == id }) else { return }
+        receivedGrids[index].opened = true
     }
     
     func handleReceivedNotification() async {

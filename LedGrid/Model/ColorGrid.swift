@@ -11,27 +11,45 @@ struct ColorGrid: Identifiable, Codable {
     var id: String
     var grid: [[Color]]
     var sentAt: Date
+    var sender: String
+    var receiver: [String]
     var opened: Bool
+    var hidden: Bool
     
-    init(id: String, grid: [[Color]], sentAt: Date = Date(), opened: Bool = true) {
+    init(
+        id: String,
+        grid: [[Color]],
+        sender: String,
+        receiver: [String],
+        sentAt: Date = Date(),
+        opened: Bool = false,
+        hidden: Bool = false
+    ) {
         self.id = id
         self.grid = grid
         self.sentAt = sentAt
         self.opened = opened
+        self.sender = sender
+        self.receiver = receiver
+        self.hidden = hidden
     }
     
-    init(pixelArt: PixelArt) {
-        self.init(
-            id: pixelArt.id,
-            grid: pixelArt.grid.map{row in row.map { col in Color(hexString: col)}},
-            sentAt:  Date(),
-            opened: false
-        )
+    func toHex() -> String {
+        grid.flatMap { row in row.map { col in col.hex } }.joined(separator: "")
     }
     
+    var size: GridSize {
+        switch grid.count {
+        case 8: return .small
+        case 12: return .medium
+        case 16: return .large
+        default: return .small
+        }
+    }
     
     enum CodingKeys: String, CodingKey {
-        case id, grid, sentAt, opened, gridSize
+        case id, grid, sentAt, opened, gridSize, receiver, hidden
+        case sender = "user"
     }
     
     private static func parseGrid(from string: String, size: GridSize) -> [[Color]] {
@@ -50,7 +68,14 @@ struct ColorGrid: Identifiable, Codable {
         self.grid = ColorGrid.parseGrid(from: encodedGrid, size: gridSize)
         self.id = try container.decode(String.self, forKey: .id)
         self.sentAt = try container.decode(Date.self, forKey: .sentAt)
-        self.opened = (try? container.decode(Bool.self, forKey: .opened)) ?? true
+        self.sender = try container.decode(String.self, forKey: .sender)
+        if let receivers = try? container.decode([String].self, forKey: .receiver) {
+            self.receiver = receivers
+        } else {
+            self.receiver = [try container.decode(String.self, forKey: .receiver)]
+        }
+        self.opened = (try? container.decode(Bool.self, forKey: .opened)) ?? false
+        self.hidden = (try? container.decode(Bool.self, forKey: .hidden)) ?? false
     }
     
     func encode(to encoder: Encoder) throws {
@@ -61,32 +86,9 @@ struct ColorGrid: Identifiable, Codable {
         try container.encode(sentAt, forKey: .sentAt)
         try container.encode(id, forKey: .id)
         try container.encode(opened, forKey: .opened)
-    }
-    
-    func toHex() -> String {
-        grid.flatMap { row in row.map { col in col.hex } }.joined(separator: "")
-    }
-    
-    var size: GridSize {
-        switch grid.count {
-        case 8: return .small
-        case 12: return .medium
-        case 16: return .large
-        default: return .small
-        }
-    }
-    
-    mutating func updateDate() {
-        sentAt = Date()
-    }
-    
-    static func example(color: Color) -> ColorGrid {
-        var grid = ColorGrid(
-            id: UUID().uuidString,
-            grid: Array(repeating: Array(repeating: color, count: 8), count: 8)
-        )
-        grid.opened = Int.random(in: 0..<2) > 0
-        return grid
+        try container.encode(sender, forKey: .sender)
+        try container.encode(receiver, forKey: .receiver)
+        try container.encode(hidden, forKey: .hidden)
     }
 }
 

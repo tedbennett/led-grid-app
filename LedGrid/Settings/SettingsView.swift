@@ -20,7 +20,9 @@ struct SettingsView: View {
               let url = URL(string: "https://d129fc43yw8q6h.cloudfront.net/user/\(userId)") else { return }
         let message = "Add me on Pixee to share pixel art!"
         let activityVC = UIActivityViewController(activityItems: [message, url], applicationActivities: nil)
-        UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            
+        windowScene?.keyWindow?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
     
     var body: some View {
@@ -73,6 +75,8 @@ struct SettingsView: View {
                 } label: {
                     Text("Logout")
                 }
+            }.refreshable {
+                await UserManager.shared.refreshFriends()
             }
         }
     }

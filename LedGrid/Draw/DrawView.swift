@@ -7,7 +7,6 @@
 
 import SwiftUI
 import AlertToast
-import Sliders
 
 struct DrawView: View {
     @StateObject var viewModel = DrawViewModel()
@@ -16,48 +15,12 @@ struct DrawView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
-                HStack {
-                    Button {
-                        viewModel.clearGrid()
-                    } label: {
-                        Text("Clear").font(.system(.title3, design: .rounded).bold())
-                            .foregroundColor(.red)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 5)
-                    }.background(Color.red.opacity(0.2))
-                        .cornerRadius(15)
-                        .padding(.vertical, 0)
-                        .padding(.leading, 20)
-                    
-                    Spacer()
-                    Button {
-                        viewModel.undo()
-                    } label: {
-                        Image(systemName: "arrow.uturn.backward").font(.system(.title3, design: .rounded).bold())
-                            .padding(4)
-                    }.background(Color.blue.opacity(0.2))
-                        .cornerRadius(15)
-                        .padding(.vertical, 0)
-                        .disabled(viewModel.undoStates.isEmpty)
-                    Button {
-                        viewModel.redo()
-                    } label: {
-                        Image(systemName: "arrow.uturn.forward").font(.system(.title3, design: .rounded).bold())
-                            .padding(4)
-                    }.background(Color.blue.opacity(0.2))
-                        .cornerRadius(15)
-                        .padding(.vertical, 0)
-                        .padding(.trailing, 20)
-                        .disabled(viewModel.redoStates.isEmpty)
-                }.padding(.vertical, -20)
+                GridActionsView(viewModel: viewModel)
                 GridView(viewModel: viewModel)
-                    .padding(.horizontal, 20)
                 ColorPickerView(viewModel: viewModel)
-                    .padding(.horizontal, 20)
                 SendView(viewModel: viewModel)
                     .frame(height: 75)
-                    .padding(.horizontal, 20)
-            }
+            }.padding(.horizontal, 20)
             .navigationTitle("Draw Something")
             .onAppear {
                 viewModel.saveGrid()
@@ -84,31 +47,33 @@ struct DrawView_Previews: PreviewProvider {
     }
 }
 
-
-struct ColorPickerSlider: View {
-    @Binding var value: Double
+struct GridActionsView: View {
+    @ObservedObject var viewModel: DrawViewModel
     
     var body: some View {
-        CustomSlider(value: $value, colors: [
-            Color(UIColor.red),
-            Color(UIColor.yellow),
-            Color(UIColor.green),
-            Color(UIColor.cyan),
-            Color(UIColor.blue),
-            Color(UIColor.purple),
-            Color(UIColor.red)
-        ])
-    }
-}
-
-struct OpacityPickerSlider: View {
-    @Binding var value: Double
-    
-    var body: some View {
-        CustomSlider(value: $value, colors: [
-            Color(UIColor.black),
-            Color(UIColor.white)
-        ])
+        HStack {
+            Button {
+                viewModel.clearGrid()
+            } label: {
+                Text("Clear").font(.system(.title3, design: .rounded)).fontWeight(.medium)
+                    .padding(5)
+                    .padding(.horizontal, 6)
+            }.buttonStyle(StandardButton(disabled: false))
+            Spacer()
+            Button {
+                viewModel.undo()
+            } label: {
+                Image(systemName: "arrow.uturn.backward").font(.system(.title3, design: .rounded).weight(.medium))
+                    .padding(4)
+            }.buttonStyle(StandardButton(disabled: viewModel.undoStates.isEmpty))
+                
+            Button {
+                viewModel.redo()
+            } label: {
+                Image(systemName: "arrow.uturn.forward").font(.system(.title3, design: .rounded).weight(.medium))
+                    .padding(4)
+            }.buttonStyle(StandardButton(disabled: viewModel.redoStates.isEmpty))
+        }.padding(.vertical, -20)
     }
 }
 
@@ -128,34 +93,15 @@ struct SendView: View {
                     Text("Send")
                         .font(.system(.title3, design: .rounded).bold())
                     
-                    .frame(width: 80, height: 60)
+                        .frame(width: 80, height: 60)
                 }
-            }.disabled(viewModel.selectedUsers.isEmpty || viewModel.sendingGrid)
-                .background(Color(uiColor: .systemGray6))
-                .cornerRadius(15)
+            }.buttonStyle(StandardButton(disabled: viewModel.selectedUsers.isEmpty || viewModel.sendingGrid))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(Color.accentColor.opacity(viewModel.selectedUsers.isEmpty || viewModel.sendingGrid ? 0.5 : 1), lineWidth: 2)
+                )
+                .disabled(viewModel.selectedUsers.isEmpty || viewModel.sendingGrid)
         }
-    }
-}
-
-
-struct CustomSlider: View {
-    @Binding var value: Double
-    var colors: [Color]
-    var body: some View {
-        ValueSlider(value: $value)
-            .valueSliderStyle(HorizontalValueSliderStyle(
-                track: HorizontalValueTrack(view: EmptyView())
-                    .background(
-                        LinearGradient(
-                            gradient: Gradient(colors: colors),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                        .mask(RoundedRectangle(cornerRadius: 3).frame(height: 4))
-                    ),
-                thumb: DefaultThumb()
-            )
-            )
     }
 }
 
@@ -166,38 +112,51 @@ struct FriendsView: View {
     
     var body: some View {
         GeometryReader { geometry in
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                if manager.friends.isEmpty {
-                    Text("Add some friends in settings to send art").font(.caption).foregroundColor(.gray)
-                } else {
-                    ForEach(manager.friends) { user in
-                        VStack {
-                            Button {
-                                if selectedFriends.contains(where: { user.id == $0 }) {
-                                    selectedFriends = selectedFriends.filter { user.id != $0 }
-                                } else {
-                                    selectedFriends.append(user.id)
-                                }
-                                
-                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                            } label: {
-                                ZStack {
-                                    Circle()
-                                        .strokeBorder(Color.blue, lineWidth: selectedFriends.contains(where: { user.id == $0 }) ? 3 : 0)
-                                        .background(Circle().foregroundColor(Color.gray))
-                                        .frame(width: 50, height: 50)
-                                    Text(user.fullName?.split(separator: " ").map { $0.prefix(1)}.joined().uppercased() ?? "?").font(.system(.body, design: .rounded).bold())
-                                }
-                            }.buttonStyle(.plain)
-                            Text(user.fullName ?? "Unknown").font(.caption).foregroundColor(.gray)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    if manager.friends.isEmpty {
+                        Text("Add some friends in settings to send art").font(.caption).foregroundColor(.gray)
+                    } else {
+                        ForEach(manager.friends) { user in
+                            VStack {
+                                Button {
+                                    if selectedFriends.contains(where: { user.id == $0 }) {
+                                        selectedFriends = selectedFriends.filter { user.id != $0 }
+                                    } else {
+                                        selectedFriends.append(user.id)
+                                    }
+                                    
+                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                } label: {
+                                    UserOrb(text: user.fullName?
+                                        .split(separator: " ")
+                                        .map { $0.prefix(1) }
+                                        .joined()
+                                        .uppercased(), isSelected: selectedFriends.contains(where: { user.id == $0 }))
+                                }.buttonStyle(.plain)
+                                Text(user.fullName ?? "Unknown").font(.caption).foregroundColor(.gray)
+                            }
                         }
                     }
                 }
+                .frame(minWidth: geometry.size.width)      // Make the scroll view full-width
+                .frame(height: geometry.size.height)
             }
-            .frame(minWidth: geometry.size.width)      // Make the scroll view full-width
-            .frame(height: geometry.size.height)
         }
-        }
+    }
+}
+
+struct StandardButton: ButtonStyle {
+    var disabled: Bool
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(Color.accentColor.opacity(disabled ? 0.5 : 1))
+//            .background(Color.gray.opacity(0.2))
+//            .overlay(
+//                RoundedRectangle(cornerRadius: 15)
+//                    .stroke(Color.accentColor.opacity(disabled ? 0.5 : 1), lineWidth: 2)
+//            )
+            .padding(.vertical, 0)
+            .disabled(disabled)
     }
 }

@@ -16,17 +16,13 @@ struct LedGridApp: App {
     init() {
         
         if NetworkManager.shared.credentialManager.canRenew() {
-            Task {
-                if let grids = try? await NetworkManager.shared.getGrids(after: nil) {
-                    GridManager.shared.receivedGrids =  grids
-                }
-            }
+
         }
     }
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().accentColor(Color(uiColor: .label))
         }
     }
 }

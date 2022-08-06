@@ -98,6 +98,24 @@ struct Utility {
         }
     }
     
+    static var lastReceivedFetchDate: Date? {
+        get {
+            UserDefaults.standard.object(forKey: "lastReceivedFetchDate") as? Date
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "lastReceivedFetchDate")
+        }
+    }
+    
+    static var lastSentFetchDate: Date? {
+        get {
+            UserDefaults.standard.object(forKey: "lastSentFetchDate") as? Date
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "lastSentFetchDate")
+        }
+    }
+    
     static var lastSelectedFriends: [String] {
         get {
             UserDefaults.standard.array(forKey: "lastSelectedFriends") as? [String] ?? []

@@ -79,8 +79,18 @@ class NetworkManager: Network {
     
     func getGrids(after: Date?) async throws -> [ColorGrid] {
         guard let userId = Utility.user?.id else { throw ApiError.noUser }
-        let queries: [String: String] = after != nil ? ["after": "\(after!.timeIntervalSince1970)"] : [:]
+        let queries: [String: String] = after != nil ? ["after": "\(Int(after!.timeIntervalSince1970))"] : [:]
         let url = getUrl(endpoints: [.user, .dynamic(userId), .grid], queries: queries)
+        let headers = try await getToken()
+        
+        return try await getRequest(url: url, headers: headers)
+    }
+    
+    
+    func getSentGrids(after: Date?) async throws -> [ColorGrid] {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        let queries: [String: String] = after != nil ? ["after": "\(after!.timeIntervalSince1970)"] : [:]
+        let url = getUrl(endpoints: [.user, .dynamic(userId), .grid, .sent], queries: queries)
         let headers = try await getToken()
         
         return try await getRequest(url: url, headers: headers)
@@ -100,10 +110,10 @@ class NetworkManager: Network {
         let _ = try await makeRequest(url: url, body: data, method: .put, headers: headers)
     }
     
-    func sendGrid(id: String, to recipient: String, grid: String, gridSize: GridSize) async throws {
+    func sendGrid(id: String, to recipients: [String], grid: String, gridSize: GridSize) async throws {
         guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let payload = [
-            "receiver": recipient,
+            "receivers": recipients,
             "id": id,
             "grid": grid,
             "grid_size": gridSize.rawValue
@@ -149,6 +159,34 @@ class NetworkManager: Network {
         let _ = try await makeRequest(url: url, body: data, method: .patch, headers: headers)
     }
     
+    func getFriends() async throws -> [String] {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        let url = getUrl(endpoints: [.user, .dynamic(userId), .friends])
+        let headers = try await getToken()
+        
+        return try await getRequest(url: url, headers: headers)
+    }
+    
+    func addFriend(id: String) async throws {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        let payload = ["friend": id]
+        let data = try JSONSerialization.data(withJSONObject: payload)
+        let url = getUrl(endpoints: [.user, .dynamic(userId), .friends])
+        let headers = try await getToken()
+        
+        let _ = try await makeRequest(url: url, body: data, method: .put, headers: headers)
+    }
+    
+    func deleteFriend(id: String) async throws {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        let payload = ["friend": id]
+        let data = try JSONSerialization.data(withJSONObject: payload)
+        let url = getUrl(endpoints: [.user, .dynamic(userId), .friends])
+        let headers = try await getToken()
+        
+        let _ = try await makeRequest(url: url, body: data, method: .delete, headers: headers)
+    }
+    
     func registerDevice(with token: String) async throws {
         guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let payload = ["device": token]
@@ -180,6 +218,8 @@ enum Endpoint {
     case device
     case grid
     case send
+    case friends
+    case sent
     case dynamic(String)
     
     var raw: String {
@@ -188,6 +228,8 @@ enum Endpoint {
         case .device: return "device"
         case .grid: return "grid"
         case .send: return "send"
+        case .friends: return "friends"
+        case .sent: return "sent"
         case .dynamic(let str): return str
         }
     }

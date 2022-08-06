@@ -54,6 +54,11 @@ class DrawViewModel: ObservableObject {
         }
     }
     
+    func selectColor(_ color: Color) {
+        currentColor = color
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+    }
+    
     func shouldSetGridSquare(row: Int, col: Int) -> Bool {
         return grid[col][row] != currentColor
     }

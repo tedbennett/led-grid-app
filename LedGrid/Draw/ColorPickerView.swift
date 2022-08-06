@@ -23,6 +23,20 @@ struct ColorPickerView: View {
         )
     }
     
+    func updateSliders() {
+        var h: CGFloat = 0
+        var s: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        UIColor(viewModel.currentColor).getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        self.hue = h
+        if s >= 1 {
+            
+        } else {
+            
+        }
+    }
+    
     var body: some View {
         HStack {
             VStack {
@@ -38,7 +52,7 @@ struct ColorPickerView: View {
 //                ColorPicker("", selection: $viewModel.currentColor, supportsOpacity: false)
 //                    .labelsHidden()
 //                    .frame(width: 60, height: 60, alignment: .center)
-                SquareView(color: viewModel.currentColor)
+                SquareView(color: viewModel.currentColor, strokeWidth: 1, cornerRadius: 5)
                     .frame(width: 40, height: 40, alignment: .center)
                     .padding(10)
                     .allowsHitTesting(false)
@@ -49,6 +63,9 @@ struct ColorPickerView: View {
         }
         .onChange(of: opacity) { newVal in
             updateColor()
+        }
+        .onChange(of: viewModel.currentColor) { newVal in
+            
         }
     }
 }

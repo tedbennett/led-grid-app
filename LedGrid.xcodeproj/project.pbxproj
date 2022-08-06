@@ -22,6 +22,9 @@
 		57C96DB027F45B56008C52BB /* SentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAF27F45B56008C52BB /* SentView.swift */; };
 		57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB127F45B93008C52BB /* ReceivedView.swift */; };
 		57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB427F45C01008C52BB /* SettingsView.swift */; };
+		9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842928980EE30053F3DD /* UserOrb.swift */; };
+		9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842B289EF0150053F3DD /* RevealView.swift */; };
+		9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842D289F080A0053F3DD /* Sliders.swift */; };
 		9F49EC23288D467D00BD3956 /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = 9F49EC22288D467D00BD3956 /* Auth0 */; };
 		9F49EC27288D474B00BD3956 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F49EC26288D474B00BD3956 /* Auth0.plist */; };
 		9F4FC812288CA28D00A2603F /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9F4FC811288CA28D00A2603F /* Utilities */; };
@@ -54,6 +57,9 @@
 		57C96DB127F45B93008C52BB /* ReceivedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedView.swift; sourceTree = "<group>"; };
 		57C96DB427F45C01008C52BB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9F2E5455288C9C5E006C556C /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../../ios/Utilities; sourceTree = "<group>"; };
+		9F3A842928980EE30053F3DD /* UserOrb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOrb.swift; sourceTree = "<group>"; };
+		9F3A842B289EF0150053F3DD /* RevealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealView.swift; sourceTree = "<group>"; };
+		9F3A842D289F080A0053F3DD /* Sliders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sliders.swift; sourceTree = "<group>"; };
 		9F49EC26288D474B00BD3956 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		9F4FC80F288CA10400A2603F /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../../ios/Utilities; sourceTree = "<group>"; };
 		9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 			children = (
 				57C96DA627F3A266008C52BB /* DrawView.swift */,
 				57C96D9D27F1D295008C52BB /* DrawViewModel.swift */,
+				9F3A842D289F080A0053F3DD /* Sliders.swift */,
 				5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */,
 				5799B43327F0D89D0039F621 /* GridView.swift */,
 			);
@@ -144,7 +151,9 @@
 			children = (
 				57C96DAB27F3A641008C52BB /* GridListView.swift */,
 				57C96DAD27F3A702008C52BB /* MiniGridView.swift */,
+				9F3A842928980EE30053F3DD /* UserOrb.swift */,
 				5799B43527F0D8AA0039F621 /* SquareView.swift */,
+				9F3A842B289EF0150053F3DD /* RevealView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -285,9 +294,12 @@
 				9FAB5EA8289496A800A620BB /* GridManager.swift in Sources */,
 				5799B43627F0D8AA0039F621 /* SquareView.swift in Sources */,
 				9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */,
+				9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */,
 				9FAB5EAA28949AEC00A620BB /* UserManager.swift in Sources */,
 				5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */,
+				9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */,
 				57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */,
+				9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */,
 				9FAB5EA62891D03B00A620BB /* LoginView.swift in Sources */,
 				9FA0DDD1286CA11A00F1CB4F /* ColorGrid.swift in Sources */,
 			);

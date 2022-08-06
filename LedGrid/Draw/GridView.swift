@@ -19,6 +19,10 @@ struct GridView: View {
                         let color = viewModel.grid[col][row]
                         let id = (col * 8) + row
                         TouchableSquareView(id: id, color: color, proxy: proxy)
+                        
+//                        .onLongPressGesture {
+//                            viewModel.selectColor(color)
+//                        }
                     }
                 }
             }
@@ -62,7 +66,7 @@ struct TouchableSquareView: View {
     let proxy: TouchOverProxy<Int>
     
     var body: some View {
-        SquareView(color: color)
+        SquareView(color: color, strokeWidth: 1, cornerRadius: 5)
             .aspectRatio(contentMode: .fit)
         //        .frame(width: 40, height: 40)
             .touchOver(id: id, proxy: proxy)

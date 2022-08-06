@@ -10,13 +10,17 @@ import SwiftUI
 struct SquareView: View {
     var color: Color
     var strokeWidth = 2.0
+    var cornerRadius = 3.0
+    
     var body: some View {
-        Rectangle()
+        RoundedRectangle(cornerRadius: cornerRadius)
             .foregroundColor(color)
             .overlay(
-                RoundedRectangle(cornerRadius: 1)
+                RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(Color(UIColor.gray), lineWidth: strokeWidth)
+
             )
+            .aspectRatio(contentMode: .fit)
     }
 }
 
