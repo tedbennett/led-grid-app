@@ -42,7 +42,7 @@ struct SentView: View {
                                                 expandedGrid = item
                                             }
                                         } label: {
-                                            MiniGridView(grid: item.grid, strokeWidth: 0.5)
+                                            MiniGridView(grid: item.grid, strokeWidth: 0.5, spacing: 2.0)
                                                 .aspectRatio(contentMode: .fit)
                                                 .drawingGroup()
                                         }.buttonStyle(.plain)

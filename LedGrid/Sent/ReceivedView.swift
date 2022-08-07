@@ -43,7 +43,7 @@ struct ReceivedView: View {
                                             }
                                         } label: {
                                             if item.opened {
-                                                MiniGridView(grid: item.grid, strokeWidth: 0.5)
+                                                MiniGridView(grid: item.grid, strokeWidth: 0.5, spacing: 2.0)
                                                     .aspectRatio(contentMode: .fit)
                                                     .drawingGroup()
                                             } else {
@@ -154,18 +154,15 @@ struct ExpandedReceivedArtView: View {
             }
             
             HStack {
+                Spacer()
                 Text("FROM:")
                     .font(.system(.callout, design: .rounded))
                     .foregroundColor(.gray)
                     .padding(.leading, 10)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(grid.receiver, id: \.self) { id in
-                            UserOrb(text: UserManager.shared.getInitials(for: id), isSelected: false)
-                                .frame(width: 50, height: 50)
-                        }
-                    }.frame(height: 60, alignment: .trailing)
-                }.padding(0)
+                
+                UserOrb(text: UserManager.shared.getInitials(for: grid.sender), isSelected: false)
+                    .frame(width: 50, height: 50)
+                        
             }
         }.padding()
             .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))

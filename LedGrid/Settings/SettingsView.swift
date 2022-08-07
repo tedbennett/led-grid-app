@@ -70,7 +70,7 @@ struct SettingsView: View {
                 }
             }.navigationTitle("Settings").toolbar {
                 Button {
-                    NetworkManager.shared.logout()
+                    UserManager.shared.logout()
                     loggedIn = false
                 } label: {
                     Text("Logout")

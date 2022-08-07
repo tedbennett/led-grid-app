@@ -14,7 +14,7 @@ struct LedGridApp: App {
     @State private var loggedIn = false
 
     init() {
-        
+        UNUserNotificationCenter.current().delegate  = NotificationManager.shared
         if NetworkManager.shared.credentialManager.canRenew() {
 
         }
@@ -32,45 +32,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
-        UNUserNotificationCenter.current().delegate = self
         
-//        application.registerForRemoteNotifications()
-        
+        if launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] != nil {
+            NotificationManager.shared.selectedTab = 1
+        }
         return true
     }
 }
 
-extension AppDelegate : UNUserNotificationCenterDelegate {
-    
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification,
-        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
-    ) {
-        Task {
-            await GridManager.shared.handleReceivedNotification()
-        }
-        completionHandler([[.banner, .badge, .sound]])
-    }
-    
-    func application(
-        _ application: UIApplication,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
-    ) {
-        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
-        let token = tokenParts.joined()
-        Task {
-            do {
-                try await NetworkManager.shared.registerDevice(with: token)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func application(
-        _ application: UIApplication,
-        didFailToRegisterForRemoteNotificationsWithError error: Error
-    ) {
-    }
-}

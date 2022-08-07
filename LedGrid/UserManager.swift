@@ -108,6 +108,16 @@ class UserManager: ObservableObject {
         }
     }
     
+    func logout() {
+        NetworkManager.shared.logout()
+        user = nil
+        friends = []
+        GridManager.shared.receivedGrids = []
+        GridManager.shared.sentGrids = []
+        Utility.lastSelectedFriends = []
+        Utility.lastReceivedFetchDate = nil
+    }
+    
     func requestNotificationPermissions() {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         

@@ -32,6 +32,9 @@ struct LoginView: View {
                             do {
                                 try await NetworkManager.shared.handleSignInWithApple(authorization: authResults)
                                 UserManager.shared.requestNotificationPermissions()
+                                await GridManager.shared.refreshReceivedGrids(markOpened: true)
+                                await GridManager.shared.refreshSentGrids()
+                                await UserManager.shared.refreshFriends()
                                 await MainActor.run {
                                     isSigningIn = false
                                     loggedIn = true

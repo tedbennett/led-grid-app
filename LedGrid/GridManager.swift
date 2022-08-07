@@ -12,7 +12,6 @@ class GridManager: ObservableObject {
     static var shared = GridManager()
     private init() {
         Task {
-//            await refreshSentGrids()
             await refreshReceivedGrids()
         }
     }
@@ -25,7 +24,6 @@ class GridManager: ObservableObject {
     @Published var receivedGrids = Utility.receivedGrids {
         didSet {
             Utility.receivedGrids = receivedGrids
-            print( Utility.receivedGrids)
         }
     }
     
@@ -56,12 +54,16 @@ class GridManager: ObservableObject {
         }
     }
     
-    func refreshReceivedGrids() async {
+    func refreshReceivedGrids(markOpened: Bool = false) async {
         do {
             let grids = try await NetworkManager.shared.getGrids(after: receivedGrids.isEmpty ? nil : Utility.lastReceivedFetchDate)
             Utility.lastReceivedFetchDate = Date()
             await MainActor.run {
-                receivedGrids.insert(contentsOf: grids, at: 0)
+                receivedGrids.insert(contentsOf: grids.map {
+                    var grid = $0
+                    grid.opened = markOpened
+                    return grid
+                }, at: 0)
             }
         } catch {
             print(error.localizedDescription)

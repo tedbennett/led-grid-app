@@ -11,12 +11,13 @@ struct MiniGridView: View {
     var grid: [[Color]]
     var strokeWidth = 1.0
     var cornerRadius = 3.0
+    var spacing = 5.0
     
     var body: some View {
-        VStack(spacing: 5) {
+        VStack(spacing: spacing) {
             if grid.count == 8 {
                 ForEach(0..<8) { col in
-                    HStack(spacing: 5) {
+                    HStack(spacing: spacing) {
                         ForEach(0..<8) { row in
                             let color = grid[col][row]
                             SquareView(color: color, strokeWidth: strokeWidth, cornerRadius: cornerRadius)
@@ -26,7 +27,7 @@ struct MiniGridView: View {
                 }
             } else if grid.count == 12 {
                 ForEach(0..<12) { col in
-                    HStack(spacing: 5) {
+                    HStack(spacing: spacing) {
                         ForEach(0..<12) { row in
                             let color = grid[col][row]
                             SquareView(color: color, strokeWidth: strokeWidth, cornerRadius: cornerRadius)
@@ -36,7 +37,7 @@ struct MiniGridView: View {
                 }
             } else if grid.count == 16 {
                 ForEach(0..<16) { col in
-                    HStack(spacing: 5) {
+                    HStack(spacing: spacing) {
                         ForEach(0..<16) { row in
                             let color = grid[col][row]
                             SquareView(color: color, strokeWidth: strokeWidth, cornerRadius: cornerRadius)
