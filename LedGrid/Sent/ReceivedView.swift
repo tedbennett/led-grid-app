@@ -12,6 +12,8 @@ struct ReceivedView: View {
     @State private var expandedGrid: ColorGrid?
     @Namespace private var gridAnimation
     
+    @State private var showSentGrids = false
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -99,15 +101,27 @@ struct ReceivedView: View {
                     //                            await GridManager.shared.refreshReceivedGrids()
                     //                        }
                     //                    }
-                    .navigationTitle(expandedGrid == nil ? "Received Grids" : "")
+                    .navigationTitle(expandedGrid == nil ? "Received Art" : "")
                     .blur(radius: expandedGrid == nil ? 0 : 20)
                     .toolbar {
-                        Button {
-                            Task {
-                                await GridManager.shared.refreshReceivedGrids()
+                        ToolbarItemGroup(placement: .navigationBarLeading) {
+                            Button {
+                                Task {
+                                    await GridManager.shared.refreshReceivedGrids()
+                                }
+                            } label: {
+                                Image(systemName: "arrow.triangle.2.circlepath")
                             }
-                        } label: {
-                            Image(systemName: "arrow.triangle.2.circlepath")
+                        }
+                        ToolbarItemGroup() {
+                            NavigationLink(isActive: $showSentGrids) {
+                                SentView()
+                            } label: {
+                                HStack {
+                                Text("Sent Art")
+                                 Image(systemName: "chevron.right")
+                                }
+                            }
                         }
                     }
                 }

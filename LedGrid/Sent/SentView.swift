@@ -31,7 +31,7 @@ struct SentView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                NavigationView {
+//                NavigationView {
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 30) {
                             ForEach(manager.sentGrids.filter({ !$0.hidden })) { item in
@@ -82,14 +82,14 @@ struct SentView: View {
                         }
                         .padding(.horizontal)
                         
-                    }.navigationTitle(expandedGrid == nil ? "Sent Grids" : "")
+                    }.navigationTitle(expandedGrid == nil ? "Sent Art" : "")
                         .blur(radius: expandedGrid == nil ? 0 : 20)
                 }
                 
                 if let expandedGrid = expandedGrid {
                     expandedView(grid: expandedGrid).frame(width: geometry.size.width, height: geometry.size.height).zIndex(9999)
                 }
-            }
+            //}
         }
     }
 }

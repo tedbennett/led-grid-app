@@ -68,19 +68,19 @@ struct ContentView: View {
             TabView(selection: $notificationManager.selectedTab) {
                 DrawView()
                     .tabItem {
-                        Label("Draw", systemImage: "pencil")
+                        Label("Draw", systemImage: "square.grid.2x2")
                     }.tag(0)
                 ReceivedView()
                     .tabItem {
                         Label("Received", systemImage: "tray")
                     }.badge(gridManager.receivedGrids.filter({!$0.opened}).count)
                     .tag(1)
-                SentView().tabItem {
-                    Label("Sent", systemImage: "paperplane")
-                }.tag(2)
+//                SentView().tabItem {
+//                    Label("Sent", systemImage: "paperplane")
+//                }.tag(2)
                 SettingsView(loggedIn: $loggedIn).tabItem {
                     Label("Settings", systemImage: "gear")
-                }.tag(3)
+                }.tag(2)
             }.onOpenURL { parseUrl($0) }
                 .toast(isPresenting: $addedFriend) {
                     AlertToast(type: .complete(.gray), title: "Added friend")
