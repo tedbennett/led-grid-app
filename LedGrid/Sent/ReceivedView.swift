@@ -43,12 +43,12 @@ struct ReceivedView: View {
                                             }
                                         } label: {
                                             if item.opened {
-                                                MiniGridView(grid: item.grid, strokeWidth: 0.5, spacing: 2.0)
+                                                MiniGridView(grid: item.grid, viewSize: .small)
                                                     .aspectRatio(contentMode: .fit)
                                                     .drawingGroup()
                                             } else {
                                                 ZStack {
-                                                    MiniGridView(grid: Array(repeating:  Array(repeating: .clear, count: item.grid.count), count: item.grid.count), strokeWidth: 0.0)
+                                                    MiniGridView(grid: Array(repeating:  Array(repeating: .clear, count: item.grid.count), count: item.grid.count), viewSize: .small).opacity(0.001)
                                                         .aspectRatio(contentMode: .fit)
                                                     Text("Tap to View!")
                                                     VStack {
@@ -101,6 +101,15 @@ struct ReceivedView: View {
                     //                    }
                     .navigationTitle(expandedGrid == nil ? "Received Grids" : "")
                     .blur(radius: expandedGrid == nil ? 0 : 20)
+                    .toolbar {
+                        Button {
+                            Task {
+                                await GridManager.shared.refreshReceivedGrids()
+                            }
+                        } label: {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                        }
+                    }
                 }
                 
                 if let expandedGrid = expandedGrid {
@@ -130,7 +139,7 @@ struct ExpandedReceivedArtView: View {
                     .padding(.bottom, 10)
             }
             if grid.opened {
-                MiniGridView(grid: grid.grid, cornerRadius: 5)
+                MiniGridView(grid: grid.grid, viewSize: .large)
                     .drawingGroup()
                     .aspectRatio(contentMode: .fit)
                     .gesture(DragGesture().onChanged { val in

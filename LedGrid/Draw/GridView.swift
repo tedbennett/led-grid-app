@@ -12,27 +12,17 @@ struct GridView: View {
     @ObservedObject var viewModel: DrawViewModel
     
     func grid(proxy: TouchOverProxy<Int>) -> some View {
-        VStack(spacing: 6) {
-            ForEach(0..<8) { col in
-                HStack(spacing: 6) {
-                    ForEach(0..<8) { row in
-                        let color = viewModel.grid[col][row]
-                        let id = (col * 8) + row
-                        TouchableSquareView(id: id, color: color, proxy: proxy)
-                        
-//                        .onLongPressGesture {
-//                            viewModel.selectColor(color)
-//                        }
-                    }
-                }
-            }
+        PixelArtGrid(gridSize: viewModel.gridSize) { col, row in
+            let color = viewModel.grid[col][row]
+            let id = (col * viewModel.gridSize.rawValue) + row
+            TouchableSquareView(id: id, color: color, proxy: proxy)
         }
     }
     
     var body: some View {
         TouchOverReader(Int.self, onTouch: { id in
-            let row = id % 8
-            let col = id / 8
+            let row = id % viewModel.gridSize.rawValue
+            let col = id / viewModel.gridSize.rawValue
             if viewModel.shouldSetGridSquare(row: row, col: col) {
                 viewModel.setGridSquare(row: row, col: col)
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -140,4 +130,65 @@ extension View {
     func touchOver<ID: Hashable>(id: ID, proxy: TouchOverProxy<ID>) -> some View {
         self.modifier(GroupTouchOver(id: id, proxy: proxy))
     }
+}
+
+
+struct PixelArtGrid<Content: View>: View {
+    let content: (Int, Int) -> Content
+    let gridSize: GridSize
+    let _spacing: Double?
+    
+    init(gridSize: GridSize, spacing: Double? = nil, @ViewBuilder content: @escaping (Int, Int) -> Content) {
+        self.content = content
+        self.gridSize = gridSize
+        self._spacing = spacing
+    }
+    
+    var spacing: Double {
+        if let spacing = _spacing { return spacing }
+        switch gridSize {
+        case .small:
+            return 6
+        case .medium:
+            return 4
+        case .large:
+            return 2
+        }
+    }
+    
+    var body: some View {
+        switch gridSize {
+        case .small:
+            VStack(spacing: spacing) {
+                ForEach(0..<8) { col in
+                    HStack(spacing: spacing) {
+                        ForEach(0..<8) { row in
+                            content(col, row)
+                        }
+                    }
+                }
+            }
+        case .medium:
+            VStack(spacing: spacing) {
+                ForEach(0..<12) { col in
+                    HStack(spacing: spacing) {
+                        ForEach(0..<12) { row in
+                            content(col, row)
+                        }
+                    }
+                }
+            }
+        case .large:
+            VStack(spacing: spacing) {
+                ForEach(0..<16) { col in
+                    HStack(spacing: spacing) {
+                        ForEach(0..<16) { row in
+                            content(col, row)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }

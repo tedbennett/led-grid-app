@@ -50,6 +50,9 @@ struct DrawView_Previews: PreviewProvider {
 struct GridActionsView: View {
     @ObservedObject var viewModel: DrawViewModel
     
+    @State private var showChangeSizeWarning = false
+    @State private var showChangeSizeDialog = false
+    
     var body: some View {
         HStack {
             Button {
@@ -59,6 +62,23 @@ struct GridActionsView: View {
                     .padding(5)
                     .padding(.horizontal, 6)
             }.buttonStyle(StandardButton(disabled: false))
+            Spacer()
+            Button {
+                if !viewModel.isGridBlank {
+                    showChangeSizeWarning = true
+                } else {
+                    showChangeSizeDialog = true
+                }
+            } label: {
+                Text("Change Size").font(.system(.title3, design: .rounded)).fontWeight(.medium)
+                    .padding(5)
+                    .padding(.horizontal, 6)
+            }.buttonStyle(StandardButton(disabled: false))
+//            Picker("", selection: $viewModel.gridSize) {
+//                Text("8x8").tag(GridSize.small)
+//                Text("12x12").tag(GridSize.medium)
+//                Text("16x16").tag(GridSize.large)
+//            }.pickerStyle(.segmented)
             Spacer()
             Button {
                 viewModel.undo()
@@ -74,6 +94,16 @@ struct GridActionsView: View {
                     .padding(4)
             }.buttonStyle(StandardButton(disabled: viewModel.redoStates.isEmpty))
         }.padding(.vertical, -20)
+            .alert("Warning", isPresented: $showChangeSizeWarning) {
+                Button("Ok", role: .destructive) { showChangeSizeDialog = true }
+            } message: {
+                Text("Changing grid size will erase your current art!")
+            }
+            .confirmationDialog("Change grid size", isPresented: $showChangeSizeDialog) {
+                Button("8x8") { viewModel.setGridSize(.small) }
+                Button("12x12") { viewModel.setGridSize(.medium) }
+                Button("16x16") { viewModel.setGridSize(.large) }
+            }
     }
 }
 

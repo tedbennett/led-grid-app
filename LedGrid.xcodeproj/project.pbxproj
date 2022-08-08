@@ -17,7 +17,6 @@
 		57C96D9E27F1D295008C52BB /* DrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9D27F1D295008C52BB /* DrawViewModel.swift */; };
 		57C96DA027F1D390008C52BB /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9F27F1D390008C52BB /* Utility.swift */; };
 		57C96DA727F3A266008C52BB /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DA627F3A266008C52BB /* DrawView.swift */; };
-		57C96DAC27F3A641008C52BB /* GridListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAB27F3A641008C52BB /* GridListView.swift */; };
 		57C96DAE27F3A702008C52BB /* MiniGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAD27F3A702008C52BB /* MiniGridView.swift */; };
 		57C96DB027F45B56008C52BB /* SentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAF27F45B56008C52BB /* SentView.swift */; };
 		57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB127F45B93008C52BB /* ReceivedView.swift */; };
@@ -51,7 +50,6 @@
 		57C96D9D27F1D295008C52BB /* DrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewModel.swift; sourceTree = "<group>"; };
 		57C96D9F27F1D390008C52BB /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		57C96DA627F3A266008C52BB /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
-		57C96DAB27F3A641008C52BB /* GridListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridListView.swift; sourceTree = "<group>"; };
 		57C96DAD27F3A702008C52BB /* MiniGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniGridView.swift; sourceTree = "<group>"; };
 		57C96DAF27F45B56008C52BB /* SentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentView.swift; sourceTree = "<group>"; };
 		57C96DB127F45B93008C52BB /* ReceivedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedView.swift; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 		57C96DA927F3A622008C52BB /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				57C96DAB27F3A641008C52BB /* GridListView.swift */,
 				57C96DAD27F3A702008C52BB /* MiniGridView.swift */,
 				9F3A842928980EE30053F3DD /* UserOrb.swift */,
 				5799B43527F0D8AA0039F621 /* SquareView.swift */,
@@ -282,7 +279,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5799B42827F0D7E60039F621 /* ContentView.swift in Sources */,
-				57C96DAC27F3A641008C52BB /* GridListView.swift in Sources */,
 				57C96D9E27F1D295008C52BB /* DrawViewModel.swift in Sources */,
 				57C96DA727F3A266008C52BB /* DrawView.swift in Sources */,
 				5799B43427F0D89D0039F621 /* GridView.swift in Sources */,
@@ -438,6 +434,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LedGrid/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Pixee;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Allow this app to use Bluetooth?";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Allow this app to connect to LedGrid?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -475,6 +472,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LedGrid/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Pixee;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Allow this app to use Bluetooth?";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Allow this app to connect to LedGrid?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

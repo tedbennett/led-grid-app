@@ -42,7 +42,7 @@ struct SentView: View {
                                                 expandedGrid = item
                                             }
                                         } label: {
-                                            MiniGridView(grid: item.grid, strokeWidth: 0.5, spacing: 2.0)
+                                            MiniGridView(grid: item.grid, viewSize: .small)
                                                 .aspectRatio(contentMode: .fit)
                                                 .drawingGroup()
                                         }.buttonStyle(.plain)
@@ -117,7 +117,7 @@ struct ExpandedArtView: View {
                 }.buttonStyle(StandardButton(disabled: false))
                     .padding(.bottom, 10)
             }
-            MiniGridView(grid: grid.grid, cornerRadius: 5)
+            MiniGridView(grid: grid.grid, viewSize: .large)
                 .drawingGroup()
                 .aspectRatio(contentMode: .fit)
                 .gesture(DragGesture().onChanged { val in

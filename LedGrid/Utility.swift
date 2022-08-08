@@ -24,6 +24,22 @@ struct Utility {
         }
     }
     
+    static var lastGridSize: GridSize {
+        get {
+            guard let data = UserDefaults.standard.data(forKey: "lastGridSize"),
+                  let size = try? JSONDecoder().decode(GridSize.self, from: data) else {
+                return .small
+            }
+            return size
+        }
+        set {
+            let data = try? JSONEncoder().encode(newValue)
+            DispatchQueue.main.async {
+                UserDefaults.standard.set(data, forKey: "lastGridSize")
+            }
+        }
+    }
+    
     static var receivedGrids: [ColorGrid] {
         get {
             guard let data = UserDefaults.standard.data(forKey: "receivedGrids"),

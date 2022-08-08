@@ -170,6 +170,10 @@ enum GridSize: Int, Codable {
     case small = 8
     case medium = 12
     case large = 16
+    
+    var blankGrid: [[Color]] {
+        Array(repeating: Array(repeating: .black, count: self.rawValue), count: self.rawValue)
+    }
 }
 
 extension String {

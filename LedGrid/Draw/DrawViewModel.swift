@@ -12,6 +12,7 @@ class DrawViewModel: ObservableObject {
     typealias Grid = [[Color]]
     
     @Published var grid: Grid = Utility.lastGrid
+    @Published var gridSize: GridSize = Utility.lastGridSize
     @Published var currentColor: Color = .red
     @Published var message: String = ""
     @Published var isLiveEditing: Bool = false
@@ -65,7 +66,18 @@ class DrawViewModel: ObservableObject {
     
     func setGridSquare(row: Int, col: Int) {
         grid[col][row] = currentColor
-        
+    }
+    
+    func setGridSize(_ size: GridSize) {
+        if size == gridSize { return }
+        clearGrid()
+        gridSize = size
+        grid = size.blankGrid
+        Utility.lastGridSize = size
+        undoStates.removeAll()
+        redoStates.removeAll()
+        currentState = grid
+        saveGrid()
     }
     
     func saveGrid() {
@@ -74,6 +86,10 @@ class DrawViewModel: ObservableObject {
     
     var hexGrid: [[String]] {
         grid.map { row in row.map { $0.hex } }
+    }
+    
+    var isGridBlank: Bool {
+        grid == gridSize.blankGrid
     }
     
     private func flattenGrid(_ grid: [[Color]]) -> String {
@@ -97,7 +113,7 @@ class DrawViewModel: ObservableObject {
     }
     
     func clearGrid() {
-        grid = Array(repeating: Array(repeating: Color.black, count: 8), count: 8)
+        grid = gridSize.blankGrid
         pushUndoState()
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }

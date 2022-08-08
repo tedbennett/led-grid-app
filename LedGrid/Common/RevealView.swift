@@ -6,33 +6,43 @@
 //
 
 import SwiftUI
+import Combine
 
 struct RevealView: View {
-    let grid: [[Color]]
+    var grid: [[Color]]
     var strokeWidth = 1.0
     var cornerRadius = 3.0
-    let timer = Timer.publish(every: 0.04, on: .main, in: .common).autoconnect()
-    @State private var isTimerRunning = false
+    var timer: Publishers.Autoconnect<Timer.TimerPublisher>
     
+    @State private var isTimerRunning = false
     @State private var revealed = 0
     
+    init(grid: [[Color]], strokeWidth: Double = 1.0, cornerRadius: Double = 3.0) {
+        self.grid = grid
+        self.strokeWidth = strokeWidth
+        self.cornerRadius = cornerRadius
+        timer = Timer.publish(every: 3.0 / Double(grid.count * grid.count), on: .main, in: .common).autoconnect()
+    }
+    
+    
+    var gridSize: GridSize {
+        GridSize(rawValue: grid.count) ?? .small
+    }
+    
     var body: some View {
-        VStack {
-            ForEach(0..<8) { col in
-                HStack(spacing: 5) {
-                    ForEach(0..<8) { row in
-                        if revealed > (col * 8) + row {
-                            let color = grid[col][row]
-                            SquareView(color: color, strokeWidth: strokeWidth, cornerRadius: cornerRadius)
-                        } else {
-                            SquareView(color: .clear, strokeWidth: 0, cornerRadius: cornerRadius)
-                        }
-                    }
-                }
+        PixelArtGrid(gridSize: gridSize) { col, row in
+            if revealed > (col * grid.count) + row {
+                let color = grid[col][row]
+                SquareView(color: color, strokeWidth: strokeWidth, cornerRadius: cornerRadius)
+            } else {
+                SquareView(color: .clear, strokeWidth: 0, cornerRadius: cornerRadius)
             }
-        }.onReceive(timer) { time in
+        }
+        .onReceive(timer) { time in
             if isTimerRunning {
-                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+                if gridSize == .small || (gridSize == .medium && revealed % 2 == 1) || (gridSize == .large && revealed % 3 == 1) {
+                    UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+                }
                 if revealed >= grid.count * grid.count {
                     timer.upstream.connect().cancel()
                     isTimerRunning = false
