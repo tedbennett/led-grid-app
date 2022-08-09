@@ -95,7 +95,7 @@ struct GridActionsView: View {
             }.buttonStyle(StandardButton(disabled: viewModel.redoStates.isEmpty))
         }.padding(.vertical, -20)
             .alert("Warning", isPresented: $showChangeSizeWarning) {
-                Button("Ok", role: .destructive) { showChangeSizeDialog = true }
+                Button("Ok", role: .destructive) { showChangeSizeDialog = true }.accentColor(.white)
             } message: {
                 Text("Changing grid size will erase your current art!")
             }

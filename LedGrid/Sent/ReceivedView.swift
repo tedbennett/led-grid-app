@@ -166,10 +166,12 @@ struct ExpandedReceivedArtView: View {
             } else {
                 RevealView(grid: grid.grid)
                     .aspectRatio(contentMode: .fit)
+                    .onAppear {
+                        GridManager.shared.markGridOpened(id: grid.id)
+                    }
                     .gesture(DragGesture().onChanged { val in
                         if val.translation.height > 50.0 {
                             withAnimation {
-                                GridManager.shared.markGridOpened(id: grid.id)
                                 expandedGrid = nil
                             }
                         }

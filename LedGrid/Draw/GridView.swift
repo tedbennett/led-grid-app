@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct GridView: View {
     
     @ObservedObject var viewModel: DrawViewModel
+    @State private var showColorChangeToast = false
     
     func grid(proxy: TouchOverProxy<Int>) -> some View {
         PixelArtGrid(gridSize: viewModel.gridSize) { col, row in
@@ -27,20 +29,26 @@ struct GridView: View {
                 viewModel.setGridSquare(row: row, col: col)
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
             }
-        }) { proxy in
+        }, onLongPress: { id in
+            let row = id % viewModel.gridSize.rawValue
+            let col = id / viewModel.gridSize.rawValue
+            viewModel.setColor(viewModel.grid[col][row])
+            showColorChangeToast = true
+            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+        }, onTapEnd: {
+            DispatchQueue.main.async {
+                viewModel.pushUndoState()
+            }
+        }, onDragEnd: {
+            DispatchQueue.main.async {
+                viewModel.pushUndoState()
+            }
+        })  { proxy in
             grid(proxy: proxy)
         }
-        .simultaneousGesture(
-            DragGesture()
-                .onEnded { _ in
-                    viewModel.pushUndoState()
-                }
-        ).simultaneousGesture(
-            TapGesture()
-                .onEnded { _ in
-                    viewModel.pushUndoState()
-                }
-        )
+        .toast(isPresenting: $showColorChangeToast, duration: 1.0) {
+            AlertToast(displayMode: .hud, type: .complete(.white), title: "Color copied!")
+        }
     }
 }
 
@@ -76,6 +84,15 @@ class TouchOverProxy<ID: Hashable> {
         frames[id] = frame
     }
     
+    func getID(position: CGPoint) -> ID? {
+        for (id, frame) in frames {
+            if frame.contains(position) {
+                return id
+            }
+        }
+        return nil
+    }
+    
     func check(dragPosition: CGPoint) {
         for (id, frame) in frames {
             if frame.contains(dragPosition) {
@@ -90,12 +107,28 @@ class TouchOverProxy<ID: Hashable> {
 struct TouchOverReader<ID, Content>: View where ID : Hashable, Content : View {
     private let proxy: TouchOverProxy<ID>
     private let content: (TouchOverProxy<ID>) -> Content
+    private let onLongPress: ((ID) -> Void)?
+    private let onTapEnd: (() -> Void)?
+    private let onDragEnd: (() -> Void)?
+    
+    @State var dragStartTime: Date?
+    @State var dragStart: ID?
+    
+    @State var isDragging = false
+    @State var didLongPress = false
+    @State var gestureId: String?
     
     init(_ idSelf: ID.Type, // without this, the initializer can't infer ID type
          onTouch: ((ID) -> Void)? = nil,
+         onLongPress: ((ID) -> Void)? = nil,
+         onTapEnd: (() -> Void)? = nil,
+         onDragEnd: (() -> Void)? = nil,
          @ViewBuilder content: @escaping (TouchOverProxy<ID>) -> Content) {
         proxy = TouchOverProxy(onTouch: onTouch)
         self.content = content
+        self.onLongPress = onLongPress
+        self.onTapEnd = onTapEnd
+        self.onDragEnd = onDragEnd
     }
     
     var body: some View {
@@ -103,7 +136,49 @@ struct TouchOverReader<ID, Content>: View where ID : Hashable, Content : View {
             .gesture(
                 DragGesture(minimumDistance: 0, coordinateSpace: .global)
                     .onChanged { value in
-                        proxy.check(dragPosition: value.location)
+                        if gestureId == nil {
+                            gestureId = UUID().uuidString
+                        }
+                        let currentGesture = gestureId!
+                        if didLongPress {
+                            return
+                        }
+                        if isDragging {
+                            proxy.check(dragPosition: value.location)
+                        } else if let id = proxy.getID(position: value.location) {
+                            if dragStart == nil {
+                                // Mark start position and time
+                                dragStartTime = value.time
+                                dragStart = id
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    if !self.didLongPress && !self.isDragging && self.gestureId == currentGesture {
+                                        self.didLongPress = true
+                                        self.onLongPress?(id)
+                                    }
+                                }
+                            } else if dragStart != id {
+                                isDragging = true
+                                // Now dragging
+                                proxy.check(dragPosition: value.location)
+                                proxy.check(dragPosition: value.startLocation)
+                            } else if let start = dragStartTime, start.distance(to: value.time) > 0.5 {
+                                onLongPress?(id)
+                                didLongPress = true
+                            }
+                        }
+                    }
+                    .onEnded { val in
+                        gestureId = nil
+                        if !isDragging && !didLongPress {
+                            proxy.check(dragPosition: val.location)
+                            onTapEnd?()
+                        } else if isDragging {
+                            onDragEnd?()
+                        }
+                        isDragging = false
+                        didLongPress = false
+                        dragStartTime = nil
+                        dragStart = nil
                     }
             )
     }
