@@ -10,30 +10,30 @@ import AlertToast
 
 struct GridView: View {
     
+    @ObservedObject var manager = DrawManager.shared
     @ObservedObject var viewModel: DrawViewModel
-    @State private var showColorChangeToast = false
     
     func grid(proxy: TouchOverProxy<Int>) -> some View {
-        PixelArtGrid(gridSize: viewModel.gridSize) { col, row in
-            let color = viewModel.grid[col][row]
-            let id = (col * viewModel.gridSize.rawValue) + row
+        PixelArtGrid(gridSize: manager.gridSize) { col, row in
+            let color = manager.grid[col][row]
+            let id = (col * manager.gridSize.rawValue) + row
             TouchableSquareView(id: id, color: color, proxy: proxy)
         }
     }
     
     var body: some View {
         TouchOverReader(Int.self, onTouch: { id in
-            let row = id % viewModel.gridSize.rawValue
-            let col = id / viewModel.gridSize.rawValue
+            let row = id % manager.gridSize.rawValue
+            let col = id / manager.gridSize.rawValue
             if viewModel.shouldSetGridSquare(row: row, col: col) {
                 viewModel.setGridSquare(row: row, col: col)
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
             }
         }, onLongPress: { id in
-            let row = id % viewModel.gridSize.rawValue
-            let col = id / viewModel.gridSize.rawValue
-            viewModel.setColor(viewModel.grid[col][row])
-            showColorChangeToast = true
+            let row = id % manager.gridSize.rawValue
+            let col = id / manager.gridSize.rawValue
+            viewModel.setColor(manager.grid[col][row])
+            viewModel.showColorChangeToast = true
             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
         }, onTapEnd: {
             DispatchQueue.main.async {
@@ -45,9 +45,6 @@ struct GridView: View {
             }
         })  { proxy in
             grid(proxy: proxy)
-        }
-        .toast(isPresenting: $showColorChangeToast, duration: 1.0) {
-            AlertToast(displayMode: .hud, type: .complete(.white), title: "Color copied!")
         }
     }
 }

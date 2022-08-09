@@ -15,9 +15,6 @@ struct LedGridApp: App {
 
     init() {
         UNUserNotificationCenter.current().delegate  = NotificationManager.shared
-        if NetworkManager.shared.credentialManager.canRenew() {
-
-        }
     }
     
     var body: some Scene {

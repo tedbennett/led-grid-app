@@ -71,10 +71,10 @@ struct ReceivedView: View {
                                                 .padding(0)
                                             
                                         }
-                                    }.padding()
+                                    }
+                                    .matchedGeometryEffect(id: item.id, in: gridAnimation).padding()
                                         .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
                                     
-                                        .matchedGeometryEffect(id: item.id, in: gridAnimation)
                                         .frame(width:( geometry.size.width - 60) / 2)
                                         .contextMenu {
                                             Button(
@@ -103,6 +103,13 @@ struct ReceivedView: View {
                     //                    }
                     .navigationTitle(expandedGrid == nil ? "Received Art" : "")
                     .blur(radius: expandedGrid == nil ? 0 : 20)
+                    
+                    .onTapGesture {
+                        if expandedGrid == nil { return }
+                        withAnimation {
+                            expandedGrid = nil
+                        }
+                    }
                     .toolbar {
                         ToolbarItemGroup(placement: .navigationBarLeading) {
                             Button {
@@ -111,7 +118,7 @@ struct ReceivedView: View {
                                 }
                             } label: {
                                 Image(systemName: "arrow.triangle.2.circlepath")
-                            }
+                            }.opacity(expandedGrid != nil ? 0 : 1)
                         }
                         ToolbarItemGroup() {
                             NavigationLink(isActive: $showSentGrids) {
@@ -121,7 +128,7 @@ struct ReceivedView: View {
                                 Text("Sent Art")
                                  Image(systemName: "chevron.right")
                                 }
-                            }
+                            }.opacity(expandedGrid != nil ? 0 : 1)
                         }
                     }
                 }
@@ -137,6 +144,7 @@ struct ReceivedView: View {
 struct ExpandedReceivedArtView: View {
     var grid: ColorGrid
     @Binding var expandedGrid: ColorGrid?
+    @State private var showChangeSizeWarning = false
     
     var body: some View {
         VStack {
@@ -144,7 +152,6 @@ struct ExpandedReceivedArtView: View {
                 Spacer()
                 Button {
                     withAnimation {
-                        GridManager.shared.markGridOpened(id: grid.id)
                         expandedGrid = nil
                     }
                 } label: {
@@ -154,7 +161,7 @@ struct ExpandedReceivedArtView: View {
             }
             if grid.opened {
                 MiniGridView(grid: grid.grid, viewSize: .large)
-                    .drawingGroup()
+//                    .drawingGroup()
                     .aspectRatio(contentMode: .fit)
                     .gesture(DragGesture().onChanged { val in
                         if val.translation.height > 50.0 {
@@ -179,6 +186,11 @@ struct ExpandedReceivedArtView: View {
             }
             
             HStack {
+                Button {
+                    showChangeSizeWarning = true
+                } label: {
+                    Text("Edit")
+                }.buttonStyle(StandardButton(disabled: false))
                 Spacer()
                 Text("FROM:")
                     .font(.system(.callout, design: .rounded))
@@ -191,6 +203,14 @@ struct ExpandedReceivedArtView: View {
             }
         }.padding()
             .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
+            .alert("Warning", isPresented: $showChangeSizeWarning) {
+                Button("Copy", role: .destructive) {
+                    DrawManager.shared.copyReceviedGrid(grid)
+                    NotificationManager.shared.selectedTab = 0
+                }.accentColor(.white)
+            } message: {
+                Text("Copying this art will erase your current canvas!")
+            }
     }
 }
 

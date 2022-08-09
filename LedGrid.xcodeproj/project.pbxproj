@@ -21,6 +21,9 @@
 		57C96DB027F45B56008C52BB /* SentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAF27F45B56008C52BB /* SentView.swift */; };
 		57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB127F45B93008C52BB /* ReceivedView.swift */; };
 		57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB427F45C01008C52BB /* SettingsView.swift */; };
+		9F317B6028A2F9AB00105E8C /* DrawManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B5F28A2F9AB00105E8C /* DrawManager.swift */; };
+		9F317B6228A3052400105E8C /* ExpandedSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6128A3052400105E8C /* ExpandedSendView.swift */; };
+		9F317B6428A3159500105E8C /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6328A3159500105E8C /* MailView.swift */; };
 		9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842928980EE30053F3DD /* UserOrb.swift */; };
 		9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842B289EF0150053F3DD /* RevealView.swift */; };
 		9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842D289F080A0053F3DD /* Sliders.swift */; };
@@ -55,6 +58,9 @@
 		57C96DB127F45B93008C52BB /* ReceivedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedView.swift; sourceTree = "<group>"; };
 		57C96DB427F45C01008C52BB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9F2E5455288C9C5E006C556C /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../../ios/Utilities; sourceTree = "<group>"; };
+		9F317B5F28A2F9AB00105E8C /* DrawManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawManager.swift; sourceTree = "<group>"; };
+		9F317B6128A3052400105E8C /* ExpandedSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedSendView.swift; sourceTree = "<group>"; };
+		9F317B6328A3159500105E8C /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		9F3A842928980EE30053F3DD /* UserOrb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOrb.swift; sourceTree = "<group>"; };
 		9F3A842B289EF0150053F3DD /* RevealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealView.swift; sourceTree = "<group>"; };
 		9F3A842D289F080A0053F3DD /* Sliders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sliders.swift; sourceTree = "<group>"; };
@@ -111,6 +117,7 @@
 				5799B42727F0D7E60039F621 /* ContentView.swift */,
 				9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */,
 				9FAB5EA7289496A800A620BB /* GridManager.swift */,
+				9F317B5F28A2F9AB00105E8C /* DrawManager.swift */,
 				9FAB5EA928949AEC00A620BB /* UserManager.swift */,
 				9FAB5EA52891D03B00A620BB /* LoginView.swift */,
 				57C96DA927F3A622008C52BB /* Common */,
@@ -140,6 +147,7 @@
 				9F3A842D289F080A0053F3DD /* Sliders.swift */,
 				5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */,
 				5799B43327F0D89D0039F621 /* GridView.swift */,
+				9F317B6128A3052400105E8C /* ExpandedSendView.swift */,
 			);
 			path = Draw;
 			sourceTree = "<group>";
@@ -151,6 +159,7 @@
 				9F3A842928980EE30053F3DD /* UserOrb.swift */,
 				5799B43527F0D8AA0039F621 /* SquareView.swift */,
 				9F3A842B289EF0150053F3DD /* RevealView.swift */,
+				9F317B6328A3159500105E8C /* MailView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -287,12 +296,15 @@
 				57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */,
 				57C96DA027F1D390008C52BB /* Utility.swift in Sources */,
 				5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */,
+				9F317B6228A3052400105E8C /* ExpandedSendView.swift in Sources */,
 				9FAB5EA8289496A800A620BB /* GridManager.swift in Sources */,
 				5799B43627F0D8AA0039F621 /* SquareView.swift in Sources */,
 				9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */,
 				9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */,
 				9FAB5EAA28949AEC00A620BB /* UserManager.swift in Sources */,
+				9F317B6028A2F9AB00105E8C /* DrawManager.swift in Sources */,
 				5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */,
+				9F317B6428A3159500105E8C /* MailView.swift in Sources */,
 				9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */,
 				57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */,
 				9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */,

@@ -13,7 +13,7 @@ struct SettingsView: View {
     @Binding var loggedIn: Bool
     @State private var friends = Utility.friends
     @State private var showEditView = false
-    
+    @State private var showEmailModal = false
     
     func presentShareSheet() {
         guard let userId = Utility.user?.id,
@@ -68,7 +68,19 @@ struct SettingsView: View {
                         }
                     }
                 }
-            }.navigationTitle("Settings").toolbar {
+                
+                Section {
+                    Button {
+                        showEmailModal = true
+                    } label: {
+                        Text("Send Feedback")
+                    }
+                }
+            }
+            .sheet(isPresented: $showEmailModal) {
+                MailView(recipient: "ted_bennett@icloud.com", subject: "Pixee Feedback", body: "Please enter your feedback below:\n\n\n\n\nThank you for leaving feedback and helping to improve Pixee!\n\nTed")
+            }
+            .navigationTitle("Settings").toolbar {
                 Button {
                     UserManager.shared.logout()
                     loggedIn = false

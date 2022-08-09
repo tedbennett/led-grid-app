@@ -11,21 +11,15 @@ class DrawViewModel: ObservableObject {
     
     typealias Grid = [[Color]]
     
-    @Published var grid: Grid = Utility.lastGrid
-    @Published var gridSize: GridSize = Utility.lastGridSize
+    var manager = DrawManager.shared
     @Published var currentColor: Color = .red
-    @Published var message: String = ""
-    @Published var isLiveEditing: Bool = false
     @Published var selectedUsers: [String] = Utility.lastSelectedFriends
     
     @Published var sendingGrid = false
     
     @Published var sentGrid = false
     @Published var failedToSendGrid = false
-    
-    @Published var undoStates: [Grid] = []
-    @Published var redoStates: [Grid] = []
-    private var currentState: Grid = Utility.lastGrid
+    @Published var showColorChangeToast = false
     
     @Published var hue = 0.03 {
         didSet {
@@ -65,34 +59,17 @@ class DrawViewModel: ObservableObject {
         }
     }
     
-    
-    
     func undo() {
-        guard let previousState = undoStates.popLast() else { return }
-        let currentState = grid
-        redoStates.append(currentState)
-        grid = previousState
-        self.currentState = previousState
-        
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        DrawManager.shared.undo()
     }
     
     func redo() {
-        guard let previousState = redoStates.popLast() else { return }
-        let currentState = grid
-        undoStates.append(currentState)
-        grid = previousState
-        self.currentState = previousState
+        DrawManager.shared.redo()
         
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
     
     func pushUndoState() {
-        redoStates.removeAll()
-        if currentState != grid {
-            undoStates.append(currentState)
-            currentState = grid
-        }
+        DrawManager.shared.pushUndoState()
     }
     
     func selectColor(_ color: Color) {
@@ -101,35 +78,31 @@ class DrawViewModel: ObservableObject {
     }
     
     func shouldSetGridSquare(row: Int, col: Int) -> Bool {
-        return grid[col][row] != currentColor
+        return manager.grid[col][row] != currentColor
     }
     
     func setGridSquare(row: Int, col: Int) {
-        grid[col][row] = currentColor
+        manager.grid[col][row] = currentColor
     }
     
     func setGridSize(_ size: GridSize) {
-        if size == gridSize { return }
-        clearGrid()
-        gridSize = size
-        grid = size.blankGrid
-        Utility.lastGridSize = size
-        undoStates.removeAll()
-        redoStates.removeAll()
-        currentState = grid
-        saveGrid()
+        DrawManager.shared.setGridSize(size)
     }
     
     func saveGrid() {
-        Utility.lastGrid = grid
+        DrawManager.shared.saveGrid()
+    }
+    
+    func clearGrid() {
+        DrawManager.shared.clearGrid()
     }
     
     var hexGrid: [[String]] {
-        grid.map { row in row.map { $0.hex } }
+        manager.grid.map { row in row.map { $0.hex } }
     }
     
     var isGridBlank: Bool {
-        grid == gridSize.blankGrid
+        manager.grid == manager.gridSize.blankGrid
     }
     
     private func flattenGrid(_ grid: [[Color]]) -> String {
@@ -140,7 +113,7 @@ class DrawViewModel: ObservableObject {
         sendingGrid = true
         Task {
             Utility.lastSelectedFriends = selectedUsers
-            let success = await GridManager.shared.sendGrid(grid, to: selectedUsers)
+            let success = await GridManager.shared.sendGrid(manager.grid, to: selectedUsers)
             await MainActor.run {
                 sendingGrid = false
                 if success {
@@ -152,10 +125,5 @@ class DrawViewModel: ObservableObject {
         }
     }
     
-    func clearGrid() {
-        grid = gridSize.blankGrid
-        pushUndoState()
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-    }
 }
 

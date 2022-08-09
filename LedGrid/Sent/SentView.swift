@@ -84,6 +84,13 @@ struct SentView: View {
                         
                     }.navigationTitle(expandedGrid == nil ? "Sent Art" : "")
                         .blur(radius: expandedGrid == nil ? 0 : 20)
+                        .onTapGesture {
+                            if expandedGrid == nil { return }
+                            withAnimation {
+                                expandedGrid = nil
+                            }
+                        }
+                        .navigationBarBackButtonHidden(expandedGrid != nil)
                 }
                 
                 if let expandedGrid = expandedGrid {
