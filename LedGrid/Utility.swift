@@ -8,84 +8,102 @@
 import SwiftUI
 
 struct Utility {
-    static var lastGrid: [[Color]] {
+    private enum Keys: String {
+        case currentGrids
+        case currentGridIndex
+    }
+    static let store = UserDefaults(suiteName: "group.9Y2AMH5S23.com.edwardbennett.pixee")!
+    
+    
+    static var currentGrids: [Grid] {
         get {
-            guard let data = UserDefaults.standard.data(forKey: "lastGrid"),
-                  let colors = try? JSONDecoder().decode([[Color]].self, from: data) else {
-                return Array(repeating: Array(repeating: Color.black, count: 8), count: 8)
+            guard let data = store.data(forKey: Keys.currentGrids.rawValue),
+                  let colors = try? JSONDecoder().decode([Grid].self, from: data) else {
+                return [GridSize.small.blankGrid]
             }
             return colors
         }
         set {
             let data = try? JSONEncoder().encode(newValue)
             DispatchQueue.main.async {
-                UserDefaults.standard.set(data, forKey: "lastGrid")
+                store.set(data, forKey: Keys.currentGrids.rawValue)
             }
         }
     }
     
-    static var lastGridSize: GridSize {
+    static var currentGridIndex: Int {
         get {
-            guard let data = UserDefaults.standard.data(forKey: "lastGridSize"),
-                  let size = try? JSONDecoder().decode(GridSize.self, from: data) else {
-                return .small
-            }
-            return size
+            return store.integer(forKey: Keys.currentGridIndex.rawValue)
         }
         set {
-            let data = try? JSONEncoder().encode(newValue)
             DispatchQueue.main.async {
-                UserDefaults.standard.set(data, forKey: "lastGridSize")
+                store.set(newValue, forKey: Keys.currentGridIndex.rawValue)
             }
         }
     }
-    
-    static var receivedGrids: [ColorGrid] {
-        get {
-            guard let data = UserDefaults.standard.data(forKey: "receivedGrids"),
-                  let grids = try? JSONDecoder().decode([ColorGrid].self, from: data) else {
-                return []
-            }
-            return grids
-        }
-        set {
-            let data = try? JSONEncoder().encode(newValue)
-            DispatchQueue.main.async {
-                UserDefaults.standard.set(data, forKey: "receivedGrids")
-            }
-        }
-    }
-    
-    static var sentGrids: [ColorGrid] {
-        get {
-            guard let data = UserDefaults.standard.data(forKey: "sentGrids"),
-                  let grids = try? JSONDecoder().decode([ColorGrid].self, from: data) else {
-                return []
-            }
-            return grids
-        }
-        set {
-            let data = try? JSONEncoder().encode(newValue)
-            DispatchQueue.main.async {
-                UserDefaults.standard.set(data, forKey: "sentGrids")
-            }
-        }
-    }
+//
+//    static var lastGridSize: GridSize {
+//        get {
+//            guard let data = store.data(forKey: "lastGridSize"),
+//                  let size = try? JSONDecoder().decode(GridSize.self, from: data) else {
+//                return .small
+//            }
+//            return size
+//        }
+//        set {
+//            let data = try? JSONEncoder().encode(newValue)
+//            DispatchQueue.main.async {
+//                store.set(data, forKey: "lastGridSize")
+//            }
+//        }
+//    }
+//    
+//    static var receivedGrids: [PixelArt] {
+//        get {
+//            guard let data = store.data(forKey: "receivedGrids"),
+//                  let grids = try? JSONDecoder().decode([PixelArt].self, from: data) else {
+//                return []
+//            }
+//            return grids
+//        }
+//        set {
+//            let data = try? JSONEncoder().encode(newValue)
+//            DispatchQueue.main.async {
+//                store.set(data, forKey: "receivedGrids")
+//            }
+//        }
+//    }
+//
+//    static var sentGrids: [PixelArt] {
+//        get {
+//            guard let data = store.data(forKey: "sentGrids"),
+//                  let grids = try? JSONDecoder().decode([PixelArt].self, from: data) else {
+//                return []
+//            }
+//            return grids
+//        }
+//        set {
+//            let data = try? JSONEncoder().encode(newValue)
+//            DispatchQueue.main.async {
+//                store.set(data, forKey: "sentGrids")
+//            }
+//        }
+//    }
     
     static var gridDuration: Int {
         get {
-            let duration = UserDefaults.standard.integer(forKey: "duration")
+            let duration = store.integer(forKey: "duration")
             return duration > 0 ? duration : 5
         } set {
             DispatchQueue.main.async {
-                UserDefaults.standard.set(newValue, forKey: "duration")
+                store.set(newValue, forKey: "duration")
             }
         }
     }
     
     static var user: User? {
         get {
-            guard let data = UserDefaults.standard.data(forKey: "user") else {
+            guard let data = store.data(forKey: "user") else {
                 return nil
             }
             return try? JSONDecoder().decode(User.self, from: data)
@@ -93,14 +111,14 @@ struct Utility {
         set {
             let data = try? JSONEncoder().encode(newValue)
             DispatchQueue.main.async {
-                UserDefaults.standard.set(data, forKey: "user")
+                store.set(data, forKey: "user")
             }
         }
     }
     
     static var friends: [User] {
         get {
-            guard let data = UserDefaults.standard.data(forKey: "friends"),
+            guard let data = store.data(forKey: "friends"),
                   let users = try? JSONDecoder().decode([User].self, from: data) else {
                 return []
             }
@@ -109,53 +127,53 @@ struct Utility {
         set {
             let data = try? JSONEncoder().encode(newValue)
             DispatchQueue.main.async {
-                UserDefaults.standard.set(data, forKey: "friends")
+                store.set(data, forKey: "friends")
             }
         }
     }
     
     static var lastReceivedFetchDate: Date? {
         get {
-            UserDefaults.standard.object(forKey: "lastReceivedFetchDate") as? Date
+            store.object(forKey: "lastReceivedFetchDate") as? Date
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "lastReceivedFetchDate")
+            store.set(newValue, forKey: "lastReceivedFetchDate")
         }
     }
     
     static var lastSentFetchDate: Date? {
         get {
-            UserDefaults.standard.object(forKey: "lastSentFetchDate") as? Date
+            store.object(forKey: "lastSentFetchDate") as? Date
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "lastSentFetchDate")
+            store.set(newValue, forKey: "lastSentFetchDate")
         }
     }
     
     static var lastSelectedFriends: [String] {
         get {
-            UserDefaults.standard.array(forKey: "lastSelectedFriends") as? [String] ?? []
+            store.array(forKey: "lastSelectedFriends") as? [String] ?? []
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "lastSelectedFriends")
+            store.set(newValue, forKey: "lastSelectedFriends")
         }
     }
     
     static var launchedBefore: Bool {
         get {
-            UserDefaults.standard.bool(forKey: "launchedBefore")
+            store.bool(forKey: "launchedBefore")
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "launchedBefore")
+            store.set(newValue, forKey: "launchedBefore")
         }
     }
     
     static var lastOpenedVersion: String? {
         get {
-            UserDefaults.standard.string(forKey: "lastOpenedVersion")
+            store.string(forKey: "lastOpenedVersion")
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "lastOpenedVersion")
+            store.set(newValue, forKey: "lastOpenedVersion")
         }
     }
 }

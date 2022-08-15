@@ -13,41 +13,73 @@ class DrawManager: ObservableObject {
     static var shared = DrawManager()
     private init() { }
     
-    @Published var grid: [[Color]] = Utility.lastGrid
-    @Published var gridSize: GridSize = Utility.lastGridSize
     
+    @Published var grids: [Grid] = Utility.currentGrids
+    @Published var gridSize: GridSize = Utility.currentGrids[0].size
+    @Published var currentGrid: Grid = {
+        let grids = Utility.currentGrids
+        return Utility.currentGridIndex < grids.count ? grids[Utility.currentGridIndex] : grids[0]
+    }()
+    @Published var currentGridIndex: Int = Utility.currentGridIndex {
+        didSet {
+            currentGrid = grids[currentGridIndex]
+        }
+    }
     
-    @Published var undoStates: [[[Color]]] = []
-    @Published var redoStates: [[[Color]]] = []
-    private var currentState: [[Color]] = Utility.lastGrid
+    @Published var undoStates: [Grid] = []
+    @Published var redoStates: [Grid] = []
+    private var currentState: Grid = {
+        let grids = Utility.currentGrids
+        return Utility.currentGridIndex < grids.count ? grids[Utility.currentGridIndex] : grids[0]
+    }()
+    
+    func setCurrentGrids(_ grids: [Grid], clearUndo: Bool = false) {
+        self.grids = grids
+        gridSize = grids[0].size
+        currentGridIndex = 0
+        if clearUndo {
+            undoStates.removeAll()
+            redoStates.removeAll()
+        }
+    }
+    
+    func changeToGrid(at index: Int) {
+        guard index < grids.count, index != currentGridIndex else { return }
+        currentGridIndex = index
+        undoStates.removeAll()
+        redoStates.removeAll()
+        
+    }
     
     func setGridSize(_ size: GridSize) {
         if size == gridSize { return }
         clearGrid()
         gridSize = size
-        grid = size.blankGrid
-        Utility.lastGridSize = size
+        grids = [size.blankGrid]
+        currentGridIndex = 0
         undoStates.removeAll()
         redoStates.removeAll()
-        currentState = grid
+        currentState = currentGrid
         saveGrid()
     }
     
     func saveGrid() {
-        Utility.lastGrid = grid
+        grids[currentGridIndex] = currentGrid
+        Utility.currentGrids = grids
+        Utility.currentGridIndex = currentGridIndex
     }
     
     func clearGrid() {
-        grid = gridSize.blankGrid
+        currentGrid = gridSize.blankGrid
         pushUndoState()
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
     
     func undo() {
         guard let previousState = undoStates.popLast() else { return }
-        let currentState = grid
+        let currentState = currentGrid
         redoStates.append(currentState)
-        grid = previousState
+        currentGrid = previousState
         self.currentState = previousState
         
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -55,9 +87,9 @@ class DrawManager: ObservableObject {
     
     func redo() {
         guard let previousState = redoStates.popLast() else { return }
-        let currentState = grid
+        let currentState = currentGrid
         undoStates.append(currentState)
-        grid = previousState
+        currentGrid = previousState
         self.currentState = previousState
         
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -65,14 +97,20 @@ class DrawManager: ObservableObject {
     
     func pushUndoState() {
         redoStates.removeAll()
-        if currentState != grid {
+        if currentState != currentGrid {
             undoStates.append(currentState)
-            currentState = grid
+            currentState = currentGrid
         }
     }
-    func copyReceviedGrid(_ received: ColorGrid) {
+    func copyReceivedGrid(_ received: PixelArt) {
         setGridSize(received.size)
-        grid = received.grid
+        setCurrentGrids(received.grids)
     }
     
+}
+
+extension Grid {
+    var size: GridSize {
+        return GridSize(rawValue: self.count) ?? .small
+    }
 }

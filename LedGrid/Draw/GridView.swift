@@ -15,7 +15,7 @@ struct GridView: View {
     
     func grid(proxy: TouchOverProxy<Int>) -> some View {
         PixelArtGrid(gridSize: manager.gridSize) { col, row in
-            let color = manager.grid[col][row]
+            let color = manager.currentGrid[col][row]
             let id = (col * manager.gridSize.rawValue) + row
             TouchableSquareView(id: id, color: color, proxy: proxy)
         }
@@ -32,7 +32,7 @@ struct GridView: View {
         }, onLongPress: { id in
             let row = id % manager.gridSize.rawValue
             let col = id / manager.gridSize.rawValue
-            viewModel.setColor(manager.grid[col][row])
+            viewModel.setColor(manager.currentGrid[col][row])
             viewModel.showColorChangeToast = true
             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
         }, onTapEnd: {

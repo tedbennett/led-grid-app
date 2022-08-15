@@ -9,18 +9,20 @@ import SwiftUI
 import Combine
 
 struct RevealView: View {
-    var grid: [[Color]]
+    var grid: Grid
     var strokeWidth = 1.0
     var cornerRadius = 3.0
     var timer: Publishers.Autoconnect<Timer.TimerPublisher>
+    var onFinish: () -> Void
     
     @State private var isTimerRunning = false
     @State private var revealed = 0
     
-    init(grid: [[Color]], strokeWidth: Double = 1.0, cornerRadius: Double = 3.0) {
+    init(grid: Grid, strokeWidth: Double = 1.0, cornerRadius: Double = 3.0, onFinish: @escaping () -> Void) {
         self.grid = grid
         self.strokeWidth = strokeWidth
         self.cornerRadius = cornerRadius
+        self.onFinish = onFinish
         timer = Timer.publish(every: 3.0 / Double(grid.count * grid.count), on: .main, in: .common).autoconnect()
     }
     
@@ -46,6 +48,7 @@ struct RevealView: View {
                 if revealed >= grid.count * grid.count {
                     timer.upstream.connect().cancel()
                     isTimerRunning = false
+                    onFinish()
                 } else {
                     revealed += 1
                 }
@@ -53,6 +56,7 @@ struct RevealView: View {
         }.onDisappear {
             timer.upstream.connect().cancel()
             isTimerRunning = false
+            onFinish()
         }.onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 isTimerRunning = true

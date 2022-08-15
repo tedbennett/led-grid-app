@@ -55,7 +55,7 @@ struct LoginView: View {
                         .stroke(.white, lineWidth: 2)
                 )
                 } else {
-                    ProgressView().frame(width: 250, height: 80).overlay(
+                    Spinner().font(.title).frame(width: 250, height: 80).overlay(
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(.white, lineWidth: 2)
                     )
@@ -108,6 +108,27 @@ struct SpinningImageView: View {
             }
             
         }
+        .rotationEffect(Angle(degrees: isAnimating ? 360: 0 ))
+        
+        .task {
+            withAnimation(self.foreverAnimation) {
+                isAnimating = true
+            }
+        }
+    }
+}
+
+struct Spinner: View {
+    @State var isAnimating = false
+    
+    var foreverAnimation: Animation {
+        Animation.linear(duration: 1.3)
+            .repeatForever(autoreverses: false)
+    }
+    var body: some View {
+        Image(systemName: "square.grid.2x2")
+            .padding(0)
+        
         .rotationEffect(Angle(degrees: isAnimating ? 360: 0 ))
         
         .task {

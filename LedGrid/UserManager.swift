@@ -112,8 +112,7 @@ class UserManager: ObservableObject {
         NetworkManager.shared.logout()
         user = nil
         friends = []
-        GridManager.shared.receivedGrids = []
-        GridManager.shared.sentGrids = []
+        GridManager.shared.removeAllGrids()
         Utility.lastSelectedFriends = []
         Utility.lastReceivedFetchDate = nil
     }

@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ReceivedView: View {
     @ObservedObject var manager = GridManager.shared
-    @State private var expandedGrid: ColorGrid?
+    @State private var expandedGrid: PixelArt?
     @Namespace private var gridAnimation
     
     @State private var showSentGrids = false
+    @State private var fetchingGrids = false
     
     let columns = [
         GridItem(.flexible()),
@@ -20,7 +21,7 @@ struct ReceivedView: View {
     ]
     
     
-    func expandedView(grid: ColorGrid) -> some View {
+    func expandedView(grid: PixelArt) -> some View {
         VStack {
             Spacer()
             ExpandedReceivedArtView(grid: grid, expandedGrid: $expandedGrid)
@@ -29,6 +30,22 @@ struct ReceivedView: View {
         }.padding(.horizontal, 20)
     }
     
+    func gridDetails(_ item: PixelArt) -> some View {
+        HStack {
+            if item.grids.count > 1 {
+                Label {
+                    Text("\(item.grids.count)")
+                } icon: {
+                    Image(systemName: "square.stack.3d.up.fill")
+                }.foregroundColor(.gray)
+            }
+            Spacer()
+            UserOrb(text: UserManager.shared.getInitials(for: item.sender), isSelected: false)
+                .frame(width: 26, height: 26)
+                .padding(0)
+            
+        }
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -36,7 +53,7 @@ struct ReceivedView: View {
                 NavigationView {
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 30) {
-                            ForEach(manager.receivedGrids.filter({ !$0.hidden })) { item in
+                            ForEach(manager.receivedGrids) { item in
                                 if expandedGrid?.id != item.id {
                                     VStack {
                                         Button {
@@ -44,38 +61,26 @@ struct ReceivedView: View {
                                                 expandedGrid = item
                                             }
                                         } label: {
-                                            if item.opened {
-                                                MiniGridView(grid: item.grid, viewSize: .small)
+                                            ZStack {
+                                                Text("Tap to View!").opacity(item.opened ? 0 : 1)
+                                                MiniGridView(grid: item.grids[0], viewSize: .small)
                                                     .aspectRatio(contentMode: .fit)
-                                                    .drawingGroup()
-                                            } else {
-                                                ZStack {
-                                                    MiniGridView(grid: Array(repeating:  Array(repeating: .clear, count: item.grid.count), count: item.grid.count), viewSize: .small).opacity(0.001)
-                                                        .aspectRatio(contentMode: .fit)
-                                                    Text("Tap to View!")
-                                                    VStack {
+                                                    .opacity(item.opened ? 1 : 0.001)
+                                                VStack {
                                                     HStack {
                                                         Spacer()
                                                         Circle().fill(Color.red).frame(width: 15, height: 15)
                                                     }
-                                                        Spacer()
-                                                    }
-                                                }
+                                                    Spacer()
+                                                }.opacity(item.opened ? 0 : 1)
                                             }
                                         }.buttonStyle(.plain)
                                             .allowsHitTesting(expandedGrid == nil)
-                                        HStack {
-                                            Spacer()
-                                            UserOrb(text: UserManager.shared.getInitials(for: item.sender), isSelected: false)
-                                                .frame(width: 26, height: 26)
-                                                .padding(0)
-                                            
-                                        }
-                                    }
-                                    .matchedGeometryEffect(id: item.id, in: gridAnimation).padding()
+                                        gridDetails(item)
+                                    }.padding()
                                         .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
-                                    
-                                        .frame(width:( geometry.size.width - 60) / 2)
+                                        .drawingGroup()
+                                        .matchedGeometryEffect(id: item.id, in: gridAnimation)
                                         .contextMenu {
                                             Button(
                                                 item.hidden ? "Show" : "Hide",
@@ -86,21 +91,22 @@ struct ReceivedView: View {
                                                 }
                                             }
                                         }
-                                    
                                 } else {
-                                    Rectangle().fill(Color(uiColor: .systemBackground)).frame(width:( geometry.size.width - 60) / 2).opacity(0.05)
+                                    VStack {
+                                        MiniGridView(grid: item.grids[0], viewSize: .small)
+                                            .aspectRatio(contentMode: .fit)
+                                        gridDetails(item)
+                                    }
+                                    .padding()
+                                    .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
+                                    .opacity(0.001)
+                                    .drawingGroup()
                                 }
-                                
                             }
                         }
                         .padding(.horizontal)
                         
                     }
-                    //                onRefresh: {
-                    //                        Task {
-                    //                            await GridManager.shared.refreshReceivedGrids()
-                    //                        }
-                    //                    }
                     .navigationTitle(expandedGrid == nil ? "Received Art" : "")
                     .blur(radius: expandedGrid == nil ? 0 : 20)
                     
@@ -113,20 +119,31 @@ struct ReceivedView: View {
                     .toolbar {
                         ToolbarItemGroup(placement: .navigationBarLeading) {
                             Button {
+                                fetchingGrids = true
                                 Task {
                                     await GridManager.shared.refreshReceivedGrids()
+                                    await MainActor.run {
+                                        fetchingGrids = false
+                                    }
                                 }
                             } label: {
-                                Image(systemName: "arrow.triangle.2.circlepath")
+                                Group {
+                                    if fetchingGrids {
+                                        Spinner()
+                                    } else {
+                                        Image(systemName: "arrow.triangle.2.circlepath")
+                                    }
+                                }
                             }.opacity(expandedGrid != nil ? 0 : 1)
+                                .disabled(fetchingGrids)
                         }
                         ToolbarItemGroup() {
                             NavigationLink(isActive: $showSentGrids) {
                                 SentView()
                             } label: {
                                 HStack {
-                                Text("Sent Art")
-                                 Image(systemName: "chevron.right")
+                                    Text("Sent Art")
+                                    Image(systemName: "chevron.right")
                                 }
                             }.opacity(expandedGrid != nil ? 0 : 1)
                         }
@@ -142,14 +159,28 @@ struct ReceivedView: View {
 }
 
 struct ExpandedReceivedArtView: View {
-    var grid: ColorGrid
-    @Binding var expandedGrid: ColorGrid?
+    var grid: PixelArt
+    @Binding var expandedGrid: PixelArt?
     @State private var showChangeSizeWarning = false
+    let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
+    @State private var frameIndex = 0
+    @State private var replay = false
     
     var body: some View {
         VStack {
             HStack {
+                Text(grid.sentAt.formattedDate())
+                    .foregroundColor(.gray)
                 Spacer()
+                if grid.grids.count == 1 {
+                    Button {
+                        replay = true
+                    } label: {
+                        Image(systemName: "play").font(.title2)
+                    }.buttonStyle(StandardButton(disabled: false))
+                        .padding(.bottom, 10)
+                        .padding(.trailing, 5)
+                }
                 Button {
                     withAnimation {
                         expandedGrid = nil
@@ -159,9 +190,9 @@ struct ExpandedReceivedArtView: View {
                 }.buttonStyle(StandardButton(disabled: false))
                     .padding(.bottom, 10)
             }
-            if grid.opened {
-                MiniGridView(grid: grid.grid, viewSize: .large)
-//                    .drawingGroup()
+            if !replay && (grid.opened || grid.grids.count > 1) {
+                MiniGridView(grid: grid.grids[frameIndex], viewSize: .large)
+                //                    .drawingGroup()
                     .aspectRatio(contentMode: .fit)
                     .gesture(DragGesture().onChanged { val in
                         if val.translation.height > 50.0 {
@@ -171,18 +202,18 @@ struct ExpandedReceivedArtView: View {
                         }
                     })
             } else {
-                RevealView(grid: grid.grid)
-                    .aspectRatio(contentMode: .fit)
-                    .onAppear {
-                        GridManager.shared.markGridOpened(id: grid.id)
-                    }
-                    .gesture(DragGesture().onChanged { val in
-                        if val.translation.height > 50.0 {
-                            withAnimation {
-                                expandedGrid = nil
-                            }
+                RevealView(grid: grid.grids[0]) {
+                    replay = false
+                    GridManager.shared.setGridOpened(id: grid.id, opened: true)
+                }
+                .aspectRatio(contentMode: .fit)
+                .gesture(DragGesture().onChanged { val in
+                    if val.translation.height > 50.0 {
+                        withAnimation {
+                            expandedGrid = nil
                         }
-                    })
+                    }
+                })
             }
             
             HStack {
@@ -199,17 +230,23 @@ struct ExpandedReceivedArtView: View {
                 
                 UserOrb(text: UserManager.shared.getInitials(for: grid.sender), isSelected: false)
                     .frame(width: 50, height: 50)
-                        
+                
             }
         }.padding()
             .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
             .alert("Warning", isPresented: $showChangeSizeWarning) {
                 Button("Copy", role: .destructive) {
-                    DrawManager.shared.copyReceviedGrid(grid)
+                    DrawManager.shared.copyReceivedGrid(grid)
                     NotificationManager.shared.selectedTab = 0
                 }.accentColor(.white)
             } message: {
                 Text("Copying this art will erase your current canvas!")
+            }
+            .onReceive(timer) { time in
+                frameIndex = frameIndex >= grid.grids.count - 1 ? 0 : frameIndex + 1
+            }
+            .onDisappear {
+                timer.upstream.connect().cancel()
             }
     }
 }

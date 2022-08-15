@@ -9,13 +9,12 @@ import SwiftUI
 
 class DrawViewModel: ObservableObject {
     
-    typealias Grid = [[Color]]
-    
     var manager = DrawManager.shared
     @Published var currentColor: Color = .red
     @Published var selectedUsers: [String] = Utility.lastSelectedFriends
     
     @Published var sendingGrid = false
+    @Published var title = ""
     
     @Published var sentGrid = false
     @Published var failedToSendGrid = false
@@ -78,11 +77,11 @@ class DrawViewModel: ObservableObject {
     }
     
     func shouldSetGridSquare(row: Int, col: Int) -> Bool {
-        return manager.grid[col][row] != currentColor
+        return manager.currentGrid[col][row] != currentColor
     }
     
     func setGridSquare(row: Int, col: Int) {
-        manager.grid[col][row] = currentColor
+        manager.currentGrid[col][row] = currentColor
     }
     
     func setGridSize(_ size: GridSize) {
@@ -98,14 +97,14 @@ class DrawViewModel: ObservableObject {
     }
     
     var hexGrid: [[String]] {
-        manager.grid.map { row in row.map { $0.hex } }
+        manager.currentGrid.map { row in row.map { $0.hex } }
     }
     
     var isGridBlank: Bool {
-        manager.grid == manager.gridSize.blankGrid
+        manager.currentGrid == manager.gridSize.blankGrid
     }
     
-    private func flattenGrid(_ grid: [[Color]]) -> String {
+    private func flattenGrid(_ grid: Grid) -> String {
         return grid.flatMap { row in row.map { $0.hex }}.joined(separator: "")
     }
     
@@ -113,7 +112,8 @@ class DrawViewModel: ObservableObject {
         sendingGrid = true
         Task {
             Utility.lastSelectedFriends = selectedUsers
-            let success = await GridManager.shared.sendGrid(manager.grid, to: selectedUsers)
+            let title = title.count > 0 ? title : nil
+            let success = await GridManager.shared.sendGrid(manager.grids, title: title, to: selectedUsers)
             await MainActor.run {
                 sendingGrid = false
                 if success {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 @main
 struct LedGridApp: App {
@@ -15,6 +16,7 @@ struct LedGridApp: App {
 
     init() {
         UNUserNotificationCenter.current().delegate  = NotificationManager.shared
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     var body: some Scene {

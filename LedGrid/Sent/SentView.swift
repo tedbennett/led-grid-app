@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SentView: View {
     @ObservedObject var manager = GridManager.shared
-    @State private var expandedGrid: ColorGrid?
+    @State private var expandedGrid: PixelArt?
     @Namespace private var gridAnimation
     
     let columns = [
@@ -18,7 +18,7 @@ struct SentView: View {
     ]
     
     
-    func expandedView(grid: ColorGrid) -> some View {
+    func expandedView(grid: PixelArt) -> some View {
         VStack {
             Spacer()
             ExpandedArtView(grid: grid, expandedGrid: $expandedGrid)
@@ -27,76 +27,90 @@ struct SentView: View {
         }.padding(.horizontal, 20)
     }
     
+    func gridDetails(_ item: PixelArt) -> some View {
+        HStack {
+            if item.grids.count > 1 {
+                Image(systemName: "square.stack.3d.up.fill")
+                    .padding(.trailing, -3)
+                    .foregroundColor(.gray)
+                    .font(.callout)
+                
+                Text("\(item.grids.count)")
+                    .padding(0)
+                    .foregroundColor(.gray)
+                    .font(.caption)
+            }
+            Spacer()
+            ForEach(item.receivers.prefix(item.receivers.count > 3 ? 2 : 3), id: \.self) { id in
+                UserOrb(text: UserManager.shared.getInitials(for: id), isSelected: false)
+                    .frame(width: 26, height: 26)
+                    .padding(0)
+            }
+            if item.receivers.count > 3 {
+                UserOrb(text: "+\(item.receivers.count - 2)", isSelected: false).frame(width: 26, height: 26)
+            }
+        }
+    }
+    
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-//                NavigationView {
-                    ScrollView {
-                        LazyVGrid(columns: columns, spacing: 30) {
-                            ForEach(manager.sentGrids.filter({ !$0.hidden })) { item in
-                                if expandedGrid?.id != item.id {
-                                    VStack {
-                                        Button {
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 30) {
+                        ForEach(manager.sentGrids) { item in
+                            if expandedGrid?.id != item.id {
+                                VStack {
+                                    Button {
+                                        withAnimation {
+                                            expandedGrid = item
+                                        }
+                                    } label: {
+                                        MiniGridView(grid: item.grids[0], viewSize: .small)
+                                            .aspectRatio(contentMode: .fit)
+                                    }.buttonStyle(.plain)
+                                        .allowsHitTesting(expandedGrid == nil)
+                                    gridDetails(item)
+                                }.padding()
+                                    .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
+                                    .contextMenu {
+                                        Button(
+                                            item.hidden ? "Show" : "Hide",
+                                            role: item.hidden ? .none : .destructive
+                                        ) {
                                             withAnimation {
-                                                expandedGrid = item
-                                            }
-                                        } label: {
-                                            MiniGridView(grid: item.grid, viewSize: .small)
-                                                .aspectRatio(contentMode: .fit)
-                                                .drawingGroup()
-                                        }.buttonStyle(.plain)
-                                            .allowsHitTesting(expandedGrid == nil)
-                                        HStack {
-                                            Spacer()
-                                            ForEach(item.receiver.prefix(item.receiver.count > 4 ? 3 : 4), id: \.self) { id in
-                                                UserOrb(text: UserManager.shared.getInitials(for: id), isSelected: false)
-                                                    .frame(width: 26, height: 26)
-                                                    .padding(0)
-                                            }
-                                            if item.receiver.count > 4 {
-                                                UserOrb(text: "+\(item.receiver.count - 3)", isSelected: false).frame(width: 26, height: 26)
+                                                GridManager.shared.toggleHideSentGrid(id: item.id)
                                             }
                                         }
-                                    }.padding()
-                                        .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
-                                        
-                                        .matchedGeometryEffect(id: item.id, in: gridAnimation)
-                                        .frame(width:( geometry.size.width - 60) / 2)
-                                        .contextMenu {
-                                            Button(
-                                                item.hidden ? "Show" : "Hide",
-                                                role: item.hidden ? .none : .destructive
-                                            ) {
-                                                withAnimation {
-                                                    GridManager.shared.toggleHideSentGrid(id: item.id)
-                                                }
-                                            }
-                                        }
-                                        
-                                } else {
-                                    Rectangle().fill(Color(uiColor: .systemBackground)).frame(width:( geometry.size.width - 60) / 2).opacity(0.05)
-                                }
-                                
+                                    }
+                                    .drawingGroup()
+                                    .matchedGeometryEffect(id: item.id, in: gridAnimation)
+                            } else {
+                                VStack {
+                                    MiniGridView(grid: item.grids[0], viewSize: .small)
+                                        .aspectRatio(contentMode: .fit)
+                                    gridDetails(item)
+                                }.padding()
+                                    .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
+                                    .opacity(0.001)
                             }
                         }
-                        .padding(.horizontal)
-                        
-                    }.navigationTitle(expandedGrid == nil ? "Sent Art" : "")
-                        .blur(radius: expandedGrid == nil ? 0 : 20)
-                        .onTapGesture {
-                            if expandedGrid == nil { return }
-                            withAnimation {
-                                expandedGrid = nil
-                            }
+                    }
+                    .padding(.horizontal)
+                }.navigationTitle(expandedGrid == nil ? "Sent Art" : "")
+                    .blur(radius: expandedGrid == nil ? 0 : 20)
+                    .onTapGesture {
+                        if expandedGrid == nil { return }
+                        withAnimation {
+                            expandedGrid = nil
                         }
-                        .navigationBarBackButtonHidden(expandedGrid != nil)
-                }
-                
-                if let expandedGrid = expandedGrid {
-                    expandedView(grid: expandedGrid).frame(width: geometry.size.width, height: geometry.size.height).zIndex(9999)
-                }
-            //}
+                    }
+                    .navigationBarBackButtonHidden(expandedGrid != nil)
+            }
+            
+            if let expandedGrid = expandedGrid {
+                expandedView(grid: expandedGrid).frame(width: geometry.size.width, height: geometry.size.height).zIndex(9999)
+            }
         }
     }
 }
@@ -108,12 +122,16 @@ struct SentView_Previews: PreviewProvider {
 }
 
 struct ExpandedArtView: View {
-    var grid: ColorGrid
-    @Binding var expandedGrid: ColorGrid?
+    var grid: PixelArt
+    @Binding var expandedGrid: PixelArt?
+    let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
+    @State private var frameIndex = 0
     
     var body: some View {
         VStack {
             HStack {
+                Text(grid.sentAt.formattedDate())
+                    .foregroundColor(.gray)
                 Spacer()
                 Button {
                     withAnimation {
@@ -124,7 +142,7 @@ struct ExpandedArtView: View {
                 }.buttonStyle(StandardButton(disabled: false))
                     .padding(.bottom, 10)
             }
-            MiniGridView(grid: grid.grid, viewSize: .large)
+            MiniGridView(grid: grid.grids[frameIndex], viewSize: .large)
                 .drawingGroup()
                 .aspectRatio(contentMode: .fit)
                 .gesture(DragGesture().onChanged { val in
@@ -141,7 +159,7 @@ struct ExpandedArtView: View {
                     .padding(.leading, 10)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(grid.receiver, id: \.self) { id in
+                        ForEach(grid.receivers, id: \.self) { id in
                             UserOrb(text: UserManager.shared.getInitials(for: id), isSelected: false)
                                 .frame(width: 50, height: 50)
                         }
@@ -150,5 +168,21 @@ struct ExpandedArtView: View {
             }
         }.padding()
             .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
+            .onReceive(timer) { time in
+                frameIndex = frameIndex >= grid.grids.count - 1 ? 0 : frameIndex + 1
+            }
+            .onDisappear {
+                timer.upstream.connect().cancel()
+            }
+    }
+}
+
+extension Date {
+    func formattedDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale.current
+        return dateFormatter.string(from: self)
     }
 }

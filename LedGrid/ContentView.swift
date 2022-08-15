@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AlertToast
+import WidgetKit
 
 struct ContentView: View {
     @StateObject var viewModel = DrawViewModel()
@@ -73,7 +74,7 @@ struct ContentView: View {
                 ReceivedView()
                     .tabItem {
                         Label("Received", systemImage: "tray")
-                    }.badge(gridManager.receivedGrids.filter({!$0.opened}).count)
+                    }.badge(gridManager.receivedGrids.filter({!$0.opened && !$0.hidden}).count)
                     .tag(1)
 //                SentView().tabItem {
 //                    Label("Sent", systemImage: "paperplane")
@@ -127,6 +128,7 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
     ) {
         Task {
             await GridManager.shared.handleReceivedNotification()
+            WidgetCenter.shared.reloadAllTimelines()
         }
         completionHandler([[.banner, .badge, .sound]])
     }

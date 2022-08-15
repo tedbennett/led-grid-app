@@ -9,6 +9,7 @@ import SwiftUI
 import AlertToast
 
 struct DrawView: View {
+    @ObservedObject var manager = DrawManager.shared
     @StateObject var viewModel = DrawViewModel()
     @Environment(\.scenePhase) var scenePhase
     @Namespace private var gridAnimation
@@ -18,13 +19,21 @@ struct DrawView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                VStack(spacing: 20) {
+                VStack {
                     GridTopBarView(viewModel: viewModel, showSendView: $showSendView)
+                        .padding(.top, 0)
+                        .padding(.bottom, 10)
+                    if manager.grids.count > 1 {
+                        Text("Frame \(manager.currentGridIndex + 1)/\(manager.grids.count)").font(.caption).foregroundColor(.gray).padding(0)
+                    }
                     GridView(viewModel: viewModel)
                         .drawingGroup()
+                        .padding(.bottom, 10)
 //                        .matchedGeometryEffect(id: "draw-grid", in: gridAnimation)
                     ColorPickerView(viewModel: viewModel)
+                        .padding(.bottom, 30)
                     GridActionsView(viewModel: viewModel)
+                    Spacer()
                     
                 }
                 
@@ -38,8 +47,9 @@ struct DrawView: View {
                 .allowsHitTesting(!showSendView)
                 if showSendView {
                     ExpandedSendView( isOpened: $showSendView, viewModel: viewModel, namespace: gridAnimation)
+                        .padding(10)
                         .transition(AnyTransition.move(edge: .bottom))
-                        .zIndex(999)
+                        .zIndex(99)
                 }
             }.padding(.horizontal, 20)
                 .navigationTitle("Draw Something")
@@ -116,6 +126,7 @@ struct GridTopBarView: View {
 struct GridActionsView: View {
     @ObservedObject var manager = DrawManager.shared
     @ObservedObject var viewModel: DrawViewModel
+    @State private var showEditFrames = false
     
     
     var body: some View {
@@ -127,12 +138,16 @@ struct GridActionsView: View {
                     .padding(5)
                     .padding(.horizontal, 6)
             }.buttonStyle(StandardButton(disabled: false))
-            
-            //            Picker("", selection: $viewModel.gridSize) {
-            //                Text("8x8").tag(GridSize.small)
-            //                Text("12x12").tag(GridSize.medium)
-            //                Text("16x16").tag(GridSize.large)
-            //            }.pickerStyle(.segmented)
+            Spacer()
+            Button {
+                showEditFrames = true
+            } label: {
+                Label {
+                    Text("Frames").font(.system(.title3, design: .rounded)).fontWeight(.medium)
+                } icon: {
+                    Image(systemName: "square.stack.3d.up.fill")
+                }
+            }.buttonStyle(StandardButton(disabled: false))
             Spacer()
             Button {
                 viewModel.undo()
@@ -148,7 +163,9 @@ struct GridActionsView: View {
                     .padding(4)
             }.buttonStyle(StandardButton(disabled: manager.redoStates.isEmpty))
         }.padding(.vertical, -20)
-            
+            .sheet(isPresented: $showEditFrames) {
+                EditFramesView(isOpened: $showEditFrames)
+            }
     }
 }
 
@@ -209,7 +226,13 @@ struct FriendsView: View {
                                         .joined()
                                         .uppercased(), isSelected: selectedFriends.contains(where: { user.id == $0 }))
                                 }.buttonStyle(.plain)
-                                Text(user.fullName ?? "Unknown").font(.caption).foregroundColor(.gray)
+                                Text(user.fullName ?? "Unknown")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                                    .frame(width: 100, height: 40)
+                                    .lineLimit(2)
+                                    .multilineTextAlignment(.center)
+                                    .truncationMode(.tail)
                             }
                         }
                     }

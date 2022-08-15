@@ -24,20 +24,70 @@
 		9F317B6028A2F9AB00105E8C /* DrawManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B5F28A2F9AB00105E8C /* DrawManager.swift */; };
 		9F317B6228A3052400105E8C /* ExpandedSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6128A3052400105E8C /* ExpandedSendView.swift */; };
 		9F317B6428A3159500105E8C /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6328A3159500105E8C /* MailView.swift */; };
+		9F317B6728A596F000105E8C /* Pixee.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6528A596F000105E8C /* Pixee.xcdatamodeld */; };
+		9F317B6928A59DBE00105E8C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6828A59DBE00105E8C /* CoreDataStack.swift */; };
+		9F317B6C28A59ED700105E8C /* PixelArt+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */; };
+		9F317B6D28A59ED700105E8C /* PixelArt+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */; };
+		9F317B6F28A6E9DF00105E8C /* EditFramesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6E28A6E9DF00105E8C /* EditFramesView.swift */; };
+		9F317B7628A9414C00105E8C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F317B7528A9414C00105E8C /* WidgetKit.framework */; };
+		9F317B7828A9414C00105E8C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F317B7728A9414C00105E8C /* SwiftUI.framework */; };
+		9F317B7E28A9414E00105E8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F317B7D28A9414E00105E8C /* Assets.xcassets */; };
+		9F317B8428A9414E00105E8C /* Pixee-WidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9F317B7428A9414C00105E8C /* Pixee-WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9F317B8B28A95E2800105E8C /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = 9F317B8A28A95E2800105E8C /* Auth0 */; };
+		9F317B8D28A95F4600105E8C /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F317B8C28A95F4600105E8C /* Auth0.plist */; };
 		9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842928980EE30053F3DD /* UserOrb.swift */; };
 		9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842B289EF0150053F3DD /* RevealView.swift */; };
 		9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842D289F080A0053F3DD /* Sliders.swift */; };
 		9F49EC23288D467D00BD3956 /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = 9F49EC22288D467D00BD3956 /* Auth0 */; };
 		9F49EC27288D474B00BD3956 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F49EC26288D474B00BD3956 /* Auth0.plist */; };
 		9F4FC812288CA28D00A2603F /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9F4FC811288CA28D00A2603F /* Utilities */; };
+		9F626C0028AAE2A500587B57 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD8AE2C28A9B3ED0005A4CF /* Intents.framework */; };
+		9F626C0728AAE2A500587B57 /* Pixee-Intents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9F626C0E28AAE2B200587B57 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F626C0C28AAE2B200587B57 /* IntentHandler.swift */; };
+		9F626C0F28AAE2C100587B57 /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
 		9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */; };
-		9FA0DDD1286CA11A00F1CB4F /* ColorGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0DDD0286CA11A00F1CB4F /* ColorGrid.swift */; };
+		9FA0DDD1286CA11A00F1CB4F /* PixelArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0DDD0286CA11A00F1CB4F /* PixelArt.swift */; };
 		9FAB5EA62891D03B00A620BB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB5EA52891D03B00A620BB /* LoginView.swift */; };
 		9FAB5EA8289496A800A620BB /* GridManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB5EA7289496A800A620BB /* GridManager.swift */; };
 		9FAB5EAA28949AEC00A620BB /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB5EA928949AEC00A620BB /* UserManager.swift */; };
 		9FAB5EAD28949CD900A620BB /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 9FAB5EAC28949CD900A620BB /* AlertToast */; };
 		9FAB5EB028953F3500A620BB /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 9FAB5EAF28953F3500A620BB /* Sliders */; };
+		9FD8AE2328A967A20005A4CF /* Pixee_Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B7A28A9414C00105E8C /* Pixee_Widget.swift */; };
+		9FD8AE4F28AADB7B0005A4CF /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
+		9FD8AE7728AADD190005A4CF /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9F317B8228A9414E00105E8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5799B41A27F0D7E60039F621 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9F317B7328A9414C00105E8C;
+			remoteInfo = "Pixee-WidgetExtension";
+		};
+		9F626C0528AAE2A500587B57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5799B41A27F0D7E60039F621 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9F626BFE28AAE2A500587B57;
+			remoteInfo = "Pixee-Intents";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9F317B8828A9414E00105E8C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9F626C0728AAE2A500587B57 /* Pixee-Intents.appex in Embed App Extensions */,
+				9F317B8428A9414E00105E8C /* Pixee-WidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
@@ -61,16 +111,36 @@
 		9F317B5F28A2F9AB00105E8C /* DrawManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawManager.swift; sourceTree = "<group>"; };
 		9F317B6128A3052400105E8C /* ExpandedSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedSendView.swift; sourceTree = "<group>"; };
 		9F317B6328A3159500105E8C /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
+		9F317B6628A596F000105E8C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		9F317B6828A59DBE00105E8C /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelArt+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelArt+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9F317B6E28A6E9DF00105E8C /* EditFramesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFramesView.swift; sourceTree = "<group>"; };
+		9F317B7428A9414C00105E8C /* Pixee-WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pixee-WidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F317B7528A9414C00105E8C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		9F317B7728A9414C00105E8C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		9F317B7A28A9414C00105E8C /* Pixee_Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixee_Widget.swift; sourceTree = "<group>"; };
+		9F317B7D28A9414E00105E8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9F317B7F28A9414E00105E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F317B8928A95A7600105E8C /* Pixee-WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pixee-WidgetExtension.entitlements"; sourceTree = "<group>"; };
+		9F317B8C28A95F4600105E8C /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		9F3A842928980EE30053F3DD /* UserOrb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOrb.swift; sourceTree = "<group>"; };
 		9F3A842B289EF0150053F3DD /* RevealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealView.swift; sourceTree = "<group>"; };
 		9F3A842D289F080A0053F3DD /* Sliders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sliders.swift; sourceTree = "<group>"; };
 		9F49EC26288D474B00BD3956 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		9F4FC80F288CA10400A2603F /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../../ios/Utilities; sourceTree = "<group>"; };
+		9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pixee-Intents.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F626C0B28AAE2B200587B57 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F626C0C28AAE2B200587B57 /* IntentHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		9F626C1028AAE3C500587B57 /* Pixee-Intents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pixee-Intents.entitlements"; sourceTree = "<group>"; };
 		9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		9FA0DDD0286CA11A00F1CB4F /* ColorGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGrid.swift; sourceTree = "<group>"; };
+		9FA0DDD0286CA11A00F1CB4F /* PixelArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArt.swift; sourceTree = "<group>"; };
 		9FAB5EA52891D03B00A620BB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9FAB5EA7289496A800A620BB /* GridManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridManager.swift; sourceTree = "<group>"; };
 		9FAB5EA928949AEC00A620BB /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		9FD8AE2C28A9B3ED0005A4CF /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		9FD8AE3728A9B3ED0005A4CF /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = "pixee-intents.intentdefinition"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,14 +155,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9F317B7128A9414C00105E8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F317B8B28A95E2800105E8C /* Auth0 in Frameworks */,
+				9F317B7828A9414C00105E8C /* SwiftUI.framework in Frameworks */,
+				9F317B7628A9414C00105E8C /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F626BFC28AAE2A500587B57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F626C0028AAE2A500587B57 /* Intents.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		5799B41927F0D7E60039F621 = {
 			isa = PBXGroup;
 			children = (
+				9F317B8928A95A7600105E8C /* Pixee-WidgetExtension.entitlements */,
 				9F2E5454288C9C5E006C556C /* Packages */,
 				5799B42427F0D7E60039F621 /* LedGrid */,
+				9F317B7928A9414C00105E8C /* Pixee-Widget */,
+				9F626C0128AAE2A500587B57 /* Pixee-Intents */,
 				5799B42327F0D7E60039F621 /* Products */,
 				9F4FC810288CA28D00A2603F /* Frameworks */,
 			);
@@ -102,6 +193,8 @@
 			isa = PBXGroup;
 			children = (
 				5799B42227F0D7E60039F621 /* LedGrid.app */,
+				9F317B7428A9414C00105E8C /* Pixee-WidgetExtension.appex */,
+				9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,6 +210,7 @@
 				5799B42727F0D7E60039F621 /* ContentView.swift */,
 				9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */,
 				9FAB5EA7289496A800A620BB /* GridManager.swift */,
+				9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */,
 				9F317B5F28A2F9AB00105E8C /* DrawManager.swift */,
 				9FAB5EA928949AEC00A620BB /* UserManager.swift */,
 				9FAB5EA52891D03B00A620BB /* LoginView.swift */,
@@ -144,6 +238,7 @@
 			children = (
 				57C96DA627F3A266008C52BB /* DrawView.swift */,
 				57C96D9D27F1D295008C52BB /* DrawViewModel.swift */,
+				9F317B6E28A6E9DF00105E8C /* EditFramesView.swift */,
 				9F3A842D289F080A0053F3DD /* Sliders.swift */,
 				5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */,
 				5799B43327F0D89D0039F621 /* GridView.swift */,
@@ -190,17 +285,46 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
+		9F317B7928A9414C00105E8C /* Pixee-Widget */ = {
+			isa = PBXGroup;
+			children = (
+				9F317B7A28A9414C00105E8C /* Pixee_Widget.swift */,
+				9F317B8C28A95F4600105E8C /* Auth0.plist */,
+				9F317B7D28A9414E00105E8C /* Assets.xcassets */,
+				9F317B7F28A9414E00105E8C /* Info.plist */,
+			);
+			path = "Pixee-Widget";
+			sourceTree = "<group>";
+		};
 		9F4FC810288CA28D00A2603F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F317B7528A9414C00105E8C /* WidgetKit.framework */,
+				9F317B7728A9414C00105E8C /* SwiftUI.framework */,
+				9FD8AE2C28A9B3ED0005A4CF /* Intents.framework */,
+				9FD8AE3728A9B3ED0005A4CF /* IntentsUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9F626C0128AAE2A500587B57 /* Pixee-Intents */ = {
+			isa = PBXGroup;
+			children = (
+				9F626C1028AAE3C500587B57 /* Pixee-Intents.entitlements */,
+				9F626C0B28AAE2B200587B57 /* Info.plist */,
+				9F626C0C28AAE2B200587B57 /* IntentHandler.swift */,
+			);
+			path = "Pixee-Intents";
 			sourceTree = "<group>";
 		};
 		9FA0DDCF286CA0E400F1CB4F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9FA0DDD0286CA11A00F1CB4F /* ColorGrid.swift */,
+				9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */,
+				9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */,
+				9F317B6528A596F000105E8C /* Pixee.xcdatamodeld */,
+				9FA0DDD0286CA11A00F1CB4F /* PixelArt.swift */,
+				9F317B6828A59DBE00105E8C /* CoreDataStack.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -215,10 +339,13 @@
 				5799B41E27F0D7E60039F621 /* Sources */,
 				5799B41F27F0D7E60039F621 /* Frameworks */,
 				5799B42027F0D7E60039F621 /* Resources */,
+				9F317B8828A9414E00105E8C /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9F317B8328A9414E00105E8C /* PBXTargetDependency */,
+				9F626C0628AAE2A500587B57 /* PBXTargetDependency */,
 			);
 			name = LedGrid;
 			packageProductDependencies = (
@@ -231,6 +358,43 @@
 			productReference = 5799B42227F0D7E60039F621 /* LedGrid.app */;
 			productType = "com.apple.product-type.application";
 		};
+		9F317B7328A9414C00105E8C /* Pixee-WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F317B8528A9414E00105E8C /* Build configuration list for PBXNativeTarget "Pixee-WidgetExtension" */;
+			buildPhases = (
+				9F317B7028A9414C00105E8C /* Sources */,
+				9F317B7128A9414C00105E8C /* Frameworks */,
+				9F317B7228A9414C00105E8C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pixee-WidgetExtension";
+			packageProductDependencies = (
+				9F317B8A28A95E2800105E8C /* Auth0 */,
+			);
+			productName = "Pixee-WidgetExtension";
+			productReference = 9F317B7428A9414C00105E8C /* Pixee-WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		9F626BFE28AAE2A500587B57 /* Pixee-Intents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F626C0828AAE2A500587B57 /* Build configuration list for PBXNativeTarget "Pixee-Intents" */;
+			buildPhases = (
+				9F626BFB28AAE2A500587B57 /* Sources */,
+				9F626BFC28AAE2A500587B57 /* Frameworks */,
+				9F626BFD28AAE2A500587B57 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pixee-Intents";
+			productName = "Pixee-Intents";
+			productReference = 9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -238,11 +402,17 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					5799B42127F0D7E60039F621 = {
 						CreatedOnToolsVersion = 13.2;
+					};
+					9F317B7328A9414C00105E8C = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					9F626BFE28AAE2A500587B57 = {
+						CreatedOnToolsVersion = 13.4.1;
 					};
 				};
 			};
@@ -265,6 +435,8 @@
 			projectRoot = "";
 			targets = (
 				5799B42127F0D7E60039F621 /* LedGrid */,
+				9F317B7328A9414C00105E8C /* Pixee-WidgetExtension */,
+				9F626BFE28AAE2A500587B57 /* Pixee-Intents */,
 			);
 		};
 /* End PBXProject section */
@@ -280,6 +452,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9F317B7228A9414C00105E8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F317B7E28A9414E00105E8C /* Assets.xcassets in Resources */,
+				9F317B8D28A95F4600105E8C /* Auth0.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F626BFD28AAE2A500587B57 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -288,6 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5799B42827F0D7E60039F621 /* ContentView.swift in Sources */,
+				9F317B6D28A59ED700105E8C /* PixelArt+CoreDataProperties.swift in Sources */,
 				57C96D9E27F1D295008C52BB /* DrawViewModel.swift in Sources */,
 				57C96DA727F3A266008C52BB /* DrawView.swift in Sources */,
 				5799B43427F0D89D0039F621 /* GridView.swift in Sources */,
@@ -298,6 +487,8 @@
 				5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */,
 				9F317B6228A3052400105E8C /* ExpandedSendView.swift in Sources */,
 				9FAB5EA8289496A800A620BB /* GridManager.swift in Sources */,
+				9FD8AE4F28AADB7B0005A4CF /* pixee-intents.intentdefinition in Sources */,
+				9F317B6728A596F000105E8C /* Pixee.xcdatamodeld in Sources */,
 				5799B43627F0D8AA0039F621 /* SquareView.swift in Sources */,
 				9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */,
 				9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */,
@@ -306,14 +497,48 @@
 				5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */,
 				9F317B6428A3159500105E8C /* MailView.swift in Sources */,
 				9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */,
+				9F317B6928A59DBE00105E8C /* CoreDataStack.swift in Sources */,
+				9F317B6F28A6E9DF00105E8C /* EditFramesView.swift in Sources */,
 				57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */,
+				9F317B6C28A59ED700105E8C /* PixelArt+CoreDataClass.swift in Sources */,
 				9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */,
 				9FAB5EA62891D03B00A620BB /* LoginView.swift in Sources */,
-				9FA0DDD1286CA11A00F1CB4F /* ColorGrid.swift in Sources */,
+				9FA0DDD1286CA11A00F1CB4F /* PixelArt.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F317B7028A9414C00105E8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FD8AE7728AADD190005A4CF /* pixee-intents.intentdefinition in Sources */,
+				9FD8AE2328A967A20005A4CF /* Pixee_Widget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F626BFB28AAE2A500587B57 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F626C0F28AAE2C100587B57 /* pixee-intents.intentdefinition in Sources */,
+				9F626C0E28AAE2B200587B57 /* IntentHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9F317B8328A9414E00105E8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9F317B7328A9414C00105E8C /* Pixee-WidgetExtension */;
+			targetProxy = 9F317B8228A9414E00105E8C /* PBXContainerItemProxy */;
+		};
+		9F626C0628AAE2A500587B57 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9F626BFE28AAE2A500587B57 /* Pixee-Intents */;
+			targetProxy = 9F626C0528AAE2A500587B57 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5799B42E27F0D7E70039F621 /* Debug */ = {
@@ -435,6 +660,7 @@
 		5799B43127F0D7E70039F621 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
@@ -473,6 +699,7 @@
 		5799B43227F0D7E70039F621 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
@@ -508,6 +735,122 @@
 			};
 			name = Release;
 		};
+		9F317B8628A9414E00105E8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "Pixee-WidgetExtension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pixee-Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9F317B8728A9414E00105E8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "Pixee-WidgetExtension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pixee-Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9F626C0928AAE2A500587B57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Pixee-Intents/Pixee-Intents.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Pixee-Intents/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pixee-Intents";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Intents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9F626C0A28AAE2A500587B57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Pixee-Intents/Pixee-Intents.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Pixee-Intents/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pixee-Intents";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Intents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -525,6 +868,24 @@
 			buildConfigurations = (
 				5799B43127F0D7E70039F621 /* Debug */,
 				5799B43227F0D7E70039F621 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9F317B8528A9414E00105E8C /* Build configuration list for PBXNativeTarget "Pixee-WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F317B8628A9414E00105E8C /* Debug */,
+				9F317B8728A9414E00105E8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9F626C0828AAE2A500587B57 /* Build configuration list for PBXNativeTarget "Pixee-Intents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F626C0928AAE2A500587B57 /* Debug */,
+				9F626C0A28AAE2A500587B57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -559,6 +920,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9F317B8A28A95E2800105E8C /* Auth0 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9F49EC21288D467D00BD3956 /* XCRemoteSwiftPackageReference "Auth0" */;
+			productName = Auth0;
+		};
 		9F49EC22288D467D00BD3956 /* Auth0 */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9F49EC21288D467D00BD3956 /* XCRemoteSwiftPackageReference "Auth0" */;
@@ -579,6 +945,19 @@
 			productName = Sliders;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		9F317B6528A596F000105E8C /* Pixee.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9F317B6628A596F000105E8C /* Model.xcdatamodel */,
+			);
+			currentVersion = 9F317B6628A596F000105E8C /* Model.xcdatamodel */;
+			path = Pixee.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5799B41A27F0D7E60039F621 /* Project object */;
 }

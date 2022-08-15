@@ -9,17 +9,31 @@ import Foundation
 import Utilities
 import Auth0
 import AuthenticationServices
+import SimpleKeychain
 
 fileprivate var API_ENDPOINT = "https://rlefhg7mpa.execute-api.us-east-1.amazonaws.com"
 
 class NetworkManager: Network {
     static var shared = NetworkManager()
     
-    let credentialManager = CredentialsManager(authentication: Auth0.authentication())
+    let credentialManager = CredentialsManager(authentication: Auth0.authentication(), storage: SimpleKeychain(service: "Pixee", accessGroup: "9Y2AMH5S23.com.edwardbennett.LedGrid"))
     
+    let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.userInfo[CodingUserInfoKey.managedObjectContext] = PersistenceManager.shared.viewContext
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .secondsSince1970
+        return decoder
+    }()
     
     private override init() {
         super.init()
+    }
+    
+    
+    public func getRequest<T: Codable>(url: URL, headers: [String: String]) async throws -> T {
+        let data = try await makeRequest(url: url, body: nil, headers: headers)
+        return try decoder.decode(T.self, from: data)
     }
     
     private func getToken() async throws -> [String: String] {
@@ -77,7 +91,7 @@ class NetworkManager: Network {
         return try await getRequest(url: url, headers: headers)
     }
     
-    func getGrids(after: Date?) async throws -> [ColorGrid] {
+    func getGrids(after: Date?) async throws -> [PixelArt] {
         guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let queries: [String: String] = after != nil ? ["after": "\(Int(after!.timeIntervalSince1970))"] : [:]
         let url = getUrl(endpoints: [.user, .dynamic(userId), .grid], queries: queries)
@@ -87,7 +101,7 @@ class NetworkManager: Network {
     }
     
     
-    func getSentGrids(after: Date?) async throws -> [ColorGrid] {
+    func getSentGrids(after: Date?) async throws -> [PixelArt] {
         guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let queries: [String: String] = after != nil ? ["after": "\(after!.timeIntervalSince1970)"] : [:]
         let url = getUrl(endpoints: [.user, .dynamic(userId), .grid, .sent], queries: queries)
@@ -96,26 +110,12 @@ class NetworkManager: Network {
         return try await getRequest(url: url, headers: headers)
     }
     
-    func createGrid(id: String, grid: [[String]]) async throws {
-        guard let userId = Utility.user?.id else { throw ApiError.noUser }
-        let payload = PixelArt(user: userId, grid: grid, id: id)
-        let encoder = JSONEncoder()
-        encoder.keyEncodingStrategy = .convertToSnakeCase
-        encoder.dateEncodingStrategy = .secondsSince1970
-        let data = try encoder.encode(payload)
-        let url = getUrl(endpoints: [.grid])
-        
-        let headers = try await getToken()
-        
-        let _ = try await makeRequest(url: url, body: data, method: .put, headers: headers)
-    }
-    
-    func sendGrid(id: String, to recipients: [String], grid: String, gridSize: GridSize) async throws {
+    func sendGrid(id: String, to recipients: [String], grids: [String], gridSize: GridSize) async throws {
         guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let payload = [
             "receivers": recipients,
             "id": id,
-            "grid": grid,
+            "grid": grids,
             "grid_size": gridSize.rawValue
         ] as [String : Any]
         let data = try JSONSerialization.data(withJSONObject: payload)
@@ -220,6 +220,7 @@ enum Endpoint {
     case send
     case friends
     case sent
+    case last
     case dynamic(String)
     
     var raw: String {
@@ -230,6 +231,7 @@ enum Endpoint {
         case .send: return "send"
         case .friends: return "friends"
         case .sent: return "sent"
+        case .last: return "last"
         case .dynamic(let str): return str
         }
     }
@@ -240,11 +242,4 @@ struct User: Codable, Identifiable {
     var fullName: String?
     var givenName: String?
     var email: String?
-}
-
-struct PixelArt: Codable, Identifiable {
-    var user: String
-    var grid: [[String]]
-//    var sentAt: Date?
-    var id: String
 }
