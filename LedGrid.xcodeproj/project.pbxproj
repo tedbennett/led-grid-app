@@ -45,6 +45,7 @@
 		9F626C0728AAE2A500587B57 /* Pixee-Intents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9F626C0E28AAE2B200587B57 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F626C0C28AAE2B200587B57 /* IntentHandler.swift */; };
 		9F626C0F28AAE2C100587B57 /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
+		9F626C1228AC1B3700587B57 /* WidgetTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F626C1128AC1B3700587B57 /* WidgetTutorialView.swift */; };
 		9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */; };
 		9FA0DDD1286CA11A00F1CB4F /* PixelArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0DDD0286CA11A00F1CB4F /* PixelArt.swift */; };
 		9FAB5EA62891D03B00A620BB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB5EA52891D03B00A620BB /* LoginView.swift */; };
@@ -133,6 +134,7 @@
 		9F626C0B28AAE2B200587B57 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F626C0C28AAE2B200587B57 /* IntentHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		9F626C1028AAE3C500587B57 /* Pixee-Intents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pixee-Intents.entitlements"; sourceTree = "<group>"; };
+		9F626C1128AC1B3700587B57 /* WidgetTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTutorialView.swift; sourceTree = "<group>"; };
 		9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9FA0DDD0286CA11A00F1CB4F /* PixelArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArt.swift; sourceTree = "<group>"; };
 		9FAB5EA52891D03B00A620BB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				57C96DB427F45C01008C52BB /* SettingsView.swift */,
+				9F626C1128AC1B3700587B57 /* WidgetTutorialView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				9F317B6428A3159500105E8C /* MailView.swift in Sources */,
 				9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */,
 				9F317B6928A59DBE00105E8C /* CoreDataStack.swift in Sources */,
+				9F626C1228AC1B3700587B57 /* WidgetTutorialView.swift in Sources */,
 				9F317B6F28A6E9DF00105E8C /* EditFramesView.swift in Sources */,
 				57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */,
 				9F317B6C28A59ED700105E8C /* PixelArt+CoreDataClass.swift in Sources */,

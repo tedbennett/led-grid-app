@@ -10,6 +10,7 @@ import SwiftUI
 enum GridViewSize {
     case small
     case large
+    case custom(stroke: Double, cornerRadius: Double, spacing: Double)
 }
 
 
@@ -19,6 +20,7 @@ struct MiniGridView: View {
     
     var strokeWidth: Double {
         switch viewSize {
+        case .custom(let stroke, _, _): return stroke
         case .small:
             switch gridSize {
             case .small: return 0.4
@@ -36,6 +38,7 @@ struct MiniGridView: View {
     
     var cornerRadius: Double {
         switch viewSize {
+        case .custom(_, let radius, _): return radius
         case .small:
             switch gridSize {
             case .small: return 3.0
@@ -53,6 +56,7 @@ struct MiniGridView: View {
     
     var spacing: Double {
         switch viewSize {
+        case .custom(_, _, let spacing): return spacing
         case .small:
             switch gridSize {
             case .small: return 3

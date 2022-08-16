@@ -40,9 +40,15 @@ struct ContentView: View {
         as [NSAttributedString.Key : Any]
         
         UINavigationBar.appearance().largeTitleTextAttributes = strokeTextAttributes
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .label
     }
     
     func parseUrl(_ url: URL) {
+        dump(url)
+        if url.scheme == "widget" && url.host == "received" {
+            NotificationManager.shared.selectedTab = 1
+            return
+        }
         guard url.pathComponents.count == 3,
               url.pathComponents[1] == "user" else {
             return

@@ -14,6 +14,7 @@ struct SettingsView: View {
     @State private var friends = Utility.friends
     @State private var showEditView = false
     @State private var showEmailModal = false
+    @State private var showWidgetModal = false
     
     func presentShareSheet() {
         guard let userId = Utility.user?.id,
@@ -69,6 +70,14 @@ struct SettingsView: View {
                     }
                 }
                 
+                Section("Widgets") {
+                    Button {
+                        showWidgetModal = true
+                    } label: {
+                        Text("How to add a widget")
+                    }
+                }
+                
                 Section {
                     Button {
                         showEmailModal = true
@@ -79,6 +88,9 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $showEmailModal) {
                 MailView(recipient: "ted_bennett@icloud.com", subject: "Pixee Feedback", body: "Please enter your feedback below:\n\n\n\n\nThank you for leaving feedback and helping to improve Pixee!\n\nTed")
+            }
+            .sheet(isPresented: $showWidgetModal) {
+                WidgetTutorialView(presented: $showWidgetModal)
             }
             .navigationTitle("Settings").toolbar {
                 Button {

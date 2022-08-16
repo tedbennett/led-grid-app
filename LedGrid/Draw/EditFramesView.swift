@@ -79,8 +79,6 @@ struct EditFramesView: View {
                 manager.grids[manager.currentGridIndex] = manager.currentGrid
                 viewModel.currentFrameId = viewModel.frames[manager.currentGridIndex].id
             }.onChange(of: manager.grids, perform: { _ in
-                print(manager.currentGridIndex)
-                print(manager.grids.count)
                 viewModel.frames = manager.grids.map { Frame(grid: $0) }
                 viewModel.currentFrameId = viewModel.frames[manager.currentGridIndex].id
             })

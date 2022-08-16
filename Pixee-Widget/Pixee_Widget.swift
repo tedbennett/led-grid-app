@@ -25,19 +25,14 @@ struct PixelArt: Codable {
 
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), colors: [
-            [.black, .black, .black, .black, .black, .black, .black, .black],
-            [.black, .black, .white, .black, .black, .white, .black, .black],
-            [.black, .black, .white, .black, .black, .white, .black, .black],
-            [.black, .black, .black, .black, .black, .black, .black, .black],
-            [.black, .black, .black, .black, .black, .black, .black, .black],
-            [.black, .white, .black, .black, .black, .black, .white, .black],
-            [.black, .white, .white, .white, .white, .white, .white, .black],
-            [.black, .black, .black, .black, .black, .black, .black, .black]
-        ], configuration: SelectFriendIntent())
+        SimpleEntry(date: Date(), text: "Loading...", configuration: SelectFriendIntent())
     }
     
     func getSnapshot(for configuration: SelectFriendIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+        if !context.isPreview {
+            completion(SimpleEntry(date: Date(), text: "Loading...", configuration: SelectFriendIntent()))
+            return
+        }
         let entry = SimpleEntry(date: Date(), colors: [
             [.black, .black, .black, .black, .black, .black, .black, .black],
             [.black, .black, .white, .black, .black, .white, .black, .black],
@@ -111,10 +106,18 @@ struct Pixee_WidgetEntryView : View {
     
     var body: some View {
         if let text = entry.text {
-            Text(text).foregroundColor(.gray).font(.callout)
+            VStack {
+                Image(systemName: "square.grid.2x2")
+                    .foregroundColor(.gray)
+                    .font(.title3)
+                    .rotationEffect(.degrees(45))
+                    .padding(5)
+                Text(text).foregroundColor(.gray).font(.callout)
+            }.unredacted()
         } else {
             let colors = entry.colors!
             MiniGridView(grid: colors).padding(10)
+                .widgetURL(URL(string: "widget://received")!)
             
         }
         

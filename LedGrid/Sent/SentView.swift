@@ -124,6 +124,7 @@ struct SentView_Previews: PreviewProvider {
 struct ExpandedArtView: View {
     var grid: PixelArt
     @Binding var expandedGrid: PixelArt?
+    @State private var showCopyArtWarning = false
     let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     @State private var frameIndex = 0
     
@@ -133,6 +134,14 @@ struct ExpandedArtView: View {
                 Text(grid.sentAt.formattedDate())
                     .foregroundColor(.gray)
                 Spacer()
+                
+                Button {
+                    showCopyArtWarning = true
+                } label: {
+                    Image(systemName: "square.on.square").font(.title2)
+                }.buttonStyle(StandardButton(disabled: false))
+                    .padding(.bottom, 10)
+                    .padding(.trailing, 8)
                 Button {
                     withAnimation {
                         expandedGrid = nil
@@ -173,6 +182,14 @@ struct ExpandedArtView: View {
             }
             .onDisappear {
                 timer.upstream.connect().cancel()
+            }
+            .alert("Copy to canvas", isPresented: $showCopyArtWarning) {
+                Button("Copy", role: .destructive) {
+                    DrawManager.shared.copyReceivedGrid(grid)
+                    NotificationManager.shared.selectedTab = 0
+                }.accentColor(.white)
+            } message: {
+                Text("You are about to copy this pixel art to your canvas. This will erase the art you're currently drawing!")
             }
     }
 }
