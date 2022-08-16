@@ -48,6 +48,10 @@ struct ContentView: View {
             return
         }
         let id = url.pathComponents[2]
+        guard id != Utility.user?.id else {
+            failedToAddFriend.toggle()
+            return
+        }
         Task {
             do {
                 let added = try await UserManager.shared.addFriend(id: id)
@@ -138,26 +142,5 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
         DispatchQueue.main.async {
             self.selectedTab = 1
         }
-    }
-    
-    func application(
-        _ application: UIApplication,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
-    ) {
-        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
-        let token = tokenParts.joined()
-        Task {
-            do {
-                try await NetworkManager.shared.registerDevice(with: token)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func application(
-        _ application: UIApplication,
-        didFailToRegisterForRemoteNotificationsWithError error: Error
-    ) {
     }
 }

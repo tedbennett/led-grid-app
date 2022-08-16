@@ -201,6 +201,11 @@ struct ExpandedReceivedArtView: View {
                             }
                         }
                     })
+                    .onAppear {
+                        if !grid.opened {
+                            GridManager.shared.setGridOpened(id: grid.id, opened: true)
+                        }
+                    }
             } else {
                 RevealView(grid: grid.grids[0]) {
                     replay = false

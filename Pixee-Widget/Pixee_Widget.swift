@@ -129,8 +129,8 @@ struct Pixee_Widget: Widget {
         IntentConfiguration(kind: kind, intent: SelectFriendIntent.self, provider: Provider()) { entry in
             Pixee_WidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Pixee")
-        .description("The most recent pixel art you have received")
+        .configurationDisplayName("Pixel Art")
+        .description("The most recently received pixel art from a friend")
         .supportedFamilies([.systemSmall, .systemLarge])
     }
 }

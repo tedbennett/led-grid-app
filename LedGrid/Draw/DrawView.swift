@@ -229,8 +229,8 @@ struct FriendsView: View {
                                 Text(user.fullName ?? "Unknown")
                                     .font(.caption)
                                     .foregroundColor(.gray)
-                                    .frame(width: 100, height: 40)
-                                    .lineLimit(2)
+                                    .frame(width: 100)
+                                    .lineLimit(3)
                                     .multilineTextAlignment(.center)
                                     .truncationMode(.tail)
                             }

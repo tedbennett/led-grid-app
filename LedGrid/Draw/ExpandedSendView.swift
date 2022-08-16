@@ -53,15 +53,18 @@ struct ExpandedSendView: View {
                     .foregroundColor(.gray)
                 FriendsView(selectedFriends: $viewModel.selectedUsers)
                     .frame(height: 80)
+                
+                    if viewModel.sendingGrid {
+                        Spinner().font(.title).frame(height: 30)
+                    } else {
                 Button {
                     viewModel.sendGrid()
                 } label: {
-                    if viewModel.sendingGrid {
-                        Spinner().font(.title)
-                    } else {
                         Text("Send").font(.system(.title, design: .rounded).bold())
-                    }
                 }.frame(height: 30)
+                            .disabled(viewModel.selectedUsers.isEmpty)
+                    }
+                
         }.padding(20)
             .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
             .onChange(of: viewModel.sentGrid) { _ in
