@@ -20,19 +20,17 @@ struct DrawView: View {
         NavigationView {
             ZStack {
                 VStack {
+                    Spacer()
                     GridTopBarView(viewModel: viewModel, showSendView: $showSendView)
                         .padding(.top, 0)
                         .padding(.bottom, 10)
-                    if manager.grids.count > 1 {
-                        Text("Frame \(manager.currentGridIndex + 1)/\(manager.grids.count)").font(.caption).foregroundColor(.gray).padding(0)
-                    }
                     GridView(viewModel: viewModel)
                         .drawingGroup()
                         .padding(.bottom, 10)
-//                        .matchedGeometryEffect(id: "draw-grid", in: gridAnimation)
                     ColorPickerView(viewModel: viewModel)
                         .padding(.bottom, 30)
                     GridActionsView(viewModel: viewModel)
+                        .padding(.bottom, 20)
                     Spacer()
                     
                 }
@@ -83,31 +81,55 @@ struct DrawView_Previews: PreviewProvider {
 
 struct GridTopBarView: View {
     @ObservedObject var viewModel: DrawViewModel
+    @ObservedObject var manager = DrawManager.shared
     @State private var showChangeSizeWarning = false
     @State private var showChangeSizeDialog = false
     @Binding var showSendView: Bool
     
     var body: some View {
-        HStack {
-            Button {
-                if !viewModel.isGridBlank {
-                    showChangeSizeWarning = true
-                } else {
-                    showChangeSizeDialog = true
+        ZStack {
+            if manager.grids.count > 1 {
+                HStack {
+                    Spacer()
+                    
+                    Text("Frame \(manager.currentGridIndex + 1)/\(manager.grids.count)").font(.caption).foregroundColor(.gray).padding(0)
+                    Spacer()
                 }
-            } label: {
-                Text("Change Size").font(.system(.title3, design: .rounded)).fontWeight(.medium)
-                    .padding(5)
-                    .padding(.horizontal, 6)
-            }.buttonStyle(StandardButton(disabled: false))
-            Spacer()
-            Button {
-                withAnimation {
-                    showSendView = true
+                
+            }
+            HStack {
+                Menu {
+                    Button {
+                        if !viewModel.isGridBlank {
+                            showChangeSizeWarning = true
+                        } else {
+                            showChangeSizeDialog = true
+                        }
+                    } label: {
+                        Text("Change Size")
+                    }
+                    
+                    Button(role: .destructive) {
+                        viewModel.clearGrid()
+                    } label: {
+                        Text("Clear")
+                    }.buttonStyle(StandardButton(disabled: false))
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.system(.title3, design: .rounded))
+                        .padding(5)
+                        .padding(.horizontal, 6)
                 }
-            } label: {
-                Label { Text("Send") } icon: { Image(systemName: "paperplane.fill") }
-                    .font(.system(.title3, design: .rounded).bold())
+                
+                Spacer()
+                Button {
+                    withAnimation {
+                        showSendView = true
+                    }
+                } label: {
+                    Label { Text("Send") } icon: { Image(systemName: "paperplane.fill") }
+                        .font(.system(.title3, design: .rounded).bold())
+                }
             }
         }.padding(.top, 0)
             .alert("Warning", isPresented: $showChangeSizeWarning) {
@@ -131,14 +153,6 @@ struct GridActionsView: View {
     
     var body: some View {
         HStack {
-            Button {
-                viewModel.clearGrid()
-            } label: {
-                Text("Clear").font(.system(.title3, design: .rounded)).fontWeight(.medium)
-                    .padding(5)
-                    .padding(.horizontal, 6)
-            }.buttonStyle(StandardButton(disabled: false))
-            Spacer()
             Button {
                 showEditFrames = true
             } label: {

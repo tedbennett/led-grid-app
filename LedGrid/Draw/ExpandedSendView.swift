@@ -62,7 +62,7 @@ struct ExpandedSendView: View {
                 } label: {
                         Text("Send").font(.system(.title, design: .rounded).bold())
                 }.frame(height: 30)
-                            .disabled(viewModel.selectedUsers.isEmpty)
+                            .disabled(viewModel.selectedUsers.isEmpty || viewModel.sentGrid || viewModel.failedToSendGrid)
                     }
                 
         }.padding(20)

@@ -28,6 +28,7 @@ class GridManager: ObservableObject {
         guard let user = Utility.user?.id else { return }
         let receivedFetch = PixelArt.fetchRequest()
         receivedFetch.predicate = NSPredicate(format: "sender != %@ AND hidden != true", user)
+        receivedFetch.returnsDistinctResults = true
         receivedFetch.sortDescriptors = [NSSortDescriptor(key: #keyPath(PixelArt.sentAt), ascending: false)]
         receivedGrids = (try? PersistenceManager.shared.viewContext.fetch(receivedFetch)) ?? []
 
@@ -37,6 +38,7 @@ class GridManager: ObservableObject {
         guard let user = Utility.user?.id else { return }
         let sentFetch = PixelArt.fetchRequest()
         sentFetch.predicate = NSPredicate(format: "sender = %@ AND hidden != true", user)
+        sentFetch.returnsDistinctResults = true
         sentFetch.sortDescriptors = [NSSortDescriptor(key: #keyPath(PixelArt.sentAt), ascending: false)]
         sentGrids = (try? PersistenceManager.shared.viewContext.fetch(sentFetch)) ?? []
         

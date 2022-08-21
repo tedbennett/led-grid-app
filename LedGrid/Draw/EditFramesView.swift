@@ -34,18 +34,26 @@ struct EditFramesView: View {
                                         DrawManager.shared.changeToGrid(at: index)
                                         isOpened = false
                                     }
-                                if viewModel.frames.count > 1 {
+                                VStack {
                                     HStack {
+                                        Button {
+                                            viewModel.duplicateFrame(frame.id)
+                                        } label: {
+                                            Image(systemName: "plus.circle.fill").font(.title2)
+                                        }.padding(2)
+                                            .disabled(viewModel.frames.count > 7)
                                         Spacer()
-                                        VStack {
+                                        
+                                        if viewModel.frames.count > 1 {
                                             Button {
                                                 viewModel.removeFrame(frame.id)
                                             } label: {
                                                 Image(systemName: "xmark.circle.fill").font(.title2)
                                             }.padding(2)
-                                            Spacer()
+                                            
                                         }
                                     }
+                                    Spacer()
                                 }
                             }.padding(10)
                         } moveAction: { from, to in
@@ -108,6 +116,17 @@ class EditFramesViewModel: ObservableObject {
         DrawManager.shared.currentGridIndex = index
     }
     
+    func duplicateFrame(_ id: String) {
+        guard let index = frames.firstIndex(where: { $0.id == id }) else {
+            return
+        }
+        let duplicate = Frame(grid: frames[index].grid)
+        withAnimation {
+            frames.append(duplicate)
+        }
+        DrawManager.shared.grids.append(DrawManager.shared.grids[index])
+    }
+    
     func removeFrame(_ id: String) {
         guard let index = frames.firstIndex(where: { $0.id == id }) else {
             return
@@ -135,7 +154,7 @@ struct ReorderableForEach<Content: View, Item: Identifiable & Equatable>: View {
     // if the drag and drop hasn't ever changed the position
     // Without this hack the item remains semi-transparent
     @State private var hasChangedLocation: Bool = false
-
+    
     init(
         items: [Item],
         @ViewBuilder content: @escaping (Item) -> Content,
@@ -180,16 +199,16 @@ struct DragRelocateDelegate<Item: Equatable>: DropDelegate {
     var listData: [Item]
     @Binding var current: Item?
     @Binding var hasChangedLocation: Bool
-
+    
     var moveAction: (IndexSet, Int) -> Void
     var dropAction: () -> Void
-
+    
     func dropEntered(info: DropInfo) {
         guard item != current, let current = current else { return }
         guard let from = listData.firstIndex(of: current), let to = listData.firstIndex(of: item) else { return }
         
         hasChangedLocation = true
-
+        
         if listData[to] != current {
             moveAction(IndexSet(integer: from), to > from ? to + 1 : to)
         }

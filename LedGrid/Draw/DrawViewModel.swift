@@ -101,7 +101,7 @@ class DrawViewModel: ObservableObject {
     }
     
     var isGridBlank: Bool {
-        manager.currentGrid == manager.gridSize.blankGrid
+        manager.grids.allSatisfy { $0 == manager.gridSize.blankGrid }
     }
     
     private func flattenGrid(_ grid: Grid) -> String {

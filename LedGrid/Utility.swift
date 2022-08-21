@@ -41,54 +41,6 @@ struct Utility {
             }
         }
     }
-//
-//    static var lastGridSize: GridSize {
-//        get {
-//            guard let data = store.data(forKey: "lastGridSize"),
-//                  let size = try? JSONDecoder().decode(GridSize.self, from: data) else {
-//                return .small
-//            }
-//            return size
-//        }
-//        set {
-//            let data = try? JSONEncoder().encode(newValue)
-//            DispatchQueue.main.async {
-//                store.set(data, forKey: "lastGridSize")
-//            }
-//        }
-//    }
-//    
-//    static var receivedGrids: [PixelArt] {
-//        get {
-//            guard let data = store.data(forKey: "receivedGrids"),
-//                  let grids = try? JSONDecoder().decode([PixelArt].self, from: data) else {
-//                return []
-//            }
-//            return grids
-//        }
-//        set {
-//            let data = try? JSONEncoder().encode(newValue)
-//            DispatchQueue.main.async {
-//                store.set(data, forKey: "receivedGrids")
-//            }
-//        }
-//    }
-//
-//    static var sentGrids: [PixelArt] {
-//        get {
-//            guard let data = store.data(forKey: "sentGrids"),
-//                  let grids = try? JSONDecoder().decode([PixelArt].self, from: data) else {
-//                return []
-//            }
-//            return grids
-//        }
-//        set {
-//            let data = try? JSONEncoder().encode(newValue)
-//            DispatchQueue.main.async {
-//                store.set(data, forKey: "sentGrids")
-//            }
-//        }
-//    }
     
     static var gridDuration: Int {
         get {

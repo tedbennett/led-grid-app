@@ -143,6 +143,7 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
         completionHandler([[.banner, .badge, .sound]])
     }
     
+    // User opened notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         await GridManager.shared.handleReceivedNotification()
         DispatchQueue.main.async {
