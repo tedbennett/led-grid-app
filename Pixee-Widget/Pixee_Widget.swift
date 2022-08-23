@@ -8,15 +8,8 @@
 import WidgetKit
 import SwiftUI
 import Intents
-import Auth0
 import SimpleKeychain
 import Utilities
-struct User: Codable, Identifiable {
-    var id: String
-    var fullName: String?
-    var givenName: String?
-    var email: String?
-}
 
 struct PixelArt: Codable {
     var grid: [String]
@@ -51,27 +44,29 @@ struct Provider: IntentTimelineProvider {
         
         let store = UserDefaults(suiteName: "group.9Y2AMH5S23.com.edwardbennett.pixee")!
         guard let data = store.data(forKey: "user"),
-              let userId = try?  JSONDecoder().decode(User.self, from: data) else {
+              let user = try?  JSONDecoder().decode(User.self, from: data) else {
             // Failure
             completion(.failure(.notLoggedIn))
             return
         }
-        let credentialManager = CredentialsManager(authentication: Auth0.authentication(), storage: SimpleKeychain(service: "Pixee", accessGroup: "9Y2AMH5S23.com.edwardbennett.LedGrid"))
-        
-        credentialManager.credentials { res in
-            switch res {
-            case .success(let credentials):
-                let headers = ["Authorization": "Bearer \(credentials.idToken)"]
-                makeRequest(userId: userId.id, queries: queries, headers: headers) { result in
-                    completion(result)
+        Task {
+            do {
+                let token = try await AuthService.getToken()
+                let headers = ["Authorization": "Bearer \(token)"]
+                let url = Network.makeUrl([.art, .users, .dynamic(user.id), .received, .last], queries: queries)
+                let res = try await Network.makeRequest(url: url, body: nil, headers: headers)
+                guard let art = try? JSONDecoder.standard.decode(PixelArt.self, from: res) else {
+                    completion(.failure(.noneFound))
+                    return
                 }
-            case .failure(_):
-                // Failed to find credentials
+                
+                completion(.success(art))
+            } catch is NetworkError {
+                completion(.failure(.networkError))
+            } catch {
                 completion(.failure(.notLoggedIn))
-                break
             }
         }
-        
     }
     
     func getTimeline(for configuration: SelectFriendIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
@@ -97,7 +92,7 @@ struct Provider: IntentTimelineProvider {
 struct SimpleEntry: TimelineEntry {
     var date: Date
     var text: String?
-    var colors: [[Color]]?
+    var colors: Grid?
     let configuration: SelectFriendIntent
 }
 
@@ -116,7 +111,7 @@ struct Pixee_WidgetEntryView : View {
             }.unredacted()
         } else {
             let colors = entry.colors!
-            MiniGridView(grid: colors).padding(10)
+            WidgetGridView(grid: colors).padding(10)
                 .widgetURL(URL(string: "widget://received")!)
             
         }
@@ -147,44 +142,6 @@ struct Pixee_Widget_Previews: PreviewProvider {
 
 
 
-func makeRequest(userId: String, queries: [String: String],  headers: [String:String] = [:], completion: @escaping (Result<PixelArt, WidgetError>) -> Void) {
-    var components = URLComponents(string: "https://rlefhg7mpa.execute-api.us-east-1.amazonaws.com/user/\(userId)/grid/last")!
-    
-    components.queryItems = queries.map { key, value in
-        URLQueryItem(name: key, value: value)
-    }
-    var urlRequest = URLRequest(url: components.url!)
-    headers.forEach {key, value in
-        urlRequest.addValue(value, forHTTPHeaderField: key)
-    }
-    urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    
-    URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-        if let error = error {
-            print(error.localizedDescription)
-            completion(.failure(.networkError))
-            return
-        }
-        guard let data = data else {
-            completion(.failure(.networkError))
-            return
-        }
-        
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .secondsSince1970
-        if let received = try? decoder.decode([PixelArt].self, from: data) {
-            if let art = received.first {
-                completion(.success(art))
-            } else {
-                completion(.failure(.noneFound))
-            }
-        } else {
-            completion(.failure(.networkError))
-        }
-    }.resume()
-}
-
 enum WidgetError: Error {
     case notLoggedIn
     case networkError
@@ -202,7 +159,7 @@ enum WidgetError: Error {
     }
 }
 
-func parseGrids(from strings: [String]) -> [[[Color]]] {
+func parseGrids(from strings: [String]) -> [Grid] {
     return strings.map { string in
         let components = string.components(withMaxLength: 6).map { Color(hexString: $0) }
         let size = Int(Double(components.count).squareRoot())
@@ -211,48 +168,6 @@ func parseGrids(from strings: [String]) -> [[[Color]]] {
             return Array(components[index..<(index + size)])
         }
     }
-}
-extension Color {
-    init(hex: Int, opacity: Double = 1.0) {
-        let red = Double((hex & 0xff0000) >> 16) / 255.0
-        let green = Double((hex & 0xff00) >> 8) / 255.0
-        let blue = Double((hex & 0xff) >> 0) / 255.0
-        self.init(.sRGB, red: red, green: green, blue: blue, opacity: opacity)
-    }
-    
-    init(hexString: String) {
-        let parsed = Int(hexString.suffix(6), radix: 16) ?? 0
-        self.init(hex: parsed)
-    }
-    var hex: String {
-        let uiColor = UIColor(self)
-        var r:CGFloat = 0
-        var g:CGFloat = 0
-        var b:CGFloat = 0
-        var a:CGFloat = 0
-        
-        uiColor.getRed(&r, green: &g, blue: &b, alpha: &a)
-        
-        let rgb: Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
-        
-        return String(format:"%06x", rgb)
-    }
-}
-extension String {
-    func components(withMaxLength length: Int) -> [String] {
-        return stride(from: 0, to: self.count, by: length).map {
-            let start = self.index(self.startIndex, offsetBy: $0)
-            let end = self.index(start, offsetBy: length, limitedBy: self.endIndex) ?? self.endIndex
-            return String(self[start..<end])
-        }
-    }
-}
-
-enum GridSize: Int, Codable {
-    case small = 8
-    case medium = 12
-    case large = 16
-    
 }
 
 struct PixelArtGrid<Content: View>: View {
@@ -316,16 +231,10 @@ struct PixelArtGrid<Content: View>: View {
 }
 
 
-struct MiniGridView: View {
-    var grid: [[Color]]
+struct WidgetGridView: View {
+    var grid: Grid
     
-    var strokeWidth: Double { 0
-//        switch gridSize {
-//        case .small: return 0.4
-//        case .medium: return 0.3
-//        case .large: return 0.2
-//        }
-    }
+    var strokeWidth: Double = 0
     
     var cornerRadius: Double {
         switch gridSize {
@@ -352,21 +261,5 @@ struct MiniGridView: View {
             let color = grid[col][row]
             SquareView(color: color, strokeWidth: strokeWidth, cornerRadius: cornerRadius)
         }
-    }
-}
-struct SquareView: View {
-    var color: Color
-    var strokeWidth = 2.0
-    var cornerRadius = 3.0
-    
-    var body: some View {
-        RoundedRectangle(cornerRadius: cornerRadius)
-            .foregroundColor(color)
-            .overlay(
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .stroke(Color(UIColor.gray), lineWidth: strokeWidth)
-                
-            )
-            .aspectRatio(contentMode: .fit)
     }
 }
