@@ -17,16 +17,16 @@ struct PixelArt: Codable {
 
 
 struct Provider: IntentTimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), text: "Loading...", configuration: SelectFriendIntent())
+    func placeholder(in context: Context) -> PixeeEntry {
+        PixeeEntry(date: Date(), text: "Loading...", configuration: SelectFriendIntent())
     }
     
-    func getSnapshot(for configuration: SelectFriendIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+    func getSnapshot(for configuration: SelectFriendIntent, in context: Context, completion: @escaping (PixeeEntry) -> ()) {
         if !context.isPreview {
-            completion(SimpleEntry(date: Date(), text: "Loading...", configuration: SelectFriendIntent()))
+            completion(PixeeEntry(date: Date(), text: "Loading...", configuration: SelectFriendIntent()))
             return
         }
-        let entry = SimpleEntry(date: Date(), colors: [
+        let entry = PixeeEntry(date: Date(), colors: [
             [.black, .black, .black, .black, .black, .black, .black, .black],
             [.black, .black, .white, .black, .black, .white, .black, .black],
             [.black, .black, .white, .black, .black, .white, .black, .black],
@@ -51,9 +51,9 @@ struct Provider: IntentTimelineProvider {
         }
         Task {
             do {
-                let token = try await AuthService.getToken()
-                let headers = ["Authorization": "Bearer \(token)"]
+                let headers = try await AuthService.getToken()
                 let url = Network.makeUrl([.art, .users, .dynamic(user.id), .received, .last], queries: queries)
+                print(url.absoluteString)
                 let res = try await Network.makeRequest(url: url, body: nil, headers: headers)
                 guard let art = try? JSONDecoder.standard.decode(PixelArt.self, from: res) else {
                     completion(.failure(.noneFound))
@@ -70,16 +70,16 @@ struct Provider: IntentTimelineProvider {
     }
     
     func getTimeline(for configuration: SelectFriendIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
+        var entries: [PixeeEntry] = []
         let sender = configuration.friend?.identifier
         getLastReceivedGrid(from: sender) { result in
             
             switch result {
             case .success(let art):
                 let colors = parseGrids(from: art.grid)
-                entries.append(SimpleEntry(date: Date(), colors: colors.first, configuration: configuration))
+                entries.append(PixeeEntry(date: Date(), colors: colors.first, configuration: configuration))
             case .failure(let error):
-                entries.append(SimpleEntry(date: Date(), text: error.errorText, configuration: configuration))
+                entries.append(PixeeEntry(date: Date(), text: error.errorText, configuration: configuration))
             }
             
             let timeline = Timeline(entries: entries, policy: .never)
@@ -89,7 +89,7 @@ struct Provider: IntentTimelineProvider {
     }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct PixeeEntry: TimelineEntry {
     var date: Date
     var text: String?
     var colors: Grid?
@@ -135,7 +135,7 @@ struct Pixee_Widget: Widget {
 
 struct Pixee_Widget_Previews: PreviewProvider {
     static var previews: some View {
-        Pixee_WidgetEntryView(entry: SimpleEntry(date: Date(), text: "Hi", configuration: SelectFriendIntent()))
+        Pixee_WidgetEntryView(entry: PixeeEntry(date: Date(), text: "Hi", configuration: SelectFriendIntent()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
