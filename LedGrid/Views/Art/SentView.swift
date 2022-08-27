@@ -58,7 +58,7 @@ struct SentView: View {
             ZStack {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 30) {
-                        ForEach(manager.sentGrids) { item in
+                        ForEach(manager.sentGrids.filter({ !$0.hidden })) { item in
                             if expandedGrid?.id != item.id {
                                 VStack {
                                     Button {

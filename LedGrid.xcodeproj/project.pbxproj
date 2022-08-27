@@ -60,8 +60,8 @@
 		9F317B6428A3159500105E8C /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6328A3159500105E8C /* MailView.swift */; };
 		9F317B6728A596F000105E8C /* Pixee.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6528A596F000105E8C /* Pixee.xcdatamodeld */; };
 		9F317B6928A59DBE00105E8C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6828A59DBE00105E8C /* CoreDataStack.swift */; };
-		9F317B6C28A59ED700105E8C /* PixelArt+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */; };
-		9F317B6D28A59ED700105E8C /* PixelArt+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */; };
+		9F317B6C28A59ED700105E8C /* StoredPixelArt+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6A28A59ED700105E8C /* StoredPixelArt+CoreDataClass.swift */; };
+		9F317B6D28A59ED700105E8C /* StoredPixelArt+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6B28A59ED700105E8C /* StoredPixelArt+CoreDataProperties.swift */; };
 		9F317B6F28A6E9DF00105E8C /* EditFramesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6E28A6E9DF00105E8C /* EditFramesView.swift */; };
 		9F317B7628A9414C00105E8C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F317B7528A9414C00105E8C /* WidgetKit.framework */; };
 		9F317B7828A9414C00105E8C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F317B7728A9414C00105E8C /* SwiftUI.framework */; };
@@ -84,6 +84,8 @@
 		9FAB5EAA28949AEC00A620BB /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB5EA928949AEC00A620BB /* UserManager.swift */; };
 		9FAB5EAD28949CD900A620BB /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 9FAB5EAC28949CD900A620BB /* AlertToast */; };
 		9FAB5EB028953F3500A620BB /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 9FAB5EAF28953F3500A620BB /* Sliders */; };
+		9FC6245728BA535400723C97 /* PixelArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245628BA535400723C97 /* PixelArt.swift */; };
+		9FC6245828BA539700723C97 /* PixelArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245628BA535400723C97 /* PixelArt.swift */; };
 		9FD8AE2328A967A20005A4CF /* Pixee_Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B7A28A9414C00105E8C /* Pixee_Widget.swift */; };
 		9FD8AE4F28AADB7B0005A4CF /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
 		9FD8AE7728AADD190005A4CF /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
@@ -166,8 +168,8 @@
 		9F317B6328A3159500105E8C /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		9F317B6628A596F000105E8C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		9F317B6828A59DBE00105E8C /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelArt+CoreDataClass.swift"; sourceTree = "<group>"; };
-		9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelArt+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9F317B6A28A59ED700105E8C /* StoredPixelArt+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoredPixelArt+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9F317B6B28A59ED700105E8C /* StoredPixelArt+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoredPixelArt+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9F317B6E28A6E9DF00105E8C /* EditFramesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFramesView.swift; sourceTree = "<group>"; };
 		9F317B7428A9414C00105E8C /* Pixee-WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pixee-WidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F317B7528A9414C00105E8C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -191,6 +193,7 @@
 		9FAB5EA52891D03B00A620BB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9FAB5EA7289496A800A620BB /* GridManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridManager.swift; sourceTree = "<group>"; };
 		9FAB5EA928949AEC00A620BB /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		9FC6245628BA535400723C97 /* PixelArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArt.swift; sourceTree = "<group>"; };
 		9FD8AE2C28A9B3ED0005A4CF /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		9FD8AE3728A9B3ED0005A4CF /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = "pixee-intents.intentdefinition"; sourceTree = "<group>"; };
@@ -340,8 +343,8 @@
 		9F28FB7A28B29E6A00403F4D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */,
-				9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */,
+				9F317B6A28A59ED700105E8C /* StoredPixelArt+CoreDataClass.swift */,
+				9F317B6B28A59ED700105E8C /* StoredPixelArt+CoreDataProperties.swift */,
 				9F317B6528A596F000105E8C /* Pixee.xcdatamodeld */,
 				9F317B6828A59DBE00105E8C /* CoreDataStack.swift */,
 			);
@@ -455,6 +458,7 @@
 				9F28FB8028B29ED600403F4D /* Frame.swift */,
 				9F28FB8228B29EE700403F4D /* Grid.swift */,
 				9F28FB8A28B2A00800403F4D /* User.swift */,
+				9FC6245628BA535400723C97 /* PixelArt.swift */,
 				9F28FB8828B29FF000403F4D /* NetworkTypes.swift */,
 			);
 			path = Model;
@@ -607,7 +611,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5799B42827F0D7E60039F621 /* ContentView.swift in Sources */,
-				9F317B6D28A59ED700105E8C /* PixelArt+CoreDataProperties.swift in Sources */,
+				9F317B6D28A59ED700105E8C /* StoredPixelArt+CoreDataProperties.swift in Sources */,
 				57C96D9E27F1D295008C52BB /* DrawViewModel.swift in Sources */,
 				57C96DA727F3A266008C52BB /* DrawView.swift in Sources */,
 				5799B43427F0D89D0039F621 /* DrawableGridView.swift in Sources */,
@@ -642,6 +646,7 @@
 				9F28FB8328B29EE700403F4D /* Grid.swift in Sources */,
 				5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */,
 				9F28FB8D28B2A04600403F4D /* Endpoints.swift in Sources */,
+				9FC6245728BA535400723C97 /* PixelArt.swift in Sources */,
 				9F317B6428A3159500105E8C /* MailView.swift in Sources */,
 				9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */,
 				9F317B6928A59DBE00105E8C /* CoreDataStack.swift in Sources */,
@@ -650,7 +655,7 @@
 				9F28FB9F28B2A23600403F4D /* NotificationsManager.swift in Sources */,
 				9F317B6F28A6E9DF00105E8C /* EditFramesView.swift in Sources */,
 				57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */,
-				9F317B6C28A59ED700105E8C /* PixelArt+CoreDataClass.swift in Sources */,
+				9F317B6C28A59ED700105E8C /* StoredPixelArt+CoreDataClass.swift in Sources */,
 				9F28FBA128B2A26000403F4D /* StandardButton.swift in Sources */,
 				9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */,
 				9F28FB7F28B29EB700403F4D /* String.swift in Sources */,
@@ -664,6 +669,7 @@
 			files = (
 				9F28FB9028B2A08C00403F4D /* NetworkTypes.swift in Sources */,
 				9F28FBAA28B2AADE00403F4D /* String.swift in Sources */,
+				9FC6245828BA539700723C97 /* PixelArt.swift in Sources */,
 				9F28FBA728B2AA6200403F4D /* SquareView.swift in Sources */,
 				9F28FB8628B29F3F00403F4D /* Utility.swift in Sources */,
 				9F28FB7528B29D3300403F4D /* AuthService.swift in Sources */,

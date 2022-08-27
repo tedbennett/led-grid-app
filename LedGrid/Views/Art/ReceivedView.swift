@@ -53,7 +53,8 @@ struct ReceivedView: View {
                 NavigationView {
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 30) {
-                            ForEach(manager.receivedGrids) { item in
+                            ForEach(manager.receivedGrids.filter({ !$0.hidden })) { item in
+                                let grids = item.grids
                                 if expandedGrid?.id != item.id {
                                     VStack {
                                         Button {
@@ -63,7 +64,7 @@ struct ReceivedView: View {
                                         } label: {
                                             ZStack {
                                                 Text("Tap to View!").opacity(item.opened ? 0 : 1)
-                                                MiniGridView(grid: item.grids[0], viewSize: .small)
+                                                MiniGridView(grid: grids[0], viewSize: .small)
                                                     .aspectRatio(contentMode: .fit)
                                                     .opacity(item.opened ? 1 : 0.001)
                                                 VStack {
@@ -93,7 +94,7 @@ struct ReceivedView: View {
                                         }
                                 } else {
                                     VStack {
-                                        MiniGridView(grid: item.grids[0], viewSize: .small)
+                                        MiniGridView(grid: grids[0], viewSize: .small)
                                             .aspectRatio(contentMode: .fit)
                                         gridDetails(item)
                                     }

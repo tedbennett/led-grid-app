@@ -11,10 +11,6 @@ import Intents
 import SimpleKeychain
 import Utilities
 
-struct PixelArt: Codable {
-    var grid: [String]
-}
-
 
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> PixeeEntry {
@@ -76,8 +72,7 @@ struct Provider: IntentTimelineProvider {
             
             switch result {
             case .success(let art):
-                let colors = parseGrids(from: art.grid)
-                entries.append(PixeeEntry(date: Date(), colors: colors.first, configuration: configuration))
+                entries.append(PixeeEntry(date: Date(), colors: art.grids.first, configuration: configuration))
             case .failure(let error):
                 entries.append(PixeeEntry(date: Date(), text: error.errorText, configuration: configuration))
             }
@@ -159,16 +154,6 @@ enum WidgetError: Error {
     }
 }
 
-func parseGrids(from strings: [String]) -> [Grid] {
-    return strings.map { string in
-        let components = string.components(withMaxLength: 6).map { Color(hexString: $0) }
-        let size = Int(Double(components.count).squareRoot())
-        return (0..<size).map {
-            let index = $0 * size
-            return Array(components[index..<(index + size)])
-        }
-    }
-}
 
 struct PixelArtGrid<Content: View>: View {
     let content: (Int, Int) -> Content

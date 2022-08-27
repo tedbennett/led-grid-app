@@ -26,21 +26,22 @@ class GridManager: ObservableObject {
     
     private func fetchReceived() {
         guard let user = Utility.user?.id else { return }
-        let receivedFetch = PixelArt.fetchRequest()
+        let receivedFetch = StoredPixelArt.fetchRequest()
         receivedFetch.predicate = NSPredicate(format: "sender != %@ AND hidden != true", user)
         receivedFetch.returnsDistinctResults = true
-        receivedFetch.sortDescriptors = [NSSortDescriptor(key: #keyPath(PixelArt.sentAt), ascending: false)]
-        receivedGrids = (try? PersistenceManager.shared.viewContext.fetch(receivedFetch)) ?? []
+        receivedFetch.sortDescriptors = [NSSortDescriptor(key: #keyPath(StoredPixelArt.sentAt), ascending: false)]
+        let fetched = (try? PersistenceManager.shared.viewContext.fetch(receivedFetch)) ?? []
+        receivedGrids = fetched.map { PixelArt(from: $0) }
 
     }
     
     private func fetchSent() {
         guard let user = Utility.user?.id else { return }
-        let sentFetch = PixelArt.fetchRequest()
+        let sentFetch = StoredPixelArt.fetchRequest()
         sentFetch.predicate = NSPredicate(format: "sender = %@ AND hidden != true", user)
         sentFetch.returnsDistinctResults = true
-        sentFetch.sortDescriptors = [NSSortDescriptor(key: #keyPath(PixelArt.sentAt), ascending: false)]
-        sentGrids = (try? PersistenceManager.shared.viewContext.fetch(sentFetch)) ?? []
+        sentFetch.sortDescriptors = [NSSortDescriptor(key: #keyPath(StoredPixelArt.sentAt), ascending: false)]
+        sentGrids = ((try? PersistenceManager.shared.viewContext.fetch(sentFetch)) ?? []).map { PixelArt(from: $0) }
         
     }
     
@@ -68,15 +69,22 @@ class GridManager: ObservableObject {
     
     func refreshReceivedGrids(markOpened: Bool = false) async {
         do {
-            let grids = try await NetworkManager.shared.getGrids(after: receivedGrids.isEmpty ? nil : Utility.lastReceivedFetchDate)
-            Utility.lastReceivedFetchDate = Date()
-            await MainActor.run {
-                receivedGrids.insert(contentsOf: grids.map {
-                    let grid = $0
-                    grid.opened = markOpened
+            var grids = try await NetworkManager.shared.getGrids(after: receivedGrids.isEmpty ? nil : Utility.lastReceivedFetchDate)
+            if markOpened {
+                grids = grids.map {
+                    var grid = $0
+                    grid.opened = true
                     return grid
-                }, at: 0)
-                PersistenceManager.shared.save()
+                }
+            }
+            Utility.lastReceivedFetchDate = Date()
+            await MainActor.run { [grids] in
+                
+                receivedGrids.insert(contentsOf: grids, at: 0)
+                if !grids.isEmpty {
+                    let _ = grids.map { StoredPixelArt(from: $0, context: PersistenceManager.shared.viewContext) }
+                    PersistenceManager.shared.save()
+                }
             }
         } catch {
             print(error.localizedDescription)
@@ -88,7 +96,11 @@ class GridManager: ObservableObject {
             let grids = try await NetworkManager.shared.getSentGrids(after: nil)
             await MainActor.run {
                 sentGrids = grids
-                PersistenceManager.shared.save()
+                
+                if !grids.isEmpty {
+                    let _ = grids.map { StoredPixelArt(from: $0, context: PersistenceManager.shared.viewContext) }
+                    PersistenceManager.shared.save()
+                }
             }
         } catch {
             print(error.localizedDescription)
@@ -96,25 +108,45 @@ class GridManager: ObservableObject {
     }
     
     func toggleHideSentGrid(id: String) {
-        guard let grid = sentGrids.first(where: { $0.id == id }) else { return }
-        grid.hidden.toggle()
-        fetchSent()
-        PersistenceManager.shared.save()
+        guard let index = sentGrids.firstIndex(where: { $0.id == id }) else { return }
+        sentGrids[index].hidden.toggle()
+        let gridId = sentGrids[index].id
+        PersistenceManager.shared.container.performBackgroundTask { context in
+            let fetch = StoredPixelArt.fetchRequest()
+            fetch.predicate = NSPredicate(format: "id = %@", gridId)
+            fetch.fetchLimit = 1
+            guard let grid = (try? fetch.execute())?.first else { return }
+            grid.hidden.toggle()
+            try? context.save()
+        }
     }
     
     func toggleHideReceivedGrid(id: String) {
-        guard let grid = receivedGrids.first(where: { $0.id == id }) else { return }
-        grid.hidden.toggle()
-        fetchReceived()
-        PersistenceManager.shared.save()
+        guard let index = receivedGrids.firstIndex(where: { $0.id == id }) else { return }
+        receivedGrids[index].hidden.toggle()
+        let gridId = receivedGrids[index].id
+        PersistenceManager.shared.container.performBackgroundTask { context in
+            let fetch = StoredPixelArt.fetchRequest()
+            fetch.predicate = NSPredicate(format: "id = %@", gridId)
+            fetch.fetchLimit = 1
+            guard let grid = (try? fetch.execute())?.first else { return }
+            grid.hidden.toggle()
+            try? context.save()
+        }
     }
     
     func setGridOpened(id: String, opened: Bool) {
-        guard let grid = receivedGrids.first(where: { $0.id == id }) else { return }
-        grid.opened = opened
-        
-        fetchReceived()
-        PersistenceManager.shared.save()
+        guard let index = receivedGrids.firstIndex(where: { $0.id == id }) else { return }
+        receivedGrids[index].opened = opened
+        let gridId = receivedGrids[index].id
+        PersistenceManager.shared.container.performBackgroundTask { context in
+            let fetch = StoredPixelArt.fetchRequest()
+            fetch.predicate = NSPredicate(format: "id = %@", gridId)
+            fetch.fetchLimit = 1
+            guard let grid = (try? fetch.execute())?.first else { return }
+            grid.opened.toggle()
+            try? context.save()
+        }
     }
     
     func handleReceivedNotification() async {
@@ -122,7 +154,7 @@ class GridManager: ObservableObject {
     }
     
     func removeAllGrids() {
-        let fetch: NSFetchRequest<NSFetchRequestResult> = PixelArt.fetchRequest()
+        let fetch: NSFetchRequest<NSFetchRequestResult> = StoredPixelArt.fetchRequest()
         let deleteRequest = NSBatchDeleteRequest(
             fetchRequest: fetch
         )
@@ -132,3 +164,4 @@ class GridManager: ObservableObject {
         sentGrids = []
     }
 }
+

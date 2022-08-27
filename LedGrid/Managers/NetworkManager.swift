@@ -12,20 +12,12 @@ import SimpleKeychain
 class NetworkManager {
     static var shared = NetworkManager()
     
-    let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.userInfo[CodingUserInfoKey.managedObjectContext] = PersistenceManager.shared.viewContext
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .iso8601
-        return decoder
-    }()
-    
     private init() {
     }
     
     public func getRequest<T: Codable>(url: URL, headers: [String: String]) async throws -> T {
         let data = try await Network.makeRequest(url: url, body: nil, headers: headers)
-        return try decoder.decode(T.self, from: data)
+        return try JSONDecoder.standard.decode(T.self, from: data)
     }
     
     func handleSignInWithApple(authorization: ASAuthorization) async throws {
@@ -99,7 +91,7 @@ class NetworkManager {
         
         let data = try await Network.makeRequest(url: url, body: body, method: .post, headers: headers)
         print(try! JSONSerialization.jsonObject(with: data, options: []))
-        let art = try decoder.decode(PixelArt.self, from: data)
+        let art = try JSONDecoder.standard.decode(PixelArt.self, from: data)
         
         return art
     }
