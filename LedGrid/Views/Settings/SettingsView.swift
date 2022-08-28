@@ -149,7 +149,7 @@ struct SettingsView: View {
                 MailView(recipient: "ted_bennett@icloud.com", subject: "Pixee Feedback", body: "Please enter your feedback below:\n\n\n\n\nThank you for leaving feedback and helping to improve Pixee!\n\nTed")
             }
             .sheet(isPresented: $showWidgetModal) {
-                WidgetTutorialView(presented: $showWidgetModal)
+                WidgetTutorialView(presented: $showWidgetModal).tint(Color(uiColor: .label))
             }
             .alert("Delete account?", isPresented: $showDeleteAccountAlert) {
                 Button("Delete", role: .destructive) {

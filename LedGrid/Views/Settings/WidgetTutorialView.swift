@@ -21,20 +21,19 @@ struct WidgetTutorialView: View {
     var body: some View {
         VStack() {
             ZStack {
-            HStack {
-                Spacer()
-                Capsule().foregroundColor(.gray).frame(width: 40, height: 5).padding(.top, 10)
-                Spacer()
-            }
                 HStack {
                     Spacer()
-                
-                Button {
-                    presented = false
-                } label: {
-                    Text("Done")
-                }.tint(Color(uiColor: .label)).padding(.top, 15)
+                    Capsule().foregroundColor(.gray).frame(width: 40, height: 5).padding(.top, 10)
+                    Spacer()
                 }
+                HStack {
+                    Spacer()
+                    
+                    CloseButton {
+                        presented = false
+                        
+                    }
+                }.padding(.top, 15)
             }
             Title("Widgets", size: 40).frame(width: 100, height: 40)
                 .padding(.top, 50)
@@ -54,8 +53,8 @@ struct WidgetTutorialView: View {
                 }
                 
                 .font(.system(size: 22, weight: .semibold, design: .rounded))
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom, 10)
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 10)
                 VStack(alignment: .leading, spacing: 25) {
                     HStack(alignment: .center, spacing: 10) {
                         Text("1.")
@@ -74,10 +73,10 @@ struct WidgetTutorialView: View {
                             .font(.system(size: 16, weight: .medium, design: .rounded))
                     }
                 }
-                    .padding(.bottom, 10)
+                .padding(.bottom, 10)
                 Text("You can edit the widget by long-pressing it and selecting 'Edit Widget'").foregroundColor(.gray)
                     .multilineTextAlignment(.center)
-                    
+                
                 Spacer()
             }.font(.system(size: 16, weight: .semibold, design: .rounded))
         }.padding(.horizontal, 20)

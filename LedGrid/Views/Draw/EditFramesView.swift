@@ -22,7 +22,7 @@ struct EditFramesView: View {
         GeometryReader { geometry in
             NavigationView {
                 ScrollView {
-                    Text("Drag to reorder").foregroundColor(.gray).font(.callout)
+                    Text("Tap a frame to edit • Drag to reorder").foregroundColor(.gray).font(.callout)
                     LazyVGrid(columns: columns) {
                         ReorderableForEach(items: viewModel.frames) { frame in
                             ZStack {
