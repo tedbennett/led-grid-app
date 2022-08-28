@@ -15,6 +15,9 @@ struct SettingsView: View {
     @State private var showEditView = false
     @State private var showEmailModal = false
     @State private var showWidgetModal = false
+    @State private var showUpgradeView = false
+    @State private var showDeleteAccountAlert = false
+    
     
     func presentShareSheet() {
         guard let userId = Utility.user?.id,
@@ -22,68 +25,124 @@ struct SettingsView: View {
         let message = "Add me on Pixee to share pixel art!"
         let activityVC = UIActivityViewController(activityItems: [message, url], applicationActivities: nil)
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            
+        
         windowScene?.keyWindow?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
     
     var body: some View {
         NavigationView {
-            List {
-                Section {
-                    Text(UserManager.shared.user?.fullName ?? "Unknown name")
-                } header: {
-                    HStack {
-                        Text("Name")
-                        Spacer()
-                        NavigationLink(isActive: $showEditView) {
-                            EditNameView(isPresented: $showEditView)
-                        } label: {
-                            Text("Edit")
+            ZStack {
+                List {
+                    Section {
+                        if manager.friends.isEmpty {
+                            Text("Add friends to get started!")
                         }
-                    }
-                }
-                Section("Email") {
-                    Text(UserManager.shared.user?.email ?? "Unknown email").foregroundColor(.gray)
-                }
-                
-                Section {
-                    ForEach(manager.friends) { friend in
-                        Text(friend.fullName ?? "Unknown Friend")
-                            .swipeActions(allowsFullSwipe: false) {
-                                Button(role: .destructive) {
-                                    manager.removeFriend(id: friend.id)
-                                } label: {
-                                    Label("Remove", systemImage: "trash.fill")
+                        ForEach(manager.friends) { friend in
+                            Text(friend.fullName ?? "Unknown Friend")
+                                .swipeActions(allowsFullSwipe: false) {
+                                    Button(role: .destructive) {
+                                        manager.removeFriend(id: friend.id)
+                                    } label: {
+                                        Label("Remove", systemImage: "trash.fill")
+                                    }
                                 }
+                        }
+                    } header: {
+                        HStack {
+                            Text("Friends")
+                            Spacer()
+                            Button {
+                                presentShareSheet()
+                            } label: {
+                                Image(systemName: "person.badge.plus")
+                                    .font(.title3)
                             }
+                        }
                     }
-                } header: {
-                    HStack {
-                        Text("Friends")
-                        Spacer()
+                    
+                    Section {
+                        Text(UserManager.shared.user?.fullName ?? "Unknown name")
+                    } header: {
+                        HStack {
+                            Text("Name")
+                            Spacer()
+                            NavigationLink(isActive: $showEditView) {
+                                EditNameView(isPresented: $showEditView)
+                            } label: {
+                                Text("Edit")
+                            }
+                        }
+                    }
+                    Section("Email") {
+                        Text(UserManager.shared.user?.email ?? "Unknown email").foregroundColor(.gray)
+                    }
+                    
+                    
+                    Section {
                         Button {
-                            presentShareSheet()
+                            withAnimation {
+                                showUpgradeView = true
+                            }
                         } label: {
-                            Image(systemName: "person.badge.plus")
-                                .font(.title3)
+                            Label {
+                                Text(Utility.isPlus ? "Pixee Plus" : "Upgrade to Pixee Plus")
+                            } icon: {
+                                Image(systemName: "star")
+                            }
+                        }
+                        Button {
+                            showWidgetModal = true
+                        } label: {
+                            Label {
+                                Text("How to add a widget")
+                            } icon: {
+                                Image(systemName: "plus.square.on.square")
+                            }
+                        }
+                    
+                        Button {
+                            showEmailModal = true
+                        } label: {
+                            Label {
+                                Text("Send Feedback")
+                            } icon: {
+                                Image(systemName: "envelope")
+                            }
                         }
                     }
                 }
-                
-                Section("Widgets") {
-                    Button {
-                        showWidgetModal = true
-                    } label: {
-                        Text("How to add a widget")
-                    }
+                .refreshable {
+                    await UserManager.shared.refreshFriends()
                 }
                 
-                Section {
+                .blur(radius: showUpgradeView ? 20 : 0)
+                .allowsHitTesting(!showUpgradeView)
+                .navigationBarHidden(showUpgradeView)
+                .listStyle(InsetGroupedListStyle())
+                
+                SlideOverView(isOpened: $showUpgradeView) {
+                    UpgradeView(isOpened: $showUpgradeView)
+                }
+            }.navigationTitle("Settings").toolbar {
+                
+                Menu {
                     Button {
-                        showEmailModal = true
+                        UserManager.shared.logout()
+                        loggedIn = false
                     } label: {
-                        Text("Send Feedback")
+                        Text("Logout")
                     }
+                    
+                    Button(role: .destructive) {
+                        showDeleteAccountAlert = true
+                    } label: {
+                        Text("Delete Account")
+                    }.buttonStyle(StandardButton(disabled: false))
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.system(.title3, design: .rounded))
+                        .padding(5)
+                        .padding(.horizontal, 6)
                 }
             }
             .sheet(isPresented: $showEmailModal) {
@@ -92,15 +151,19 @@ struct SettingsView: View {
             .sheet(isPresented: $showWidgetModal) {
                 WidgetTutorialView(presented: $showWidgetModal)
             }
-            .navigationTitle("Settings").toolbar {
-                Button {
-                    UserManager.shared.logout()
+            .alert("Delete account?", isPresented: $showDeleteAccountAlert) {
+                Button("Delete", role: .destructive) {
+                    Task {
+                        do {
+                            try await NetworkManager.shared.deleteAccount()
+                        } catch {
+                            print("Error deleting account: \(error.localizedDescription)")
+                        }
+                    }
                     loggedIn = false
-                } label: {
-                    Text("Logout")
                 }
-            }.refreshable {
-                await UserManager.shared.refreshFriends()
+            } message: {
+                Text("This action cannot be undone.")
             }
         }
     }
@@ -122,7 +185,7 @@ struct EditNameView: View {
             }
             Button {
                 Task {
-                await UserManager.shared.updateUser(fullName: fullName)
+                    await UserManager.shared.updateUser(fullName: fullName)
                 }
                 isPresented = false
             } label: {

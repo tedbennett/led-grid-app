@@ -110,43 +110,34 @@ class GridManager: ObservableObject {
     func toggleHideSentGrid(id: String) {
         guard let index = sentGrids.firstIndex(where: { $0.id == id }) else { return }
         sentGrids[index].hidden.toggle()
-        let gridId = sentGrids[index].id
-        PersistenceManager.shared.container.performBackgroundTask { context in
-            let fetch = StoredPixelArt.fetchRequest()
-            fetch.predicate = NSPredicate(format: "id = %@", gridId)
-            fetch.fetchLimit = 1
-            guard let grid = (try? fetch.execute())?.first else { return }
-            grid.hidden.toggle()
-            try? context.save()
-        }
+        let fetch = StoredPixelArt.fetchRequest()
+        fetch.predicate = NSPredicate(format: "id = %@", sentGrids[index].id)
+        fetch.fetchLimit = 1
+        guard let grid = (try? PersistenceManager.shared.viewContext.fetch(fetch))?.first else { return }
+        grid.hidden.toggle()
+        try? PersistenceManager.shared.viewContext.save()
     }
     
     func toggleHideReceivedGrid(id: String) {
         guard let index = receivedGrids.firstIndex(where: { $0.id == id }) else { return }
         receivedGrids[index].hidden.toggle()
-        let gridId = receivedGrids[index].id
-        PersistenceManager.shared.container.performBackgroundTask { context in
-            let fetch = StoredPixelArt.fetchRequest()
-            fetch.predicate = NSPredicate(format: "id = %@", gridId)
-            fetch.fetchLimit = 1
-            guard let grid = (try? fetch.execute())?.first else { return }
-            grid.hidden.toggle()
-            try? context.save()
-        }
+        let fetch = StoredPixelArt.fetchRequest()
+        fetch.predicate = NSPredicate(format: "id = %@", receivedGrids[index].id)
+        fetch.fetchLimit = 1
+        guard let grid = (try? PersistenceManager.shared.viewContext.fetch(fetch))?.first else { return }
+        grid.hidden.toggle()
+        try? PersistenceManager.shared.viewContext.save()
     }
     
     func setGridOpened(id: String, opened: Bool) {
         guard let index = receivedGrids.firstIndex(where: { $0.id == id }) else { return }
         receivedGrids[index].opened = opened
-        let gridId = receivedGrids[index].id
-        PersistenceManager.shared.container.performBackgroundTask { context in
-            let fetch = StoredPixelArt.fetchRequest()
-            fetch.predicate = NSPredicate(format: "id = %@", gridId)
-            fetch.fetchLimit = 1
-            guard let grid = (try? fetch.execute())?.first else { return }
-            grid.opened.toggle()
-            try? context.save()
-        }
+        let fetch = StoredPixelArt.fetchRequest()
+        fetch.predicate = NSPredicate(format: "id = %@", receivedGrids[index].id)
+        fetch.fetchLimit = 1
+        guard let grid = (try? PersistenceManager.shared.viewContext.fetch(fetch))?.first else { return }
+        grid.opened = opened
+        try! PersistenceManager.shared.viewContext.save()
     }
     
     func handleReceivedNotification() async {

@@ -104,7 +104,7 @@ class DrawManager: ObservableObject {
     }
     func copyReceivedGrid(_ received: PixelArt) {
         setGridSize(received.size)
-        setCurrentGrids(received.grids)
+        setCurrentGrids(Utility.isPlus ? received.grids : [received.grids[0]])
     }
     
 }

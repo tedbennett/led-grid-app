@@ -17,6 +17,7 @@ struct LedGridApp: App {
     init() {
         UNUserNotificationCenter.current().delegate  = NotificationManager.shared
         WidgetCenter.shared.reloadAllTimelines()
+        StoreManager.shared.getProducts()
     }
     
     var body: some Scene {

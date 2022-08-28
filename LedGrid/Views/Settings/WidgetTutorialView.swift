@@ -80,7 +80,7 @@ struct WidgetTutorialView: View {
                     
                 Spacer()
             }.font(.system(size: 16, weight: .semibold, design: .rounded))
-        }.padding(.horizontal, 30)
+        }.padding(.horizontal, 20)
         
     }
 }
@@ -96,10 +96,12 @@ struct Title: UIViewRepresentable {
     
     let string: String
     let size: Double
+    let alignment: NSTextAlignment
     
-    init(_ string: String, size: Double = 36) {
+    init(_ string: String, size: Double = 36, alignment: NSTextAlignment = .center) {
         self.string = string
         self.size = size
+        self.alignment = alignment
     }
     
     func makeUIView(context: Context) -> UILabel {
@@ -107,6 +109,7 @@ struct Title: UIViewRepresentable {
         
         label.lineBreakMode = .byClipping
         label.numberOfLines = 0
+        label.textAlignment = alignment
         
         return label
     }

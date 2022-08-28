@@ -63,6 +63,10 @@ class UserManager: ObservableObject {
             .uppercased()
     }
     
+    func getUser(id: String) -> User? {
+        friends.first { $0.id == id}
+    }
+    
     func refreshFriends() async {
         do {
             let friends = try await getFriends()

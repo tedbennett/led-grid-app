@@ -46,10 +46,20 @@ class NetworkManager {
     }
     
     
-    func deleteAccount() {
-        
+    func deleteAccount() async throws {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        if let token = AuthService.getRefreshToken() {
+            let payload = [
+                "refresh_token": token,
+            ] as [String : Any]
+            let body = try JSONSerialization.data(withJSONObject: payload)
+            let url = Network.makeUrl([.users, .dynamic(userId)])
+            
+            let headers = try await AuthService.getToken()
+            
+            let _ = try await Network.makeRequest(url: url, body: body, method: .delete, headers: headers)
+        }
         AuthService.logout()
-        // Delete account endpoint
     }
     
     func getGrid(id: String) async throws -> PixelArt {

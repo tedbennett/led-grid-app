@@ -42,17 +42,6 @@ struct Utility {
         }
     }
     
-    static var gridDuration: Int {
-        get {
-            let duration = store.integer(forKey: "duration")
-            return duration > 0 ? duration : 5
-        } set {
-            DispatchQueue.main.async {
-                store.set(newValue, forKey: "duration")
-            }
-        }
-    }
-    
     static var user: User? {
         get {
             guard let data = store.data(forKey: "user") else {
@@ -84,21 +73,21 @@ struct Utility {
         }
     }
     
+    static var isPlus: Bool {
+        get {
+            store.bool(forKey: "isPlus")
+        }
+        set {
+            store.set(newValue, forKey: "isPlus")
+        }
+    }
+    
     static var lastReceivedFetchDate: Date? {
         get {
             store.object(forKey: "lastReceivedFetchDate") as? Date
         }
         set {
             store.set(newValue, forKey: "lastReceivedFetchDate")
-        }
-    }
-    
-    static var lastSentFetchDate: Date? {
-        get {
-            store.object(forKey: "lastSentFetchDate") as? Date
-        }
-        set {
-            store.set(newValue, forKey: "lastSentFetchDate")
         }
     }
     

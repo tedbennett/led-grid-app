@@ -11,12 +11,19 @@ struct DrawActionsView: View {
     @ObservedObject var manager = DrawManager.shared
     @ObservedObject var viewModel: DrawViewModel
     @State private var showEditFrames = false
+    @Binding var showUpgradeView: Bool
     
     
     var body: some View {
         HStack {
             Button {
-                showEditFrames = true
+                if Utility.isPlus {
+                    showEditFrames = true
+                } else {
+                    withAnimation {
+                        showUpgradeView = true
+                    }
+                }
             } label: {
                 Label {
                     Text("Frames").font(.system(.title3, design: .rounded)).fontWeight(.medium)

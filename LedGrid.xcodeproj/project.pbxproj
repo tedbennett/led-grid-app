@@ -22,7 +22,7 @@
 		57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB127F45B93008C52BB /* ReceivedView.swift */; };
 		57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB427F45C01008C52BB /* SettingsView.swift */; };
 		9F28FB6D28B1038B00403F4D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F28FB6C28B1038B00403F4D /* StoreKit.framework */; };
-		9F28FB6F28B108B400403F4D /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB6E28B108B400403F4D /* StoreObserver.swift */; };
+		9F28FB6F28B108B400403F4D /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB6E28B108B400403F4D /* StoreManager.swift */; };
 		9F28FB7228B2773500403F4D /* SimpleKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 9F28FB7128B2773500403F4D /* SimpleKeychain */; };
 		9F28FB7428B29D3300403F4D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7328B29D3300403F4D /* AuthService.swift */; };
 		9F28FB7528B29D3300403F4D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7328B29D3300403F4D /* AuthService.swift */; };
@@ -86,6 +86,11 @@
 		9FAB5EB028953F3500A620BB /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 9FAB5EAF28953F3500A620BB /* Sliders */; };
 		9FC6245728BA535400723C97 /* PixelArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245628BA535400723C97 /* PixelArt.swift */; };
 		9FC6245828BA539700723C97 /* PixelArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245628BA535400723C97 /* PixelArt.swift */; };
+		9FC6245A28BA8A7000723C97 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245928BA8A7000723C97 /* UpgradeView.swift */; };
+		9FC6245C28BA8F8D00723C97 /* SlideOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245B28BA8F8D00723C97 /* SlideOverView.swift */; };
+		9FC6245E28BAAEF300723C97 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245D28BAAEF300723C97 /* LargeButton.swift */; };
+		9FC6246028BAAFB600723C97 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245F28BAAFB600723C97 /* CloseButton.swift */; };
+		9FC6246228BAC79700723C97 /* IconListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6246128BAC79700723C97 /* IconListItemView.swift */; };
 		9FD8AE2328A967A20005A4CF /* Pixee_Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B7A28A9414C00105E8C /* Pixee_Widget.swift */; };
 		9FD8AE4F28AADB7B0005A4CF /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
 		9FD8AE7728AADD190005A4CF /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
@@ -142,7 +147,7 @@
 		57C96DB127F45B93008C52BB /* ReceivedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedView.swift; sourceTree = "<group>"; };
 		57C96DB427F45C01008C52BB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9F28FB6C28B1038B00403F4D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		9F28FB6E28B108B400403F4D /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
+		9F28FB6E28B108B400403F4D /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		9F28FB7328B29D3300403F4D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		9F28FB7728B29DFB00403F4D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		9F28FB7C28B29E9500403F4D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -194,6 +199,11 @@
 		9FAB5EA7289496A800A620BB /* GridManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridManager.swift; sourceTree = "<group>"; };
 		9FAB5EA928949AEC00A620BB /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		9FC6245628BA535400723C97 /* PixelArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArt.swift; sourceTree = "<group>"; };
+		9FC6245928BA8A7000723C97 /* UpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
+		9FC6245B28BA8F8D00723C97 /* SlideOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOverView.swift; sourceTree = "<group>"; };
+		9FC6245D28BAAEF300723C97 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
+		9FC6245F28BAAFB600723C97 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		9FC6246128BAC79700723C97 /* IconListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconListItemView.swift; sourceTree = "<group>"; };
 		9FD8AE2C28A9B3ED0005A4CF /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		9FD8AE3728A9B3ED0005A4CF /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 		9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = "pixee-intents.intentdefinition"; sourceTree = "<group>"; };
@@ -301,12 +311,16 @@
 			isa = PBXGroup;
 			children = (
 				57C96DAD27F3A702008C52BB /* MiniGridView.swift */,
+				9FC6245B28BA8F8D00723C97 /* SlideOverView.swift */,
 				9F28FB9128B2A0A100403F4D /* Spinner.swift */,
 				9F3A842928980EE30053F3DD /* UserOrb.swift */,
+				9FC6246128BAC79700723C97 /* IconListItemView.swift */,
+				9FC6245928BA8A7000723C97 /* UpgradeView.swift */,
 				5799B43527F0D8AA0039F621 /* SquareView.swift */,
 				9F3A842D289F080A0053F3DD /* Sliders.swift */,
 				9F317B6328A3159500105E8C /* MailView.swift */,
 				9F28FB9B28B2A20500403F4D /* FriendsListView.swift */,
+				9FC6245F28BAAFB600723C97 /* CloseButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -382,7 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */,
-				9F28FB6E28B108B400403F4D /* StoreObserver.swift */,
+				9F28FB6E28B108B400403F4D /* StoreManager.swift */,
 				9FAB5EA7289496A800A620BB /* GridManager.swift */,
 				9F317B5F28A2F9AB00105E8C /* DrawManager.swift */,
 				9FAB5EA928949AEC00A620BB /* UserManager.swift */,
@@ -405,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				9F28FBA028B2A26000403F4D /* StandardButton.swift */,
+				9FC6245D28BAAEF300723C97 /* LargeButton.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -616,14 +631,17 @@
 				57C96DA727F3A266008C52BB /* DrawView.swift in Sources */,
 				5799B43427F0D89D0039F621 /* DrawableGridView.swift in Sources */,
 				9F28FB8928B29FF000403F4D /* NetworkTypes.swift in Sources */,
+				9FC6245E28BAAEF300723C97 /* LargeButton.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
 				9F28FB7828B29DFB00403F4D /* Network.swift in Sources */,
-				9F28FB6F28B108B400403F4D /* StoreObserver.swift in Sources */,
+				9F28FB6F28B108B400403F4D /* StoreManager.swift in Sources */,
+				9FC6245A28BA8A7000723C97 /* UpgradeView.swift in Sources */,
 				9F28FB8F28B2A06C00403F4D /* AppDelegate.swift in Sources */,
 				57C96DB027F45B56008C52BB /* SentView.swift in Sources */,
 				57C96DAE27F3A702008C52BB /* MiniGridView.swift in Sources */,
 				9F28FB8128B29ED600403F4D /* Frame.swift in Sources */,
 				9F28FB9228B2A0A100403F4D /* Spinner.swift in Sources */,
+				9FC6246228BAC79700723C97 /* IconListItemView.swift in Sources */,
 				57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */,
 				57C96DA027F1D390008C52BB /* Utility.swift in Sources */,
 				5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */,
@@ -631,12 +649,14 @@
 				9F28FB9428B2A0C200403F4D /* LargeSpinner.swift in Sources */,
 				9F28FB9628B2A11F00403F4D /* Date.swift in Sources */,
 				9FAB5EA8289496A800A620BB /* GridManager.swift in Sources */,
+				9FC6245C28BA8F8D00723C97 /* SlideOverView.swift in Sources */,
 				9FD8AE4F28AADB7B0005A4CF /* pixee-intents.intentdefinition in Sources */,
 				9F317B6728A596F000105E8C /* Pixee.xcdatamodeld in Sources */,
 				9F28FB8B28B2A00800403F4D /* User.swift in Sources */,
 				9F28FB7428B29D3300403F4D /* AuthService.swift in Sources */,
 				9F28FB9828B2A1A700403F4D /* DrawTopBarView.swift in Sources */,
 				5799B43627F0D8AA0039F621 /* SquareView.swift in Sources */,
+				9FC6246028BAAFB600723C97 /* CloseButton.swift in Sources */,
 				9F28FB9C28B2A20500403F4D /* FriendsListView.swift in Sources */,
 				9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */,
 				9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */,

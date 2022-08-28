@@ -45,9 +45,14 @@ struct LoginView: View {
         NavigationView {
             VStack {
                 Spacer()
-                SpinningImageView()
+                SpinningImageView().padding(.bottom, 10)
                 Spacer()
-                Text("Send pixel art to your friends!").padding()
+                VStack {
+                IconListItemView(image: "square.grid.2x2", title: "Draw Pixel Art", subtitle: "Create beautiful art with fluid gestures")
+                IconListItemView(image: "paperplane.circle", title: "Send it to your friends", subtitle: "Easily add friends by just sharing a link")
+                IconListItemView(image: "star.circle", title: "More Features", subtitle: "Pixee Plus lets you create more detailed, dynamic art")
+                }.padding(.horizontal, 10)
+                Spacer()
                 if !isSigningIn {
                     SignInWithAppleButton(.signIn) { request in
                         request.requestedScopes = [.fullName, .email]
@@ -56,14 +61,13 @@ struct LoginView: View {
                     }.frame(width: 250, height: 80).overlay(
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(.white, lineWidth: 2)
-                    )
+                    ).clipShape(RoundedRectangle(cornerRadius: 16))
                 } else {
                     Spinner().font(.title).frame(width: 250, height: 80).overlay(
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(.white, lineWidth: 2)
                     )
                 }
-                Text("Sign in to get started").padding()
                 Spacer()
             }
             .navigationTitle("Welcome to Pixee")

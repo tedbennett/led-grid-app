@@ -24,6 +24,10 @@ class AuthService {
                 (try? keychain.hasItem(forKey: "expires_at")) == true
     }
     
+    static func getRefreshToken() -> String? {
+        return try? keychain.string(forKey: "refresh_token")
+    }
+    
     static func refreshToken() async throws {
         
         let url = Network.makeUrl([.auth, .refresh])

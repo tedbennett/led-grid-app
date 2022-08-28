@@ -14,6 +14,7 @@ struct DrawTopBarView: View {
     @State private var showChangeSizeWarning = false
     @State private var showChangeSizeDialog = false
     @Binding var showSendView: Bool
+    @Binding var showUpgradeView: Bool
     
     var body: some View {
         ZStack {
@@ -29,6 +30,12 @@ struct DrawTopBarView: View {
             HStack {
                 Menu {
                     Button {
+                        guard Utility.isPlus else {
+                            withAnimation {
+                                showUpgradeView = true
+                            }
+                            return
+                        }
                         if !viewModel.isGridBlank {
                             showChangeSizeWarning = true
                         } else {

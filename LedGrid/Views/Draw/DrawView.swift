@@ -12,62 +12,65 @@ struct DrawView: View {
     @ObservedObject var manager = DrawManager.shared
     @StateObject var viewModel = DrawViewModel()
     @Environment(\.scenePhase) var scenePhase
-    @Namespace private var gridAnimation
     
     @State private var showSendView = false
+    @State private var showUpgradeView = false
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                VStack {
-                    Spacer()
-                    DrawTopBarView(viewModel: viewModel, showSendView: $showSendView)
-                        .padding(.top, 0)
-                        .padding(.bottom, 10)
-                    DrawableGridView(viewModel: viewModel)
-                        .drawingGroup()
-                        .padding(.bottom, 10)
-                    ColorPickerView(viewModel: viewModel)
-                        .padding(.bottom, 30)
-                    DrawActionsView(viewModel: viewModel)
-                        .padding(.bottom, 20)
-                    Spacer()
-                    
-                }
+        ZStack {
+            VStack {
                 
-                .blur(radius: showSendView ? 20 : 0)
-                .onTapGesture {
-                    if !showSendView { return }
-                    withAnimation {
-                        showSendView = false
-                    }
-                }
-                .allowsHitTesting(!showSendView)
-                if showSendView {
-                    ExpandedSendView( isOpened: $showSendView, viewModel: viewModel, namespace: gridAnimation)
-                        .padding(10)
-                        .transition(AnyTransition.move(edge: .bottom))
-                        .zIndex(99)
-                }
+                Title("Draw Something").frame(width: 100, height: 40)
+                    .padding(.top, 45)
+                Spacer()
+                DrawTopBarView(viewModel: viewModel, showSendView: $showSendView, showUpgradeView: $showUpgradeView)
+                    .padding(.top, 0)
+                    .padding(.bottom, 10)
+                DrawableGridView(viewModel: viewModel)
+                    .drawingGroup()
+                    .padding(.bottom, 10)
+                    .padding(.horizontal, 3)
+                ColorPickerView(viewModel: viewModel)
+                    .padding(.bottom, 30)
+                DrawActionsView(viewModel: viewModel, showUpgradeView: $showUpgradeView)
+                    .padding(.bottom, 20)
+                Spacer()
+                
             }.padding(.horizontal, 20)
-                .navigationTitle("Draw Something")
-                .onAppear {
+            
+            .blur(radius: showSendView || showUpgradeView ? 20 : 0)
+            .onTapGesture {
+                if !showSendView && !showUpgradeView { return }
+                withAnimation {
+                    showSendView = false
+                    showUpgradeView = false
+                }
+            }
+            .allowsHitTesting(!showSendView && !showUpgradeView)
+            .onAppear {
+                viewModel.saveGrid()
+            }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .inactive || newPhase == .background {
                     viewModel.saveGrid()
                 }
-                .onChange(of: scenePhase) { newPhase in
-                    if newPhase == .inactive || newPhase == .background {
-                        viewModel.saveGrid()
-                    }
-                }
-                .toast(isPresenting: $viewModel.sentGrid) {
-                    AlertToast(type: .complete(.gray), title: "Sent pixel art!")
-                }
-                .toast(isPresenting: $viewModel.failedToSendGrid) {
-                    AlertToast(type: .error(.gray), title: "Failed to send", subTitle: "Try again later.")
-                }
-                .toast(isPresenting: $viewModel.showColorChangeToast, duration: 1.0) {
-                    AlertToast(displayMode: .hud, type: .complete(.white), title: "Color copied!")
-                }
+            }
+            
+            SlideOverView(isOpened: $showSendView) {
+                ExpandedSendView(isOpened: $showSendView, viewModel: viewModel)
+            }
+            SlideOverView(isOpened: $showUpgradeView) {
+                UpgradeView(isOpened: $showUpgradeView)
+            }
+        }
+        .toast(isPresenting: $viewModel.sentGrid) {
+            AlertToast(type: .complete(.gray), title: "Sent pixel art!")
+        }
+        .toast(isPresenting: $viewModel.failedToSendGrid) {
+            AlertToast(type: .error(.gray), title: "Failed to send", subTitle: "Try again later.")
+        }
+        .toast(isPresenting: $viewModel.showColorChangeToast, duration: 1.0) {
+            AlertToast(displayMode: .hud, type: .complete(.white), title: "Color copied!")
         }
     }
 }

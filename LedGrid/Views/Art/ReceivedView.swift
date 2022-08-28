@@ -27,7 +27,7 @@ struct ReceivedView: View {
             ExpandedReceivedArtView(grid: grid, expandedGrid: $expandedGrid)
                 .matchedGeometryEffect(id: grid.id, in: gridAnimation)
             Spacer()
-        }.padding(.horizontal, 20)
+        }.padding(.horizontal, 10)
     }
     
     func gridDetails(_ item: PixelArt) -> some View {
@@ -152,7 +152,7 @@ struct ReceivedView: View {
                 }
                 
                 if let expandedGrid = expandedGrid {
-                    expandedView(grid: expandedGrid).frame(width: geometry.size.width, height: geometry.size.height).zIndex(9999)
+                    expandedView(grid: expandedGrid).frame(width: geometry.size.width, height: geometry.size.height).zIndex(98)
                 }
             }
         }
@@ -166,39 +166,13 @@ struct ExpandedReceivedArtView: View {
     let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     @State private var frameIndex = 0
     @State private var replay = false
+//    @State private var showUpgradeView = false
+    
     
     var body: some View {
+        ZStack {
         VStack {
-            HStack {
-                Text(grid.sentAt.formattedDate())
-                    .foregroundColor(.gray)
-                Spacer()
-                
-                Button {
-                    showCopyArtWarning = true
-                } label: {
-                    Image(systemName: "square.on.square").font(.title2)
-                }.buttonStyle(StandardButton(disabled: false))
-                    .padding(.bottom, 10)
-                    .padding(.trailing, 8)
-                if grid.grids.count == 1 {
-                    Button {
-                        replay = true
-                    } label: {
-                        Image(systemName: "play").font(.title2)
-                    }.buttonStyle(StandardButton(disabled: false))
-                        .padding(.bottom, 10)
-                        .padding(.trailing, 8)
-                }
-                Button {
-                    withAnimation {
-                        expandedGrid = nil
-                    }
-                } label: {
-                    Image(systemName: "xmark").font(.title2)
-                }.buttonStyle(StandardButton(disabled: false))
-                    .padding(.bottom, 10)
-            }
+            ExpandedGridActionsView(grid: grid, expandedGrid: $expandedGrid, replay: $replay)
             if !replay && (grid.opened || grid.grids.count > 1) {
                 MiniGridView(grid: grid.grids[frameIndex], viewSize: .large)
                 //                    .drawingGroup()
@@ -231,18 +205,94 @@ struct ExpandedReceivedArtView: View {
             }
             
             HStack {
+                Text(grid.sentAt.formattedDate())
+                    .foregroundColor(.gray)
                 Spacer()
                 Text("FROM:")
                     .font(.system(.callout, design: .rounded))
                     .foregroundColor(.gray)
                     .padding(.leading, 10)
                 
-                UserOrb(text: UserManager.shared.getInitials(for: grid.sender), isSelected: false)
-                    .frame(width: 50, height: 50)
+                VStack {
+                    UserOrb(text: UserManager.shared.getInitials(for: grid.sender), isSelected: false)
+                        .frame(width: 40, height: 40)
+                    if let user = UserManager.shared.getUser(id: grid.sender) {
+                        Text(user.givenName ?? user.fullName ?? "Unknown")
+                            .font(.system(.caption2, design: .rounded))
+                            .foregroundColor(.gray)
+                        
+                    }
+                }
                 
             }
         }.padding()
             .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
+            .onReceive(timer) { time in
+                frameIndex = frameIndex >= grid.grids.count - 1 ? 0 : frameIndex + 1
+            }
+            .onDisappear {
+                timer.upstream.connect().cancel()
+            }
+            
+            
+//            SlideOverView(isOpened: $showUpgradeView) {
+//                UpgradeView(isOpened: $showUpgradeView)
+//            }.padding(.horizontal, 0)
+        }
+    }
+}
+
+
+struct ReceivedView_Previews: PreviewProvider {
+    static var previews: some View {
+        ReceivedView()
+    }
+}
+
+struct ExpandedGridActionsView: View {
+    var grid: PixelArt
+    @Binding var expandedGrid: PixelArt?
+    @Binding var replay: Bool
+//    @Binding var showUpgradeView: Bool
+    
+//    @State private var widgetName = ""
+    @State private var showCopyArtWarning = false
+    @State private var showWidgetAlert = false
+    
+    var body: some View {
+        HStack(spacing: 8) {
+            Button {
+                showCopyArtWarning = true
+            } label: {
+                Image(systemName: "square.and.pencil").font(.title2)
+            }.buttonStyle(StandardButton(disabled: false))
+            
+//            Button {
+//                withAnimation {
+//                    showUpgradeView = true
+//                }
+//            } label: {
+//                Image(systemName: "plus.square.on.square").font(.title2)
+//            }.buttonStyle(StandardButton(disabled: false))
+                
+            if grid.grids.count == 1 {
+                Button {
+                    replay = true
+                } label: {
+                    Image(systemName: "play").font(.title2)
+                }.buttonStyle(StandardButton(disabled: false))
+            }
+            
+            Spacer()
+                
+            Button {
+                withAnimation {
+                    expandedGrid = nil
+                }
+            } label: {
+                Image(systemName: "xmark").font(.title2)
+            }.buttonStyle(StandardButton(disabled: false))
+        }.padding(.bottom, 10)
             .alert("Copy to canvas", isPresented: $showCopyArtWarning) {
                 Button("Copy", role: .destructive) {
                     DrawManager.shared.copyReceivedGrid(grid)
@@ -251,18 +301,5 @@ struct ExpandedReceivedArtView: View {
             } message: {
                 Text("You are about to copy this pixel art to your canvas. This will erase the art you're currently drawing!")
             }
-            .onReceive(timer) { time in
-                frameIndex = frameIndex >= grid.grids.count - 1 ? 0 : frameIndex + 1
-            }
-            .onDisappear {
-                timer.upstream.connect().cancel()
-            }
-    }
-}
-
-
-struct ReceivedView_Previews: PreviewProvider {
-    static var previews: some View {
-        ReceivedView()
     }
 }

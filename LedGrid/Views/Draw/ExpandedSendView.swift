@@ -12,25 +12,21 @@ struct ExpandedSendView: View {
     @State private var frameIndex = 0
     @ObservedObject var manager = DrawManager.shared
     @ObservedObject var viewModel: DrawViewModel
-    let namespace: Namespace.ID
+    
     let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     
     var body: some View {
             VStack {
                 HStack {
                     Spacer()
-                    Button {
+                    CloseButton {
                         withAnimation {
                             isOpened = false
                         }
-                    } label: {
-                        Image(systemName: "xmark").font(.title2)
-                    }.buttonStyle(StandardButton(disabled: false))
-                        .padding(.bottom, 10)
+                    }.padding(.bottom, 10)
                 }
                 MiniGridView(grid: manager.grids[frameIndex], viewSize: .large)
                     .drawingGroup()
-                    .matchedGeometryEffect(id: "draw-grid", in: namespace)
                     .aspectRatio(contentMode: .fit)
                     .gesture(DragGesture().onChanged { val in
                         if val.translation.height > 50.0 {
@@ -53,19 +49,25 @@ struct ExpandedSendView: View {
                     .foregroundColor(.gray)
                 FriendsView(selectedFriends: $viewModel.selectedUsers)
                     .frame(height: 80)
+                    .padding(.bottom)
                 
-                    if viewModel.sendingGrid {
-                        Spinner().font(.title).frame(height: 30)
-                    } else {
-                Button {
-                    viewModel.sendGrid()
-                } label: {
-                        Text("Send").font(.system(.title, design: .rounded).bold())
-                }.frame(height: 30)
-                            .disabled(viewModel.selectedUsers.isEmpty || viewModel.sentGrid || viewModel.failedToSendGrid)
-                    }
+                if viewModel.sendingGrid {
+                    Button {
+                        
+                    } label: {
+                        Spinner().font(.title)
+                    }.buttonStyle(LargeButton())
+                        .disabled(true)
+                } else {
+                    Button {
+                        viewModel.sendGrid()
+                    } label: {
+                        Text("Send")
+                    }.buttonStyle(LargeButton())
+                        .disabled(viewModel.selectedUsers.isEmpty || viewModel.sentGrid || viewModel.failedToSendGrid)
+                }
                 
-        }.padding(20)
+        }
             .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
             .onChange(of: viewModel.sentGrid) { _ in
                 if viewModel.sentGrid {
