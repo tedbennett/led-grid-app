@@ -18,24 +18,17 @@ struct SettingsView: View {
     @State private var showUpgradeView = false
     @State private var showDeleteAccountAlert = false
     
-    
-    func presentShareSheet() {
-        guard let userId = Utility.user?.id,
-              let url = URL(string: "https://www.pixee-app.com/user/\(userId)") else { return }
-        let message = "Add me on Pixee to share pixel art!"
-        let activityVC = UIActivityViewController(activityItems: [message, url], applicationActivities: nil)
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        
-        windowScene?.keyWindow?.rootViewController?.present(activityVC, animated: true, completion: nil)
-    }
-    
     var body: some View {
         NavigationView {
             ZStack {
                 List {
                     Section {
                         if manager.friends.isEmpty {
-                            Text("Add friends to get started!")
+                            Button {
+                                Helpers.presentShareSheet()
+                            } label: {
+                                Text("Add friends to get started!")
+                            }
                         }
                         ForEach(manager.friends) { friend in
                             Text(friend.fullName ?? "Unknown Friend")
@@ -52,7 +45,7 @@ struct SettingsView: View {
                             Text("Friends")
                             Spacer()
                             Button {
-                                presentShareSheet()
+                                Helpers.presentShareSheet()
                             } label: {
                                 Image(systemName: "person.badge.plus")
                                     .font(.title3)

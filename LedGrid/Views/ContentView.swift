@@ -97,7 +97,7 @@ struct ContentView: View {
                     AlertToast(type: .complete(.gray), title: "Added friend")
                 }
                 .toast(isPresenting: $alreadyFriend) {
-                    AlertToast(type: .error(.gray), title: "Already fdded friend")
+                    AlertToast(type: .error(.gray), title: "Already added friend")
                 }
                 .toast(isPresenting: $failedToAddFriend) {
                     AlertToast(type: .error(.gray), title: "Failed to add friend")

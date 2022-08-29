@@ -28,7 +28,6 @@ class GridManager: ObservableObject {
         guard let user = Utility.user?.id else { return }
         let receivedFetch = StoredPixelArt.fetchRequest()
         receivedFetch.predicate = NSPredicate(format: "sender != %@ AND hidden != true", user)
-        receivedFetch.returnsDistinctResults = true
         receivedFetch.sortDescriptors = [NSSortDescriptor(key: #keyPath(StoredPixelArt.sentAt), ascending: false)]
         let fetched = (try? PersistenceManager.shared.viewContext.fetch(receivedFetch)) ?? []
         receivedGrids = fetched.map { PixelArt(from: $0) }
@@ -39,9 +38,9 @@ class GridManager: ObservableObject {
         guard let user = Utility.user?.id else { return }
         let sentFetch = StoredPixelArt.fetchRequest()
         sentFetch.predicate = NSPredicate(format: "sender = %@ AND hidden != true", user)
-        sentFetch.returnsDistinctResults = true
         sentFetch.sortDescriptors = [NSSortDescriptor(key: #keyPath(StoredPixelArt.sentAt), ascending: false)]
-        sentGrids = ((try? PersistenceManager.shared.viewContext.fetch(sentFetch)) ?? []).map { PixelArt(from: $0) }
+        let fetched = (try? PersistenceManager.shared.viewContext.fetch(sentFetch)) ?? []
+        sentGrids = fetched.map { PixelArt(from: $0) }
         
     }
     
@@ -51,13 +50,14 @@ class GridManager: ObservableObject {
     
     func sendGrid(_ grids: [Grid], title: String?, to users: [String]) async -> Bool {
         do {
-            let _ = try await NetworkManager.shared.sendGrid(
+            let art = try await NetworkManager.shared.sendGrid(
                 to: users,
                 grids: grids.map { $0.hex() }
             )
             await MainActor.run {
+                sentGrids.insert(art, at: 0)
+                let _ = StoredPixelArt(from: art, context: PersistenceManager.shared.viewContext)
                 PersistenceManager.shared.save()
-                fetchSent()
             }
             
             return true
@@ -70,7 +70,7 @@ class GridManager: ObservableObject {
     func refreshReceivedGrids(markOpened: Bool = false) async {
         do {
             var grids = try await NetworkManager.shared.getGrids(after: receivedGrids.isEmpty ? nil : Utility.lastReceivedFetchDate)
-            if markOpened {
+            if markOpened || (receivedGrids.isEmpty && grids.count > 4) {
                 grids = grids.map {
                     var grid = $0
                     grid.opened = true
@@ -79,7 +79,6 @@ class GridManager: ObservableObject {
             }
             Utility.lastReceivedFetchDate = Date()
             await MainActor.run { [grids] in
-                
                 receivedGrids.insert(contentsOf: grids, at: 0)
                 if !grids.isEmpty {
                     let _ = grids.map { StoredPixelArt(from: $0, context: PersistenceManager.shared.viewContext) }

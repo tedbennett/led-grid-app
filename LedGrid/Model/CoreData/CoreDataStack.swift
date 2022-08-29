@@ -21,7 +21,7 @@ struct PersistenceManager {
         // If you didn't name your model Main you'll need
         // to change this name below.
         container = NSPersistentContainer(name: "Pixee")
-
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
@@ -45,6 +45,7 @@ struct PersistenceManager {
                 try context.save()
             } catch {
                 // Show some error here
+                print(error.localizedDescription)
             }
         }
     }

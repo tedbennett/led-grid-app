@@ -31,7 +31,7 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
     // User opened notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         await GridManager.shared.handleReceivedNotification()
-        DispatchQueue.main.async {
+        await MainActor.run {
             self.selectedTab = 1
         }
     }

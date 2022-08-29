@@ -159,12 +159,10 @@ class NetworkManager {
     
     func deleteFriend(id: String) async throws {
         guard let userId = Utility.user?.id else { throw ApiError.noUser }
-        let payload = ["friend": id]
-        let data = try JSONSerialization.data(withJSONObject: payload)
-        let url = Network.makeUrl([.users, .dynamic(userId), .friends])
+        let url = Network.makeUrl([.users, .dynamic(userId), .friends, .dynamic(id)])
         let headers = try await AuthService.getToken()
         
-        let _ = try await Network.makeRequest(url: url, body: data, method: .delete, headers: headers)
+        let _ = try await Network.makeRequest(url: url, body: nil, method: .delete, headers: headers)
     }
     
     func registerDevice(with token: String) async throws {

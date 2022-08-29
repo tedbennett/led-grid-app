@@ -15,6 +15,10 @@ struct ExpandedSendView: View {
     
     let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     
+    var recipientsText: String {
+        viewModel.selectedUsers.count > 1 ? "\(viewModel.selectedUsers.count) recipients selected" : "1 recipient selected"
+    }
+    
     var body: some View {
             VStack {
                 HStack {
@@ -44,13 +48,12 @@ struct ExpandedSendView: View {
 //                        .font(.system(.title, design: .rounded).bold())
 //                    Spacer()
 //                }.padding(.vertical, 10)
-                Text("SEND TO:")
+                Text("SELECT FRIENDS:")
                     .font(.system(.callout, design: .rounded))
                     .foregroundColor(.gray)
                 FriendsView(selectedFriends: $viewModel.selectedUsers)
                     .frame(height: 80)
                     .padding(.bottom)
-                
                 if viewModel.sendingGrid {
                     Button {
                         
@@ -66,6 +69,9 @@ struct ExpandedSendView: View {
                     }.buttonStyle(LargeButton())
                         .disabled(viewModel.selectedUsers.isEmpty || viewModel.sentGrid || viewModel.failedToSendGrid)
                 }
+                Text(viewModel.selectedUsers.isEmpty ? " " : recipientsText)
+                    .font(.system(.caption2, design: .rounded))
+                    .foregroundColor(.gray)
                 
         }
             .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
@@ -91,6 +97,9 @@ struct ExpandedSendView: View {
                 frameIndex = frameIndex >= manager.grids.count - 1 ? 0 : frameIndex + 1
             }.onAppear {
                 manager.grids[manager.currentGridIndex] = manager.currentGrid
+                if UserManager.shared.friends.count == 1 {
+                    viewModel.selectedUsers = UserManager.shared.friends.map { $0.id }
+                }
             }
             .onDisappear {
                 timer.upstream.connect().cancel()

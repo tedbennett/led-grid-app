@@ -18,7 +18,11 @@ struct FriendsView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     if manager.friends.isEmpty {
-                        Text("Add some friends in settings to send art").font(.caption).foregroundColor(.gray)
+                        Button {
+                            Helpers.presentShareSheet()
+                        } label: {
+                            Text("Add some friends in settings to send art").font(.caption).foregroundColor(.gray)
+                        }
                     } else {
                         ForEach(manager.friends) { user in
                             VStack {
