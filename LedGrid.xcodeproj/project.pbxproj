@@ -73,7 +73,6 @@
 		9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842B289EF0150053F3DD /* RevealView.swift */; };
 		9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842D289F080A0053F3DD /* Sliders.swift */; };
 		9F49EC27288D474B00BD3956 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F49EC26288D474B00BD3956 /* Auth0.plist */; };
-		9F4FC812288CA28D00A2603F /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9F4FC811288CA28D00A2603F /* Utilities */; };
 		9F626C0028AAE2A500587B57 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD8AE2C28A9B3ED0005A4CF /* Intents.framework */; };
 		9F626C0728AAE2A500587B57 /* Pixee-Intents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9F626C0E28AAE2B200587B57 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F626C0C28AAE2B200587B57 /* IntentHandler.swift */; };
@@ -168,7 +167,6 @@
 		9F28FB9E28B2A23600403F4D /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		9F28FBA028B2A26000403F4D /* StandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
 		9F28FBA328B2A8D900403F4D /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
-		9F2E5455288C9C5E006C556C /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../../ios/Utilities; sourceTree = "<group>"; };
 		9F317B5F28A2F9AB00105E8C /* DrawManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawManager.swift; sourceTree = "<group>"; };
 		9F317B6128A3052400105E8C /* ExpandedSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedSendView.swift; sourceTree = "<group>"; };
 		9F317B6328A3159500105E8C /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
@@ -190,7 +188,6 @@
 		9F3A842B289EF0150053F3DD /* RevealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealView.swift; sourceTree = "<group>"; };
 		9F3A842D289F080A0053F3DD /* Sliders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sliders.swift; sourceTree = "<group>"; };
 		9F49EC26288D474B00BD3956 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
-		9F4FC80F288CA10400A2603F /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../../ios/Utilities; sourceTree = "<group>"; };
 		9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pixee-Intents.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F626C0B28AAE2B200587B57 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F626C0C28AAE2B200587B57 /* IntentHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
@@ -220,7 +217,6 @@
 				9FAB5EAD28949CD900A620BB /* AlertToast in Frameworks */,
 				9FAB5EB028953F3500A620BB /* Sliders in Frameworks */,
 				9F28FB6D28B1038B00403F4D /* StoreKit.framework in Frameworks */,
-				9F4FC812288CA28D00A2603F /* Utilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,7 +245,6 @@
 			isa = PBXGroup;
 			children = (
 				9F317B8928A95A7600105E8C /* Pixee-WidgetExtension.entitlements */,
-				9F2E5454288C9C5E006C556C /* Packages */,
 				5799B42427F0D7E60039F621 /* LedGrid */,
 				9F317B7928A9414C00105E8C /* Pixee-Widget */,
 				9F626C0128AAE2A500587B57 /* Pixee-Intents */,
@@ -427,15 +422,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		9F2E5454288C9C5E006C556C /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				9F2E5455288C9C5E006C556C /* Utilities */,
-				9F4FC80F288CA10400A2603F /* Utilities */,
-			);
-			name = Packages;
-			sourceTree = "<group>";
-		};
 		9F317B7928A9414C00105E8C /* Pixee-Widget */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,7 +488,6 @@
 			);
 			name = LedGrid;
 			packageProductDependencies = (
-				9F4FC811288CA28D00A2603F /* Utilities */,
 				9FAB5EAC28949CD900A620BB /* AlertToast */,
 				9FAB5EAF28953F3500A620BB /* Sliders */,
 				9F28FB7128B2773500403F4D /* SimpleKeychain */,
@@ -1121,10 +1106,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9F28FB7028B2773500403F4D /* XCRemoteSwiftPackageReference "SimpleKeychain" */;
 			productName = SimpleKeychain;
-		};
-		9F4FC811288CA28D00A2603F /* Utilities */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Utilities;
 		};
 		9FAB5EAC28949CD900A620BB /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;

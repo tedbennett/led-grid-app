@@ -130,7 +130,7 @@ struct SettingsView: View {
                         showDeleteAccountAlert = true
                     } label: {
                         Text("Delete Account")
-                    }.buttonStyle(StandardButton(disabled: false))
+                    }
                 } label: {
                     Image(systemName: "ellipsis")
                         .font(.system(.title3, design: .rounded))

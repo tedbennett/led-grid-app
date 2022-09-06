@@ -29,22 +29,24 @@ struct DrawActionsView: View {
                     Text("Frames").font(.system(.title3, design: .rounded)).fontWeight(.medium)
                 } icon: {
                     Image(systemName: "square.stack.3d.up.fill")
-                }
-            }.buttonStyle(StandardButton(disabled: false))
+                }.padding(4)
+            }.buttonStyle(StandardButton())
             Spacer()
             Button {
                 viewModel.undo()
             } label: {
                 Image(systemName: "arrow.uturn.backward").font(.system(.title3, design: .rounded).weight(.medium))
                     .padding(4)
-            }.buttonStyle(StandardButton(disabled: manager.undoStates.isEmpty))
+            }.disabled(manager.undoStates.isEmpty)
+            .buttonStyle(StandardButton())
             
             Button {
                 viewModel.redo()
             } label: {
                 Image(systemName: "arrow.uturn.forward").font(.system(.title3, design: .rounded).weight(.medium))
                     .padding(4)
-            }.buttonStyle(StandardButton(disabled: manager.redoStates.isEmpty))
+            }.disabled(manager.redoStates.isEmpty)
+                .buttonStyle(StandardButton())
         }.padding(.vertical, -20)
             .sheet(isPresented: $showEditFrames) {
                 EditFramesView(isOpened: $showEditFrames)

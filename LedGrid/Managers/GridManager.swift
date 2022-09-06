@@ -15,10 +15,6 @@ class GridManager: ObservableObject {
     private init() {
         fetchReceived()
         fetchSent()
-        
-        Task {
-            await refreshReceivedGrids()
-        }
     }
     
     @Published var sentGrids: [PixelArt] = []

@@ -41,6 +41,10 @@ struct ContentView: View {
         
         UINavigationBar.appearance().largeTitleTextAttributes = strokeTextAttributes
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .label
+        
+        Task {
+            await GridManager.shared.refreshReceivedGrids()
+        }
     }
     
     func parseUrl(_ url: URL) {
@@ -86,9 +90,6 @@ struct ContentView: View {
                         Label("Received", systemImage: "tray")
                     }.badge(gridManager.receivedGrids.filter({!$0.opened && !$0.hidden}).count)
                     .tag(1)
-//                SentView().tabItem {
-//                    Label("Sent", systemImage: "paperplane")
-//                }.tag(2)
                 SettingsView(loggedIn: $loggedIn).tabItem {
                     Label("Settings", systemImage: "gear")
                 }.tag(2)

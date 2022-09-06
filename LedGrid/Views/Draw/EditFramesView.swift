@@ -25,37 +25,37 @@ struct EditFramesView: View {
                     Text("Tap a frame to edit • Drag to reorder").foregroundColor(.gray).font(.callout)
                     LazyVGrid(columns: columns) {
                         ReorderableForEach(items: viewModel.frames) { frame in
-                            ZStack {
+                            VStack {
+                                HStack {
+                                    Button {
+                                        viewModel.duplicateFrame(frame.id)
+                                    } label: {
+                                        Image(systemName: "plus.circle.fill").font(.title2)
+                                    }
+                                        .disabled(viewModel.frames.count > 7)
+                                    Spacer()
+                                    
+                                    if viewModel.frames.count > 1 {
+                                        Button {
+                                            viewModel.removeFrame(frame.id)
+                                        } label: {
+                                            Image(systemName: "xmark.circle.fill").font(.title2)
+                                        }
+                                        
+                                    }
+                                }.padding(.horizontal, 5)
+                                    .padding(.top, 5)
                                 MiniGridView(grid: frame.grid, viewSize: .small)
-                                    .padding()
-                                    .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray5)))
                                     .onTapGesture {
                                         guard !viewModel.editMode, let index = viewModel.frames.firstIndex(where: { $0.id == frame.id }) else { return }
                                         DrawManager.shared.changeToGrid(at: index)
                                         isOpened = false
-                                    }
-                                VStack {
-                                    HStack {
-                                        Button {
-                                            viewModel.duplicateFrame(frame.id)
-                                        } label: {
-                                            Image(systemName: "plus.circle.fill").font(.title2)
-                                        }.padding(2)
-                                            .disabled(viewModel.frames.count > 7)
-                                        Spacer()
-                                        
-                                        if viewModel.frames.count > 1 {
-                                            Button {
-                                                viewModel.removeFrame(frame.id)
-                                            } label: {
-                                                Image(systemName: "xmark.circle.fill").font(.title2)
-                                            }.padding(2)
-                                            
-                                        }
-                                    }
-                                    Spacer()
-                                }
-                            }.padding(10)
+                                    }.padding(.horizontal)
+                                    .padding(.bottom)
+                            }
+                            
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray5)))
+                            .padding(10)
                         } moveAction: { from, to in
                             viewModel.moveFrame(from: from.first!, to: to)
                         } dropAction: { viewModel.commitDrop() }

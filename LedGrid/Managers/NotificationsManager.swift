@@ -29,10 +29,16 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
     }
     
     // User opened notification
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
-        await GridManager.shared.handleReceivedNotification()
-        await MainActor.run {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        DispatchQueue.main.async {
+            let manager = GridManager.shared
+            
+            Task {
+                await manager.handleReceivedNotification()
+            }
             self.selectedTab = 1
         }
+        completionHandler()
     }
 }

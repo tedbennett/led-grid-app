@@ -44,17 +44,29 @@ struct DrawTopBarView: View {
                     } label: {
                         Text("Change Size")
                     }
-                    
-                    Button(role: .destructive) {
-                        viewModel.clearGrid()
-                    } label: {
-                        Text("Clear")
-                    }.buttonStyle(StandardButton(disabled: false))
+                    if manager.grids.count == 1 {
+                        Button(role: .destructive) {
+                            viewModel.clearGrid()
+                        } label: {
+                            Text("Clear")
+                        }
+                    } else {
+                        Button(role: .destructive) {
+                            viewModel.clearGrid()
+                        } label: {
+                            Text("Clear this frame")
+                        }
+                        Button(role: .destructive) {
+                            viewModel.clearAllGrids()
+                        } label: {
+                            Text("Clear all frames")
+                        }
+                    }
                 } label: {
-                    Image(systemName: "ellipsis")
-                        .font(.system(.title3, design: .rounded))
-                        .padding(5)
-                        .padding(.horizontal, 6)
+                    Image(systemName: "ellipsis").font(.system(.title3, design: .rounded).weight(.medium))
+                        .padding(15)
+                        .padding(.vertical, 5)
+                        .background(Color.gray.opacity(0.2).cornerRadius(15))
                 }
                 
                 Spacer()
@@ -63,9 +75,8 @@ struct DrawTopBarView: View {
                         showSendView = true
                     }
                 } label: {
-                    Label { Text("Send") } icon: { Image(systemName: "paperplane.fill") }
-                        .font(.system(.title3, design: .rounded).bold())
-                }
+                    Label { Text("Send") } icon: { Image(systemName: "paperplane.fill") }.font(.system(.title3, design: .rounded).weight(.medium)).padding(4)
+                }.buttonStyle(StandardButton())
             }
         }.padding(.top, 0)
             .alert("Warning", isPresented: $showChangeSizeWarning) {

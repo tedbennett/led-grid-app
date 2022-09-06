@@ -96,6 +96,10 @@ class DrawViewModel: ObservableObject {
         DrawManager.shared.clearGrid()
     }
     
+    func clearAllGrids() {
+        DrawManager.shared.clearAllGrids()
+    }
+    
     var hexGrid: [[String]] {
         manager.currentGrid.map { row in row.map { $0.hex } }
     }

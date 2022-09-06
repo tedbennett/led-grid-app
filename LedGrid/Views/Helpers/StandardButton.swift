@@ -8,16 +8,12 @@
 import SwiftUI
 
 struct StandardButton: ButtonStyle {
-    var disabled: Bool
+    @Environment(\.isEnabled) var isEnabled
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .foregroundColor(Color.accentColor.opacity(disabled ? 0.5 : 1))
-        //            .background(Color.gray.opacity(0.2))
-        //            .overlay(
-        //                RoundedRectangle(cornerRadius: 15)
-        //                    .stroke(Color.accentColor.opacity(disabled ? 0.5 : 1), lineWidth: 2)
-        //            )
-            .padding(.vertical, 0)
-            .disabled(disabled)
+            .padding(10)
+            .background(Color.gray.opacity(0.2).cornerRadius(15))
+            .opacity(isEnabled && !configuration.isPressed ? 1 : 0.5)
     }
 }

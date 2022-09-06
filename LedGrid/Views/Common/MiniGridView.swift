@@ -15,66 +15,59 @@ enum GridViewSize {
 
 
 struct MiniGridView: View {
-    var grid: [[Color]]
+    var grid: Grid
     var viewSize: GridViewSize
+    var gridSize: GridSize
     
-    var strokeWidth: Double {
+    var strokeWidth: Double
+    var cornerRadius: Double
+    var spacing: Double
+    
+    init(grid: Grid, viewSize: GridViewSize) {
+        self.grid = grid
+        self.viewSize = viewSize
+        
+        let gridSize = GridSize(rawValue: grid.count) ?? .small
+        self.gridSize = gridSize
+        
         switch viewSize {
-        case .custom(let stroke, _, _): return stroke
         case .small:
             switch gridSize {
-            case .small: return 0.4
-            case .medium: return 0.3
-            case .large: return 0.2
+            case .small:
+                strokeWidth = 0.4
+                cornerRadius = 3.0
+                spacing = 3.0
+            case .medium:
+                strokeWidth =  0.3
+                cornerRadius = 2.5
+                spacing = 2.0
+            case .large:
+                strokeWidth = 0.2
+                cornerRadius = 2.0
+                spacing = 1.5
             }
         case .large:
             switch gridSize {
-            case .small: return 1.0
-            case .medium: return 0.8
-            case .large: return 0.6
+            case .small:
+                strokeWidth = 1.0
+                cornerRadius = 5.0
+                spacing = 6.0
+            case .medium:
+                strokeWidth =  0.8
+                cornerRadius = 4.0
+                spacing = 4.0
+            case .large:
+                strokeWidth = 0.6
+                cornerRadius = 3.0
+                spacing = 2.0
             }
+        case .custom(let stroke, let cornerRadius, let spacing):
+            strokeWidth = stroke
+            self.cornerRadius = cornerRadius
+            self.spacing = spacing
         }
     }
     
-    var cornerRadius: Double {
-        switch viewSize {
-        case .custom(_, let radius, _): return radius
-        case .small:
-            switch gridSize {
-            case .small: return 3.0
-            case .medium: return 2.5
-            case .large: return 2.0
-            }
-        case .large:
-            switch gridSize {
-            case .small: return 5.0
-            case .medium: return 4.0
-            case .large: return 3.0
-            }
-        }
-    }
-    
-    var spacing: Double {
-        switch viewSize {
-        case .custom(_, _, let spacing): return spacing
-        case .small:
-            switch gridSize {
-            case .small: return 3
-            case .medium: return 2
-            case .large: return 1.5
-            }
-        case .large:
-            switch gridSize {
-            case .small: return 6
-            case .medium: return 4
-            case .large: return 2
-            }
-        }
-    }
-    
-    var gridSize: GridSize {
-        GridSize(rawValue: grid.count) ?? .small
-    }
     
     var body: some View {
         PixelArtGrid(gridSize: gridSize, spacing: spacing) { col, row in

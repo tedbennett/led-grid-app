@@ -18,6 +18,7 @@ struct RevealView: View {
     @State private var isTimerRunning = false
     @State private var revealed = 0
     
+    
     init(grid: Grid, strokeWidth: Double = 1.0, cornerRadius: Double = 3.0, onFinish: @escaping () -> Void) {
         self.grid = grid
         self.strokeWidth = strokeWidth

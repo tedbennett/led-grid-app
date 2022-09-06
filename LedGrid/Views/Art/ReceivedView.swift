@@ -166,7 +166,8 @@ struct ExpandedReceivedArtView: View {
     let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     @State private var frameIndex = 0
     @State private var replay = false
-//    @State private var showUpgradeView = false
+    @State private var isPaused = false
+    @GestureState var isDetectingLongPress = false
     
     
     var body: some View {
@@ -177,13 +178,17 @@ struct ExpandedReceivedArtView: View {
                 MiniGridView(grid: grid.grids[frameIndex], viewSize: .large)
                 //                    .drawingGroup()
                     .aspectRatio(contentMode: .fit)
-                    .gesture(DragGesture().onChanged { val in
+                    .simultaneousGesture(DragGesture().onChanged { val in
                         if val.translation.height > 50.0 {
                             withAnimation {
                                 expandedGrid = nil
                             }
                         }
                     })
+                    .onLongPressGesture(minimumDuration: 0.05) { isPressing in
+                                self.isPaused = isPressing
+                            } perform: {
+                            }
                     .onAppear {
                         if !grid.opened {
                             GridManager.shared.setGridOpened(id: grid.id, opened: true)
@@ -228,6 +233,7 @@ struct ExpandedReceivedArtView: View {
         }.padding()
             .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
             .onReceive(timer) { time in
+                if (isPaused) { return }
                 frameIndex = frameIndex >= grid.grids.count - 1 ? 0 : frameIndex + 1
             }
             .onDisappear {
@@ -265,7 +271,7 @@ struct ExpandedGridActionsView: View {
                 showCopyArtWarning = true
             } label: {
                 Image(systemName: "square.and.pencil").font(.title2)
-            }.buttonStyle(StandardButton(disabled: false))
+            }.buttonStyle(StandardButton())
             
 //            Button {
 //                withAnimation {
@@ -280,7 +286,7 @@ struct ExpandedGridActionsView: View {
                     replay = true
                 } label: {
                     Image(systemName: "play").font(.title2)
-                }.buttonStyle(StandardButton(disabled: false))
+                }.buttonStyle(StandardButton())
             }
             
             Spacer()
@@ -291,7 +297,7 @@ struct ExpandedGridActionsView: View {
                 }
             } label: {
                 Image(systemName: "xmark").font(.title2)
-            }.buttonStyle(StandardButton(disabled: false))
+            }.buttonStyle(StandardButton())
         }.padding(.bottom, 10)
             .alert("Copy to canvas", isPresented: $showCopyArtWarning) {
                 Button("Copy", role: .destructive) {

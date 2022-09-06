@@ -75,6 +75,12 @@ class DrawManager: ObservableObject {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
     
+    func clearAllGrids() {
+        grids = [gridSize.blankGrid]
+        currentGridIndex = 0
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+    }
+    
     func undo() {
         guard let previousState = undoStates.popLast() else { return }
         let currentState = currentGrid

@@ -139,7 +139,7 @@ struct ExpandedArtView: View {
                     showCopyArtWarning = true
                 } label: {
                     Image(systemName: "square.on.square").font(.title2)
-                }.buttonStyle(StandardButton(disabled: false))
+                }.buttonStyle(StandardButton())
                     .padding(.bottom, 10)
                     .padding(.trailing, 8)
                 Button {
@@ -148,7 +148,7 @@ struct ExpandedArtView: View {
                     }
                 } label: {
                     Image(systemName: "xmark").font(.title2)
-                }.buttonStyle(StandardButton(disabled: false))
+                }.buttonStyle(StandardButton())
                     .padding(.bottom, 10)
             }
             MiniGridView(grid: grid.grids[frameIndex], viewSize: .large)
