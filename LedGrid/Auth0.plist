@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Auth0.plist
+   LedGrid
+
+   Created by Ted on 24/07/2022.
+   Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+    <dict>
+        <key>Domain</key>
+        <string>dev-tflapmkn.us.auth0.com</string>
+        <key>ClientId</key>
+        <string>E6EE3mPRE7sIbFCVJdbgsUfd2VZyXYFF</string>
+    </dict>
+</plist>

@@ -41,10 +41,6 @@ struct ContentView: View {
         
         UINavigationBar.appearance().largeTitleTextAttributes = strokeTextAttributes
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .label
-        
-        Task {
-            await GridManager.shared.refreshReceivedGrids()
-        }
     }
     
     func parseUrl(_ url: URL) {
@@ -102,6 +98,13 @@ struct ContentView: View {
                 }
                 .toast(isPresenting: $failedToAddFriend) {
                     AlertToast(type: .error(.gray), title: "Failed to add friend")
+                }
+                .onChange(of: scenePhase) { newPhase in
+                    if newPhase == .active && loggedIn {
+                        Task {
+                            await gridManager.refreshReceivedGrids()
+                        }
+                    }
                 }
             
         } else {

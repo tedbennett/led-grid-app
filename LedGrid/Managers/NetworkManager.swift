@@ -8,6 +8,7 @@
 import Foundation
 import AuthenticationServices
 import SimpleKeychain
+import Mixpanel
 
 class NetworkManager {
     static var shared = NetworkManager()
@@ -124,6 +125,10 @@ class NetworkManager {
         let headers = try await AuthService.getToken()
         
         let _ = try await Network.makeRequest(url: url, body: data, method: .post, headers: headers)
+        
+        Mixpanel.mainInstance().track(event: "sign_up", properties: [
+            "with_name": fullName != nil
+        ])
     }
     
     func updateUser(id: String, fullName: String, givenName: String, email: String) async throws {
@@ -192,6 +197,7 @@ class NetworkManager {
         let headers = try await AuthService.getToken()
         
         let _ = try await Network.makeRequest(url: url, body: data, method: .put, headers: headers)
+        Mixpanel.mainInstance().track(event: "upgrade_to_plus", properties: [:])
     }
     
     func checkUserExists(id: String) async throws -> Bool {

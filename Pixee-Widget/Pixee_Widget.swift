@@ -9,7 +9,6 @@ import WidgetKit
 import SwiftUI
 import Intents
 import SimpleKeychain
-import Utilities
 
 
 struct Provider: IntentTimelineProvider {

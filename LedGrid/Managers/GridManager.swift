@@ -132,7 +132,9 @@ class GridManager: ObservableObject {
         fetch.fetchLimit = 1
         guard let grid = (try? PersistenceManager.shared.viewContext.fetch(fetch))?.first else { return }
         grid.opened = opened
-        try! PersistenceManager.shared.viewContext.save()
+        try? PersistenceManager.shared.viewContext.save()
+        
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
     
     func handleReceivedNotification() async {

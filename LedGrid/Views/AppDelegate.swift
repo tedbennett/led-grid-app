@@ -40,4 +40,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) {
         
     }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
+        return .noData
+    }
 }

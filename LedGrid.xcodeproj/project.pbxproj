@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FD8118F28DCF6A600D3F95C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8118E28DCF6A600D3F95C /* Sentry */; };
+		1FD8119228DD0E3900D3F95C /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8119128DD0E3900D3F95C /* Mixpanel */; };
 		5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */; };
 		5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B42527F0D7E60039F621 /* LedGridApp.swift */; };
 		5799B42827F0D7E60039F621 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B42727F0D7E60039F621 /* ContentView.swift */; };
@@ -213,6 +215,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FD8119228DD0E3900D3F95C /* Mixpanel in Frameworks */,
+				1FD8118F28DCF6A600D3F95C /* Sentry in Frameworks */,
 				9F28FB7228B2773500403F4D /* SimpleKeychain in Frameworks */,
 				9FAB5EAD28949CD900A620BB /* AlertToast in Frameworks */,
 				9FAB5EB028953F3500A620BB /* Sliders in Frameworks */,
@@ -491,6 +495,8 @@
 				9FAB5EAC28949CD900A620BB /* AlertToast */,
 				9FAB5EAF28953F3500A620BB /* Sliders */,
 				9F28FB7128B2773500403F4D /* SimpleKeychain */,
+				1FD8118E28DCF6A600D3F95C /* Sentry */,
+				1FD8119128DD0E3900D3F95C /* Mixpanel */,
 			);
 			productName = LedGrid;
 			productReference = 5799B42227F0D7E60039F621 /* LedGrid.app */;
@@ -567,6 +573,8 @@
 				9FAB5EAB28949CD900A620BB /* XCRemoteSwiftPackageReference "AlertToast" */,
 				9FAB5EAE28953F3500A620BB /* XCRemoteSwiftPackageReference "swiftui-sliders" */,
 				9F28FB7028B2773500403F4D /* XCRemoteSwiftPackageReference "SimpleKeychain" */,
+				1FD8118D28DCF6A600D3F95C /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				1FD8119028DD0E3900D3F95C /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
 			);
 			productRefGroup = 5799B42327F0D7E60039F621 /* Products */;
 			projectDirPath = "";
@@ -843,7 +851,7 @@
 				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"LedGrid/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
@@ -863,7 +871,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -882,7 +890,7 @@
 				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"LedGrid/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
@@ -902,7 +910,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1070,6 +1078,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1FD8118D28DCF6A600D3F95C /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		1FD8119028DD0E3900D3F95C /* XCRemoteSwiftPackageReference "mixpanel-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mixpanel/mixpanel-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		9F28FB7028B2773500403F4D /* XCRemoteSwiftPackageReference "SimpleKeychain" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/SimpleKeychain";
@@ -1097,6 +1121,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1FD8118E28DCF6A600D3F95C /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FD8118D28DCF6A600D3F95C /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+		1FD8119128DD0E3900D3F95C /* Mixpanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FD8119028DD0E3900D3F95C /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
+			productName = Mixpanel;
+		};
 		9F28FB7128B2773500403F4D /* SimpleKeychain */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9F28FB7028B2773500403F4D /* XCRemoteSwiftPackageReference "SimpleKeychain" */;

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Sentry
 
 struct DrawActionsView: View {
     @ObservedObject var manager = DrawManager.shared
@@ -18,7 +19,7 @@ struct DrawActionsView: View {
         HStack {
             Button {
                 if Utility.isPlus {
-                    showEditFrames = true
+                    showEditFrames.toggle()
                 } else {
                     withAnimation {
                         showUpgradeView = true
