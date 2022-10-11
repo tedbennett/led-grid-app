@@ -9,12 +9,10 @@ import Foundation
 import UserNotifications
 import WidgetKit
 
-class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
+class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     static var shared = NotificationManager()
     
     private override init() { super.init() }
-    
-    @Published var selectedTab = 0
     
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
@@ -22,18 +20,32 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         Task {
-            await GridManager.shared.handleReceivedNotification()
+            // Handle notification
+            NotificationCenter.default.post(name: Notification.Name("REFRESH_ART"), object: nil)
             WidgetCenter.shared.reloadAllTimelines()
         }
-        completionHandler([[.banner, .badge, .sound]])
+        completionHandler([.banner, .badge, .sound])
     }
     
     // User opened notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-
+        
+        if let _ = notificationBody(from: response.notification.request.content.userInfo) {
+            // pass
+        }
+        
         DispatchQueue.main.async {
-            self.selectedTab = 1
+            NavigationManager.shared.currentTab = 1
         }
         completionHandler()
+    }
+    
+    func notificationBody(from payload: [AnyHashable : Any]) -> [String: Any]? {
+        if let aps = payload["aps"] as? [String: Any],
+           let alert = aps["alert"] as? [String: Any],
+           let body = alert["body"] as? [String: Any] {
+            return body
+        }
+        return nil
     }
 }

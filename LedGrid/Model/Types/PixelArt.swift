@@ -21,6 +21,26 @@ struct PixelArt: Codable, Identifiable {
         case id, grid, sentAt, opened, hidden, title, sender, receivers
     }
     
+    init(
+        id: String,
+        title: String?,
+        sentAt: Date,
+        sender: String,
+        receivers: [String],
+        opened: Bool,
+        hidden: Bool,
+        grids: [Grid]
+    ) {
+        self.id = id
+        self.title = title
+        self.sentAt = sentAt
+        self.sender = sender
+        self.receivers = receivers
+        self.opened = opened
+        self.hidden = hidden
+        self.grids = grids
+    }
+    
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(grids.map { $0.hex() }, forKey: .grid)
@@ -36,7 +56,7 @@ struct PixelArt: Codable, Identifiable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let encodedGrids = try (try? container.decode([String].self, forKey: .grid)) ?? [try container.decode(String.self, forKey: .grid)]
-
+        
         self.grids = PixelArt.parseGrids(from: encodedGrids)
         self.id = try container.decode(String.self, forKey: .id)
         self.title = try? container.decodeIfPresent(String.self, forKey: .title)
@@ -47,7 +67,7 @@ struct PixelArt: Codable, Identifiable {
         } else {
             self.receivers = [try container.decode(String.self, forKey: .receivers)]
         }
-        self.opened = (try? container.decode(Bool.self, forKey: .opened)) ?? false
+        self.opened = (try? container.decode(Bool.self, forKey: .opened)) ?? true
         self.hidden = (try? container.decode(Bool.self, forKey: .hidden)) ?? false
     }
     
@@ -65,4 +85,35 @@ struct PixelArt: Codable, Identifiable {
     var size: GridSize {
         grids[0].size
     }
+    
+    static var example: Self = PixelArt(
+        id: UUID().uuidString,
+        title: nil,
+        sentAt: Date.now,
+        sender: UUID().uuidString,
+        receivers: [UUID().uuidString],
+        opened: true,
+        hidden: false,
+        grids: [Grid.example, Grid.example2])
+    
+    static var example2: Self = PixelArt(
+        id: UUID().uuidString,
+        title: nil,
+        sentAt: Date.now,
+        sender: UUID().uuidString,
+        receivers: [UUID().uuidString],
+        opened: false,
+        hidden: false,
+        grids: [Grid.example2, Grid.example])
+    
+    static var example3: Self = PixelArt(
+        id: UUID().uuidString,
+        title: nil,
+        sentAt: Date.now,
+        sender: UUID().uuidString,
+        receivers: [UUID().uuidString],
+        opened: true,
+        hidden: false,
+        grids: [Grid.example, Grid.example2])
+    
 }

@@ -33,7 +33,7 @@ struct RevealView: View {
     }
     
     var body: some View {
-        PixelArtGrid(gridSize: gridSize) { col, row in
+        GridView(grid: grid) { color, strokeWidth, cornerRadius, col, row in
             if revealed > (col * grid.count) + row {
                 let color = grid[col][row]
                 SquareView(color: color, strokeWidth: strokeWidth, cornerRadius: cornerRadius)
@@ -41,6 +41,14 @@ struct RevealView: View {
                 SquareView(color: .clear, strokeWidth: 0, cornerRadius: cornerRadius)
             }
         }
+//        PixelArtGrid(gridSize: gridSize) { col, row in
+//            if revealed > (col * grid.count) + row {
+//                let color = grid[col][row]
+//                SquareView(color: color, strokeWidth: strokeWidth, cornerRadius: cornerRadius)
+//            } else {
+//                SquareView(color: .clear, strokeWidth: 0, cornerRadius: cornerRadius)
+//            }
+//        }
         .onReceive(timer) { time in
             if isTimerRunning {
                 if gridSize == .small || (gridSize == .medium && revealed % 2 == 1) || (gridSize == .large && revealed % 3 == 1) {
@@ -57,11 +65,10 @@ struct RevealView: View {
         }.onDisappear {
             timer.upstream.connect().cancel()
             isTimerRunning = false
+            revealed = 0
             onFinish()
         }.onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                isTimerRunning = true
-            }
+            isTimerRunning = true
         }
     }
 }

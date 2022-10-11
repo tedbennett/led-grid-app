@@ -10,36 +10,7 @@ import AuthenticationServices
 
 struct LoginView: View {
     @Binding var loggedIn: Bool
-    @State private var showSignInAlert = false
-    @State private var isSigningIn = false
-    
-    func handleSignIn(result: (Result<ASAuthorization, Error>)) {
-        switch result {
-        case .success(let authResults):
-            isSigningIn = true
-            Task {
-                do {
-                    try await NetworkManager.shared.handleSignInWithApple(authorization: authResults)
-                    UserManager.shared.requestNotificationPermissions()
-                    await GridManager.shared.refreshReceivedGrids(markOpened: true)
-                    await GridManager.shared.refreshSentGrids()
-                    await UserManager.shared.refreshFriends()
-                    await MainActor.run {
-                        isSigningIn = false
-                        loggedIn = true
-                    }
-                } catch {
-                    print("Sign in failed: \(error.localizedDescription)")
-                    await MainActor.run {
-                        showSignInAlert = true
-                    }
-                }
-            }
-        case .failure(let error):
-            print("Authorisation failed: \(error.localizedDescription)")
-            showSignInAlert = true
-        }
-    }
+    @ObservedObject var viewModel = LoginViewModel()
     
     var body: some View {
         NavigationView {
@@ -53,11 +24,17 @@ struct LoginView: View {
                 IconListItemView(image: "star.circle", title: "More Features", subtitle: "Pixee Plus lets you create more detailed, dynamic art")
                 }.padding(.horizontal, 10)
                 Spacer()
-                if !isSigningIn {
+                if !viewModel.isSigningIn {
                     SignInWithAppleButton(.signIn) { request in
                         request.requestedScopes = [.fullName, .email]
                     } onCompletion: { result in
-                        handleSignIn(result: result)
+                        Task {
+                            let success = await viewModel.handleSignIn(result: result)
+                            await MainActor.run {
+                                loggedIn = success
+                            }
+                        }
+                        
                     }.frame(width: 250, height: 80).overlay(
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(.white, lineWidth: 2)
@@ -71,10 +48,13 @@ struct LoginView: View {
                 Spacer()
             }
             .navigationTitle("Welcome to Pixee")
-            .alert("Failed to sign up", isPresented: $showSignInAlert) {
+            .alert("Failed to sign up", isPresented: $viewModel.showSignInAlert) {
                 Button("OK") { }
             } message: {
                 Text("Please try again later.")
+            }
+            .onAppear {
+                if viewModel.shouldLogin() { loggedIn = true }
             }
         }
     }

@@ -9,8 +9,8 @@ import SwiftUI
 import AlertToast
 
 struct DrawView: View {
-    @ObservedObject var manager = DrawManager.shared
-    @StateObject var viewModel = DrawViewModel()
+    @EnvironmentObject var drawViewModel: DrawViewModel
+    @StateObject var colorViewModel = DrawColourViewModel()
     @Environment(\.scenePhase) var scenePhase
     
     @State private var showSendView = false
@@ -23,16 +23,16 @@ struct DrawView: View {
                 Title("Draw Something").frame(width: 100, height: 40)
                     .padding(.top, 45)
                 Spacer()
-                DrawTopBarView(viewModel: viewModel, showSendView: $showSendView, showUpgradeView: $showUpgradeView)
+                DrawTopBarView(showSendView: $showSendView, showUpgradeView: $showUpgradeView)
                     .padding(.top, 0)
                     .padding(.bottom, 10)
-                DrawableGridView(viewModel: viewModel)
+                DrawableGridView(colorViewModel: colorViewModel)
                     .drawingGroup()
                     .padding(.bottom, 10)
                     .padding(.horizontal, 3)
-                ColorPickerView(viewModel: viewModel)
+                ColorPickerView(viewModel: colorViewModel)
                     .padding(.bottom, 30)
-                DrawActionsView(viewModel: viewModel, showUpgradeView: $showUpgradeView)
+                DrawActionsView(showUpgradeView: $showUpgradeView)
                     .padding(.bottom, 20)
                 Spacer()
                 
@@ -48,28 +48,28 @@ struct DrawView: View {
             }
             .allowsHitTesting(!showSendView && !showUpgradeView)
             .onAppear {
-                viewModel.saveGrid()
+                drawViewModel.saveGrid()
             }
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .inactive || newPhase == .background {
-                    viewModel.saveGrid()
+                    drawViewModel.saveGrid()
                 }
             }
             
             SlideOverView(isOpened: $showSendView) {
-                ExpandedSendView(isOpened: $showSendView, viewModel: viewModel)
+                SendArtView(grids: drawViewModel.grids, isOpened: $showSendView)
             }
             SlideOverView(isOpened: $showUpgradeView) {
                 UpgradeView(isOpened: $showUpgradeView)
             }
         }
-        .toast(isPresenting: $viewModel.sentGrid) {
+        .toast(isPresenting: $drawViewModel.sentGrid) {
             AlertToast(type: .complete(.gray), title: "Sent pixel art!")
         }
-        .toast(isPresenting: $viewModel.failedToSendGrid) {
+        .toast(isPresenting: $drawViewModel.failedToSendGrid) {
             AlertToast(type: .error(.gray), title: "Failed to send", subTitle: "Try again later.")
         }
-        .toast(isPresenting: $viewModel.showColorChangeToast, duration: 1.0) {
+        .toast(isPresenting: $drawViewModel.showColorChangeToast, duration: 1.0) {
             AlertToast(displayMode: .hud, type: .complete(.white), title: "Color copied!")
         }
     }
@@ -78,6 +78,7 @@ struct DrawView: View {
 struct DrawView_Previews: PreviewProvider {
     static var previews: some View {
         DrawView()
+            .environmentObject(DrawViewModel())
             .previewDevice("iPhone 13 mini")
     }
 }

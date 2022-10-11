@@ -8,7 +8,19 @@
 import SwiftUI
 
 struct ColorPickerView: View {
-    @ObservedObject var viewModel: DrawViewModel
+    @ObservedObject var viewModel: DrawColourViewModel
+    @State var translation = CGSize.zero
+    
+    var simpleDrag: some Gesture {
+        DragGesture()
+            .onChanged { value in
+                self.translation = value.translation
+            }.onEnded { _ in
+                withAnimation {
+                    self.translation = CGSize.zero
+                }
+            }
+    }
     
     var body: some View {
         HStack {
@@ -26,6 +38,13 @@ struct ColorPickerView: View {
                     .frame(width: 40, height: 40, alignment: .center)
                     .padding(10)
                     .allowsHitTesting(false)
+                Circle().fill(viewModel.currentColor).frame(width: 40, height: 40).padding(10)
+                    .scaleEffect(translation == CGSize.zero ? 0.5 : 1.2)
+                    .offset(translation)
+                    .shadow(color: translation == CGSize.zero ? .clear : .black, radius: translation == CGSize.zero ? 0 : 5)
+                    .gesture(
+                        simpleDrag
+                    )
             }
         }
     }
@@ -33,6 +52,6 @@ struct ColorPickerView: View {
 
 struct ColorPickerView_Previews: PreviewProvider {
     static var previews: some View {
-        ColorPickerView(viewModel: DrawViewModel())
+        ColorPickerView(viewModel: DrawColourViewModel())
     }
 }

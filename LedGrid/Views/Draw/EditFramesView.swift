@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct EditFramesView: View {
-    @ObservedObject var manager = DrawManager.shared
+    @EnvironmentObject var drawViewModel: DrawViewModel
     @Binding var isOpened: Bool
     @StateObject var viewModel = EditFramesViewModel()
-    
     
     let columns = [
         GridItem(.flexible()),
@@ -28,7 +27,8 @@ struct EditFramesView: View {
                             VStack {
                                 HStack {
                                     Button {
-                                        viewModel.duplicateFrame(frame.id)
+                                        viewModel.duplicateFrame(frame)
+                                        drawViewModel.duplicateGrid(frame.grid)
                                     } label: {
                                         Image(systemName: "plus.circle.fill").font(.title2)
                                     }
@@ -37,7 +37,8 @@ struct EditFramesView: View {
                                     
                                     if viewModel.frames.count > 1 {
                                         Button {
-                                            viewModel.removeFrame(frame.id)
+                                            guard let index = viewModel.removeFrame(frame.id) else { return }
+                                            drawViewModel.removeGrid(at: index)
                                         } label: {
                                             Image(systemName: "xmark.circle.fill").font(.title2)
                                         }
@@ -45,10 +46,10 @@ struct EditFramesView: View {
                                     }
                                 }.padding(.horizontal, 5)
                                     .padding(.top, 5)
-                                MiniGridView(grid: frame.grid, viewSize: .small)
+                                GridView(grid: frame.grid, viewSize: .small)
                                     .onTapGesture {
-                                        guard !viewModel.editMode, let index = viewModel.frames.firstIndex(where: { $0.id == frame.id }) else { return }
-                                        DrawManager.shared.changeToGrid(at: index)
+                                        guard let index = viewModel.frames.firstIndex(where: { $0.id == frame.id }) else { return }
+                                        drawViewModel.changeToGrid(at: index)
                                         isOpened = false
                                     }.padding(.horizontal)
                                     .padding(.bottom)
@@ -58,14 +59,16 @@ struct EditFramesView: View {
                             .padding(10)
                         } moveAction: { from, to in
                             viewModel.moveFrame(from: from.first!, to: to)
-                        } dropAction: { viewModel.commitDrop() }
+                        } dropAction: { start, end in
+                            drawViewModel.moveGrid(from: start, to: end)
+                        }
                         Button {
-                            manager.grids.append(manager.currentGrid.size.blankGrid)
-                            manager.currentGridIndex = manager.grids.count - 1
+                            viewModel.frames.append(Frame(grid: drawViewModel.currentGrid.size.blankGrid))
+                            drawViewModel.newBlankGrid()
                             isOpened = false
                         } label: {
                             ZStack {
-                                MiniGridView(grid: GridSize.small.blankGrid, viewSize: .small)
+                                GridView(grid: GridSize.small.blankGrid, viewSize: .small)
                                     .padding()
                                     .opacity(0)
                                     .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray5)))
@@ -84,12 +87,10 @@ struct EditFramesView: View {
                     }
                 }
             }.onAppear {
-                manager.grids[manager.currentGridIndex] = manager.currentGrid
-                viewModel.currentFrameId = viewModel.frames[manager.currentGridIndex].id
-            }.onChange(of: manager.grids, perform: { _ in
-                viewModel.frames = manager.grids.map { Frame(grid: $0) }
-                viewModel.currentFrameId = viewModel.frames[manager.currentGridIndex].id
-            })
+                drawViewModel.grids[drawViewModel.currentGridIndex] = drawViewModel.currentGrid
+                viewModel.frames = drawViewModel.grids.map { Frame(grid: $0) }
+//                viewModel.currentFrameId = viewModel.frames[drawViewModel.currentGridIndex].id
+            }
         }.tint(Color(uiColor: .label))
     }
 }
@@ -97,9 +98,7 @@ struct EditFramesView: View {
 
 
 class EditFramesViewModel: ObservableObject {
-    @Published var frames: [Frame] = DrawManager.shared.grids.map { Frame(grid: $0) }
-    @Published var draggedFrame: Frame?
-    @Published var editMode = false
+    @Published var frames: [Frame] = []
     @Published var currentFrameId: String?
     
     func moveFrame(from origin: Int, to destination: Int) {
@@ -107,40 +106,21 @@ class EditFramesViewModel: ObservableObject {
         frames.insert(moved, at: origin > destination ? destination : destination - 1)
     }
     
-    func commitDrop() {
-        DrawManager.shared.grids = frames.map { $0.grid }
-        guard let id = currentFrameId,
-              let index = frames.firstIndex(where: { $0.id == id }) else {
-            return
-        }
-        DrawManager.shared.currentGridIndex = index
-    }
-    
-    func duplicateFrame(_ id: String) {
-        guard let index = frames.firstIndex(where: { $0.id == id }) else {
-            return
-        }
-        let duplicate = Frame(grid: frames[index].grid)
+    func duplicateFrame(_ frame: Frame) {
+        let duplicate = Frame(grid: frame.grid)
         withAnimation {
             frames.append(duplicate)
         }
-        DrawManager.shared.grids.append(DrawManager.shared.grids[index])
     }
     
-    func removeFrame(_ id: String) {
+    func removeFrame(_ id: String) -> Int? {
         guard let index = frames.firstIndex(where: { $0.id == id }) else {
-            return
+            return nil
         }
-        if index == DrawManager.shared.currentGridIndex {
-            DrawManager.shared.currentGridIndex = 0
-        } else if index < DrawManager.shared.currentGridIndex {
-            DrawManager.shared.currentGridIndex -= 1
+        withAnimation {
+            _ = frames.remove(at: index)
         }
-        _ = withAnimation {
-            frames.remove(at: index)
-        }
-        DrawManager.shared.grids.remove(at: index)
-        DrawManager.shared.currentGridIndex = DrawManager.shared.currentGridIndex
+        return index
     }
 }
 
@@ -148,7 +128,7 @@ struct ReorderableForEach<Content: View, Item: Identifiable & Equatable>: View {
     let items: [Item]
     let content: (Item) -> Content
     let moveAction: (IndexSet, Int) -> Void
-    let dropAction: () -> Void
+    let dropAction: (Int, Int) -> Void
     
     // A little hack that is needed in order to make view back opaque
     // if the drag and drop hasn't ever changed the position
@@ -159,7 +139,7 @@ struct ReorderableForEach<Content: View, Item: Identifiable & Equatable>: View {
         items: [Item],
         @ViewBuilder content: @escaping (Item) -> Content,
         moveAction: @escaping (IndexSet, Int) -> Void,
-        dropAction: @escaping () -> Void
+        dropAction: @escaping (Int, Int) -> Void
     ) {
         self.items = items
         self.content = content
@@ -168,6 +148,8 @@ struct ReorderableForEach<Content: View, Item: Identifiable & Equatable>: View {
     }
     
     @State private var draggingItem: Item?
+    @State private var startPosition: Int?
+    @State private var endPosition: Int?
     
     var body: some View {
         ForEach(items) { item in
@@ -175,6 +157,7 @@ struct ReorderableForEach<Content: View, Item: Identifiable & Equatable>: View {
                 .opacity(draggingItem == item && hasChangedLocation ? 0.3 : 1)
                 .onDrag {
                     draggingItem = item
+                    startPosition = items.firstIndex(of: item)
                     return NSItemProvider(object: "\(item.id)" as NSString)
                 }
                 .onDrop(
@@ -185,10 +168,14 @@ struct ReorderableForEach<Content: View, Item: Identifiable & Equatable>: View {
                         current: $draggingItem,
                         hasChangedLocation: $hasChangedLocation
                     ) { from, to in
+                        endPosition = to
                         withAnimation {
                             moveAction(from, to)
                         }
-                    } dropAction: { dropAction() }
+                    } dropAction: {
+                        guard let startPosition = startPosition, let endPosition = endPosition else { return }
+                        dropAction(startPosition, endPosition)
+                    }
                 )
         }
     }

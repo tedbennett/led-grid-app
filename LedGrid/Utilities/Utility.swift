@@ -100,6 +100,15 @@ struct Utility {
         }
     }
     
+    static var lastReactions: [String] {
+        get {
+            store.array(forKey: "lastReactions") as? [String] ?? ["🥰", "😂", "🤨"]
+        }
+        set {
+            store.set(newValue, forKey: "lastReactions")
+        }
+    }
+    
     static var launchedBefore: Bool {
         get {
             store.bool(forKey: "launchedBefore")

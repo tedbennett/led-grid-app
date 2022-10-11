@@ -43,7 +43,7 @@ struct WidgetTutorialView: View {
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 10)
                 
-                MiniGridView(grid: gridColors, viewSize: .custom(stroke: 0, cornerRadius: 3, spacing: 3)).frame(width: 150, height: 150).padding(10).overlay(
+                GridView(grid: gridColors, viewSize: .custom(stroke: 0, cornerRadius: 3, spacing: 3)).frame(width: 150, height: 150).padding(10).overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(Color(uiColor: .label), lineWidth: 2)
                 ).padding(.bottom, 30)

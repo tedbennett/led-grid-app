@@ -9,7 +9,8 @@ import SwiftUI
 import AuthenticationServices
 
 struct SettingsView: View {
-    @ObservedObject var manager = UserManager.shared
+    @EnvironmentObject var friendsViewModel: FriendsViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     @Binding var loggedIn: Bool
     @State private var friends = Utility.friends
     @State private var showEditView = false
@@ -23,18 +24,18 @@ struct SettingsView: View {
             ZStack {
                 List {
                     Section {
-                        if manager.friends.isEmpty {
+                        if friendsViewModel.friends.isEmpty {
                             Button {
                                 Helpers.presentShareSheet()
                             } label: {
                                 Text("Add friends to get started!")
                             }
                         }
-                        ForEach(manager.friends) { friend in
+                        ForEach(friendsViewModel.friends) { friend in
                             Text(friend.fullName ?? "Unknown Friend")
                                 .swipeActions(allowsFullSwipe: false) {
                                     Button(role: .destructive) {
-                                        manager.removeFriend(id: friend.id)
+                                        friendsViewModel.removeFriend(id: friend.id)
                                     } label: {
                                         Label("Remove", systemImage: "trash.fill")
                                     }
@@ -54,7 +55,7 @@ struct SettingsView: View {
                     }
                     
                     Section {
-                        Text(UserManager.shared.user?.fullName ?? "Unknown name")
+                        Text(userViewModel.user?.fullName ?? "Unknown name")
                     } header: {
                         HStack {
                             Text("Name")
@@ -67,7 +68,7 @@ struct SettingsView: View {
                         }
                     }
                     Section("Email") {
-                        Text(UserManager.shared.user?.email ?? "Unknown email").foregroundColor(.gray)
+                        Text(userViewModel.user?.email ?? "Unknown email").foregroundColor(.gray)
                     }
                     
                     
@@ -105,7 +106,7 @@ struct SettingsView: View {
                     }
                 }
                 .refreshable {
-                    await UserManager.shared.refreshFriends()
+                    await friendsViewModel.refreshFriends()
                 }
                 
                 .blur(radius: showUpgradeView ? 20 : 0)
@@ -120,7 +121,7 @@ struct SettingsView: View {
                 
                 Menu {
                     Button {
-                        UserManager.shared.logout()
+                        userViewModel.logout()
                         loggedIn = false
                     } label: {
                         Text("Logout")
@@ -165,12 +166,14 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView(loggedIn: .constant(true))
+            .environmentObject(UserViewModel())
     }
 }
 
 struct EditNameView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
     @Binding var isPresented: Bool
-    @State private var fullName = UserManager.shared.user?.fullName ?? ""
+    @State private var fullName = ""
     var body: some View {
         Form {
             Section("Full Name") {
@@ -178,12 +181,15 @@ struct EditNameView: View {
             }
             Button {
                 Task {
-                    await UserManager.shared.updateUser(fullName: fullName)
+                    await userViewModel.updateUser(fullName: fullName)
                 }
                 isPresented = false
             } label: {
                 Text("Save")
             }
         }.navigationTitle("Edit Name")
+            .onAppear {
+                fullName = userViewModel.user?.fullName ?? ""
+            }
     }
 }

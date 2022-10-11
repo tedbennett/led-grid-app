@@ -21,29 +21,33 @@ class NetworkManager {
         return try JSONDecoder.standard.decode(T.self, from: data)
     }
     
-    func handleSignInWithApple(authorization: ASAuthorization) async throws {
+    func handleSignInWithApple(authorization: ASAuthorization) async throws -> User {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
               let code = appleIDCredential.authorizationCode,
               let authorizationCode = String(data: code, encoding: .utf8) else {
             // throw
-            return
+            throw ApiError.noUser
         }
         
         try await AuthService.login(code: authorizationCode)
        
-        if try await !checkUserExists(id: appleIDCredential.user) {
-            UserManager.shared.setUser(User(
-                id: appleIDCredential.user,
-                fullName: appleIDCredential.fullName?.formatted(),
-                givenName: appleIDCredential.fullName?.givenName,
-                email: appleIDCredential.email
-            ))
-            try await createAccount(id: appleIDCredential.user, fullName: appleIDCredential.fullName?.formatted(), givenName: appleIDCredential.fullName?.givenName, email: appleIDCredential.email)
-        } else {
-            let user = try await getUser(id: appleIDCredential.user)
-            UserManager.shared.setUser(user)
-        }
+        let user = try await {
+            if try await !checkUserExists(id: appleIDCredential.user) {
+                let user = User(
+                    id: appleIDCredential.user,
+                    fullName: appleIDCredential.fullName?.formatted(),
+                    givenName: appleIDCredential.fullName?.givenName,
+                    email: appleIDCredential.email
+                )
+                try await createAccount(id: appleIDCredential.user, fullName: appleIDCredential.fullName?.formatted(), givenName: appleIDCredential.fullName?.givenName, email: appleIDCredential.email)
+                return user
+            } else {
+                let user = try await getUser(id: appleIDCredential.user)
+                return user
+            }
+        }()
         
+        return user
     }
     
     
@@ -101,7 +105,6 @@ class NetworkManager {
         let headers = try await AuthService.getToken()
         
         let data = try await Network.makeRequest(url: url, body: body, method: .post, headers: headers)
-        print(try! JSONSerialization.jsonObject(with: data, options: []))
         let art = try JSONDecoder.standard.decode(PixelArt.self, from: data)
         
         return art

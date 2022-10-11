@@ -7,8 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F9D489828E68F93004098B5 /* ArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489728E68F93004098B5 /* ArtView.swift */; };
+		1F9D489A28E68FD9004098B5 /* FriendCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489928E68FD9004098B5 /* FriendCardView.swift */; };
+		1F9D489C28E69068004098B5 /* InitialsOrbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489B28E69068004098B5 /* InitialsOrbView.swift */; };
+		1F9D489F28E69A78004098B5 /* ArtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489E28E69A78004098B5 /* ArtViewModel.swift */; };
+		1F9D48A128E69BB6004098B5 /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48A028E69BB6004098B5 /* LoggedInView.swift */; };
+		1F9D48A328E69C37004098B5 /* AddFriendHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48A228E69C37004098B5 /* AddFriendHandler.swift */; };
+		1F9D48A528EB5112004098B5 /* ArtModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48A428EB5112004098B5 /* ArtModel.swift */; };
+		1F9D48A728EB9003004098B5 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48A628EB9003004098B5 /* LoginViewModel.swift */; };
+		1F9D48A928EC729C004098B5 /* SendArtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48A828EC729C004098B5 /* SendArtViewModel.swift */; };
+		1F9D48AB28ECD8AA004098B5 /* EditGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48AA28ECD8AA004098B5 /* EditGridViewModel.swift */; };
+		1F9D48AD28ED25A8004098B5 /* ArtListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48AC28ED25A8004098B5 /* ArtListView.swift */; };
 		1FD8118F28DCF6A600D3F95C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8118E28DCF6A600D3F95C /* Sentry */; };
 		1FD8119228DD0E3900D3F95C /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8119128DD0E3900D3F95C /* Mixpanel */; };
+		1FFB1A3D28ED2F2900B126AE /* ArtListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */; };
+		1FFB1A3F28ED9AEB00B126AE /* ArtCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */; };
+		1FFB1A4228EDC60400B126AE /* ArtReactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4128EDC60400B126AE /* ArtReactionsView.swift */; };
+		1FFB1A4428EF9F1600B126AE /* ArtReactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4328EF9F1600B126AE /* ArtReactionsViewModel.swift */; };
+		1FFB1A4628EF9F8A00B126AE /* ArtCardTopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4528EF9F8A00B126AE /* ArtCardTopBarView.swift */; };
+		1FFB1A4828EFA5B600B126AE /* ArtCardBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4728EFA5B600B126AE /* ArtCardBottomBarView.swift */; };
+		1FFB1A4A28EFD00E00B126AE /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4928EFD00E00B126AE /* FriendsViewModel.swift */; };
+		1FFB1A4C28EFE0DD00B126AE /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4B28EFE0DD00B126AE /* UserViewModel.swift */; };
+		1FFB1A4E28F1A1AE00B126AE /* FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4D28F1A1AE00B126AE /* FriendsModel.swift */; };
+		1FFB1A5128F1D94000B126AE /* PreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A5028F1D94000B126AE /* PreviewModel.swift */; };
+		1FFB1A5328F1DCDC00B126AE /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A5228F1DCDC00B126AE /* NavigationManager.swift */; };
+		1FFB1A5628F332CD00B126AE /* DrawColourViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A5528F332CD00B126AE /* DrawColourViewModel.swift */; };
 		5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */; };
 		5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B42527F0D7E60039F621 /* LedGridApp.swift */; };
 		5799B42827F0D7E60039F621 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B42727F0D7E60039F621 /* ContentView.swift */; };
@@ -58,7 +81,7 @@
 		9F28FBAA28B2AADE00403F4D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7E28B29EB700403F4D /* String.swift */; };
 		9F28FBAC28B2AB0000403F4D /* SimpleKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 9F28FBAB28B2AB0000403F4D /* SimpleKeychain */; };
 		9F317B6028A2F9AB00105E8C /* DrawManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B5F28A2F9AB00105E8C /* DrawManager.swift */; };
-		9F317B6228A3052400105E8C /* ExpandedSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6128A3052400105E8C /* ExpandedSendView.swift */; };
+		9F317B6228A3052400105E8C /* SendArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6128A3052400105E8C /* SendArtView.swift */; };
 		9F317B6428A3159500105E8C /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6328A3159500105E8C /* MailView.swift */; };
 		9F317B6728A596F000105E8C /* Pixee.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6528A596F000105E8C /* Pixee.xcdatamodeld */; };
 		9F317B6928A59DBE00105E8C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6828A59DBE00105E8C /* CoreDataStack.swift */; };
@@ -131,6 +154,29 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F9D489728E68F93004098B5 /* ArtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtView.swift; sourceTree = "<group>"; };
+		1F9D489928E68FD9004098B5 /* FriendCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCardView.swift; sourceTree = "<group>"; };
+		1F9D489B28E69068004098B5 /* InitialsOrbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialsOrbView.swift; sourceTree = "<group>"; };
+		1F9D489E28E69A78004098B5 /* ArtViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtViewModel.swift; sourceTree = "<group>"; };
+		1F9D48A028E69BB6004098B5 /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
+		1F9D48A228E69C37004098B5 /* AddFriendHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendHandler.swift; sourceTree = "<group>"; };
+		1F9D48A428EB5112004098B5 /* ArtModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtModel.swift; sourceTree = "<group>"; };
+		1F9D48A628EB9003004098B5 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		1F9D48A828EC729C004098B5 /* SendArtViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendArtViewModel.swift; sourceTree = "<group>"; };
+		1F9D48AA28ECD8AA004098B5 /* EditGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGridViewModel.swift; sourceTree = "<group>"; };
+		1F9D48AC28ED25A8004098B5 /* ArtListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtListView.swift; sourceTree = "<group>"; };
+		1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtListViewModel.swift; sourceTree = "<group>"; };
+		1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardView.swift; sourceTree = "<group>"; };
+		1FFB1A4128EDC60400B126AE /* ArtReactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtReactionsView.swift; sourceTree = "<group>"; };
+		1FFB1A4328EF9F1600B126AE /* ArtReactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtReactionsViewModel.swift; sourceTree = "<group>"; };
+		1FFB1A4528EF9F8A00B126AE /* ArtCardTopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardTopBarView.swift; sourceTree = "<group>"; };
+		1FFB1A4728EFA5B600B126AE /* ArtCardBottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardBottomBarView.swift; sourceTree = "<group>"; };
+		1FFB1A4928EFD00E00B126AE /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
+		1FFB1A4B28EFE0DD00B126AE /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		1FFB1A4D28F1A1AE00B126AE /* FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsModel.swift; sourceTree = "<group>"; };
+		1FFB1A5028F1D94000B126AE /* PreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModel.swift; sourceTree = "<group>"; };
+		1FFB1A5228F1DCDC00B126AE /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		1FFB1A5528F332CD00B126AE /* DrawColourViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawColourViewModel.swift; sourceTree = "<group>"; };
 		5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		5799B42227F0D7E60039F621 /* LedGrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LedGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5799B42527F0D7E60039F621 /* LedGridApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedGridApp.swift; sourceTree = "<group>"; };
@@ -170,7 +216,7 @@
 		9F28FBA028B2A26000403F4D /* StandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
 		9F28FBA328B2A8D900403F4D /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
 		9F317B5F28A2F9AB00105E8C /* DrawManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawManager.swift; sourceTree = "<group>"; };
-		9F317B6128A3052400105E8C /* ExpandedSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedSendView.swift; sourceTree = "<group>"; };
+		9F317B6128A3052400105E8C /* SendArtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendArtView.swift; sourceTree = "<group>"; };
 		9F317B6328A3159500105E8C /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		9F317B6628A596F000105E8C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		9F317B6828A59DBE00105E8C /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -245,6 +291,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F9D489D28E698C7004098B5 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				1FFB1A5428F3329900B126AE /* Art */,
+				1F9D48A828EC729C004098B5 /* SendArtViewModel.swift */,
+				1FFB1A4B28EFE0DD00B126AE /* UserViewModel.swift */,
+				1F9D48A628EB9003004098B5 /* LoginViewModel.swift */,
+				1FFB1A4928EFD00E00B126AE /* FriendsViewModel.swift */,
+				57C96D9D27F1D295008C52BB /* DrawViewModel.swift */,
+				1FFB1A5528F332CD00B126AE /* DrawColourViewModel.swift */,
+				1F9D48AA28ECD8AA004098B5 /* EditGridViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		1FFB1A4028EDC5F900B126AE /* ArtCard */ = {
+			isa = PBXGroup;
+			children = (
+				1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */,
+				1FFB1A4528EF9F8A00B126AE /* ArtCardTopBarView.swift */,
+				1FFB1A4728EFA5B600B126AE /* ArtCardBottomBarView.swift */,
+				1FFB1A4128EDC60400B126AE /* ArtReactionsView.swift */,
+			);
+			path = ArtCard;
+			sourceTree = "<group>";
+		};
+		1FFB1A4F28F1D93300B126AE /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				9F28FB8028B29ED600403F4D /* Frame.swift */,
+				9F28FB8228B29EE700403F4D /* Grid.swift */,
+				9F28FB8A28B2A00800403F4D /* User.swift */,
+				9FC6245628BA535400723C97 /* PixelArt.swift */,
+				9F28FB8828B29FF000403F4D /* NetworkTypes.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		1FFB1A5428F3329900B126AE /* Art */ = {
+			isa = PBXGroup;
+			children = (
+				1F9D489E28E69A78004098B5 /* ArtViewModel.swift */,
+				1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */,
+				1FFB1A4328EF9F1600B126AE /* ArtReactionsViewModel.swift */,
+			);
+			path = Art;
+			sourceTree = "<group>";
+		};
 		5799B41927F0D7E60039F621 = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +370,7 @@
 				9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */,
 				9F28FB8528B29F2A00403F4D /* Managers */,
 				9F28FB8428B29F0500403F4D /* Views */,
+				1F9D489D28E698C7004098B5 /* ViewModels */,
 				9FA0DDCF286CA0E400F1CB4F /* Model */,
 				9F28FB7628B29DA700403F4D /* Utilities */,
 				9F28FB7B28B29E8900403F4D /* Extensions */,
@@ -299,11 +394,10 @@
 				57C96DA627F3A266008C52BB /* DrawView.swift */,
 				9F28FB9928B2A1C100403F4D /* DrawActionsView.swift */,
 				9F28FB9728B2A1A700403F4D /* DrawTopBarView.swift */,
-				57C96D9D27F1D295008C52BB /* DrawViewModel.swift */,
 				9F317B6E28A6E9DF00105E8C /* EditFramesView.swift */,
 				5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */,
 				5799B43327F0D89D0039F621 /* DrawableGridView.swift */,
-				9F317B6128A3052400105E8C /* ExpandedSendView.swift */,
+				9F317B6128A3052400105E8C /* SendArtView.swift */,
 			);
 			path = Draw;
 			sourceTree = "<group>";
@@ -315,6 +409,7 @@
 				9FC6245B28BA8F8D00723C97 /* SlideOverView.swift */,
 				9F28FB9128B2A0A100403F4D /* Spinner.swift */,
 				9F3A842928980EE30053F3DD /* UserOrb.swift */,
+				1F9D489B28E69068004098B5 /* InitialsOrbView.swift */,
 				9FC6246128BAC79700723C97 /* IconListItemView.swift */,
 				9FC6245928BA8A7000723C97 /* UpgradeView.swift */,
 				5799B43527F0D8AA0039F621 /* SquareView.swift */,
@@ -332,6 +427,10 @@
 				57C96DAF27F45B56008C52BB /* SentView.swift */,
 				57C96DB127F45B93008C52BB /* ReceivedView.swift */,
 				9F3A842B289EF0150053F3DD /* RevealView.swift */,
+				1F9D489728E68F93004098B5 /* ArtView.swift */,
+				1F9D489928E68FD9004098B5 /* FriendCardView.swift */,
+				1F9D48AC28ED25A8004098B5 /* ArtListView.swift */,
+				1FFB1A4028EDC5F900B126AE /* ArtCard */,
 			);
 			path = Art;
 			sourceTree = "<group>";
@@ -382,9 +481,10 @@
 			isa = PBXGroup;
 			children = (
 				5799B42527F0D7E60039F621 /* LedGridApp.swift */,
+				1F9D48A228E69C37004098B5 /* AddFriendHandler.swift */,
 				9F28FB8E28B2A06C00403F4D /* AppDelegate.swift */,
 				5799B42727F0D7E60039F621 /* ContentView.swift */,
-				9F28FB8728B29F7900403F4D /* Login */,
+				9F28FB8728B29F7900403F4D /* Onboarding */,
 				57C96DA927F3A622008C52BB /* Common */,
 				57C96DAA27F3A632008C52BB /* Art */,
 				57C96DA827F3A361008C52BB /* Draw */,
@@ -404,17 +504,19 @@
 				9FAB5EA928949AEC00A620BB /* UserManager.swift */,
 				9F28FB7328B29D3300403F4D /* AuthService.swift */,
 				9F28FB9E28B2A23600403F4D /* NotificationsManager.swift */,
+				1FFB1A5228F1DCDC00B126AE /* NavigationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		9F28FB8728B29F7900403F4D /* Login */ = {
+		9F28FB8728B29F7900403F4D /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				1F9D48A028E69BB6004098B5 /* LoggedInView.swift */,
 				9FAB5EA52891D03B00A620BB /* LoginView.swift */,
 				9F28FB9328B2A0C200403F4D /* LargeSpinner.swift */,
 			);
-			path = Login;
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		9F28FB9D28B2A21A00403F4D /* Helpers */ = {
@@ -463,11 +565,10 @@
 			isa = PBXGroup;
 			children = (
 				9F28FB7A28B29E6A00403F4D /* CoreData */,
-				9F28FB8028B29ED600403F4D /* Frame.swift */,
-				9F28FB8228B29EE700403F4D /* Grid.swift */,
-				9F28FB8A28B2A00800403F4D /* User.swift */,
-				9FC6245628BA535400723C97 /* PixelArt.swift */,
-				9F28FB8828B29FF000403F4D /* NetworkTypes.swift */,
+				1FFB1A4F28F1D93300B126AE /* Types */,
+				1F9D48A428EB5112004098B5 /* ArtModel.swift */,
+				1FFB1A4D28F1A1AE00B126AE /* FriendsModel.swift */,
+				1FFB1A5028F1D94000B126AE /* PreviewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -622,28 +723,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				5799B42827F0D7E60039F621 /* ContentView.swift in Sources */,
+				1F9D489C28E69068004098B5 /* InitialsOrbView.swift in Sources */,
 				9F317B6D28A59ED700105E8C /* StoredPixelArt+CoreDataProperties.swift in Sources */,
 				57C96D9E27F1D295008C52BB /* DrawViewModel.swift in Sources */,
 				57C96DA727F3A266008C52BB /* DrawView.swift in Sources */,
+				1F9D48A128E69BB6004098B5 /* LoggedInView.swift in Sources */,
 				5799B43427F0D89D0039F621 /* DrawableGridView.swift in Sources */,
 				9F28FB8928B29FF000403F4D /* NetworkTypes.swift in Sources */,
+				1F9D48AB28ECD8AA004098B5 /* EditGridViewModel.swift in Sources */,
+				1F9D48A528EB5112004098B5 /* ArtModel.swift in Sources */,
+				1F9D48A328E69C37004098B5 /* AddFriendHandler.swift in Sources */,
+				1FFB1A5328F1DCDC00B126AE /* NavigationManager.swift in Sources */,
 				9FC6245E28BAAEF300723C97 /* LargeButton.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
+				1FFB1A4E28F1A1AE00B126AE /* FriendsModel.swift in Sources */,
+				1FFB1A4228EDC60400B126AE /* ArtReactionsView.swift in Sources */,
+				1F9D48AD28ED25A8004098B5 /* ArtListView.swift in Sources */,
 				9F28FB7828B29DFB00403F4D /* Network.swift in Sources */,
 				9F28FB6F28B108B400403F4D /* StoreManager.swift in Sources */,
 				9FC6245A28BA8A7000723C97 /* UpgradeView.swift in Sources */,
+				1F9D48A928EC729C004098B5 /* SendArtViewModel.swift in Sources */,
 				9F28FB8F28B2A06C00403F4D /* AppDelegate.swift in Sources */,
+				1FFB1A4A28EFD00E00B126AE /* FriendsViewModel.swift in Sources */,
 				57C96DB027F45B56008C52BB /* SentView.swift in Sources */,
 				57C96DAE27F3A702008C52BB /* MiniGridView.swift in Sources */,
 				9F28FB8128B29ED600403F4D /* Frame.swift in Sources */,
 				9F28FB9228B2A0A100403F4D /* Spinner.swift in Sources */,
+				1FFB1A3F28ED9AEB00B126AE /* ArtCardView.swift in Sources */,
 				9FC6246228BAC79700723C97 /* IconListItemView.swift in Sources */,
+				1FFB1A3D28ED2F2900B126AE /* ArtListViewModel.swift in Sources */,
 				57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */,
 				57C96DA027F1D390008C52BB /* Utility.swift in Sources */,
+				1F9D489F28E69A78004098B5 /* ArtViewModel.swift in Sources */,
 				5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */,
-				9F317B6228A3052400105E8C /* ExpandedSendView.swift in Sources */,
+				9F317B6228A3052400105E8C /* SendArtView.swift in Sources */,
 				9F28FB9428B2A0C200403F4D /* LargeSpinner.swift in Sources */,
 				9F28FB9628B2A11F00403F4D /* Date.swift in Sources */,
+				1FFB1A5128F1D94000B126AE /* PreviewModel.swift in Sources */,
 				9FAB5EA8289496A800A620BB /* GridManager.swift in Sources */,
 				9FC6245C28BA8F8D00723C97 /* SlideOverView.swift in Sources */,
 				9FD8AE4F28AADB7B0005A4CF /* pixee-intents.intentdefinition in Sources */,
@@ -654,28 +770,36 @@
 				5799B43627F0D8AA0039F621 /* SquareView.swift in Sources */,
 				9FC6246028BAAFB600723C97 /* CloseButton.swift in Sources */,
 				9F28FB9C28B2A20500403F4D /* FriendsListView.swift in Sources */,
+				1FFB1A4828EFA5B600B126AE /* ArtCardBottomBarView.swift in Sources */,
 				9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */,
 				9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */,
 				9FAB5EAA28949AEC00A620BB /* UserManager.swift in Sources */,
 				9F28FB7D28B29E9500403F4D /* Color.swift in Sources */,
 				9F317B6028A2F9AB00105E8C /* DrawManager.swift in Sources */,
+				1F9D489A28E68FD9004098B5 /* FriendCardView.swift in Sources */,
 				9F28FB8328B29EE700403F4D /* Grid.swift in Sources */,
 				5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */,
+				1FFB1A4428EF9F1600B126AE /* ArtReactionsViewModel.swift in Sources */,
 				9F28FB8D28B2A04600403F4D /* Endpoints.swift in Sources */,
+				1FFB1A5628F332CD00B126AE /* DrawColourViewModel.swift in Sources */,
 				9FC6245728BA535400723C97 /* PixelArt.swift in Sources */,
 				9F317B6428A3159500105E8C /* MailView.swift in Sources */,
 				9F39683328BC944700AA8315 /* Helpers.swift in Sources */,
 				9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */,
 				9F317B6928A59DBE00105E8C /* CoreDataStack.swift in Sources */,
+				1F9D48A728EB9003004098B5 /* LoginViewModel.swift in Sources */,
 				9F626C1228AC1B3700587B57 /* WidgetTutorialView.swift in Sources */,
 				9F28FB9A28B2A1C100403F4D /* DrawActionsView.swift in Sources */,
+				1FFB1A4628EF9F8A00B126AE /* ArtCardTopBarView.swift in Sources */,
 				9F28FB9F28B2A23600403F4D /* NotificationsManager.swift in Sources */,
+				1F9D489828E68F93004098B5 /* ArtView.swift in Sources */,
 				9F317B6F28A6E9DF00105E8C /* EditFramesView.swift in Sources */,
 				57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */,
 				9F317B6C28A59ED700105E8C /* StoredPixelArt+CoreDataClass.swift in Sources */,
 				9F28FBA128B2A26000403F4D /* StandardButton.swift in Sources */,
 				9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */,
 				9F28FB7F28B29EB700403F4D /* String.swift in Sources */,
+				1FFB1A4C28EFE0DD00B126AE /* UserViewModel.swift in Sources */,
 				9FAB5EA62891D03B00A620BB /* LoginView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -851,7 +975,7 @@
 				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"LedGrid/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
@@ -871,7 +995,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -890,7 +1014,7 @@
 				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"LedGrid/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
@@ -910,7 +1034,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -928,7 +1052,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-WidgetExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
@@ -940,7 +1064,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -958,7 +1082,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-WidgetExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
@@ -970,7 +1094,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -998,7 +1122,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1026,7 +1150,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

@@ -9,39 +9,37 @@ import SwiftUI
 import AlertToast
 
 struct DrawableGridView: View {
+    @EnvironmentObject var drawViewModel: DrawViewModel
+    @ObservedObject var colorViewModel: DrawColourViewModel
     
-    @ObservedObject var manager = DrawManager.shared
-    @ObservedObject var viewModel: DrawViewModel
     
     func grid(proxy: TouchOverProxy<Int>) -> some View {
-        PixelArtGrid(gridSize: manager.gridSize) { col, row in
-            let color = manager.currentGrid[col][row]
-            let id = (col * manager.gridSize.rawValue) + row
+        GridView(grid: drawViewModel.currentGrid) { _, _, _, col, row in
+            let id = (col * drawViewModel.gridSize.rawValue) + row
+            let color = drawViewModel.currentGrid[col][row]
             TouchableSquareView(id: id, color: color, proxy: proxy)
         }
     }
     
     var body: some View {
         TouchOverReader(Int.self, onTouch: { id in
-            let row = id % manager.gridSize.rawValue
-            let col = id / manager.gridSize.rawValue
-            if viewModel.shouldSetGridSquare(row: row, col: col) {
-                viewModel.setGridSquare(row: row, col: col)
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-            }
+            let row = id % drawViewModel.gridSize.rawValue
+            let col = id / drawViewModel.gridSize.rawValue
+            drawViewModel.trySetGridSquare(row: row, col: col, color: colorViewModel.currentColor)
         }, onLongPress: { id in
-            let row = id % manager.gridSize.rawValue
-            let col = id / manager.gridSize.rawValue
-            viewModel.setColor(manager.currentGrid[col][row])
-            viewModel.showColorChangeToast = true
+            let row = id % drawViewModel.gridSize.rawValue
+            let col = id / drawViewModel.gridSize.rawValue
+            colorViewModel.setColor(drawViewModel.currentGrid[col][row])
+            drawViewModel.showColorChangeToast = true
+//            drawViewModel.fillGrid(at: (row: row, col: col), color: colorViewModel.currentColor)
             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
         }, onTapEnd: {
             DispatchQueue.main.async {
-                viewModel.pushUndoState()
+                drawViewModel.pushUndoState()
             }
         }, onDragEnd: {
             DispatchQueue.main.async {
-                viewModel.pushUndoState()
+                drawViewModel.pushUndoState()
             }
         })  { proxy in
             grid(proxy: proxy)

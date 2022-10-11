@@ -8,28 +8,21 @@
 import SwiftUI
 
 struct UserOrb: View {
-    var text: String?
-    var isSelected: Bool
+    var user: User?
+    var isSelected: Bool = false
     
     var body: some View {
-        GeometryReader{ g in
-            ZStack {
-                Circle()
-                    .strokeBorder(isSelected ? Color.accentColor : Color.gray, lineWidth: isSelected ? 3 : 1)
-                Text(text ?? "?")
-                    .font(
-                        .system(
-                            size: g.size.height > g.size.width ? g.size.width * 0.4: g.size.height * 0.4,
-                            design: .rounded
-                        ).bold()
-                    )
-            }
-        }
+        InitialsOrbView(
+            text: user?.fullName?.split(separator: " ")
+                .map { $0.prefix(1) }
+                .joined()
+                .uppercased()
+        )
     }
 }
 
-//struct UserOrb_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UserOrb()
-//    }
-//}
+struct UserOrb_Previews: PreviewProvider {
+    static var previews: some View {
+        UserOrb(user: User.example)
+    }
+}

@@ -10,21 +10,21 @@ import SwiftUI
 
 struct FriendsView: View {
     @Binding var selectedFriends: [String]
-    @ObservedObject var manager = UserManager.shared
+    @EnvironmentObject var friendsViewModel: FriendsViewModel
     
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    if manager.friends.isEmpty {
+                    if friendsViewModel.friends.isEmpty {
                         Button {
                             Helpers.presentShareSheet()
                         } label: {
                             Text("Add some friends in settings to send art").font(.caption).foregroundColor(.gray)
                         }
                     } else {
-                        ForEach(manager.friends) { user in
+                        ForEach(friendsViewModel.friends) { user in
                             VStack {
                                 Button {
                                     if selectedFriends.contains(where: { user.id == $0 }) {
@@ -35,11 +35,7 @@ struct FriendsView: View {
                                     
                                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                 } label: {
-                                    UserOrb(text: user.fullName?
-                                        .split(separator: " ")
-                                        .map { $0.prefix(1) }
-                                        .joined()
-                                        .uppercased(), isSelected: selectedFriends.contains(where: { user.id == $0 }))
+                                    UserOrb(user: user, isSelected: selectedFriends.contains(where: { user.id == $0 }))
                                 }.buttonStyle(.plain)
                                 Text(user.fullName ?? "Unknown")
                                     .font(.caption)

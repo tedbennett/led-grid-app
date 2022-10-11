@@ -9,11 +9,11 @@ import SwiftUI
 import Sentry
 
 struct DrawActionsView: View {
-    @ObservedObject var manager = DrawManager.shared
-    @ObservedObject var viewModel: DrawViewModel
+    @EnvironmentObject var drawViewModel: DrawViewModel
+    
+    
     @State private var showEditFrames = false
     @Binding var showUpgradeView: Bool
-    
     
     var body: some View {
         HStack {
@@ -34,19 +34,19 @@ struct DrawActionsView: View {
             }.buttonStyle(StandardButton())
             Spacer()
             Button {
-                viewModel.undo()
+                drawViewModel.undo()
             } label: {
                 Image(systemName: "arrow.uturn.backward").font(.system(.title3, design: .rounded).weight(.medium))
                     .padding(4)
-            }.disabled(manager.undoStates.isEmpty)
+            }.disabled(!drawViewModel.canUndo)
             .buttonStyle(StandardButton())
             
             Button {
-                viewModel.redo()
+                drawViewModel.redo()
             } label: {
                 Image(systemName: "arrow.uturn.forward").font(.system(.title3, design: .rounded).weight(.medium))
                     .padding(4)
-            }.disabled(manager.redoStates.isEmpty)
+            }.disabled(!drawViewModel.canRedo)
                 .buttonStyle(StandardButton())
         }.padding(.vertical, -20)
             .sheet(isPresented: $showEditFrames) {

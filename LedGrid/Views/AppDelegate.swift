@@ -14,7 +14,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         
         if launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] != nil {
-            NotificationManager.shared.selectedTab = 1
+            NavigationManager.shared.currentTab = 1
         }
         return true
     }
