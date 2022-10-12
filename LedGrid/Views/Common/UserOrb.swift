@@ -16,7 +16,8 @@ struct UserOrb: View {
             text: user?.fullName?.split(separator: " ")
                 .map { $0.prefix(1) }
                 .joined()
-                .uppercased()
+                .uppercased(),
+            isSelected: isSelected
         )
     }
 }

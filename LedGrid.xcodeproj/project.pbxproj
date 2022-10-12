@@ -91,7 +91,7 @@
 		9F317B7628A9414C00105E8C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F317B7528A9414C00105E8C /* WidgetKit.framework */; };
 		9F317B7828A9414C00105E8C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F317B7728A9414C00105E8C /* SwiftUI.framework */; };
 		9F317B7E28A9414E00105E8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F317B7D28A9414E00105E8C /* Assets.xcassets */; };
-		9F317B8428A9414E00105E8C /* Pixee-WidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9F317B7428A9414C00105E8C /* Pixee-WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9F317B8428A9414E00105E8C /* Pixee-WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9F317B7428A9414C00105E8C /* Pixee-WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9F317B8D28A95F4600105E8C /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F317B8C28A95F4600105E8C /* Auth0.plist */; };
 		9F39683328BC944700AA8315 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F39683228BC944700AA8315 /* Helpers.swift */; };
 		9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842928980EE30053F3DD /* UserOrb.swift */; };
@@ -99,7 +99,7 @@
 		9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842D289F080A0053F3DD /* Sliders.swift */; };
 		9F49EC27288D474B00BD3956 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F49EC26288D474B00BD3956 /* Auth0.plist */; };
 		9F626C0028AAE2A500587B57 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD8AE2C28A9B3ED0005A4CF /* Intents.framework */; };
-		9F626C0728AAE2A500587B57 /* Pixee-Intents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9F626C0728AAE2A500587B57 /* Pixee-Intents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9F626C0E28AAE2B200587B57 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F626C0C28AAE2B200587B57 /* IntentHandler.swift */; };
 		9F626C0F28AAE2C100587B57 /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
 		9F626C1228AC1B3700587B57 /* WidgetTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F626C1128AC1B3700587B57 /* WidgetTutorialView.swift */; };
@@ -139,16 +139,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9F317B8828A9414E00105E8C /* Embed App Extensions */ = {
+		9F317B8828A9414E00105E8C /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				9F626C0728AAE2A500587B57 /* Pixee-Intents.appex in Embed App Extensions */,
-				9F317B8428A9414E00105E8C /* Pixee-WidgetExtension.appex in Embed App Extensions */,
+				9F626C0728AAE2A500587B57 /* Pixee-Intents.appex in Embed Foundation Extensions */,
+				9F317B8428A9414E00105E8C /* Pixee-WidgetExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -583,7 +583,7 @@
 				5799B41E27F0D7E60039F621 /* Sources */,
 				5799B41F27F0D7E60039F621 /* Frameworks */,
 				5799B42027F0D7E60039F621 /* Resources */,
-				9F317B8828A9414E00105E8C /* Embed App Extensions */,
+				9F317B8828A9414E00105E8C /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -648,7 +648,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					5799B42127F0D7E60039F621 = {
 						CreatedOnToolsVersion = 13.2;
@@ -1052,7 +1052,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-WidgetExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
@@ -1082,7 +1082,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-WidgetExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
@@ -1110,7 +1110,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-Intents/Pixee-Intents.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Intents/Info.plist";
@@ -1138,7 +1138,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-Intents/Pixee-Intents.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Intents/Info.plist";

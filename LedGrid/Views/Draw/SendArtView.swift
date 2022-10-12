@@ -11,6 +11,7 @@ struct SendArtView: View {
     @Binding var isOpened: Bool
     @State private var frameIndex = 0
     @EnvironmentObject var artViewModel: ArtViewModel
+    @EnvironmentObject var drawViewModel: DrawViewModel
     @EnvironmentObject var friendsViewModel: FriendsViewModel
     
     @ObservedObject var viewModel: SendArtViewModel
@@ -31,10 +32,17 @@ struct SendArtView: View {
             let art = await viewModel.sendArt()
             if let art = art {
                 await artViewModel.addSentArt(art)
+                await MainActor.run {
+                    drawViewModel.sentGrid = true
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     withAnimation {
                         isOpened = false
                     }
+                }
+            } else {
+                await MainActor.run {
+                    drawViewModel.failedToSendGrid = true
                 }
             }
             // TODO: draw view model toasts

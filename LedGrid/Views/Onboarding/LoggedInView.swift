@@ -47,7 +47,7 @@ struct LoggedInView: View {
             }
             .environmentObject(friendsViewModel)
             .onChange(of: scenePhase) { newPhase in
-                if newPhase == .active && loggedIn && !launched {
+                if newPhase == .active && loggedIn && launched {
                     launched = true
                     Task {
                         await artViewModel.refreshReceivedArt()
