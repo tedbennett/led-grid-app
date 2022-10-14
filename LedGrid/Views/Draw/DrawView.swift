@@ -26,7 +26,7 @@ struct DrawView: View {
                 DrawTopBarView(showSendView: $showSendView, showUpgradeView: $showUpgradeView)
                     .padding(.top, 0)
                     .padding(.bottom, 10)
-                DrawableGridView(colorViewModel: colorViewModel)
+                DrawGridView(colorViewModel: colorViewModel)
                     .drawingGroup()
                     .padding(.bottom, 10)
                     .padding(.horizontal, 3)
