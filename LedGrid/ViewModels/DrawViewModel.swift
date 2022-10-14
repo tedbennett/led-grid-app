@@ -27,6 +27,8 @@ class DrawViewModel: ObservableObject {
     @Published var undoStates: [[Grid]] = [[]]
     @Published var redoStates: [[Grid]] = [[]]
     
+    @Published var gridFrame: CGRect = .zero
+    
     init() {
         clearUndoAndRedo()
     }
@@ -180,78 +182,88 @@ class DrawViewModel: ObservableObject {
 }
 
 
-//extension DrawViewModel {
-//
-//    typealias GridCoord = (row: Int, col: Int)
-//
-//    func fillGrid(at index: GridCoord, color: Color) {
-//        let startColor = getColor(at: index)
-//
-//        guard color != startColor else { return }
-//        var toFill: [GridCoord] = []
-//        var remainingNeighbours = getNeighbours(at: index).filter {
-//            getColor(at: $0) == startColor
-//        }
-//
-//
-//        while !remainingNeighbours.isEmpty {
-//            var current: [GridCoord] = []
-//            for neighbour in remainingNeighbours {
-//                let validNeighbours = getNeighbours(at: neighbour).filter { coord in
-//                    let sameColour = getColor(at: coord) == startColor
-//                    let exists = current.contains { coord == $0 } || toFill.contains { coord == $0 }
-//                    return sameColour && !exists
-//                }
-//
-//                current.append(contentsOf: validNeighbours)
-//            }
-//
-//            toFill.append(contentsOf: remainingNeighbours)
-//            remainingNeighbours = current
-//        }
-//        let group = DispatchGroup();
-//
-//        toFill.enumerated().forEach { i, neighbour in
-//            group.enter()
-//            DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * 0.005)) {
-//                self.manager.currentGrid[neighbour.col][neighbour.row] = color
-//                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-//                group.leave()
-//            }
-//        }
-//        group.notify(queue: .main) {
-//            self.pushUndoState()
-//        }
-//    }
-//
-//    private func getColor(at coord: GridCoord) -> Color {
-//        return manager.currentGrid[coord.col][coord.row]
-//    }
-//
-//
-//    private func getNeighbours(at index: GridCoord) -> [GridCoord] {
-//        var neighbours: [(row: Int, col: Int)] = []
-//
-//        if (index.row != 0) {
-//            neighbours.append((row: index.row - 1, col: index.col))
-//        }
-//        if (index.row != manager.gridSize.rawValue - 1) {
-//            neighbours.append((row: index.row + 1, col: index.col))
-//        }
-//        if (index.col != 0) {
-//            neighbours.append((row: index.row, col: index.col - 1))
-//        }
-//        if (index.col != manager.gridSize.rawValue - 1) {
-//            neighbours.append((row: index.row, col: index.col + 1))
-//        }
-//        return neighbours
-//    }
-//
-//    private func fillNeighbours(at index: GridCoord, color: Color, startColor: Color) {
-//        for neighbour in getNeighbours(at: index) {
-//            if getColor(at: neighbour) == startColor {
-//                manager.currentGrid[neighbour.col][neighbour.row] = color
-//            }
-//        }
-//    }
-//}
+extension DrawViewModel {
+
+    typealias GridCoord = (row: Int, col: Int)
+    
+    func findGridCoordinates(at point: CGPoint) -> (Int, Int)? {
+        guard gridFrame != .zero else { return nil }
+        
+        let x = Int((point.x - gridFrame.minX) / gridFrame.width * Double(currentGrid.count))
+        let y = Int((point.y - gridFrame.minY) / gridFrame.height * Double(currentGrid.count))
+        
+        guard x >= 0, x < currentGrid.count, y >= 0, y < currentGrid.count else { return nil }
+        return (x, y)
+    }
+
+    func fillGrid(at index: GridCoord, color: Color) {
+        let startColor = getColor(at: index)
+
+        guard color != startColor else { return }
+        var toFill: [GridCoord] = []
+        var remainingNeighbours = getNeighbours(at: index).filter {
+            getColor(at: $0) == startColor
+        }
+
+
+        while !remainingNeighbours.isEmpty {
+            var current: [GridCoord] = []
+            for neighbour in remainingNeighbours {
+                let validNeighbours = getNeighbours(at: neighbour).filter { coord in
+                    let sameColour = getColor(at: coord) == startColor
+                    let exists = current.contains { coord == $0 } || toFill.contains { coord == $0 }
+                    return sameColour && !exists
+                }
+
+                current.append(contentsOf: validNeighbours)
+            }
+
+            toFill.append(contentsOf: remainingNeighbours)
+            remainingNeighbours = current
+        }
+        let group = DispatchGroup();
+        let speed = (1.0 / Double(currentGrid.count)) * 0.04
+        toFill.enumerated().forEach { i, neighbour in
+            group.enter()
+            DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * speed)) {
+                self.currentGrid[neighbour.col][neighbour.row] = color
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                group.leave()
+            }
+        }
+        group.notify(queue: .main) {
+            self.pushUndoState()
+        }
+    }
+
+    private func getColor(at coord: GridCoord) -> Color {
+        return currentGrid[coord.col][coord.row]
+    }
+
+
+    private func getNeighbours(at index: GridCoord) -> [GridCoord] {
+        var neighbours: [(row: Int, col: Int)] = []
+
+        if (index.row != 0) {
+            neighbours.append((row: index.row - 1, col: index.col))
+        }
+        if (index.row != gridSize.rawValue - 1) {
+            neighbours.append((row: index.row + 1, col: index.col))
+        }
+        if (index.col != 0) {
+            neighbours.append((row: index.row, col: index.col - 1))
+        }
+        if (index.col != gridSize.rawValue - 1) {
+            neighbours.append((row: index.row, col: index.col + 1))
+        }
+        return neighbours
+    }
+
+    private func fillNeighbours(at index: GridCoord, color: Color, startColor: Color) {
+        for neighbour in getNeighbours(at: index) {
+            if getColor(at: neighbour) == startColor {
+                currentGrid[neighbour.col][neighbour.row] = color
+            }
+        }
+    }
+}

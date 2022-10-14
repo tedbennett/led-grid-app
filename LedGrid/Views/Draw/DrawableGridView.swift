@@ -363,8 +363,10 @@ struct DrawGridView: View {
                         }
                         dragState = .none
                     }
-            )
+            ).onAppear {
+                drawViewModel.gridFrame = geometry.frame(in: .global)
+            }
         }.aspectRatio(1, contentMode: .fit)
-        .coordinateSpace(name: "draw-grid")
+            
     }
 }

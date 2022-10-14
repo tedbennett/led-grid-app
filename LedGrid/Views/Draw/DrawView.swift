@@ -27,6 +27,7 @@ struct DrawView: View {
                     .padding(.top, 0)
                     .padding(.bottom, 10)
                 DrawGridView(colorViewModel: colorViewModel)
+                    .coordinateSpace(name: "draw-grid")
                     .drawingGroup()
                     .padding(.bottom, 10)
                     .padding(.horizontal, 3)
