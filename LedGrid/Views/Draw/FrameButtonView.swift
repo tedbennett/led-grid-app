@@ -14,6 +14,7 @@ struct FrameButtonView: View {
     var body: some View {
         HStack {
             Button {
+                viewModel.saveGrid()
                 viewModel.changeToGrid(at: viewModel.currentGridIndex - 1)
             } label: {
                 Image(systemName: "chevron.left")
@@ -38,6 +39,7 @@ struct FrameButtonView: View {
                 }.padding(4)
             }
             Button {
+                viewModel.saveGrid()
                 viewModel.changeToGrid(at: viewModel.currentGridIndex + 1)
             } label: {
                 Image(systemName: "chevron.right")

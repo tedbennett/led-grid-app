@@ -21,7 +21,7 @@ struct Provider: IntentTimelineProvider {
             completion(PixeeEntry(date: Date(), text: "Loading...", configuration: SelectFriendIntent()))
             return
         }
-        let entry = PixeeEntry(date: Date(), colors: [
+        let entry = PixeeEntry(date: Date(), art: PixelArt(id: "", title: nil, sentAt: Date(), sender: "", receivers: [""], opened: true, hidden: true, grids: [[
             [.black, .black, .black, .black, .black, .black, .black, .black],
             [.black, .black, .white, .black, .black, .white, .black, .black],
             [.black, .black, .white, .black, .black, .white, .black, .black],
@@ -30,7 +30,7 @@ struct Provider: IntentTimelineProvider {
             [.black, .white, .black, .black, .black, .black, .white, .black],
             [.black, .white, .white, .white, .white, .white, .white, .black],
             [.black, .black, .black, .black, .black, .black, .black, .black]
-        ], configuration: configuration)
+        ]]), configuration: configuration)
         completion(entry)
     }
     
@@ -71,7 +71,7 @@ struct Provider: IntentTimelineProvider {
             
             switch result {
             case .success(let art):
-                entries.append(PixeeEntry(date: Date(), colors: art.grids.first, configuration: configuration))
+                entries.append(PixeeEntry(date: Date(), art: art, configuration: configuration))
             case .failure(let error):
                 entries.append(PixeeEntry(date: Date(), text: error.errorText, configuration: configuration))
             }
@@ -86,7 +86,7 @@ struct Provider: IntentTimelineProvider {
 struct PixeeEntry: TimelineEntry {
     var date: Date
     var text: String?
-    var colors: Grid?
+    var art: PixelArt?
     let configuration: SelectFriendIntent
 }
 
@@ -104,9 +104,10 @@ struct Pixee_WidgetEntryView : View {
                 Text(text).foregroundColor(.gray).font(.callout)
             }.unredacted()
         } else {
-            let colors = entry.colors!
+            let colors = entry.art!.grids.first!
+            
             WidgetGridView(grid: colors).padding(10)
-                .widgetURL(URL(string: "widget://received")!)
+                .widgetURL(URL(string: "widget://received/\(entry.art!.sender)/id/\(entry.art!.id)")!)
             
         }
         
