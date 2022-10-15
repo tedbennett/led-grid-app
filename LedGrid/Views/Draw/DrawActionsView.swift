@@ -17,21 +17,7 @@ struct DrawActionsView: View {
     
     var body: some View {
         HStack {
-            Button {
-                if Utility.isPlus {
-                    showEditFrames.toggle()
-                } else {
-                    withAnimation {
-                        showUpgradeView = true
-                    }
-                }
-            } label: {
-                Label {
-                    Text("Frames").font(.system(.title3, design: .rounded)).fontWeight(.medium)
-                } icon: {
-                    Image(systemName: "square.stack.3d.up.fill")
-                }.padding(4)
-            }.buttonStyle(StandardButton())
+            FrameButtonView(showUpgradeView: $showUpgradeView, showEditFrames: $showEditFrames)
             Spacer()
             Button {
                 drawViewModel.undo()

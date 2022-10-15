@@ -31,40 +31,49 @@ struct ArtListView: View {
     }
     
     var body: some View {
-        ScrollView {
-            ScrollViewReader { proxy in
-                LazyVStack {
-                    ForEach(art.filter { !$0.hidden }) { art in
-                        Section {
-                            ArtCardView(art: art)
-                                .id(art.id)
-                                .padding()
-                                .background( Color(uiColor: .systemGray6))
-                                .cornerRadius(10)
-                                .padding(8)
+        GeometryReader { listGeometry in
+            ScrollView {
+                ScrollViewReader { proxy in
+                    LazyVStack {
+                        ForEach(art.filter { !$0.hidden }) { art in
                             
+                            Section {
+                                ArtCardView(art: art)
+                                    .id(art.id)
+                                    .padding()
+                                    .background(
+                                        GeometryReader { geo in
+                                            Color(uiColor: .systemGray6)
+                                                .onChange(of: geo.frame(in: .global)) {
+                                                    if $0.minY > listGeometry.frame(in: .global).minY && $0.maxY < listGeometry.frame(in: .global).maxY {
+                                                        if viewModel.animatingId != art.id {
+                                                            viewModel.setAnimatingArt(art.id)
+                                                        }
+                                                    }
+                                                }
+                                        })
+                                    .cornerRadius(10)
+                                    .padding(8)
+                                
+                            }
                         }
                     }
-                }
-                .onChange(of: NavigationManager.shared.selectedGrid) { selectedGrid in
-                    guard let selectedGrid = selectedGrid else { return }
-                    withAnimation {
-                        proxy.scrollTo(selectedGrid, anchor: .center)
+                    .onChange(of: NavigationManager.shared.selectedGrid) { selectedGrid in
+                        guard let selectedGrid = selectedGrid else { return }
+                        withAnimation {
+                            proxy.scrollTo(selectedGrid, anchor: .center)
+                        }
                     }
+                    
                 }
             }
-        }
-        .refreshable {
-            Task {
+            .refreshable {
                 await artViewModel.refreshArt()
             }
+            .environmentObject(viewModel)
+            .environmentObject(reactionsViewModel)
+            .navigationTitle(viewModel.user.fullName ?? "Unknown")
         }
-        .environmentObject(viewModel)
-        .environmentObject(reactionsViewModel)
-        .navigationTitle(viewModel.user.fullName ?? "Unknown")
-        //        .onAppear {
-        //            viewModel.fetchArt()
-        //        }
     }
     
 }

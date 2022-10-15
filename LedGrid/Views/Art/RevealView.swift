@@ -58,15 +58,11 @@ struct RevealView: View {
                     timer.upstream.connect().cancel()
                     isTimerRunning = false
                     onFinish()
+                    revealed = 0
                 } else {
                     revealed += 1
                 }
             }
-        }.onDisappear {
-            timer.upstream.connect().cancel()
-            isTimerRunning = false
-            revealed = 0
-            onFinish()
         }.onAppear {
             isTimerRunning = true
         }

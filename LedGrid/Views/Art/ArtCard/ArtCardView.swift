@@ -18,6 +18,7 @@ struct ArtCardView: View {
     @State private var gridIndex = 0
     @State private var hideGrid = true
     @State private var isAnimating = false
+    @State private var pauseAnimating = false
     
     init(art: PixelArt) {
         self.art = art
@@ -49,6 +50,9 @@ struct ArtCardView: View {
                 } else if isAnimating {
                     RevealView(grid: art.grids[0]) {
                         isAnimating = false
+                        guard art.grids.count > 1 else { return }
+                        viewModel.setAnimatingArt(art.id)
+                        pauseAnimating = false
                     }
                 } else {
                     GridView(grid: art.grids[gridIndex])
@@ -56,6 +60,7 @@ struct ArtCardView: View {
                         .onTapGesture {
                             guard art.grids.count > 1 else { return }
                             viewModel.setAnimatingArt(art.id)
+                            pauseAnimating.toggle()
                         }
                 }
             }.padding(.vertical, 5)
@@ -63,11 +68,12 @@ struct ArtCardView: View {
             // Bottom Bar
             ArtCardTopBarView(art: art, isAnimating: $isAnimating, currentFrameIndex: $gridIndex, isDisabled: hideGrid)
         }.onReceive(viewModel.timer) { time in
-            if viewModel.animatingId == art.id {
+            if viewModel.animatingId == art.id && !pauseAnimating {
                 gridIndex = gridIndex == art.grids.count - 1 ? 0 : gridIndex + 1
             }
         }.onAppear {
             self.hideGrid = !art.opened
+            pauseAnimating = false
         }
     }
 }

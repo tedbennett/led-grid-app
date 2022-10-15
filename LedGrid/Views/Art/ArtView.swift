@@ -37,9 +37,7 @@ struct ArtView: View {
                 }
             }
             .refreshable {
-                Task {
-                    await artViewModel.refreshArt()
-                }
+                await artViewModel.refreshArt()
             }
             .toolbar {
                 Button {
