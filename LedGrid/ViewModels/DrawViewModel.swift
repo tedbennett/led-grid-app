@@ -127,7 +127,7 @@ class DrawViewModel: ObservableObject {
     }
     
     func trySetGridSquare(row: Int, col: Int, color: Color) {
-        guard col < gridSize.rawValue, row < gridSize.rawValue else { return }
+        guard col < gridSize.rawValue, col >= 0, row < gridSize.rawValue, row >= 0 else { return }
         guard currentGrid[col][row] != color else { return }
         currentGrid[col][row] = color
         UIImpactFeedbackGenerator(style: .light).impactOccurred()

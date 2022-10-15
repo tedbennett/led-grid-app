@@ -75,7 +75,7 @@ class ArtViewModel: ObservableObject {
         }
     }
     
-    func refreshReceivedArt(markOpened: Bool = false) async {
+    func refreshReceivedArt() async {
         let grids = await model.fetchReceivedArt(since: Utility.lastReceivedFetchDate)
         Utility.lastReceivedFetchDate = Date()
         await MainActor.run { [grids] in
