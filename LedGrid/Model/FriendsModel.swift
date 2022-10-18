@@ -8,14 +8,14 @@
 import Foundation
 
 protocol FriendsModelProtocol {
-    func refreshFriends() async -> [User]
-    func addFriend(id: String) async -> User?
+    func refreshFriends() async -> [MUser]
+    func addFriend(id: String) async -> MUser?
     func removeFriend(id: String) async -> Bool
 }
 
 struct FriendsModel: FriendsModelProtocol {
     
-    func refreshFriends() async -> [User] {
+    func refreshFriends() async -> [MUser] {
         do {
             let friends = try await NetworkManager.shared.getFriends()
             return friends
@@ -25,7 +25,7 @@ struct FriendsModel: FriendsModelProtocol {
         }
     }
     
-    func addFriend(id: String) async -> User? {
+    func addFriend(id: String) async -> MUser? {
         do {
             _ = try await NetworkManager.shared.addFriend(id: id)
             let user = try await NetworkManager.shared.getUser(id: id)

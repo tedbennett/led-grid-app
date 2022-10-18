@@ -13,15 +13,15 @@ import SimpleKeychain
 
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> PixeeEntry {
-        PixeeEntry(date: Date(), text: "Loading...", configuration: SelectFriendIntent())
+        PixeeEntry(date: Date(), state: .error(text: "Loading"), configuration: SelectFriendIntent())
     }
     
     func getSnapshot(for configuration: SelectFriendIntent, in context: Context, completion: @escaping (PixeeEntry) -> ()) {
         if !context.isPreview {
-            completion(PixeeEntry(date: Date(), text: "Loading...", configuration: SelectFriendIntent()))
+            completion(PixeeEntry(date: Date(), state: .error(text: "Loading"), configuration: SelectFriendIntent()))
             return
         }
-        let entry = PixeeEntry(date: Date(), art: PixelArt(id: "", title: nil, sentAt: Date(), sender: "", receivers: [""], opened: true, hidden: true, grids: [[
+        let entry = PixeeEntry(date: Date(), state: .art(grid: [
             [.black, .black, .black, .black, .black, .black, .black, .black],
             [.black, .black, .white, .black, .black, .white, .black, .black],
             [.black, .black, .white, .black, .black, .white, .black, .black],
@@ -30,16 +30,16 @@ struct Provider: IntentTimelineProvider {
             [.black, .white, .black, .black, .black, .black, .white, .black],
             [.black, .white, .white, .white, .white, .white, .white, .black],
             [.black, .black, .black, .black, .black, .black, .black, .black]
-        ]]), configuration: configuration)
+        ], sender: nil, id: ""), configuration: configuration)
         completion(entry)
     }
     
-    func getLastReceivedGrid(from sender: String? = nil, completion: @escaping(Result<PixelArt, WidgetError>) -> Void) {
+    func getLastReceivedGrid(from sender: String? = nil, completion: @escaping(Result<MPixelArt, WidgetError>) -> Void) {
         let queries: [String: String] = sender != nil ? ["sender": sender!] : [:]
         
         let store = UserDefaults(suiteName: "group.9Y2AMH5S23.com.edwardbennett.pixee")!
         guard let data = store.data(forKey: "user"),
-              let user = try?  JSONDecoder().decode(User.self, from: data) else {
+              let user = try?  JSONDecoder().decode(MUser.self, from: data) else {
             // Failure
             completion(.failure(.notLoggedIn))
             return
@@ -50,7 +50,7 @@ struct Provider: IntentTimelineProvider {
                 let url = Network.makeUrl([.art, .users, .dynamic(user.id), .received, .last], queries: queries)
                 print(url.absoluteString)
                 let res = try await Network.makeRequest(url: url, body: nil, headers: headers)
-                guard let art = try? JSONDecoder.standard.decode(PixelArt.self, from: res) else {
+                guard let art = try? JSONDecoder.standard.decode(MPixelArt.self, from: res) else {
                     completion(.failure(.noneFound))
                     return
                 }
@@ -64,6 +64,24 @@ struct Provider: IntentTimelineProvider {
         }
     }
     
+    func getGridFromCoreData(from sender: String?, configuration: SelectFriendIntent) -> PixeeEntry {
+        let fetch = PixelArt.fetchRequest()
+        if let sender = sender {
+            fetch.predicate = NSPredicate(format: "ANY users.id == %@", sender)
+        }
+        fetch.sortDescriptors = [NSSortDescriptor(key: #keyPath(PixelArt.sentAt), ascending: false)]
+        fetch.fetchLimit = 1
+        let art = try? PersistenceManager.shared.viewContext.fetch(fetch)
+        
+        if let art = art?.first {
+            let grid = art.art.toColors().first!
+            let state = EntryState.art(grid: grid, sender: sender, id: art.id)
+            return PixeeEntry(date: Date(), state: state, configuration: configuration)
+        } else {
+            return PixeeEntry(date: Date(), state: .error(text: "Add some friends to receive art!"), configuration: configuration)
+        }
+    }
+    
     func getTimeline(for configuration: SelectFriendIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [PixeeEntry] = []
         let sender = configuration.friend?.identifier
@@ -71,46 +89,56 @@ struct Provider: IntentTimelineProvider {
             
             switch result {
             case .success(let art):
-                entries.append(PixeeEntry(date: Date(), art: art, configuration: configuration))
+                let state: EntryState = .art(grid: art.grids.first!, sender: art.sender, id: art.id)
+                entries.append(PixeeEntry(date: Date(), state: state, configuration: configuration))
             case .failure(let error):
-                entries.append(PixeeEntry(date: Date(), text: error.errorText, configuration: configuration))
+                entries.append(PixeeEntry(date: Date(), state: .error(text: error.errorText), configuration: configuration))
             }
             
             let timeline = Timeline(entries: entries, policy: .never)
             completion(timeline)
         }
-        
     }
+}
+
+enum EntryState {
+    case art(grid: Grid, sender: String?, id: String)
+    case error(text: String)
 }
 
 struct PixeeEntry: TimelineEntry {
     var date: Date
-    var text: String?
-    var art: PixelArt?
+    var state: EntryState
     let configuration: SelectFriendIntent
 }
 
 struct Pixee_WidgetEntryView : View {
     var entry: Provider.Entry
     
-    var body: some View {
-        if let text = entry.text {
-            VStack {
-                Image(systemName: "square.grid.2x2")
-                    .foregroundColor(.gray)
-                    .font(.title3)
-                    .rotationEffect(.degrees(45))
-                    .padding(5)
-                Text(text).foregroundColor(.gray).font(.callout)
-            }.unredacted()
-        } else {
-            let colors = entry.art!.grids.first!
-            
-            WidgetGridView(grid: colors).padding(10)
-                .widgetURL(URL(string: "widget://received/\(entry.art!.sender)/id/\(entry.art!.id)")!)
-            
+    func url(sender: String?, id: String?) -> URL {
+        if let sender = sender, let id = id {
+            return URL(string: "widget://received/\(sender)/id/\(id)")!
         }
-        
+        return URL(string: "widget://received")!
+    }
+    
+    var body: some View {
+        VStack {
+            switch entry.state {
+            case .art(let grid, let sender, let id):
+                WidgetGridView(grid: grid).padding(10)
+                    .widgetURL(url(sender: sender, id: id))
+            case .error(let text):
+                VStack {
+                    Image(systemName: "square.grid.2x2")
+                        .foregroundColor(.gray)
+                        .font(.title3)
+                        .rotationEffect(.degrees(45))
+                        .padding(5)
+                    Text(text).foregroundColor(.gray).multilineTextAlignment(.center).font(.callout).padding(.horizontal, 10)
+                }.unredacted()
+            }
+        }
     }
 }
 
@@ -130,7 +158,7 @@ struct Pixee_Widget: Widget {
 
 struct Pixee_Widget_Previews: PreviewProvider {
     static var previews: some View {
-        Pixee_WidgetEntryView(entry: PixeeEntry(date: Date(), text: "Hi", configuration: SelectFriendIntent()))
+        Pixee_WidgetEntryView(entry: PixeeEntry(date: Date(), state: .error(text: "Hi"), configuration: SelectFriendIntent()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

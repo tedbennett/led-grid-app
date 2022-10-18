@@ -9,7 +9,7 @@ import SwiftUI
 import AlertToast
 
 struct DrawView: View {
-    @EnvironmentObject var drawViewModel: DrawViewModel
+    @StateObject var drawViewModel = DrawViewModel()
     @StateObject var colorViewModel = DrawColourViewModel()
     @Environment(\.scenePhase) var scenePhase
     
@@ -28,6 +28,7 @@ struct DrawView: View {
                     .padding(.bottom, 10)
                 DrawGridView(colorViewModel: colorViewModel)
                     .coordinateSpace(name: "draw-grid")
+                    .padding(2)
                     .drawingGroup()
                     .padding(.bottom, 10)
                     .padding(.horizontal, 3)
@@ -73,6 +74,7 @@ struct DrawView: View {
         .toast(isPresenting: $drawViewModel.showColorChangeToast, duration: 1.0) {
             AlertToast(displayMode: .hud, type: .complete(.white), title: "Color copied!")
         }
+        .environmentObject(drawViewModel)
     }
 }
 

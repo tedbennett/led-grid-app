@@ -20,8 +20,18 @@ struct PersistenceManager {
     private init(inMemory: Bool = false) {
         // If you didn't name your model Main you'll need
         // to change this name below.
+        
+        ValueTransformer.setValueTransformer(
+            SerializableArtTransformer(),
+              forName: NSValueTransformerName(rawValue: "SerializableArtTransformer")
+        )
+        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.9Y2AMH5S23.com.edwardbennett.pixee")!
+        let storeURL = containerURL.appendingPathComponent("Pixee.sqlite")
+        let description = NSPersistentStoreDescription(url: storeURL)
         container = NSPersistentContainer(name: "Pixee")
+        container.persistentStoreDescriptions = [description]
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        container.viewContext.automaticallyMergesChangesFromParent = true
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }

@@ -15,7 +15,7 @@ class FriendsViewModel: ObservableObject {
         self.model = model
     }
     
-    @Published var friends: [User] = Utility.friends {
+    @Published var friends: [MUser] = Utility.friends {
         didSet {
             Utility.friends = friends
         }

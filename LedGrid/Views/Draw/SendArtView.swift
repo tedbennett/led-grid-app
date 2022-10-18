@@ -10,10 +10,7 @@ import SwiftUI
 struct SendArtView: View {
     @Binding var isOpened: Bool
     @State private var frameIndex = 0
-    @EnvironmentObject var artViewModel: ArtViewModel
     @EnvironmentObject var drawViewModel: DrawViewModel
-    @EnvironmentObject var friendsViewModel: FriendsViewModel
-    
     @ObservedObject var viewModel: SendArtViewModel
     
     init(grids: [Grid], isOpened: Binding<Bool>) {
@@ -31,7 +28,7 @@ struct SendArtView: View {
         Task {
             let art = await viewModel.sendArt()
             if let art = art {
-                await artViewModel.addSentArt(art)
+                await PixeeProvider.addSentArt(art)
                 await MainActor.run {
                     drawViewModel.sentGrid = true
                 }
@@ -45,7 +42,6 @@ struct SendArtView: View {
                     drawViewModel.failedToSendGrid = true
                 }
             }
-            // TODO: draw view model toasts
         }
     }
     
@@ -117,10 +113,6 @@ struct SendArtView: View {
 //            }
             .onReceive(timer) { time in
                 frameIndex = frameIndex >= viewModel.grids.count - 1 ? 0 : frameIndex + 1
-            }.onAppear {
-                if friendsViewModel.friends.count == 1 {
-                    viewModel.selectedUsers = friendsViewModel.friends.map { $0.id }
-                }
             }
             .onDisappear {
                 timer.upstream.connect().cancel()

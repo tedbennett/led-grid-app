@@ -14,6 +14,15 @@ struct Utility {
     }
     static let store = UserDefaults(suiteName: "group.9Y2AMH5S23.com.edwardbennett.pixee")!
     
+    static func clear() {
+        currentGrids = [GridSize.small.blankGrid]
+        currentGridIndex = 0
+        user = nil
+        friends = []
+        isPlus = false
+        lastReceivedFetchDate = nil
+        lastSelectedFriends = []
+    }
     
     static var currentGrids: [Grid] {
         get {
@@ -25,9 +34,7 @@ struct Utility {
         }
         set {
             let data = try? JSONEncoder().encode(newValue)
-            DispatchQueue.main.async {
-                store.set(data, forKey: Keys.currentGrids.rawValue)
-            }
+            store.set(data, forKey: Keys.currentGrids.rawValue)
         }
     }
     
@@ -36,40 +43,34 @@ struct Utility {
             return store.integer(forKey: Keys.currentGridIndex.rawValue)
         }
         set {
-            DispatchQueue.main.async {
-                store.set(newValue, forKey: Keys.currentGridIndex.rawValue)
-            }
+            store.set(newValue, forKey: Keys.currentGridIndex.rawValue)
         }
     }
     
-    static var user: User? {
+    static var user: MUser? {
         get {
             guard let data = store.data(forKey: "user") else {
                 return nil
             }
-            return try? JSONDecoder().decode(User.self, from: data)
+            return try? JSONDecoder().decode(MUser.self, from: data)
         }
         set {
             let data = try? JSONEncoder().encode(newValue)
-            DispatchQueue.main.async {
-                store.set(data, forKey: "user")
-            }
+            store.set(data, forKey: "user")
         }
     }
     
-    static var friends: [User] {
+    static var friends: [MUser] {
         get {
             guard let data = store.data(forKey: "friends"),
-                  let users = try? JSONDecoder().decode([User].self, from: data) else {
+                  let users = try? JSONDecoder().decode([MUser].self, from: data) else {
                 return []
             }
             return users
         }
         set {
             let data = try? JSONEncoder().encode(newValue)
-            DispatchQueue.main.async {
-                store.set(data, forKey: "friends")
-            }
+            store.set(data, forKey: "friends")
         }
     }
     

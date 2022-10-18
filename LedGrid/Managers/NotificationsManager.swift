@@ -21,7 +21,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     ) {
         Task {
             // Handle notification
-            NotificationCenter.default.post(name: Notification.Name("REFRESH_ART"), object: nil)
+            await PixeeProvider.fetchArt()
             WidgetCenter.shared.reloadAllTimelines()
         }
         completionHandler([.banner, .badge, .sound])

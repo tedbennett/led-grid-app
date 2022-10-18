@@ -26,8 +26,18 @@ struct LedGridApp: App {
             options.tracesSampleRate = 0.5
         }
         #endif
+        
+        if AuthService.canRenew() && Utility.user?.id != nil && hasNoData() {
+            Task {
+                try? await PixeeProvider.fetchArtAndFriends()
+            }
+        }
     }
     
+    func hasNoData() -> Bool {
+        let fetch = User.fetchRequest()
+        return (try? PersistenceManager.shared.viewContext.count(for: fetch) == 0) ?? true
+    }
     
     var body: some Scene {
         WindowGroup {

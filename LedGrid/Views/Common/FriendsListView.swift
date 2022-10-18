@@ -9,22 +9,21 @@ import SwiftUI
 
 
 struct FriendsView: View {
+    @FetchRequest(sortDescriptors: []) var friends: FetchedResults<User>
     @Binding var selectedFriends: [String]
-    @EnvironmentObject var friendsViewModel: FriendsViewModel
-    
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    if friendsViewModel.friends.isEmpty {
+                    if friends.isEmpty {
                         Button {
                             Helpers.presentShareSheet()
                         } label: {
                             Text("Add some friends in settings to send art").font(.caption).foregroundColor(.gray)
                         }
                     } else {
-                        ForEach(friendsViewModel.friends) { user in
+                        ForEach(friends) { user in
                             VStack {
                                 Button {
                                     if selectedFriends.contains(where: { user.id == $0 }) {
@@ -50,6 +49,10 @@ struct FriendsView: View {
                 }
                 .frame(minWidth: geometry.size.width)      // Make the scroll view full-width
                 .frame(height: geometry.size.height)
+            }
+        }.onAppear {
+            if friends.count == 1 {
+                selectedFriends = friends.map { $0.id }
             }
         }
     }

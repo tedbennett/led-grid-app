@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="PixelArt" representedClassName="PixelArt" syncable="YES">
+        <attribute name="art" attributeType="Transformable" valueTransformerName="SerializableArtTransformer" customClassName="SerializableArt"/>
+        <attribute name="hidden" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="opened" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="sender" attributeType="String"/>
+        <attribute name="sentAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="reactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Reaction" inverseName="art" inverseEntity="Reaction"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="art" inverseEntity="User"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Reaction" representedClassName="Reaction" syncable="YES">
+        <attribute name="emoji" attributeType="String"/>
+        <attribute name="sentAt" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="art" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PixelArt" inverseName="reactions" inverseEntity="PixelArt"/>
+        <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="fullName" optional="YES" attributeType="String"/>
+        <attribute name="givenName" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="lastUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="art" toMany="YES" deletionRule="Cascade" destinationEntity="PixelArt" inverseName="users" inverseEntity="PixelArt"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+</model>

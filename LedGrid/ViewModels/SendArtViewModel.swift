@@ -18,7 +18,7 @@ class SendArtViewModel: ObservableObject {
         self.grids = grids
     }
     
-    func sendArt() async -> PixelArt? {
+    func sendArt() async -> MPixelArt? {
         await MainActor.run {
             sendingArt = true
         }

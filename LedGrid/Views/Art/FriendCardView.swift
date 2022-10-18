@@ -28,8 +28,8 @@ struct FriendCardView: View {
     }
 }
 
-struct FriendCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        FriendCardView(friend: User.example, hasUnread: true)
-    }
-}
+//struct FriendCardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FriendCardView(friend: User.example, hasUnread: true)
+//    }
+//}

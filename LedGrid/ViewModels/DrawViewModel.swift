@@ -31,12 +31,26 @@ class DrawViewModel: ObservableObject {
     
     init() {
         clearUndoAndRedo()
+        NotificationCenter.default.addObserver(self, selector: #selector(copyGrids), name: Notifications.copyGrid, object: nil)
     }
     
     private var currentState: Grid = {
         let grids = Utility.currentGrids
         return Utility.currentGridIndex < grids.count ? grids[Utility.currentGridIndex] : grids[0]
     }()
+    
+    @objc
+    func copyGrids(_ notification: Notification) {
+        guard let grids = notification.userInfo?["grids"] as? [Grid],
+              let count = grids.first?.count,
+              let size = GridSize(rawValue: count),
+              let index = notification.userInfo?["index"] as? Int else {
+            return
+        }
+        setGridSize(size)
+        setCurrentGrids(Utility.isPlus ? grids : [grids[index]])
+    }
+    
     
     func setCurrentGrids(_ grids: [Grid]) {
         self.grids = grids
@@ -121,10 +135,6 @@ class DrawViewModel: ObservableObject {
         return !redoStates[currentGridIndex].isEmpty
     }
     
-    func copyReceivedGrid(_ received: PixelArt, at index: Int = 0) {
-        setGridSize(received.size)
-        setCurrentGrids(Utility.isPlus ? received.grids : [received.grids[index]])
-    }
     
     func trySetGridSquare(row: Int, col: Int, color: Color) {
         guard col < gridSize.rawValue, col >= 0, row < gridSize.rawValue, row >= 0 else { return }
@@ -183,7 +193,7 @@ class DrawViewModel: ObservableObject {
 
 
 extension DrawViewModel {
-
+    
     typealias GridCoord = (row: Int, col: Int)
     
     func findGridCoordinates(at point: CGPoint) -> (Int, Int)? {
@@ -195,17 +205,17 @@ extension DrawViewModel {
         guard x >= 0, x < currentGrid.count, y >= 0, y < currentGrid.count else { return nil }
         return (x, y)
     }
-
+    
     func fillGrid(at index: GridCoord, color: Color) {
         let startColor = getColor(at: index)
-
+        
         guard color != startColor else { return }
         var toFill: [GridCoord] = []
         var remainingNeighbours = getNeighbours(at: index).filter {
             getColor(at: $0) == startColor
         }
-
-
+        
+        
         while !remainingNeighbours.isEmpty {
             var current: [GridCoord] = []
             for neighbour in remainingNeighbours {
@@ -214,36 +224,47 @@ extension DrawViewModel {
                     let exists = current.contains { coord == $0 } || toFill.contains { coord == $0 }
                     return sameColour && !exists
                 }
-
+                
                 current.append(contentsOf: validNeighbours)
             }
-
+            
             toFill.append(contentsOf: remainingNeighbours)
             remainingNeighbours = current
         }
         let group = DispatchGroup();
-        let speed = (1.0 / Double(currentGrid.count)) * 0.04
-        toFill.enumerated().forEach { i, neighbour in
-            group.enter()
-            DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * speed)) {
-                self.currentGrid[neighbour.col][neighbour.row] = color
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                group.leave()
+        let speed = UInt64(200_000 * (1.0 / Double(currentGrid.count)))
+        let generator = UIImpactFeedbackGenerator(style: .rigid)
+        generator.prepare()
+        Task { [toFill, speed] in
+            for (i, neighbour) in toFill.enumerated() {
+                await MainActor.run {
+                    self.currentGrid[neighbour.col][neighbour.row] = color
+                    switch gridSize {
+                    case .small: break
+                    case .medium: if (i % 2) != 0 { return }
+                    case .large: if (i % 3) != 0 { return }
+                    }
+                    generator.impactOccurred()
+                    
+                }
+                try? await Task.sleep(nanoseconds: speed)
+            }
+            await MainActor.run {
+                self.pushUndoState()
             }
         }
-        group.notify(queue: .main) {
-            self.pushUndoState()
-        }
+        
+        
     }
-
+    
     private func getColor(at coord: GridCoord) -> Color {
         return currentGrid[coord.col][coord.row]
     }
-
-
+    
+    
     private func getNeighbours(at index: GridCoord) -> [GridCoord] {
         var neighbours: [(row: Int, col: Int)] = []
-
+        
         if (index.row != 0) {
             neighbours.append((row: index.row - 1, col: index.col))
         }
@@ -258,7 +279,7 @@ extension DrawViewModel {
         }
         return neighbours
     }
-
+    
     private func fillNeighbours(at index: GridCoord, color: Color, startColor: Color) {
         for neighbour in getNeighbours(at: index) {
             if getColor(at: neighbour) == startColor {

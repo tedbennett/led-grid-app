@@ -22,8 +22,8 @@ struct UserOrb: View {
     }
 }
 
-struct UserOrb_Previews: PreviewProvider {
-    static var previews: some View {
-        UserOrb(user: User.example)
-    }
-}
+//struct UserOrb_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UserOrb(user: User.example)
+//    }
+//}

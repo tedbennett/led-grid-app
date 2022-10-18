@@ -13,7 +13,6 @@ class LoginViewModel: ObservableObject {
     @Published var showSignInAlert = false
     @Published var isSigningIn = false
     
-    var artModel = ArtModel()
     var friendsModel = FriendsModel()
     
     func requestNotificationPermissions() {
@@ -39,11 +38,8 @@ class LoginViewModel: ObservableObject {
             }
                 do {
                     Utility.user = try await NetworkManager.shared.handleSignInWithApple(authorization: authResults)
+                    try await PixeeProvider.fetchArtAndFriends()
                     requestNotificationPermissions()
-                    Utility.friends = await friendsModel.refreshFriends()
-                    // Fetch received art and insert into CoreData
-                    await artModel.fetchAllArt()
-                    Utility.lastReceivedFetchDate = Date()
                     await MainActor.run {
                         isSigningIn = false
                     }
@@ -56,6 +52,7 @@ class LoginViewModel: ObservableObject {
         }
         await MainActor.run {
             showSignInAlert = true
+            isSigningIn = false
         }
         return false
     }

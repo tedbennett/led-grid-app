@@ -18,6 +18,36 @@
 		1F9D48A928EC729C004098B5 /* SendArtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48A828EC729C004098B5 /* SendArtViewModel.swift */; };
 		1F9D48AB28ECD8AA004098B5 /* EditGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48AA28ECD8AA004098B5 /* EditGridViewModel.swift */; };
 		1F9D48AD28ED25A8004098B5 /* ArtListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48AC28ED25A8004098B5 /* ArtListView.swift */; };
+		1FB1794D28FB623C0066AE71 /* SerializableArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1794C28FB623C0066AE71 /* SerializableArt.swift */; };
+		1FB1795228FC27EF0066AE71 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1794E28FC27EF0066AE71 /* User+CoreDataClass.swift */; };
+		1FB1795328FC27EF0066AE71 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1794F28FC27EF0066AE71 /* User+CoreDataProperties.swift */; };
+		1FB1795428FC27EF0066AE71 /* Reaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795028FC27EF0066AE71 /* Reaction+CoreDataClass.swift */; };
+		1FB1795528FC27EF0066AE71 /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
+		1FB1795728FC351A0066AE71 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795628FC351A0066AE71 /* CoreDataService.swift */; };
+		1FB1795928FC8D6C0066AE71 /* PixeeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795828FC8D6C0066AE71 /* PixeeProvider.swift */; };
+		1FB1795B28FDEC390066AE71 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795A28FDEC390066AE71 /* Notifications.swift */; };
+		1FB1795C28FE172E0066AE71 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6828A59DBE00105E8C /* CoreDataStack.swift */; };
+		1FB1795D28FE17730066AE71 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1794F28FC27EF0066AE71 /* User+CoreDataProperties.swift */; };
+		1FB1796028FE17770066AE71 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1794E28FC27EF0066AE71 /* User+CoreDataClass.swift */; };
+		1FB1796528FE17B00066AE71 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6828A59DBE00105E8C /* CoreDataStack.swift */; };
+		1FB1797328FE18C80066AE71 /* User+CoreDataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1797228FE18C80066AE71 /* User+CoreDataExtensions.swift */; };
+		1FB1797428FE192D0066AE71 /* MPixelArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245628BA535400723C97 /* MPixelArt.swift */; };
+		1FB1797528FE19350066AE71 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8228B29EE700403F4D /* Grid.swift */; };
+		1FB1797628FE1EF50066AE71 /* Pixee.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6528A596F000105E8C /* Pixee.xcdatamodeld */; };
+		1FB1797728FE1F380066AE71 /* PixelArt+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */; };
+		1FB1797828FE1F3A0066AE71 /* PixelArt+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */; };
+		1FB1797A28FE1F4E0066AE71 /* PixelArt+CoreDataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1797928FE1F4E0066AE71 /* PixelArt+CoreDataExtensions.swift */; };
+		1FB1797B28FE23A00066AE71 /* SerializableArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1794C28FB623C0066AE71 /* SerializableArt.swift */; };
+		1FB1797C28FE23BB0066AE71 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1794F28FC27EF0066AE71 /* User+CoreDataProperties.swift */; };
+		1FB1797D28FE23BE0066AE71 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1794E28FC27EF0066AE71 /* User+CoreDataClass.swift */; };
+		1FB1797E28FE24600066AE71 /* Pixee.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6528A596F000105E8C /* Pixee.xcdatamodeld */; };
+		1FB1798028FE25920066AE71 /* SerializableArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1794C28FB623C0066AE71 /* SerializableArt.swift */; };
+		1FB1798128FE25990066AE71 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8228B29EE700403F4D /* Grid.swift */; };
+		1FB1798228FE25A90066AE71 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7C28B29E9500403F4D /* Color.swift */; };
+		1FB1798328FE28B80066AE71 /* PixelArt+CoreDataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1797928FE1F4E0066AE71 /* PixelArt+CoreDataExtensions.swift */; };
+		1FB1798428FE28BF0066AE71 /* Reaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795028FC27EF0066AE71 /* Reaction+CoreDataClass.swift */; };
+		1FB1798528FE8D780066AE71 /* PixelArt+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */; };
+		1FB1798628FE8D7B0066AE71 /* PixelArt+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */; };
 		1FD8118F28DCF6A600D3F95C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8118E28DCF6A600D3F95C /* Sentry */; };
 		1FD8119228DD0E3900D3F95C /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8119128DD0E3900D3F95C /* Mixpanel */; };
 		1FFB1A3D28ED2F2900B126AE /* ArtListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */; };
@@ -44,8 +74,6 @@
 		57C96DA027F1D390008C52BB /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9F27F1D390008C52BB /* Utility.swift */; };
 		57C96DA727F3A266008C52BB /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DA627F3A266008C52BB /* DrawView.swift */; };
 		57C96DAE27F3A702008C52BB /* MiniGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAD27F3A702008C52BB /* MiniGridView.swift */; };
-		57C96DB027F45B56008C52BB /* SentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAF27F45B56008C52BB /* SentView.swift */; };
-		57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB127F45B93008C52BB /* ReceivedView.swift */; };
 		57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB427F45C01008C52BB /* SettingsView.swift */; };
 		9F28FB6D28B1038B00403F4D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F28FB6C28B1038B00403F4D /* StoreKit.framework */; };
 		9F28FB6F28B108B400403F4D /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB6E28B108B400403F4D /* StoreManager.swift */; };
@@ -60,7 +88,7 @@
 		9F28FB8328B29EE700403F4D /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8228B29EE700403F4D /* Grid.swift */; };
 		9F28FB8628B29F3F00403F4D /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9F27F1D390008C52BB /* Utility.swift */; };
 		9F28FB8928B29FF000403F4D /* NetworkTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8828B29FF000403F4D /* NetworkTypes.swift */; };
-		9F28FB8B28B2A00800403F4D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8A28B2A00800403F4D /* User.swift */; };
+		9F28FB8B28B2A00800403F4D /* MUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8A28B2A00800403F4D /* MUser.swift */; };
 		9F28FB8D28B2A04600403F4D /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8C28B2A04600403F4D /* Endpoints.swift */; };
 		9F28FB8F28B2A06C00403F4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8E28B2A06C00403F4D /* AppDelegate.swift */; };
 		9F28FB9028B2A08C00403F4D /* NetworkTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8828B29FF000403F4D /* NetworkTypes.swift */; };
@@ -75,19 +103,17 @@
 		9F28FBA228B2A4BC00403F4D /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8C28B2A04600403F4D /* Endpoints.swift */; };
 		9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FBA328B2A8D900403F4D /* JSONDecoder.swift */; };
 		9F28FBA528B2A8D900403F4D /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FBA328B2A8D900403F4D /* JSONDecoder.swift */; };
-		9F28FBA628B2AA3400403F4D /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8228B29EE700403F4D /* Grid.swift */; };
 		9F28FBA728B2AA6200403F4D /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B43527F0D8AA0039F621 /* SquareView.swift */; };
-		9F28FBA828B2AAC200403F4D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8A28B2A00800403F4D /* User.swift */; };
+		9F28FBA828B2AAC200403F4D /* MUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8A28B2A00800403F4D /* MUser.swift */; };
 		9F28FBA928B2AAC900403F4D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7C28B29E9500403F4D /* Color.swift */; };
 		9F28FBAA28B2AADE00403F4D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7E28B29EB700403F4D /* String.swift */; };
 		9F28FBAC28B2AB0000403F4D /* SimpleKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 9F28FBAB28B2AB0000403F4D /* SimpleKeychain */; };
-		9F317B6028A2F9AB00105E8C /* DrawManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B5F28A2F9AB00105E8C /* DrawManager.swift */; };
 		9F317B6228A3052400105E8C /* SendArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6128A3052400105E8C /* SendArtView.swift */; };
 		9F317B6428A3159500105E8C /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6328A3159500105E8C /* MailView.swift */; };
 		9F317B6728A596F000105E8C /* Pixee.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6528A596F000105E8C /* Pixee.xcdatamodeld */; };
 		9F317B6928A59DBE00105E8C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6828A59DBE00105E8C /* CoreDataStack.swift */; };
-		9F317B6C28A59ED700105E8C /* StoredPixelArt+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6A28A59ED700105E8C /* StoredPixelArt+CoreDataClass.swift */; };
-		9F317B6D28A59ED700105E8C /* StoredPixelArt+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6B28A59ED700105E8C /* StoredPixelArt+CoreDataProperties.swift */; };
+		9F317B6C28A59ED700105E8C /* PixelArt+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */; };
+		9F317B6D28A59ED700105E8C /* PixelArt+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */; };
 		9F317B6F28A6E9DF00105E8C /* EditFramesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6E28A6E9DF00105E8C /* EditFramesView.swift */; };
 		9F317B7628A9414C00105E8C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F317B7528A9414C00105E8C /* WidgetKit.framework */; };
 		9F317B7828A9414C00105E8C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F317B7728A9414C00105E8C /* SwiftUI.framework */; };
@@ -106,12 +132,9 @@
 		9F626C1228AC1B3700587B57 /* WidgetTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F626C1128AC1B3700587B57 /* WidgetTutorialView.swift */; };
 		9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */; };
 		9FAB5EA62891D03B00A620BB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB5EA52891D03B00A620BB /* LoginView.swift */; };
-		9FAB5EA8289496A800A620BB /* GridManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB5EA7289496A800A620BB /* GridManager.swift */; };
-		9FAB5EAA28949AEC00A620BB /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB5EA928949AEC00A620BB /* UserManager.swift */; };
 		9FAB5EAD28949CD900A620BB /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 9FAB5EAC28949CD900A620BB /* AlertToast */; };
 		9FAB5EB028953F3500A620BB /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 9FAB5EAF28953F3500A620BB /* Sliders */; };
-		9FC6245728BA535400723C97 /* PixelArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245628BA535400723C97 /* PixelArt.swift */; };
-		9FC6245828BA539700723C97 /* PixelArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245628BA535400723C97 /* PixelArt.swift */; };
+		9FC6245728BA535400723C97 /* MPixelArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245628BA535400723C97 /* MPixelArt.swift */; };
 		9FC6245A28BA8A7000723C97 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245928BA8A7000723C97 /* UpgradeView.swift */; };
 		9FC6245C28BA8F8D00723C97 /* SlideOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245B28BA8F8D00723C97 /* SlideOverView.swift */; };
 		9FC6245E28BAAEF300723C97 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245D28BAAEF300723C97 /* LargeButton.swift */; };
@@ -166,6 +189,17 @@
 		1F9D48A828EC729C004098B5 /* SendArtViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendArtViewModel.swift; sourceTree = "<group>"; };
 		1F9D48AA28ECD8AA004098B5 /* EditGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGridViewModel.swift; sourceTree = "<group>"; };
 		1F9D48AC28ED25A8004098B5 /* ArtListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtListView.swift; sourceTree = "<group>"; };
+		1FB1794B28FB61E70066AE71 /* PixeeModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PixeeModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		1FB1794C28FB623C0066AE71 /* SerializableArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializableArt.swift; sourceTree = "<group>"; };
+		1FB1794E28FC27EF0066AE71 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1FB1794F28FC27EF0066AE71 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1FB1795028FC27EF0066AE71 /* Reaction+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reaction+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reaction+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1FB1795628FC351A0066AE71 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		1FB1795828FC8D6C0066AE71 /* PixeeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeProvider.swift; sourceTree = "<group>"; };
+		1FB1795A28FDEC390066AE71 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		1FB1797228FE18C80066AE71 /* User+CoreDataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataExtensions.swift"; sourceTree = "<group>"; };
+		1FB1797928FE1F4E0066AE71 /* PixelArt+CoreDataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelArt+CoreDataExtensions.swift"; sourceTree = "<group>"; };
 		1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtListViewModel.swift; sourceTree = "<group>"; };
 		1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardView.swift; sourceTree = "<group>"; };
 		1FFB1A4128EDC60400B126AE /* ArtReactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtReactionsView.swift; sourceTree = "<group>"; };
@@ -193,8 +227,6 @@
 		57C96D9F27F1D390008C52BB /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		57C96DA627F3A266008C52BB /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		57C96DAD27F3A702008C52BB /* MiniGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniGridView.swift; sourceTree = "<group>"; };
-		57C96DAF27F45B56008C52BB /* SentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentView.swift; sourceTree = "<group>"; };
-		57C96DB127F45B93008C52BB /* ReceivedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedView.swift; sourceTree = "<group>"; };
 		57C96DB427F45C01008C52BB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9F28FB6C28B1038B00403F4D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9F28FB6E28B108B400403F4D /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
@@ -205,7 +237,7 @@
 		9F28FB8028B29ED600403F4D /* Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
 		9F28FB8228B29EE700403F4D /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		9F28FB8828B29FF000403F4D /* NetworkTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTypes.swift; sourceTree = "<group>"; };
-		9F28FB8A28B2A00800403F4D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9F28FB8A28B2A00800403F4D /* MUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUser.swift; sourceTree = "<group>"; };
 		9F28FB8C28B2A04600403F4D /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		9F28FB8E28B2A06C00403F4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F28FB9128B2A0A100403F4D /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
@@ -217,13 +249,12 @@
 		9F28FB9E28B2A23600403F4D /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		9F28FBA028B2A26000403F4D /* StandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
 		9F28FBA328B2A8D900403F4D /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
-		9F317B5F28A2F9AB00105E8C /* DrawManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawManager.swift; sourceTree = "<group>"; };
 		9F317B6128A3052400105E8C /* SendArtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendArtView.swift; sourceTree = "<group>"; };
 		9F317B6328A3159500105E8C /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		9F317B6628A596F000105E8C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		9F317B6828A59DBE00105E8C /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		9F317B6A28A59ED700105E8C /* StoredPixelArt+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoredPixelArt+CoreDataClass.swift"; sourceTree = "<group>"; };
-		9F317B6B28A59ED700105E8C /* StoredPixelArt+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoredPixelArt+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelArt+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelArt+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9F317B6E28A6E9DF00105E8C /* EditFramesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFramesView.swift; sourceTree = "<group>"; };
 		9F317B7428A9414C00105E8C /* Pixee-WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pixee-WidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F317B7528A9414C00105E8C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -245,9 +276,7 @@
 		9F626C1128AC1B3700587B57 /* WidgetTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTutorialView.swift; sourceTree = "<group>"; };
 		9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9FAB5EA52891D03B00A620BB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		9FAB5EA7289496A800A620BB /* GridManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridManager.swift; sourceTree = "<group>"; };
-		9FAB5EA928949AEC00A620BB /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		9FC6245628BA535400723C97 /* PixelArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArt.swift; sourceTree = "<group>"; };
+		9FC6245628BA535400723C97 /* MPixelArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPixelArt.swift; sourceTree = "<group>"; };
 		9FC6245928BA8A7000723C97 /* UpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
 		9FC6245B28BA8F8D00723C97 /* SlideOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOverView.swift; sourceTree = "<group>"; };
 		9FC6245D28BAAEF300723C97 /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
@@ -324,8 +353,8 @@
 			children = (
 				9F28FB8028B29ED600403F4D /* Frame.swift */,
 				9F28FB8228B29EE700403F4D /* Grid.swift */,
-				9F28FB8A28B2A00800403F4D /* User.swift */,
-				9FC6245628BA535400723C97 /* PixelArt.swift */,
+				9F28FB8A28B2A00800403F4D /* MUser.swift */,
+				9FC6245628BA535400723C97 /* MPixelArt.swift */,
 				9F28FB8828B29FF000403F4D /* NetworkTypes.swift */,
 			);
 			path = Types;
@@ -427,8 +456,6 @@
 		57C96DAA27F3A632008C52BB /* Art */ = {
 			isa = PBXGroup;
 			children = (
-				57C96DAF27F45B56008C52BB /* SentView.swift */,
-				57C96DB127F45B93008C52BB /* ReceivedView.swift */,
 				9F3A842B289EF0150053F3DD /* RevealView.swift */,
 				1F9D489728E68F93004098B5 /* ArtView.swift */,
 				1F9D489928E68FD9004098B5 /* FriendCardView.swift */,
@@ -452,6 +479,7 @@
 			children = (
 				57C96D9F27F1D390008C52BB /* Utility.swift */,
 				9F28FB7728B29DFB00403F4D /* Network.swift */,
+				1FB1795A28FDEC390066AE71 /* Notifications.swift */,
 				9F39683228BC944700AA8315 /* Helpers.swift */,
 				9F28FB8C28B2A04600403F4D /* Endpoints.swift */,
 			);
@@ -461,10 +489,17 @@
 		9F28FB7A28B29E6A00403F4D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				9F317B6A28A59ED700105E8C /* StoredPixelArt+CoreDataClass.swift */,
-				9F317B6B28A59ED700105E8C /* StoredPixelArt+CoreDataProperties.swift */,
+				1FB1794E28FC27EF0066AE71 /* User+CoreDataClass.swift */,
+				1FB1794F28FC27EF0066AE71 /* User+CoreDataProperties.swift */,
+				1FB1797228FE18C80066AE71 /* User+CoreDataExtensions.swift */,
+				1FB1795028FC27EF0066AE71 /* Reaction+CoreDataClass.swift */,
+				1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */,
+				9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */,
+				9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */,
+				1FB1797928FE1F4E0066AE71 /* PixelArt+CoreDataExtensions.swift */,
 				9F317B6528A596F000105E8C /* Pixee.xcdatamodeld */,
 				9F317B6828A59DBE00105E8C /* CoreDataStack.swift */,
+				1FB1794C28FB623C0066AE71 /* SerializableArt.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -502,11 +537,10 @@
 			children = (
 				9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */,
 				9F28FB6E28B108B400403F4D /* StoreManager.swift */,
-				9FAB5EA7289496A800A620BB /* GridManager.swift */,
-				9F317B5F28A2F9AB00105E8C /* DrawManager.swift */,
-				9FAB5EA928949AEC00A620BB /* UserManager.swift */,
 				9F28FB7328B29D3300403F4D /* AuthService.swift */,
 				9F28FB9E28B2A23600403F4D /* NotificationsManager.swift */,
+				1FB1795628FC351A0066AE71 /* CoreDataService.swift */,
+				1FB1795828FC8D6C0066AE71 /* PixeeProvider.swift */,
 				1FFB1A5228F1DCDC00B126AE /* NavigationManager.swift */,
 			);
 			path = Managers;
@@ -725,19 +759,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB1795428FC27EF0066AE71 /* Reaction+CoreDataClass.swift in Sources */,
 				5799B42827F0D7E60039F621 /* ContentView.swift in Sources */,
 				1F9D489C28E69068004098B5 /* InitialsOrbView.swift in Sources */,
-				9F317B6D28A59ED700105E8C /* StoredPixelArt+CoreDataProperties.swift in Sources */,
+				9F317B6D28A59ED700105E8C /* PixelArt+CoreDataProperties.swift in Sources */,
 				57C96D9E27F1D295008C52BB /* DrawViewModel.swift in Sources */,
 				57C96DA727F3A266008C52BB /* DrawView.swift in Sources */,
+				1FB1794D28FB623C0066AE71 /* SerializableArt.swift in Sources */,
 				1F9D48A128E69BB6004098B5 /* LoggedInView.swift in Sources */,
 				5799B43427F0D89D0039F621 /* DrawableGridView.swift in Sources */,
 				9F28FB8928B29FF000403F4D /* NetworkTypes.swift in Sources */,
 				1F9D48AB28ECD8AA004098B5 /* EditGridViewModel.swift in Sources */,
 				1F9D48A528EB5112004098B5 /* ArtModel.swift in Sources */,
 				1F9D48A328E69C37004098B5 /* AddFriendHandler.swift in Sources */,
+				1FB1795528FC27EF0066AE71 /* Reaction+CoreDataProperties.swift in Sources */,
 				1FFB1A5328F1DCDC00B126AE /* NavigationManager.swift in Sources */,
 				9FC6245E28BAAEF300723C97 /* LargeButton.swift in Sources */,
+				1FB1795728FC351A0066AE71 /* CoreDataService.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
 				1FFB1A4E28F1A1AE00B126AE /* FriendsModel.swift in Sources */,
 				1FFB1A4228EDC60400B126AE /* ArtReactionsView.swift in Sources */,
@@ -745,17 +783,17 @@
 				9F28FB7828B29DFB00403F4D /* Network.swift in Sources */,
 				9F28FB6F28B108B400403F4D /* StoreManager.swift in Sources */,
 				9FC6245A28BA8A7000723C97 /* UpgradeView.swift in Sources */,
+				1FB1795B28FDEC390066AE71 /* Notifications.swift in Sources */,
 				1F9D48A928EC729C004098B5 /* SendArtViewModel.swift in Sources */,
 				9F28FB8F28B2A06C00403F4D /* AppDelegate.swift in Sources */,
 				1FFB1A4A28EFD00E00B126AE /* FriendsViewModel.swift in Sources */,
-				57C96DB027F45B56008C52BB /* SentView.swift in Sources */,
 				57C96DAE27F3A702008C52BB /* MiniGridView.swift in Sources */,
 				9F28FB8128B29ED600403F4D /* Frame.swift in Sources */,
 				9F28FB9228B2A0A100403F4D /* Spinner.swift in Sources */,
+				1FB1795228FC27EF0066AE71 /* User+CoreDataClass.swift in Sources */,
 				1FFB1A3F28ED9AEB00B126AE /* ArtCardView.swift in Sources */,
 				9FC6246228BAC79700723C97 /* IconListItemView.swift in Sources */,
 				1FFB1A3D28ED2F2900B126AE /* ArtListViewModel.swift in Sources */,
-				57C96DB227F45B93008C52BB /* ReceivedView.swift in Sources */,
 				57C96DA027F1D390008C52BB /* Utility.swift in Sources */,
 				1F9D489F28E69A78004098B5 /* ArtViewModel.swift in Sources */,
 				5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */,
@@ -763,11 +801,10 @@
 				9F28FB9428B2A0C200403F4D /* LargeSpinner.swift in Sources */,
 				9F28FB9628B2A11F00403F4D /* Date.swift in Sources */,
 				1FFB1A5128F1D94000B126AE /* PreviewModel.swift in Sources */,
-				9FAB5EA8289496A800A620BB /* GridManager.swift in Sources */,
 				9FC6245C28BA8F8D00723C97 /* SlideOverView.swift in Sources */,
 				9FD8AE4F28AADB7B0005A4CF /* pixee-intents.intentdefinition in Sources */,
 				9F317B6728A596F000105E8C /* Pixee.xcdatamodeld in Sources */,
-				9F28FB8B28B2A00800403F4D /* User.swift in Sources */,
+				9F28FB8B28B2A00800403F4D /* MUser.swift in Sources */,
 				9F28FB7428B29D3300403F4D /* AuthService.swift in Sources */,
 				9F28FB9828B2A1A700403F4D /* DrawTopBarView.swift in Sources */,
 				5799B43627F0D8AA0039F621 /* SquareView.swift in Sources */,
@@ -777,29 +814,31 @@
 				9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */,
 				1FFB1A5828FAD91D00B126AE /* FrameButtonView.swift in Sources */,
 				9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */,
-				9FAB5EAA28949AEC00A620BB /* UserManager.swift in Sources */,
 				9F28FB7D28B29E9500403F4D /* Color.swift in Sources */,
-				9F317B6028A2F9AB00105E8C /* DrawManager.swift in Sources */,
 				1F9D489A28E68FD9004098B5 /* FriendCardView.swift in Sources */,
 				9F28FB8328B29EE700403F4D /* Grid.swift in Sources */,
 				5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */,
 				1FFB1A4428EF9F1600B126AE /* ArtReactionsViewModel.swift in Sources */,
 				9F28FB8D28B2A04600403F4D /* Endpoints.swift in Sources */,
+				1FB1797328FE18C80066AE71 /* User+CoreDataExtensions.swift in Sources */,
 				1FFB1A5628F332CD00B126AE /* DrawColourViewModel.swift in Sources */,
-				9FC6245728BA535400723C97 /* PixelArt.swift in Sources */,
+				9FC6245728BA535400723C97 /* MPixelArt.swift in Sources */,
 				9F317B6428A3159500105E8C /* MailView.swift in Sources */,
 				9F39683328BC944700AA8315 /* Helpers.swift in Sources */,
 				9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */,
 				9F317B6928A59DBE00105E8C /* CoreDataStack.swift in Sources */,
 				1F9D48A728EB9003004098B5 /* LoginViewModel.swift in Sources */,
+				1FB1795328FC27EF0066AE71 /* User+CoreDataProperties.swift in Sources */,
 				9F626C1228AC1B3700587B57 /* WidgetTutorialView.swift in Sources */,
 				9F28FB9A28B2A1C100403F4D /* DrawActionsView.swift in Sources */,
+				1FB1795928FC8D6C0066AE71 /* PixeeProvider.swift in Sources */,
 				1FFB1A4628EF9F8A00B126AE /* ArtCardTopBarView.swift in Sources */,
 				9F28FB9F28B2A23600403F4D /* NotificationsManager.swift in Sources */,
 				1F9D489828E68F93004098B5 /* ArtView.swift in Sources */,
+				1FB1797A28FE1F4E0066AE71 /* PixelArt+CoreDataExtensions.swift in Sources */,
 				9F317B6F28A6E9DF00105E8C /* EditFramesView.swift in Sources */,
 				57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */,
-				9F317B6C28A59ED700105E8C /* StoredPixelArt+CoreDataClass.swift in Sources */,
+				9F317B6C28A59ED700105E8C /* PixelArt+CoreDataClass.swift in Sources */,
 				9F28FBA128B2A26000403F4D /* StandardButton.swift in Sources */,
 				9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */,
 				9F28FB7F28B29EB700403F4D /* String.swift in Sources */,
@@ -812,20 +851,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB1797B28FE23A00066AE71 /* SerializableArt.swift in Sources */,
+				1FB1798328FE28B80066AE71 /* PixelArt+CoreDataExtensions.swift in Sources */,
+				1FB1795C28FE172E0066AE71 /* CoreDataStack.swift in Sources */,
 				9F28FB9028B2A08C00403F4D /* NetworkTypes.swift in Sources */,
 				9F28FBAA28B2AADE00403F4D /* String.swift in Sources */,
-				9FC6245828BA539700723C97 /* PixelArt.swift in Sources */,
 				9F28FBA728B2AA6200403F4D /* SquareView.swift in Sources */,
+				1FB1797728FE1F380066AE71 /* PixelArt+CoreDataClass.swift in Sources */,
 				9F28FB8628B29F3F00403F4D /* Utility.swift in Sources */,
+				1FB1797828FE1F3A0066AE71 /* PixelArt+CoreDataProperties.swift in Sources */,
 				9F28FB7528B29D3300403F4D /* AuthService.swift in Sources */,
 				9F28FBA228B2A4BC00403F4D /* Endpoints.swift in Sources */,
+				1FB1797C28FE23BB0066AE71 /* User+CoreDataProperties.swift in Sources */,
 				9F28FBA928B2AAC900403F4D /* Color.swift in Sources */,
+				1FB1797528FE19350066AE71 /* Grid.swift in Sources */,
 				9F28FBA528B2A8D900403F4D /* JSONDecoder.swift in Sources */,
+				1FB1797D28FE23BE0066AE71 /* User+CoreDataClass.swift in Sources */,
 				9FD8AE7728AADD190005A4CF /* pixee-intents.intentdefinition in Sources */,
 				9F28FB7928B29DFB00403F4D /* Network.swift in Sources */,
 				9FD8AE2328A967A20005A4CF /* Pixee_Widget.swift in Sources */,
-				9F28FBA628B2AA3400403F4D /* Grid.swift in Sources */,
-				9F28FBA828B2AAC200403F4D /* User.swift in Sources */,
+				1FB1797428FE192D0066AE71 /* MPixelArt.swift in Sources */,
+				1FB1798428FE28BF0066AE71 /* Reaction+CoreDataClass.swift in Sources */,
+				9F28FBA828B2AAC200403F4D /* MUser.swift in Sources */,
+				1FB1797E28FE24600066AE71 /* Pixee.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,8 +881,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB1796528FE17B00066AE71 /* CoreDataStack.swift in Sources */,
 				9F626C0F28AAE2C100587B57 /* pixee-intents.intentdefinition in Sources */,
+				1FB1798528FE8D780066AE71 /* PixelArt+CoreDataClass.swift in Sources */,
 				9F626C0E28AAE2B200587B57 /* IntentHandler.swift in Sources */,
+				1FB1798128FE25990066AE71 /* Grid.swift in Sources */,
+				1FB1796028FE17770066AE71 /* User+CoreDataClass.swift in Sources */,
+				1FB1795D28FE17730066AE71 /* User+CoreDataProperties.swift in Sources */,
+				1FB1798628FE8D7B0066AE71 /* PixelArt+CoreDataProperties.swift in Sources */,
+				1FB1798028FE25920066AE71 /* SerializableArt.swift in Sources */,
+				1FB1797628FE1EF50066AE71 /* Pixee.xcdatamodeld in Sources */,
+				1FB1798228FE25A90066AE71 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1285,9 +1342,10 @@
 		9F317B6528A596F000105E8C /* Pixee.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1FB1794B28FB61E70066AE71 /* PixeeModel 2.xcdatamodel */,
 				9F317B6628A596F000105E8C /* Model.xcdatamodel */,
 			);
-			currentVersion = 9F317B6628A596F000105E8C /* Model.xcdatamodel */;
+			currentVersion = 1FB1794B28FB61E70066AE71 /* PixeeModel 2.xcdatamodel */;
 			path = Pixee.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

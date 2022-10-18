@@ -9,33 +9,35 @@ import SwiftUI
 import AuthenticationServices
 
 struct SettingsView: View {
-    @EnvironmentObject var friendsViewModel: FriendsViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @Binding var loggedIn: Bool
-    @State private var friends = Utility.friends
     @State private var showEditView = false
     @State private var showEmailModal = false
     @State private var showWidgetModal = false
     @State private var showUpgradeView = false
     @State private var showDeleteAccountAlert = false
     
+    @FetchRequest(sortDescriptors: []) var friends: FetchedResults<User>
+    
     var body: some View {
         NavigationView {
             ZStack {
                 List {
                     Section {
-                        if friendsViewModel.friends.isEmpty {
+                        if friends.isEmpty {
                             Button {
                                 Helpers.presentShareSheet()
                             } label: {
                                 Text("Add friends to get started!")
                             }
                         }
-                        ForEach(friendsViewModel.friends) { friend in
+                        ForEach(friends) { friend in
                             Text(friend.fullName ?? "Unknown Friend")
                                 .swipeActions(allowsFullSwipe: false) {
                                     Button(role: .destructive) {
-                                        friendsViewModel.removeFriend(id: friend.id)
+                                        Task {
+                                            await PixeeProvider.removeFriend(friend.id)
+                                        }
                                     } label: {
                                         Label("Remove", systemImage: "trash.fill")
                                     }
@@ -106,7 +108,7 @@ struct SettingsView: View {
                     }
                 }
                 .refreshable {
-                    await friendsViewModel.refreshFriends()
+                    await PixeeProvider.fetchFriends()
                 }
                 
                 .blur(radius: showUpgradeView ? 20 : 0)
@@ -121,8 +123,8 @@ struct SettingsView: View {
                 
                 Menu {
                     Button {
-                        userViewModel.logout()
                         loggedIn = false
+                        userViewModel.logout()
                     } label: {
                         Text("Logout")
                     }
@@ -147,14 +149,8 @@ struct SettingsView: View {
             }
             .alert("Delete account?", isPresented: $showDeleteAccountAlert) {
                 Button("Delete", role: .destructive) {
-                    Task {
-                        do {
-                            try await NetworkManager.shared.deleteAccount()
-                        } catch {
-                            print("Error deleting account: \(error.localizedDescription)")
-                        }
-                    }
                     loggedIn = false
+                    userViewModel.deleteAccount()
                 }
             } message: {
                 Text("This action cannot be undone.")
