@@ -40,7 +40,8 @@ struct CoreDataService {
             for art in mArt {
                 let userIds: [String] = art.sender == Utility.user?.id ? art.receivers : [art.sender]
                 let users = userIds.compactMap { friends[$0] }
-                _ = PixelArt(from: art, users: users, context: backgroundContext)
+                let art = PixelArt(from: art, users: users, context: backgroundContext)
+                art.opened = true
                 for user in users {
                     if  user.lastUpdated == nil || art.sentAt > user.lastUpdated! {
                         user.lastUpdated = art.sentAt
@@ -64,7 +65,7 @@ struct CoreDataService {
                 for art in mArt {
                     let userIds: [String] = art.sender == Utility.user?.id ? art.receivers : [art.sender]
                     let users = userIds.compactMap { friends[$0] }
-                    _ = PixelArt(from: art, users: users, context: backgroundContext)
+                    let art = PixelArt(from: art, users: users, context: backgroundContext)
                     for user in users {
                         if user.lastUpdated == nil || art.sentAt > user.lastUpdated! {
                             user.lastUpdated = art.sentAt

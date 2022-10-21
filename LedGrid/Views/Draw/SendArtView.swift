@@ -26,9 +26,8 @@ struct SendArtView: View {
     
     func sendGrid() {
         Task {
-            let art = await viewModel.sendArt()
-            if let art = art {
-                await PixeeProvider.addSentArt(art)
+            let success = await viewModel.sendArt()
+            if success {
                 await MainActor.run {
                     drawViewModel.sentGrid = true
                 }

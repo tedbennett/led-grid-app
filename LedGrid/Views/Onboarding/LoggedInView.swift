@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AlertToast
+import WidgetKit
 
 struct LoggedInView: View {
     @ObservedObject var navigationManager = NavigationManager.shared
@@ -14,8 +15,6 @@ struct LoggedInView: View {
     @Binding var loggedIn: Bool
     
     @State private var selection = 0
-    
-    @State private var launched = false
     
     @StateObject var userViewModel = UserViewModel()
     
@@ -43,14 +42,12 @@ struct LoggedInView: View {
                     .environmentObject(userViewModel)
             }
             .onChange(of: scenePhase) { newPhase in
-                if newPhase == .active && loggedIn && launched {
+                if newPhase == .active && loggedIn {
+                    WidgetCenter.shared.reloadAllTimelines()
                     Task {
                         await PixeeProvider.fetchArt()
                     }
-                } else {
-                    launched = true
-                }
-                if newPhase != .active {
+                } else if newPhase != .active {
                     PersistenceManager.shared.save()
                 }
             }

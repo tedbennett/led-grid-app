@@ -9,14 +9,13 @@ import SwiftUI
 
 struct ArtReactionsView: View {
     @EnvironmentObject var viewModel: ArtReactionsViewModel
-    var artId: String
-    
+    @ObservedObject var art: PixelArt
     
     var body: some View {
         HStack {
             Spacer()
             HStack(spacing: 15) {
-                if viewModel.openedReactionsId == artId {
+                if viewModel.openedReactionsId == art.id {
                     Button {
                         
                     } label: {
@@ -36,7 +35,7 @@ struct ArtReactionsView: View {
                     }.buttonStyle(.plain)
                 } else  {
                     Button {
-                        viewModel.openReactions(for: artId)
+                        viewModel.openReactions(for: art.id)
                     } label: {
                         Image(systemName: "hand.thumbsup.circle").font(.title2)
                     }.buttonStyle(.plain)
@@ -45,17 +44,17 @@ struct ArtReactionsView: View {
             .padding(10)
             .background(Color(uiColor: .systemGray5))
             .cornerRadius(15)
+            .disabled(art.sender == Utility.user?.id)
         }
     }
 }
 
-struct ArtReactionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ArtReactionsView(artId: "1")
-            .environmentObject(ArtReactionsViewModel())
-    }
-}
-
+//struct ArtReactionsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ArtReactionsView(artId: "1")
+//            .environmentObject(ArtReactionsViewModel())
+//    }
+//}
 
 
 class UIEmojiTextField: UITextField {

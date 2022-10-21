@@ -16,10 +16,10 @@ extension Reaction {
         return NSFetchRequest<Reaction>(entityName: "Reaction")
     }
 
-    @NSManaged public var emoji: String
+    @NSManaged public var reaction: String
     @NSManaged public var sentAt: Date
     @NSManaged public var art: PixelArt?
-    @NSManaged public var sender: User?
+    @NSManaged public var sender: String
 
 }
 

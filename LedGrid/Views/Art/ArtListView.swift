@@ -46,9 +46,6 @@ struct ArtListView: View {
                                             })
                                         .cornerRadius(10)
                                         .padding(8)
-                                        .onTapGesture {
-                                            art.opened.toggle()
-                                        }
                                     
                                 }
                             }
@@ -57,6 +54,7 @@ struct ArtListView: View {
                             guard let selectedGrid = selectedGrid else { return }
                             withAnimation {
                                 proxy.scrollTo(selectedGrid, anchor: .center)
+                                NavigationManager.shared.selectedGrid = nil
                             }
                         }
                         

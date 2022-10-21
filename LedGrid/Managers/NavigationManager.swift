@@ -25,7 +25,7 @@ class NavigationManager: ObservableObject {
     
     func navigateTo(friend: String, grid: String?) {
         DispatchQueue.main.async {
-            self.currentTab = 1
+            if self.currentTab != 1 { self.currentTab = 1 }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.selectedFriend = friend

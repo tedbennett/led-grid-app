@@ -18,11 +18,17 @@ struct PixeeProvider {
         }
     }
     
-    static func addSentArt(_ art: MPixelArt) async {
+    static func sendArt(to users: [String], grids: [Grid]) async -> Bool {
         do {
+            let art = try await NetworkManager.shared.sendGrid(
+                to: users,
+                grids: grids.map { $0.hex() }
+            )
             try await CoreDataService.importArt([art])
+            return true
         } catch {
             print(error.localizedDescription)
+            return false
         }
     }
     

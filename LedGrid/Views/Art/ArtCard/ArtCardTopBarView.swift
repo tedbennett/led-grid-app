@@ -58,7 +58,7 @@ struct ArtCardTopBarView: View {
             }
             Spacer()
             
-//            ArtReactionsView(artId: art.id)
+//            ArtReactionsView(art: art)
         }.disabled(isDisabled)
         .alert("Copy to canvas", isPresented: $showCopyArtWarning) {
             Button("Copy", role: .destructive) {

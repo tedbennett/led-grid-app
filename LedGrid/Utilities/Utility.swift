@@ -7,11 +7,14 @@
 
 import SwiftUI
 
+enum UDKeys: String {
+    case currentGrids
+    case currentGridIndex
+    case lastReactions
+}
+
 struct Utility {
-    private enum Keys: String {
-        case currentGrids
-        case currentGridIndex
-    }
+    
     static let store = UserDefaults(suiteName: "group.9Y2AMH5S23.com.edwardbennett.pixee")!
     
     static func clear() {
@@ -26,7 +29,7 @@ struct Utility {
     
     static var currentGrids: [Grid] {
         get {
-            guard let data = store.data(forKey: Keys.currentGrids.rawValue),
+            guard let data = store.data(forKey: UDKeys.currentGrids.rawValue),
                   let colors = try? JSONDecoder().decode([Grid].self, from: data) else {
                 return [GridSize.small.blankGrid]
             }
@@ -34,16 +37,16 @@ struct Utility {
         }
         set {
             let data = try? JSONEncoder().encode(newValue)
-            store.set(data, forKey: Keys.currentGrids.rawValue)
+            store.set(data, forKey: UDKeys.currentGrids.rawValue)
         }
     }
     
     static var currentGridIndex: Int {
         get {
-            return store.integer(forKey: Keys.currentGridIndex.rawValue)
+            return store.integer(forKey: UDKeys.currentGridIndex.rawValue)
         }
         set {
-            store.set(newValue, forKey: Keys.currentGridIndex.rawValue)
+            store.set(newValue, forKey: UDKeys.currentGridIndex.rawValue)
         }
     }
     
@@ -103,10 +106,10 @@ struct Utility {
     
     static var lastReactions: [String] {
         get {
-            store.array(forKey: "lastReactions") as? [String] ?? ["🥰", "😂", "🤨"]
+            store.array(forKey: UDKeys.lastReactions.rawValue) as? [String] ?? ["🥰", "😂", "🤨"]
         }
         set {
-            store.set(newValue, forKey: "lastReactions")
+            store.set(newValue, forKey: UDKeys.lastReactions.rawValue)
         }
     }
     

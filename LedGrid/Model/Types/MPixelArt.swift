@@ -67,7 +67,7 @@ struct MPixelArt: Codable, Identifiable {
         } else {
             self.receivers = [try container.decode(String.self, forKey: .receivers)]
         }
-        self.opened = (try? container.decode(Bool.self, forKey: .opened)) ?? true
+        self.opened = (try? container.decode(Bool.self, forKey: .opened)) ?? false
         self.hidden = (try? container.decode(Bool.self, forKey: .hidden)) ?? false
     }
     

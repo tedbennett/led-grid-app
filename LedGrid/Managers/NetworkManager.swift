@@ -106,8 +106,8 @@ class NetworkManager {
         let headers = try await AuthService.getToken()
         
         let data = try await Network.makeRequest(url: url, body: body, method: .post, headers: headers)
-        let art = try JSONDecoder.standard.decode(MPixelArt.self, from: data)
-        
+        var art = try JSONDecoder.standard.decode(MPixelArt.self, from: data)
+        art.opened = true
         return art
     }
     
