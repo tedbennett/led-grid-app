@@ -19,9 +19,6 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        if let payload = notification.request.content.userInfo["payload"] as? [String: Any] {
-            handleNotification(payload: payload)
-        }
         completionHandler([.banner, .badge, .sound])
     }
     
