@@ -111,6 +111,40 @@ class NetworkManager {
         return art
     }
     
+    func sendReaction(_ reaction: String, for artId: String, to recipient: String) async throws -> MReaction {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        let payload = [
+            "reaction": reaction,
+            "sender": userId,
+            "receiver": recipient
+        ] as [String : Any]
+        let body = try JSONSerialization.data(withJSONObject: payload)
+        let url = Network.makeUrl([.art, .dynamic(artId), .reactions])
+        
+        let headers = try await AuthService.getToken()
+        
+        let data = try await Network.makeRequest(url: url, body: body, method: .post, headers: headers)
+        let reaction = try JSONDecoder.standard.decode(MReaction.self, from: data)
+        return reaction
+    }
+    
+    func getReactions(after: Date?) async throws -> [MReaction] {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        let queries: [String: String] = after != nil ? ["after": after!.ISO8601Format()] : [:]
+        let url = Network.makeUrl([.art, .users, .dynamic(userId), .reactions, .received], queries: queries)
+        let headers = try await AuthService.getToken()
+        
+        return try await getRequest(url: url, headers: headers)
+    }
+    
+    func getAllReactions() async throws -> [MReaction] {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        let url = Network.makeUrl([.art, .users, .dynamic(userId), .reactions])
+        let headers = try await AuthService.getToken()
+        
+        return try await getRequest(url: url, headers: headers)
+    }
+    
     func getUser(id: String) async throws -> MUser {
         let url = Network.makeUrl([.users, .dynamic(id)])
         let headers = try await AuthService.getToken()

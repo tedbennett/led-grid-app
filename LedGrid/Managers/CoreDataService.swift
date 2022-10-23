@@ -21,7 +21,11 @@ struct CoreDataService {
         return taskContext
     }
     
-    static func importData(friends mFriends: [MUser], art mArt: [MPixelArt]) async throws {
+    static func importData(
+        friends mFriends: [MUser],
+        art mArt: [MPixelArt],
+        reactions mReactions: [MReaction]
+    ) async throws {
         let backgroundContext = newTaskContext()
         
         try await backgroundContext.perform {
@@ -36,17 +40,30 @@ struct CoreDataService {
             }.reduce(into: [:]) { acc, val in
                 acc[val.id] = val
             }
-            
-            for art in mArt {
-                let userIds: [String] = art.sender == Utility.user?.id ? art.receivers : [art.sender]
+            let art = mArt.map {
+                let userIds: [String] = $0.sender == Utility.user?.id ? $0.receivers : [$0.sender]
                 let users = userIds.compactMap { friends[$0] }
-                let art = PixelArt(from: art, users: users, context: backgroundContext)
+                let art = PixelArt(from: $0, users: users, context: backgroundContext)
                 art.opened = true
                 for user in users {
                     if  user.lastUpdated == nil || art.sentAt > user.lastUpdated! {
                         user.lastUpdated = art.sentAt
                     }
                 }
+                return art
+            }
+                
+            let artLookup = art.reduce(into: [:]) { acc, val in
+                acc[val.id] = val
+            }
+            
+            for mReaction in mReactions {
+                let reaction = Reaction(context: backgroundContext)
+                reaction.reaction = mReaction.reaction
+                reaction.sender = mReaction.sender
+                reaction.sentAt = mReaction.sentAt
+                reaction.art = artLookup[mReaction.artId]
+                reaction.id = mReaction.id
             }
             
             try backgroundContext.save()
@@ -76,6 +93,47 @@ struct CoreDataService {
             }
         } catch {
             throw PixeeError.failedToImportToCoreData
+        }
+    }
+    
+    static func importReaction(_ mReaction: MReaction, artId: NSManagedObjectID) async throws {
+        let backgroundContext = newTaskContext()
+        
+        try await backgroundContext.perform {
+            
+            let art: PixelArt = try backgroundContext.existingObject(with: artId) as! PixelArt
+            
+            let reaction = Reaction(context: backgroundContext)
+            reaction.reaction = mReaction.reaction
+            reaction.sender = mReaction.sender
+            reaction.sentAt = mReaction.sentAt
+            reaction.art = art
+            reaction.id = mReaction.id
+            try backgroundContext.save()
+        }
+    }
+    
+    static func importReactions(_ mReactions: [MReaction]) async throws {
+        let backgroundContext = newTaskContext()
+        
+        try await backgroundContext.perform {
+            let ids = mReactions.map { $0.artId }
+            
+            let fetch = PixelArt.fetchRequest()
+            fetch.predicate = NSPredicate(format: "id IN %@", ids)
+            let artLookup = (try backgroundContext.fetch(fetch)).reduce(into: [:]) { acc, val in
+                acc[val.id] = val
+            }
+            
+            for mReaction in mReactions {
+                let reaction = Reaction(context: backgroundContext)
+                reaction.reaction = mReaction.reaction
+                reaction.sender = mReaction.sender
+                reaction.sentAt = mReaction.sentAt
+                reaction.art = artLookup[mReaction.artId]
+                reaction.id = mReaction.id
+            }
+            try backgroundContext.save()
         }
     }
     

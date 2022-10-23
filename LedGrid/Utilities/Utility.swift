@@ -11,6 +11,7 @@ enum UDKeys: String {
     case currentGrids
     case currentGridIndex
     case lastReactions
+    case lastReactionFetchDate
 }
 
 struct Utility {
@@ -92,6 +93,15 @@ struct Utility {
         }
         set {
             store.set(newValue, forKey: "lastReceivedFetchDate")
+        }
+    }
+    
+    static var lastReactionFetchDate: Date? {
+        get {
+            store.object(forKey: UDKeys.lastReactionFetchDate.rawValue) as? Date
+        }
+        set {
+            store.set(newValue, forKey: UDKeys.lastReactionFetchDate.rawValue)
         }
     }
     

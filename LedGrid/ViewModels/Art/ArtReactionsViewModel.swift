@@ -12,13 +12,31 @@ class ArtReactionsViewModel: ObservableObject {
     
     /// Art card id with opened reactions
     @Published var openedReactionsId: String?
+    @Published var emojiPickerOpen = false
+    @Published var didSendGrid: Bool = false
+    @Published var failedToSendGrid: Bool = false
     
-    func sendReaction(_ reaction: String) {
+    var userId: String
+    
+    init(userId: String) {
+        self.userId = userId
+    }
+    
+    func sendReaction(_ reaction: String, for art: PixelArt) {
         if !emojis.contains(reaction) {
             emojis = [reaction] + Array(emojis.prefix(emojis.count - 1))
             Utility.lastReactions = emojis
         }
-        
+        Task {
+            let success = await PixeeProvider.sendReaction(for: art, reaction: reaction)
+            await MainActor.run {
+                if success {
+                    didSendGrid = true
+                } else {
+                    failedToSendGrid = true
+                }
+            }
+        }
         // Send reaction
         closeReactions()
     }

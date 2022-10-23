@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F44FEFB29046A40000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
+		1F44FEFC29046A41000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
+		1F44FEFD29046A44000BAFAB /* Reaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795028FC27EF0066AE71 /* Reaction+CoreDataClass.swift */; };
 		1F9D489828E68F93004098B5 /* ArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489728E68F93004098B5 /* ArtView.swift */; };
 		1F9D489A28E68FD9004098B5 /* FriendCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489928E68FD9004098B5 /* FriendCardView.swift */; };
 		1F9D489C28E69068004098B5 /* InitialsOrbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489B28E69068004098B5 /* InitialsOrbView.swift */; };
@@ -48,6 +51,7 @@
 		1FB1798428FE28BF0066AE71 /* Reaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795028FC27EF0066AE71 /* Reaction+CoreDataClass.swift */; };
 		1FB1798528FE8D780066AE71 /* PixelArt+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6A28A59ED700105E8C /* PixelArt+CoreDataClass.swift */; };
 		1FB1798628FE8D7B0066AE71 /* PixelArt+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B6B28A59ED700105E8C /* PixelArt+CoreDataProperties.swift */; };
+		1FB1798829031B600066AE71 /* MReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1798729031B600066AE71 /* MReaction.swift */; };
 		1FD8118F28DCF6A600D3F95C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8118E28DCF6A600D3F95C /* Sentry */; };
 		1FD8119228DD0E3900D3F95C /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8119128DD0E3900D3F95C /* Mixpanel */; };
 		1FFB1A3D28ED2F2900B126AE /* ArtListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */; };
@@ -200,6 +204,7 @@
 		1FB1795A28FDEC390066AE71 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		1FB1797228FE18C80066AE71 /* User+CoreDataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataExtensions.swift"; sourceTree = "<group>"; };
 		1FB1797928FE1F4E0066AE71 /* PixelArt+CoreDataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelArt+CoreDataExtensions.swift"; sourceTree = "<group>"; };
+		1FB1798729031B600066AE71 /* MReaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MReaction.swift; sourceTree = "<group>"; };
 		1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtListViewModel.swift; sourceTree = "<group>"; };
 		1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardView.swift; sourceTree = "<group>"; };
 		1FFB1A4128EDC60400B126AE /* ArtReactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtReactionsView.swift; sourceTree = "<group>"; };
@@ -356,6 +361,7 @@
 				9F28FB8A28B2A00800403F4D /* MUser.swift */,
 				9FC6245628BA535400723C97 /* MPixelArt.swift */,
 				9F28FB8828B29FF000403F4D /* NetworkTypes.swift */,
+				1FB1798729031B600066AE71 /* MReaction.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -775,6 +781,7 @@
 				1FB1795528FC27EF0066AE71 /* Reaction+CoreDataProperties.swift in Sources */,
 				1FFB1A5328F1DCDC00B126AE /* NavigationManager.swift in Sources */,
 				9FC6245E28BAAEF300723C97 /* LargeButton.swift in Sources */,
+				1FB1798829031B600066AE71 /* MReaction.swift in Sources */,
 				1FB1795728FC351A0066AE71 /* CoreDataService.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
 				1FFB1A4E28F1A1AE00B126AE /* FriendsModel.swift in Sources */,
@@ -855,6 +862,7 @@
 				1FB1798328FE28B80066AE71 /* PixelArt+CoreDataExtensions.swift in Sources */,
 				1FB1795C28FE172E0066AE71 /* CoreDataStack.swift in Sources */,
 				9F28FB9028B2A08C00403F4D /* NetworkTypes.swift in Sources */,
+				1F44FEFB29046A40000BAFAB /* Reaction+CoreDataProperties.swift in Sources */,
 				9F28FBAA28B2AADE00403F4D /* String.swift in Sources */,
 				9F28FBA728B2AA6200403F4D /* SquareView.swift in Sources */,
 				1FB1797728FE1F380066AE71 /* PixelArt+CoreDataClass.swift in Sources */,
@@ -881,10 +889,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F44FEFD29046A44000BAFAB /* Reaction+CoreDataClass.swift in Sources */,
 				1FB1796528FE17B00066AE71 /* CoreDataStack.swift in Sources */,
 				9F626C0F28AAE2C100587B57 /* pixee-intents.intentdefinition in Sources */,
 				1FB1798528FE8D780066AE71 /* PixelArt+CoreDataClass.swift in Sources */,
 				9F626C0E28AAE2B200587B57 /* IntentHandler.swift in Sources */,
+				1F44FEFC29046A41000BAFAB /* Reaction+CoreDataProperties.swift in Sources */,
 				1FB1798128FE25990066AE71 /* Grid.swift in Sources */,
 				1FB1796028FE17770066AE71 /* User+CoreDataClass.swift in Sources */,
 				1FB1795D28FE17730066AE71 /* User+CoreDataProperties.swift in Sources */,

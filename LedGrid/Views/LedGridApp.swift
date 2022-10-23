@@ -29,7 +29,7 @@ struct LedGridApp: App {
         
         if AuthService.canRenew() && Utility.user?.id != nil && hasNoData() {
             Task {
-                try? await PixeeProvider.fetchArtAndFriends()
+                try? await PixeeProvider.fetchAllData()
             }
         }
     }

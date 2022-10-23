@@ -19,6 +19,7 @@ enum Endpoint {
     case login
     case refresh
     case plus
+    case reactions
     case dynamic(String)
     
     var raw: String {
@@ -34,6 +35,7 @@ enum Endpoint {
         case .login: return "login"
         case .refresh: return "refresh"
         case .plus: return "plus"
+        case .reactions: return "reactions"
         case .dynamic(let str): return str
         }
     }

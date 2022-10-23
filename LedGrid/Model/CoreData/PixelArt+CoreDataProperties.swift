@@ -26,6 +26,8 @@ extension PixelArt {
     @NSManaged public var users: NSSet?
     @NSManaged public var reactions: NSSet?
     
-    
+    func reaction(for user: String) -> Reaction? {
+        return Array(reactions as? Set<Reaction> ?? []).first { $0.sender == user }
+    }
 }
 

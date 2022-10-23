@@ -13,8 +13,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
         
-        if launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] != nil {
-            NavigationManager.shared.currentTab = 1
+        if let payload = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? [String: Any] {
+            NotificationManager.shared.handleNotification(payload: payload)
         }
         return true
     }

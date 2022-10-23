@@ -37,8 +37,9 @@ class LoginViewModel: ObservableObject {
                 isSigningIn = true
             }
                 do {
-                    Utility.user = try await NetworkManager.shared.handleSignInWithApple(authorization: authResults)
-                    try await PixeeProvider.fetchArtAndFriends()
+                    let user = try await NetworkManager.shared.handleSignInWithApple(authorization: authResults)
+                    Utility.user = user
+                    try await PixeeProvider.fetchAllData()
                     requestNotificationPermissions()
                     await MainActor.run {
                         isSigningIn = false

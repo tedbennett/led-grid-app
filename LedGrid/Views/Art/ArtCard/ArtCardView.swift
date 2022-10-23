@@ -10,7 +10,6 @@ import Combine
 
 struct ArtCardView: View {
     @EnvironmentObject var viewModel: ArtListViewModel
-    @StateObject var reactionViewModel = ArtReactionsViewModel()
     
     @ObservedObject var art: PixelArt
     var grids: [Grid]

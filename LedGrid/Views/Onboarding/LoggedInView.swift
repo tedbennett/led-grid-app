@@ -14,8 +14,6 @@ struct LoggedInView: View {
     @Environment(\.scenePhase) var scenePhase
     @Binding var loggedIn: Bool
     
-    @State private var selection = 0
-    
     @StateObject var userViewModel = UserViewModel()
     
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "opened = false")) var unopenedArt: FetchedResults<PixelArt>
@@ -32,7 +30,6 @@ struct LoggedInView: View {
                     .tabItem {
                         Label("Art", systemImage: "square.grid.2x2")
                     }
-//                    .environmentObject(drawViewModel)
                     .badge(unopenedArt.count)
                     .tag(1)
                 SettingsView(loggedIn: $loggedIn)
@@ -46,6 +43,7 @@ struct LoggedInView: View {
                     WidgetCenter.shared.reloadAllTimelines()
                     Task {
                         await PixeeProvider.fetchArt()
+                        await PixeeProvider.fetchReactions()
                     }
                 } else if newPhase != .active {
                     PersistenceManager.shared.save()

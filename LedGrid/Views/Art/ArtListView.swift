@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct ArtListView: View {
     @ObservedObject var viewModel = ArtListViewModel()
-    @StateObject var reactionsViewModel = ArtReactionsViewModel()
+    @StateObject var reactionsViewModel: ArtReactionsViewModel
     var user: User
     
     @FetchRequest var art: FetchedResults<PixelArt>
@@ -20,6 +21,7 @@ struct ArtListView: View {
         request.sortDescriptors = [NSSortDescriptor(key: #keyPath(PixelArt.sentAt), ascending: false)]
         self._art = FetchRequest(fetchRequest: request)
         self.user = user
+        self._reactionsViewModel = StateObject(wrappedValue: ArtReactionsViewModel(userId: user.id))
     }
     
     var body: some View {
@@ -40,6 +42,10 @@ struct ArtListView: View {
                                                         if $0.minY > listGeometry.frame(in: .global).minY && $0.maxY < listGeometry.frame(in: .global).maxY {
                                                             if viewModel.animatingId != art.id {
                                                                 viewModel.setAnimatingArt(art.id)
+                                                                reactionsViewModel.emojiPickerOpen = false
+                                                            }
+                                                            if viewModel.animatingId != reactionsViewModel.openedReactionsId {
+                                                                reactionsViewModel.closeReactions()
                                                             }
                                                         }
                                                     }
@@ -62,6 +68,7 @@ struct ArtListView: View {
                 }
                 .refreshable {
                     await PixeeProvider.fetchArt()
+                    await PixeeProvider.fetchReactions()
                 }
                 .environmentObject(viewModel)
                 .environmentObject(reactionsViewModel)
@@ -71,6 +78,16 @@ struct ArtListView: View {
             SlideOverView(isOpened: $viewModel.showUpgradeView) {
                 UpgradeView(isOpened: $viewModel.showUpgradeView)
             }
+        }.simultaneousGesture(TapGesture()
+            .onEnded { _ in
+                reactionsViewModel.emojiPickerOpen = false
+            }
+        )
+        .toast(isPresenting: $reactionsViewModel.didSendGrid) {
+            AlertToast(type: .complete(.gray), title: "Sent Reaction")
+        }
+        .toast(isPresenting: $reactionsViewModel.failedToSendGrid) {
+            AlertToast(type: .error(.gray), title: "Failed to send reaction")
         }
     }
 }

@@ -17,10 +17,16 @@
         </uniquenessConstraints>
     </entity>
     <entity name="Reaction" representedClassName="Reaction" syncable="YES">
-        <attribute name="emoji" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="reaction" attributeType="String"/>
+        <attribute name="sender" optional="YES" attributeType="String"/>
         <attribute name="sentAt" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="art" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PixelArt" inverseName="reactions" inverseEntity="PixelArt"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String"/>

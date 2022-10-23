@@ -20,6 +20,7 @@ extension Reaction {
     @NSManaged public var sentAt: Date
     @NSManaged public var art: PixelArt?
     @NSManaged public var sender: String
+    @NSManaged public var id: String
 
 }
 
