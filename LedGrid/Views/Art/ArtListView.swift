@@ -44,7 +44,7 @@ struct ArtListView: View {
                                                                 viewModel.setAnimatingArt(art.id)
                                                                 reactionsViewModel.emojiPickerOpen = false
                                                             }
-                                                            if viewModel.animatingId != reactionsViewModel.openedReactionsId {
+                                                            if reactionsViewModel.openedReactionsId != nil && art.id != reactionsViewModel.openedReactionsId {
                                                                 reactionsViewModel.closeReactions()
                                                             }
                                                         }

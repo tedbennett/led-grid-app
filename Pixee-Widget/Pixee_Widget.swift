@@ -48,7 +48,26 @@ struct Provider: IntentTimelineProvider {
             do {
                 let headers = try await AuthService.getToken()
                 let url = Network.makeUrl([.art, .users, .dynamic(user.id), .received, .last], queries: queries)
-                print(url.absoluteString)
+                let res = try await Network.makeRequest(url: url, body: nil, headers: headers)
+                guard let art = try? JSONDecoder.standard.decode(MPixelArt.self, from: res) else {
+                    completion(.failure(.noneFound))
+                    return
+                }
+                
+                completion(.success(art))
+            } catch is NetworkError {
+                completion(.failure(.networkError))
+            } catch {
+                completion(.failure(.notLoggedIn))
+            }
+        }
+    }
+    
+    func getGridById(_ id: String, completion: @escaping(Result<MPixelArt, WidgetError>) -> Void) {
+        Task {
+            do {
+                let headers = try await AuthService.getToken()
+                let url = Network.makeUrl([.art, .dynamic(id)])
                 let res = try await Network.makeRequest(url: url, body: nil, headers: headers)
                 guard let art = try? JSONDecoder.standard.decode(MPixelArt.self, from: res) else {
                     completion(.failure(.noneFound))

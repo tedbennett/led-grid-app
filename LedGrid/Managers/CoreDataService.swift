@@ -141,15 +141,22 @@ struct CoreDataService {
         let backgroundContext = newTaskContext()
         
         try await backgroundContext.perform {
+            let userFetch = User.fetchRequest()
+            let users = try backgroundContext.fetch(userFetch)
+            
             for friend in mUsers {
-                let user = User(context: backgroundContext)
-                user.fullName = friend.fullName
-                user.givenName = friend.givenName
-                user.email = friend.email
-                user.id = friend.id
-                user.lastUpdated = Date()
+                if !users.contains(where: { $0.id == friend.id }) {
+                    let user = User(context: backgroundContext)
+                    user.fullName = friend.fullName
+                    user.givenName = friend.givenName
+                    user.email = friend.email
+                    user.id = friend.id
+                    user.lastUpdated = Date()
+                }
             }
-            try backgroundContext.save()
+            if backgroundContext.hasChanges {
+                try backgroundContext.save()
+            }
         }
     }
     
