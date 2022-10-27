@@ -33,9 +33,7 @@ struct ArtReactionsView: View {
                             }
                             ForEach(viewModel.emojis, id: \.self) { emoji in
                                 Button {
-                                    if let id = Utility.user?.id,
-                                       let reaction = art.reaction(for: id),
-                                       reaction.reaction != emoji {
+                                    if let id = Utility.user?.id, art.reaction(for: id)?.reaction != emoji {
                                         viewModel.sendReaction(emoji, for: art)
                                     } else {
                                         viewModel.closeReactions()
