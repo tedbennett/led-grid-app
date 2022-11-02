@@ -26,7 +26,7 @@ struct ArtCardView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Top Bar
-            ArtCardBottomBarView(art: art)
+            ArtCardDetailsView(art: art)
             
             // Grid View
             Group {
@@ -64,7 +64,7 @@ struct ArtCardView: View {
             }.padding(.vertical, 5)
             
             // Bottom Bar
-            ArtCardTopBarView(art: art, isAnimating: $isRevealing, currentFrameIndex: $gridIndex, isDisabled: !art.opened)
+            ArtCardActionsView(art: art, isAnimating: $isRevealing, currentFrameIndex: $gridIndex, isDisabled: !art.opened)
         }
         .onReceive(viewModel.timer) { time in
             if viewModel.animatingId == art.id && !pauseAnimating {

@@ -21,6 +21,8 @@ struct Network {
         case delete = "DELETE"
     }
     
+    static var endpoint: String!
+    
     static func request(_ urlRequest: URLRequest) async throws -> Data {
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         if let response = response as? HTTPURLResponse {
@@ -76,6 +78,7 @@ struct Network {
 }
 
 enum NetworkError: Error {
+    case badUrl
     case badRequest
     case notAuthorized
     case notAuthenticated
@@ -88,6 +91,7 @@ enum NetworkError: Error {
 extension NetworkError: LocalizedError {
     var errorDescription: String? {
         switch self {
+        case .badUrl: return "Invalid Url"
         case .badRequest: return "Bad Request"
         case .notAuthorized: return "Not Authorized"
         case .notAuthenticated: return "Not Authenticated"

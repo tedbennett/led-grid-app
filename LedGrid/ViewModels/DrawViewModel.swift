@@ -29,6 +29,12 @@ class DrawViewModel: ObservableObject {
     
     @Published var gridFrame: CGRect = .zero
     
+    @Published var showGuides = Utility.showGuides {
+        didSet {
+            Utility.showGuides = showGuides
+        }
+    }
+    
     init() {
         clearUndoAndRedo()
         NotificationCenter.default.addObserver(self, selector: #selector(copyGrids), name: Notifications.copyGrid, object: nil)
@@ -231,7 +237,6 @@ extension DrawViewModel {
             toFill.append(contentsOf: remainingNeighbours)
             remainingNeighbours = current
         }
-        let group = DispatchGroup();
         let speed = UInt64(200_000 * (1.0 / Double(currentGrid.count)))
         let generator = UIImpactFeedbackGenerator(style: .rigid)
         generator.prepare()

@@ -11,18 +11,25 @@ struct FrameButtonView: View {
     @Binding var showUpgradeView: Bool
     @Binding var showEditFrames: Bool
     @EnvironmentObject var viewModel: DrawViewModel
+    
+    var hasFrames: Bool {
+        viewModel.grids.count > 1
+    }
+    
     var body: some View {
         HStack {
-            Button {
-                viewModel.saveGrid()
-                viewModel.changeToGrid(at: viewModel.currentGridIndex - 1)
-            } label: {
-                Image(systemName: "chevron.left")
-                    .font(.system(.title3, design: .rounded).weight(.medium))
-                    .padding(.leading)
-                    .padding(.vertical)
+            if hasFrames {
+                Button {
+                    viewModel.saveGrid()
+                    viewModel.changeToGrid(at: viewModel.currentGridIndex - 1)
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(.title3, design: .rounded).weight(.medium))
+                        .padding(.leading)
+                        .padding(.vertical)
+                }
+                .disabled(viewModel.currentGridIndex == 0)
             }
-            .disabled(viewModel.grids.count == 0 || viewModel.currentGridIndex == 0)
             Button {
                 if Utility.isPlus {
                     showEditFrames.toggle()
@@ -33,21 +40,24 @@ struct FrameButtonView: View {
                 }
             } label: {
                 Label {
-                    Text("Frames").font(.system(.title3, design: .rounded)).fontWeight(.medium)
+                    Text(viewModel.grids.count > 1 ? "\(viewModel.currentGridIndex + 1)" : "Frames").font(.system(.title3, design: .rounded)).fontWeight(.medium)
                 } icon: {
                     Image(systemName: "square.stack.3d.up.fill")
-                }.padding(4)
+                }.padding(.vertical)
+                .padding(.horizontal, hasFrames ? 0 : nil)
             }
-            Button {
-                viewModel.saveGrid()
-                viewModel.changeToGrid(at: viewModel.currentGridIndex + 1)
-            } label: {
-                Image(systemName: "chevron.right")
-                    .font(.system(.title3, design: .rounded).weight(.medium))
-                    .padding(.trailing)
-                    .padding(.vertical)
+            if hasFrames {
+                Button {
+                    viewModel.saveGrid()
+                    viewModel.changeToGrid(at: viewModel.currentGridIndex + 1)
+                } label: {
+                    Image(systemName: "chevron.right")
+                        .font(.system(.title3, design: .rounded).weight(.medium))
+                        .padding(.trailing)
+                        .padding(.vertical)
+                }
+                .disabled(viewModel.currentGridIndex == viewModel.grids.count - 1)
             }
-            .disabled(viewModel.grids.count == 0 || viewModel.currentGridIndex == viewModel.grids.count - 1)
         }
         .background(Color.gray.opacity(0.2).cornerRadius(15))
         

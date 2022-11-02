@@ -1,5 +1,5 @@
 //
-//  ArtCardBottomBarView.swift
+//  ArtCardDetailsView.swift
 //  LedGrid
 //
 //  Created by Ted Bennett on 06/10/2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ArtCardBottomBarView: View {
+struct ArtCardDetailsView: View {
     var art: PixelArt
     
     
@@ -27,6 +27,6 @@ struct ArtCardBottomBarView: View {
 
 //struct ArtCardBottomBarView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        ArtCardBottomBarView(art: PixelArt.example)
+//        ArtCardDetailsView(art: PixelArt.example)
 //    }
 //}

@@ -21,7 +21,7 @@ struct Provider: IntentTimelineProvider {
             completion(PixeeEntry(date: Date(), state: .error(text: "Loading"), configuration: SelectFriendIntent()))
             return
         }
-        let entry = PixeeEntry(date: Date(), state: .art(grid: [
+        let entry = PixeeEntry(date: Date(), state: .art(grids: [[
             [.black, .black, .black, .black, .black, .black, .black, .black],
             [.black, .black, .white, .black, .black, .white, .black, .black],
             [.black, .black, .white, .black, .black, .white, .black, .black],
@@ -30,7 +30,7 @@ struct Provider: IntentTimelineProvider {
             [.black, .white, .black, .black, .black, .black, .white, .black],
             [.black, .white, .white, .white, .white, .white, .white, .black],
             [.black, .black, .black, .black, .black, .black, .black, .black]
-        ], sender: nil, id: ""), configuration: configuration)
+        ]], sender: nil, id: ""), configuration: configuration)
         completion(entry)
     }
     
@@ -93,8 +93,8 @@ struct Provider: IntentTimelineProvider {
         let art = try? PersistenceManager.shared.viewContext.fetch(fetch)
         
         if let art = art?.first {
-            let grid = art.art.toColors().first!
-            let state = EntryState.art(grid: grid, sender: sender, id: art.id)
+            let grids = art.art.toColors()
+            let state = EntryState.art(grids: grids, sender: sender, id: art.id)
             return PixeeEntry(date: Date(), state: state, configuration: configuration)
         } else {
             return PixeeEntry(date: Date(), state: .error(text: "Add some friends to receive art!"), configuration: configuration)
@@ -108,7 +108,7 @@ struct Provider: IntentTimelineProvider {
             
             switch result {
             case .success(let art):
-                let state: EntryState = .art(grid: art.grids.first!, sender: art.sender, id: art.id)
+                let state: EntryState = .art(grids: art.grids, sender: art.sender, id: art.id)
                 entries.append(PixeeEntry(date: Date(), state: state, configuration: configuration))
             case .failure(let error):
                 entries.append(PixeeEntry(date: Date(), state: .error(text: error.errorText), configuration: configuration))
@@ -121,7 +121,7 @@ struct Provider: IntentTimelineProvider {
 }
 
 enum EntryState {
-    case art(grid: Grid, sender: String?, id: String)
+    case art(grids: [Grid], sender: String?, id: String)
     case error(text: String)
 }
 
@@ -144,8 +144,8 @@ struct Pixee_WidgetEntryView : View {
     var body: some View {
         VStack {
             switch entry.state {
-            case .art(let grid, let sender, let id):
-                WidgetGridView(grid: grid).padding(10)
+            case .art(let grids, let sender, let id):
+                WidgetGridView(grid: grids.first!).padding(10)
                     .widgetURL(url(sender: sender, id: id))
             case .error(let text):
                 VStack {

@@ -1,5 +1,5 @@
 //
-//  ArtCardTopBarView.swift
+//  ArtCardActionsView.swift
 //  LedGrid
 //
 //  Created by Ted Bennett on 06/10/2022.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct ArtCardTopBarView: View {
+struct ArtCardActionsView: View {
     @EnvironmentObject var viewModel: ArtListViewModel
     @EnvironmentObject var reactionsViewModel: ArtReactionsViewModel
     @ObservedObject var art: PixelArt
@@ -55,6 +55,14 @@ struct ArtCardTopBarView: View {
                         Image(systemName: viewModel.animatingId == art.id ? "pause" :  "play").font(.title2).frame(width: 25, height: 25)
                     }.buttonStyle(StandardButton())
                 }
+                // TODO: Add Widget Name view back
+//                Button {
+//                    withAnimation {
+//                        viewModel.widgetArtId = art.id
+//                    }
+//                } label: {
+//                    Image(systemName: "plus.square").font(.title2).frame(width: 25, height: 25)
+//                }.buttonStyle(StandardButton())
             }
             Spacer()
             
@@ -83,7 +91,7 @@ struct ArtCardTopBarView: View {
 
 //struct ArtCardTopBarView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        ArtCardTopBarView(art: PixelArt.example, isAnimating: .constant(true), currentFrameIndex: .constant(0), isDisabled: false)
+//        ArtCardActionsView(art: PixelArt.example, isAnimating: .constant(true), currentFrameIndex: .constant(0), isDisabled: false)
 //            .environmentObject(ArtReactionsViewModel())
 //            .environmentObject(ArtListViewModel(user: User.example))
 //            .environmentObject(DrawViewModel())

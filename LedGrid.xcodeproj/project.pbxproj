@@ -7,16 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F1A16DC290C13D600033745 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DB290C13D600033745 /* View.swift */; };
+		1F1A16DE290C8CB700033745 /* RotatingLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DD290C8CB700033745 /* RotatingLogoView.swift */; };
+		1F1A16E0290D4F3800033745 /* WidgetNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DF290D4F3800033745 /* WidgetNameView.swift */; };
+		1F1A16E1290D679900033745 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9F27F1D390008C52BB /* Utility.swift */; };
+		1F1A16E2290D67BC00033745 /* WidgetNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DF290D4F3800033745 /* WidgetNameView.swift */; };
+		1F1A16E3290D67BD00033745 /* WidgetNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DF290D4F3800033745 /* WidgetNameView.swift */; };
+		1F1A16E4290D67CB00033745 /* MUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8A28B2A00800403F4D /* MUser.swift */; };
 		1F44FEFB29046A40000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
 		1F44FEFC29046A41000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
 		1F44FEFD29046A44000BAFAB /* Reaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795028FC27EF0066AE71 /* Reaction+CoreDataClass.swift */; };
 		1F9D489828E68F93004098B5 /* ArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489728E68F93004098B5 /* ArtView.swift */; };
 		1F9D489A28E68FD9004098B5 /* FriendCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489928E68FD9004098B5 /* FriendCardView.swift */; };
 		1F9D489C28E69068004098B5 /* InitialsOrbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489B28E69068004098B5 /* InitialsOrbView.swift */; };
-		1F9D489F28E69A78004098B5 /* ArtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489E28E69A78004098B5 /* ArtViewModel.swift */; };
 		1F9D48A128E69BB6004098B5 /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48A028E69BB6004098B5 /* LoggedInView.swift */; };
 		1F9D48A328E69C37004098B5 /* AddFriendHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48A228E69C37004098B5 /* AddFriendHandler.swift */; };
-		1F9D48A528EB5112004098B5 /* ArtModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48A428EB5112004098B5 /* ArtModel.swift */; };
 		1F9D48A728EB9003004098B5 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48A628EB9003004098B5 /* LoginViewModel.swift */; };
 		1F9D48A928EC729C004098B5 /* SendArtViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48A828EC729C004098B5 /* SendArtViewModel.swift */; };
 		1F9D48AB28ECD8AA004098B5 /* EditGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D48AA28ECD8AA004098B5 /* EditGridViewModel.swift */; };
@@ -58,8 +63,8 @@
 		1FFB1A3F28ED9AEB00B126AE /* ArtCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */; };
 		1FFB1A4228EDC60400B126AE /* ArtReactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4128EDC60400B126AE /* ArtReactionsView.swift */; };
 		1FFB1A4428EF9F1600B126AE /* ArtReactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4328EF9F1600B126AE /* ArtReactionsViewModel.swift */; };
-		1FFB1A4628EF9F8A00B126AE /* ArtCardTopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4528EF9F8A00B126AE /* ArtCardTopBarView.swift */; };
-		1FFB1A4828EFA5B600B126AE /* ArtCardBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4728EFA5B600B126AE /* ArtCardBottomBarView.swift */; };
+		1FFB1A4628EF9F8A00B126AE /* ArtCardActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4528EF9F8A00B126AE /* ArtCardActionsView.swift */; };
+		1FFB1A4828EFA5B600B126AE /* ArtCardDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4728EFA5B600B126AE /* ArtCardDetailsView.swift */; };
 		1FFB1A4A28EFD00E00B126AE /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4928EFD00E00B126AE /* FriendsViewModel.swift */; };
 		1FFB1A4C28EFE0DD00B126AE /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4B28EFE0DD00B126AE /* UserViewModel.swift */; };
 		1FFB1A4E28F1A1AE00B126AE /* FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4D28F1A1AE00B126AE /* FriendsModel.swift */; };
@@ -67,7 +72,7 @@
 		1FFB1A5328F1DCDC00B126AE /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A5228F1DCDC00B126AE /* NavigationManager.swift */; };
 		1FFB1A5628F332CD00B126AE /* DrawColourViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A5528F332CD00B126AE /* DrawColourViewModel.swift */; };
 		1FFB1A5828FAD91D00B126AE /* FrameButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A5728FAD91D00B126AE /* FrameButtonView.swift */; };
-		5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */; };
+		5756DB4827F1AA7E0028A90E /* EditingToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5756DB4727F1AA7E0028A90E /* EditingToolbarView.swift */; };
 		5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B42527F0D7E60039F621 /* LedGridApp.swift */; };
 		5799B42827F0D7E60039F621 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B42727F0D7E60039F621 /* ContentView.swift */; };
 		5799B42A27F0D7E70039F621 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5799B42927F0D7E70039F621 /* Assets.xcassets */; };
@@ -77,7 +82,7 @@
 		57C96D9E27F1D295008C52BB /* DrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9D27F1D295008C52BB /* DrawViewModel.swift */; };
 		57C96DA027F1D390008C52BB /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9F27F1D390008C52BB /* Utility.swift */; };
 		57C96DA727F3A266008C52BB /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DA627F3A266008C52BB /* DrawView.swift */; };
-		57C96DAE27F3A702008C52BB /* MiniGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAD27F3A702008C52BB /* MiniGridView.swift */; };
+		57C96DAE27F3A702008C52BB /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAD27F3A702008C52BB /* GridView.swift */; };
 		57C96DB527F45C01008C52BB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DB427F45C01008C52BB /* SettingsView.swift */; };
 		9F28FB6D28B1038B00403F4D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F28FB6C28B1038B00403F4D /* StoreKit.framework */; };
 		9F28FB6F28B108B400403F4D /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB6E28B108B400403F4D /* StoreManager.swift */; };
@@ -99,8 +104,7 @@
 		9F28FB9228B2A0A100403F4D /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB9128B2A0A100403F4D /* Spinner.swift */; };
 		9F28FB9428B2A0C200403F4D /* LargeSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB9328B2A0C200403F4D /* LargeSpinner.swift */; };
 		9F28FB9628B2A11F00403F4D /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB9528B2A11F00403F4D /* Date.swift */; };
-		9F28FB9828B2A1A700403F4D /* DrawTopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB9728B2A1A700403F4D /* DrawTopBarView.swift */; };
-		9F28FB9A28B2A1C100403F4D /* DrawActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB9928B2A1C100403F4D /* DrawActionsView.swift */; };
+		9F28FB9828B2A1A700403F4D /* ArtActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB9728B2A1A700403F4D /* ArtActionsView.swift */; };
 		9F28FB9C28B2A20500403F4D /* FriendsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB9B28B2A20500403F4D /* FriendsListView.swift */; };
 		9F28FB9F28B2A23600403F4D /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB9E28B2A23600403F4D /* NotificationsManager.swift */; };
 		9F28FBA128B2A26000403F4D /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FBA028B2A26000403F4D /* StandardButton.swift */; };
@@ -182,13 +186,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F1A16DB290C13D600033745 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		1F1A16DD290C8CB700033745 /* RotatingLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingLogoView.swift; sourceTree = "<group>"; };
+		1F1A16DF290D4F3800033745 /* WidgetNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetNameView.swift; sourceTree = "<group>"; };
 		1F9D489728E68F93004098B5 /* ArtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtView.swift; sourceTree = "<group>"; };
 		1F9D489928E68FD9004098B5 /* FriendCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCardView.swift; sourceTree = "<group>"; };
 		1F9D489B28E69068004098B5 /* InitialsOrbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialsOrbView.swift; sourceTree = "<group>"; };
-		1F9D489E28E69A78004098B5 /* ArtViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtViewModel.swift; sourceTree = "<group>"; };
 		1F9D48A028E69BB6004098B5 /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
 		1F9D48A228E69C37004098B5 /* AddFriendHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendHandler.swift; sourceTree = "<group>"; };
-		1F9D48A428EB5112004098B5 /* ArtModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtModel.swift; sourceTree = "<group>"; };
 		1F9D48A628EB9003004098B5 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		1F9D48A828EC729C004098B5 /* SendArtViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendArtViewModel.swift; sourceTree = "<group>"; };
 		1F9D48AA28ECD8AA004098B5 /* EditGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGridViewModel.swift; sourceTree = "<group>"; };
@@ -209,8 +214,8 @@
 		1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardView.swift; sourceTree = "<group>"; };
 		1FFB1A4128EDC60400B126AE /* ArtReactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtReactionsView.swift; sourceTree = "<group>"; };
 		1FFB1A4328EF9F1600B126AE /* ArtReactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtReactionsViewModel.swift; sourceTree = "<group>"; };
-		1FFB1A4528EF9F8A00B126AE /* ArtCardTopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardTopBarView.swift; sourceTree = "<group>"; };
-		1FFB1A4728EFA5B600B126AE /* ArtCardBottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardBottomBarView.swift; sourceTree = "<group>"; };
+		1FFB1A4528EF9F8A00B126AE /* ArtCardActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardActionsView.swift; sourceTree = "<group>"; };
+		1FFB1A4728EFA5B600B126AE /* ArtCardDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardDetailsView.swift; sourceTree = "<group>"; };
 		1FFB1A4928EFD00E00B126AE /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
 		1FFB1A4B28EFE0DD00B126AE /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		1FFB1A4D28F1A1AE00B126AE /* FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsModel.swift; sourceTree = "<group>"; };
@@ -218,7 +223,7 @@
 		1FFB1A5228F1DCDC00B126AE /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		1FFB1A5528F332CD00B126AE /* DrawColourViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawColourViewModel.swift; sourceTree = "<group>"; };
 		1FFB1A5728FAD91D00B126AE /* FrameButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameButtonView.swift; sourceTree = "<group>"; };
-		5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
+		5756DB4727F1AA7E0028A90E /* EditingToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingToolbarView.swift; sourceTree = "<group>"; };
 		5799B42227F0D7E60039F621 /* LedGrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LedGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5799B42527F0D7E60039F621 /* LedGridApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedGridApp.swift; sourceTree = "<group>"; };
 		5799B42727F0D7E60039F621 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -231,7 +236,7 @@
 		57C96D9D27F1D295008C52BB /* DrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewModel.swift; sourceTree = "<group>"; };
 		57C96D9F27F1D390008C52BB /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		57C96DA627F3A266008C52BB /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
-		57C96DAD27F3A702008C52BB /* MiniGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniGridView.swift; sourceTree = "<group>"; };
+		57C96DAD27F3A702008C52BB /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		57C96DB427F45C01008C52BB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9F28FB6C28B1038B00403F4D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9F28FB6E28B108B400403F4D /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
@@ -248,8 +253,7 @@
 		9F28FB9128B2A0A100403F4D /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		9F28FB9328B2A0C200403F4D /* LargeSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeSpinner.swift; sourceTree = "<group>"; };
 		9F28FB9528B2A11F00403F4D /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		9F28FB9728B2A1A700403F4D /* DrawTopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawTopBarView.swift; sourceTree = "<group>"; };
-		9F28FB9928B2A1C100403F4D /* DrawActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawActionsView.swift; sourceTree = "<group>"; };
+		9F28FB9728B2A1A700403F4D /* ArtActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtActionsView.swift; sourceTree = "<group>"; };
 		9F28FB9B28B2A20500403F4D /* FriendsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListView.swift; sourceTree = "<group>"; };
 		9F28FB9E28B2A23600403F4D /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		9F28FBA028B2A26000403F4D /* StandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
@@ -330,9 +334,10 @@
 		1F9D489D28E698C7004098B5 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				1FFB1A5428F3329900B126AE /* Art */,
 				1F9D48A828EC729C004098B5 /* SendArtViewModel.swift */,
 				1FFB1A4B28EFE0DD00B126AE /* UserViewModel.swift */,
+				1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */,
+				1FFB1A4328EF9F1600B126AE /* ArtReactionsViewModel.swift */,
 				1F9D48A628EB9003004098B5 /* LoginViewModel.swift */,
 				1FFB1A4928EFD00E00B126AE /* FriendsViewModel.swift */,
 				57C96D9D27F1D295008C52BB /* DrawViewModel.swift */,
@@ -346,8 +351,8 @@
 			isa = PBXGroup;
 			children = (
 				1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */,
-				1FFB1A4528EF9F8A00B126AE /* ArtCardTopBarView.swift */,
-				1FFB1A4728EFA5B600B126AE /* ArtCardBottomBarView.swift */,
+				1FFB1A4528EF9F8A00B126AE /* ArtCardActionsView.swift */,
+				1FFB1A4728EFA5B600B126AE /* ArtCardDetailsView.swift */,
 				1FFB1A4128EDC60400B126AE /* ArtReactionsView.swift */,
 			);
 			path = ArtCard;
@@ -364,16 +369,6 @@
 				1FB1798729031B600066AE71 /* MReaction.swift */,
 			);
 			path = Types;
-			sourceTree = "<group>";
-		};
-		1FFB1A5428F3329900B126AE /* Art */ = {
-			isa = PBXGroup;
-			children = (
-				1F9D489E28E69A78004098B5 /* ArtViewModel.swift */,
-				1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */,
-				1FFB1A4328EF9F1600B126AE /* ArtReactionsViewModel.swift */,
-			);
-			path = Art;
 			sourceTree = "<group>";
 		};
 		5799B41927F0D7E60039F621 = {
@@ -429,13 +424,12 @@
 			isa = PBXGroup;
 			children = (
 				57C96DA627F3A266008C52BB /* DrawView.swift */,
-				9F28FB9928B2A1C100403F4D /* DrawActionsView.swift */,
-				9F28FB9728B2A1A700403F4D /* DrawTopBarView.swift */,
-				9F317B6E28A6E9DF00105E8C /* EditFramesView.swift */,
-				5756DB4727F1AA7E0028A90E /* ColorPickerView.swift */,
+				9F28FB9728B2A1A700403F4D /* ArtActionsView.swift */,
+				5756DB4727F1AA7E0028A90E /* EditingToolbarView.swift */,
 				5799B43327F0D89D0039F621 /* DrawableGridView.swift */,
 				9F317B6128A3052400105E8C /* SendArtView.swift */,
 				1FFB1A5728FAD91D00B126AE /* FrameButtonView.swift */,
+				9F317B6E28A6E9DF00105E8C /* EditFramesView.swift */,
 			);
 			path = Draw;
 			sourceTree = "<group>";
@@ -443,14 +437,16 @@
 		57C96DA927F3A622008C52BB /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				57C96DAD27F3A702008C52BB /* MiniGridView.swift */,
+				57C96DAD27F3A702008C52BB /* GridView.swift */,
 				9FC6245B28BA8F8D00723C97 /* SlideOverView.swift */,
 				9F28FB9128B2A0A100403F4D /* Spinner.swift */,
 				9F3A842928980EE30053F3DD /* UserOrb.swift */,
 				1F9D489B28E69068004098B5 /* InitialsOrbView.swift */,
 				9FC6246128BAC79700723C97 /* IconListItemView.swift */,
 				9FC6245928BA8A7000723C97 /* UpgradeView.swift */,
+				1F1A16DD290C8CB700033745 /* RotatingLogoView.swift */,
 				5799B43527F0D8AA0039F621 /* SquareView.swift */,
+				1F1A16DF290D4F3800033745 /* WidgetNameView.swift */,
 				9F3A842D289F080A0053F3DD /* Sliders.swift */,
 				9F317B6328A3159500105E8C /* MailView.swift */,
 				9F28FB9B28B2A20500403F4D /* FriendsListView.swift */,
@@ -515,6 +511,7 @@
 			children = (
 				9F28FB7C28B29E9500403F4D /* Color.swift */,
 				9F28FB9528B2A11F00403F4D /* Date.swift */,
+				1F1A16DB290C13D600033745 /* View.swift */,
 				9F28FB7E28B29EB700403F4D /* String.swift */,
 				9F28FBA328B2A8D900403F4D /* JSONDecoder.swift */,
 			);
@@ -609,7 +606,6 @@
 			children = (
 				9F28FB7A28B29E6A00403F4D /* CoreData */,
 				1FFB1A4F28F1D93300B126AE /* Types */,
-				1F9D48A428EB5112004098B5 /* ArtModel.swift */,
 				1FFB1A4D28F1A1AE00B126AE /* FriendsModel.swift */,
 				1FFB1A5028F1D94000B126AE /* PreviewModel.swift */,
 			);
@@ -776,7 +772,6 @@
 				5799B43427F0D89D0039F621 /* DrawableGridView.swift in Sources */,
 				9F28FB8928B29FF000403F4D /* NetworkTypes.swift in Sources */,
 				1F9D48AB28ECD8AA004098B5 /* EditGridViewModel.swift in Sources */,
-				1F9D48A528EB5112004098B5 /* ArtModel.swift in Sources */,
 				1F9D48A328E69C37004098B5 /* AddFriendHandler.swift in Sources */,
 				1FB1795528FC27EF0066AE71 /* Reaction+CoreDataProperties.swift in Sources */,
 				1FFB1A5328F1DCDC00B126AE /* NavigationManager.swift in Sources */,
@@ -788,13 +783,14 @@
 				1FFB1A4228EDC60400B126AE /* ArtReactionsView.swift in Sources */,
 				1F9D48AD28ED25A8004098B5 /* ArtListView.swift in Sources */,
 				9F28FB7828B29DFB00403F4D /* Network.swift in Sources */,
+				1F1A16DC290C13D600033745 /* View.swift in Sources */,
 				9F28FB6F28B108B400403F4D /* StoreManager.swift in Sources */,
 				9FC6245A28BA8A7000723C97 /* UpgradeView.swift in Sources */,
 				1FB1795B28FDEC390066AE71 /* Notifications.swift in Sources */,
 				1F9D48A928EC729C004098B5 /* SendArtViewModel.swift in Sources */,
 				9F28FB8F28B2A06C00403F4D /* AppDelegate.swift in Sources */,
 				1FFB1A4A28EFD00E00B126AE /* FriendsViewModel.swift in Sources */,
-				57C96DAE27F3A702008C52BB /* MiniGridView.swift in Sources */,
+				57C96DAE27F3A702008C52BB /* GridView.swift in Sources */,
 				9F28FB8128B29ED600403F4D /* Frame.swift in Sources */,
 				9F28FB9228B2A0A100403F4D /* Spinner.swift in Sources */,
 				1FB1795228FC27EF0066AE71 /* User+CoreDataClass.swift in Sources */,
@@ -802,8 +798,8 @@
 				9FC6246228BAC79700723C97 /* IconListItemView.swift in Sources */,
 				1FFB1A3D28ED2F2900B126AE /* ArtListViewModel.swift in Sources */,
 				57C96DA027F1D390008C52BB /* Utility.swift in Sources */,
-				1F9D489F28E69A78004098B5 /* ArtViewModel.swift in Sources */,
 				5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */,
+				1F1A16E0290D4F3800033745 /* WidgetNameView.swift in Sources */,
 				9F317B6228A3052400105E8C /* SendArtView.swift in Sources */,
 				9F28FB9428B2A0C200403F4D /* LargeSpinner.swift in Sources */,
 				9F28FB9628B2A11F00403F4D /* Date.swift in Sources */,
@@ -813,18 +809,18 @@
 				9F317B6728A596F000105E8C /* Pixee.xcdatamodeld in Sources */,
 				9F28FB8B28B2A00800403F4D /* MUser.swift in Sources */,
 				9F28FB7428B29D3300403F4D /* AuthService.swift in Sources */,
-				9F28FB9828B2A1A700403F4D /* DrawTopBarView.swift in Sources */,
+				9F28FB9828B2A1A700403F4D /* ArtActionsView.swift in Sources */,
 				5799B43627F0D8AA0039F621 /* SquareView.swift in Sources */,
 				9FC6246028BAAFB600723C97 /* CloseButton.swift in Sources */,
 				9F28FB9C28B2A20500403F4D /* FriendsListView.swift in Sources */,
-				1FFB1A4828EFA5B600B126AE /* ArtCardBottomBarView.swift in Sources */,
+				1FFB1A4828EFA5B600B126AE /* ArtCardDetailsView.swift in Sources */,
 				9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */,
 				1FFB1A5828FAD91D00B126AE /* FrameButtonView.swift in Sources */,
 				9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */,
 				9F28FB7D28B29E9500403F4D /* Color.swift in Sources */,
 				1F9D489A28E68FD9004098B5 /* FriendCardView.swift in Sources */,
 				9F28FB8328B29EE700403F4D /* Grid.swift in Sources */,
-				5756DB4827F1AA7E0028A90E /* ColorPickerView.swift in Sources */,
+				5756DB4827F1AA7E0028A90E /* EditingToolbarView.swift in Sources */,
 				1FFB1A4428EF9F1600B126AE /* ArtReactionsViewModel.swift in Sources */,
 				9F28FB8D28B2A04600403F4D /* Endpoints.swift in Sources */,
 				1FB1797328FE18C80066AE71 /* User+CoreDataExtensions.swift in Sources */,
@@ -832,14 +828,14 @@
 				9FC6245728BA535400723C97 /* MPixelArt.swift in Sources */,
 				9F317B6428A3159500105E8C /* MailView.swift in Sources */,
 				9F39683328BC944700AA8315 /* Helpers.swift in Sources */,
+				1F1A16DE290C8CB700033745 /* RotatingLogoView.swift in Sources */,
 				9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */,
 				9F317B6928A59DBE00105E8C /* CoreDataStack.swift in Sources */,
 				1F9D48A728EB9003004098B5 /* LoginViewModel.swift in Sources */,
 				1FB1795328FC27EF0066AE71 /* User+CoreDataProperties.swift in Sources */,
 				9F626C1228AC1B3700587B57 /* WidgetTutorialView.swift in Sources */,
-				9F28FB9A28B2A1C100403F4D /* DrawActionsView.swift in Sources */,
 				1FB1795928FC8D6C0066AE71 /* PixeeProvider.swift in Sources */,
-				1FFB1A4628EF9F8A00B126AE /* ArtCardTopBarView.swift in Sources */,
+				1FFB1A4628EF9F8A00B126AE /* ArtCardActionsView.swift in Sources */,
 				9F28FB9F28B2A23600403F4D /* NotificationsManager.swift in Sources */,
 				1F9D489828E68F93004098B5 /* ArtView.swift in Sources */,
 				1FB1797A28FE1F4E0066AE71 /* PixelArt+CoreDataExtensions.swift in Sources */,
@@ -866,6 +862,7 @@
 				9F28FBAA28B2AADE00403F4D /* String.swift in Sources */,
 				9F28FBA728B2AA6200403F4D /* SquareView.swift in Sources */,
 				1FB1797728FE1F380066AE71 /* PixelArt+CoreDataClass.swift in Sources */,
+				1F1A16E3290D67BD00033745 /* WidgetNameView.swift in Sources */,
 				9F28FB8628B29F3F00403F4D /* Utility.swift in Sources */,
 				1FB1797828FE1F3A0066AE71 /* PixelArt+CoreDataProperties.swift in Sources */,
 				9F28FB7528B29D3300403F4D /* AuthService.swift in Sources */,
@@ -889,13 +886,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F1A16E1290D679900033745 /* Utility.swift in Sources */,
 				1F44FEFD29046A44000BAFAB /* Reaction+CoreDataClass.swift in Sources */,
+				1F1A16E4290D67CB00033745 /* MUser.swift in Sources */,
 				1FB1796528FE17B00066AE71 /* CoreDataStack.swift in Sources */,
 				9F626C0F28AAE2C100587B57 /* pixee-intents.intentdefinition in Sources */,
 				1FB1798528FE8D780066AE71 /* PixelArt+CoreDataClass.swift in Sources */,
 				9F626C0E28AAE2B200587B57 /* IntentHandler.swift in Sources */,
 				1F44FEFC29046A41000BAFAB /* Reaction+CoreDataProperties.swift in Sources */,
 				1FB1798128FE25990066AE71 /* Grid.swift in Sources */,
+				1F1A16E2290D67BC00033745 /* WidgetNameView.swift in Sources */,
 				1FB1796028FE17770066AE71 /* User+CoreDataClass.swift in Sources */,
 				1FB1795D28FE17730066AE71 /* User+CoreDataProperties.swift in Sources */,
 				1FB1798628FE8D7B0066AE71 /* PixelArt+CoreDataProperties.swift in Sources */,

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SquareView: View {
     var color: Color
-    var strokeWidth = 2.0
+    var strokeWidth = 0.0
     var cornerRadius = 3.0
     
     var body: some View {

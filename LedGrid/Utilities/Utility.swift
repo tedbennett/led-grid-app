@@ -12,6 +12,10 @@ enum UDKeys: String {
     case currentGridIndex
     case lastReactions
     case lastReactionFetchDate
+    case artNamesForWidget
+    case showGuides
+    case user
+    case friends
 }
 
 struct Utility {
@@ -21,25 +25,11 @@ struct Utility {
     static func clear() {
         currentGrids = [GridSize.small.blankGrid]
         currentGridIndex = 0
-        user = nil
+//        user = nil
         friends = []
         isPlus = false
         lastReceivedFetchDate = nil
         lastSelectedFriends = []
-    }
-    
-    static var currentGrids: [Grid] {
-        get {
-            guard let data = store.data(forKey: UDKeys.currentGrids.rawValue),
-                  let colors = try? JSONDecoder().decode([Grid].self, from: data) else {
-                return [GridSize.small.blankGrid]
-            }
-            return colors
-        }
-        set {
-            let data = try? JSONEncoder().encode(newValue)
-            store.set(data, forKey: UDKeys.currentGrids.rawValue)
-        }
     }
     
     static var currentGridIndex: Int {
@@ -51,32 +41,22 @@ struct Utility {
         }
     }
     
-    static var user: MUser? {
-        get {
-            guard let data = store.data(forKey: "user") else {
-                return nil
-            }
-            return try? JSONDecoder().decode(MUser.self, from: data)
-        }
-        set {
-            let data = try? JSONEncoder().encode(newValue)
-            store.set(data, forKey: "user")
-        }
-    }
+    @UserDefaultsValue(nil, key: .user) static var user: MUser?
+    @UserDefaultsValue([], key: .friends) static var friends: [MUser]
+    @UserDefaultsValue([GridSize.small.blankGrid], key: .currentGrids) static var currentGrids: [Grid]
     
-    static var friends: [MUser] {
-        get {
-            guard let data = store.data(forKey: "friends"),
-                  let users = try? JSONDecoder().decode([MUser].self, from: data) else {
-                return []
-            }
-            return users
-        }
-        set {
-            let data = try? JSONEncoder().encode(newValue)
-            store.set(data, forKey: "friends")
-        }
-    }
+//    static var user: MUser? {
+//        get {
+//            guard let data = store.data(forKey: "user") else {
+//                return nil
+//            }
+//            return try? JSONDecoder().decode(MUser.self, from: data)
+//        }
+//        set {
+//            let data = try? JSONEncoder().encode(newValue)
+//            store.set(data, forKey: "user")
+//        }
+//    }
     
     static var isPlus: Bool {
         get {
@@ -139,5 +119,42 @@ struct Utility {
         set {
             store.set(newValue, forKey: "lastOpenedVersion")
         }
+    }
+    
+    @UserDefaultsValue([], key: .artNamesForWidget) static var artNamesForWidget: [ArtAssociatedName]
+    
+    @UserDefaultsValue(false, key: .showGuides) static var showGuides: Bool
+}
+
+
+@propertyWrapper struct UserDefaultsValue<T: Codable> {
+    var wrappedValue: T {
+        get {
+            guard let data = store.data(forKey: key),
+                  let value = try? JSONDecoder().decode(T.self, from: data) else {
+                return fallback
+            }
+            return value
+        }
+        set {
+            let data = try? JSONEncoder().encode(newValue)
+            store.set(data, forKey: key)
+        }
+    }
+    
+    var store: UserDefaults
+    var key: String
+    var fallback: T
+    
+    init(_ fallback: T, key: String,  store: UserDefaults) {
+        self.key = key
+        self.store = store
+        self.fallback = fallback
+    }
+}
+
+extension UserDefaultsValue {
+    init(_ fallback: T, key: UDKeys) {
+        self.init(fallback, key: key.rawValue, store: UserDefaults(suiteName: "group.9Y2AMH5S23.com.edwardbennett.pixee")!)
     }
 }

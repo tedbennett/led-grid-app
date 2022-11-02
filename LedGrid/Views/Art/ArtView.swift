@@ -48,12 +48,11 @@ struct ArtView: View {
     }
 }
 
-//struct ArtView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Utility.friends = [User.example]
-//        return ArtView()
-//            .environmentObject(FriendsViewModel())
-//            .environmentObject(ArtViewModel())
-//    }
-//}
+struct ArtView_Previews: PreviewProvider {
+    static var previews: some View {
+        ArtView()
+            .environmentObject(FriendsViewModel())
+            .environment(\.managedObjectContext, MockPersistenceController.shared.viewContext)
+    }
+}
 

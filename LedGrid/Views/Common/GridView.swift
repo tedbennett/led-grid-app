@@ -1,5 +1,5 @@
 //
-//  MiniGridView.swift
+//  GridView.swift
 //  LedGrid
 //
 //  Created by Ted Bennett on 29/03/2022.
