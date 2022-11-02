@@ -1285,8 +1285,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mixpanel/mixpanel-swift";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.3;
 			};
 		};
 		9F28FB7028B2773500403F4D /* XCRemoteSwiftPackageReference "SimpleKeychain" */ = {
