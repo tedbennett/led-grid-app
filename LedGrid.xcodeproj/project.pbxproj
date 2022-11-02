@@ -1038,7 +1038,7 @@
 				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"LedGrid/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
@@ -1077,7 +1077,7 @@
 				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"LedGrid/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
@@ -1115,7 +1115,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-WidgetExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
@@ -1145,7 +1145,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-WidgetExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
@@ -1173,7 +1173,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-Intents/Pixee-Intents.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Intents/Info.plist";
@@ -1201,7 +1201,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-Intents/Pixee-Intents.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Intents/Info.plist";
