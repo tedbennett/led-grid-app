@@ -127,12 +127,10 @@
 		9F317B7828A9414C00105E8C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F317B7728A9414C00105E8C /* SwiftUI.framework */; };
 		9F317B7E28A9414E00105E8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F317B7D28A9414E00105E8C /* Assets.xcassets */; };
 		9F317B8428A9414E00105E8C /* Pixee-WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9F317B7428A9414C00105E8C /* Pixee-WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		9F317B8D28A95F4600105E8C /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F317B8C28A95F4600105E8C /* Auth0.plist */; };
 		9F39683328BC944700AA8315 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F39683228BC944700AA8315 /* Helpers.swift */; };
 		9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842928980EE30053F3DD /* UserOrb.swift */; };
 		9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842B289EF0150053F3DD /* RevealView.swift */; };
 		9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A842D289F080A0053F3DD /* Sliders.swift */; };
-		9F49EC27288D474B00BD3956 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F49EC26288D474B00BD3956 /* Auth0.plist */; };
 		9F626C0028AAE2A500587B57 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD8AE2C28A9B3ED0005A4CF /* Intents.framework */; };
 		9F626C0728AAE2A500587B57 /* Pixee-Intents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9F626C0E28AAE2B200587B57 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F626C0C28AAE2B200587B57 /* IntentHandler.swift */; };
@@ -272,12 +270,10 @@
 		9F317B7D28A9414E00105E8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F317B7F28A9414E00105E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F317B8928A95A7600105E8C /* Pixee-WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pixee-WidgetExtension.entitlements"; sourceTree = "<group>"; };
-		9F317B8C28A95F4600105E8C /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		9F39683228BC944700AA8315 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		9F3A842928980EE30053F3DD /* UserOrb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOrb.swift; sourceTree = "<group>"; };
 		9F3A842B289EF0150053F3DD /* RevealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealView.swift; sourceTree = "<group>"; };
 		9F3A842D289F080A0053F3DD /* Sliders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sliders.swift; sourceTree = "<group>"; };
-		9F49EC26288D474B00BD3956 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pixee-Intents.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F626C0B28AAE2B200587B57 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F626C0C28AAE2B200587B57 /* IntentHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
@@ -396,7 +392,6 @@
 		5799B42427F0D7E60039F621 /* LedGrid */ = {
 			isa = PBXGroup;
 			children = (
-				9F49EC26288D474B00BD3956 /* Auth0.plist */,
 				57A9296A28031F790096CC96 /* Info.plist */,
 				57A929692802BBAA0096CC96 /* LedGrid.entitlements */,
 				9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */,
@@ -572,7 +567,6 @@
 			isa = PBXGroup;
 			children = (
 				9F317B7A28A9414C00105E8C /* Pixee_Widget.swift */,
-				9F317B8C28A95F4600105E8C /* Auth0.plist */,
 				9F317B7D28A9414E00105E8C /* Assets.xcassets */,
 				9F317B7F28A9414E00105E8C /* Info.plist */,
 			);
@@ -734,7 +728,6 @@
 			files = (
 				5799B42D27F0D7E70039F621 /* Preview Assets.xcassets in Resources */,
 				5799B42A27F0D7E70039F621 /* Assets.xcassets in Resources */,
-				9F49EC27288D474B00BD3956 /* Auth0.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,7 +736,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F317B7E28A9414E00105E8C /* Assets.xcassets in Resources */,
-				9F317B8D28A95F4600105E8C /* Auth0.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
