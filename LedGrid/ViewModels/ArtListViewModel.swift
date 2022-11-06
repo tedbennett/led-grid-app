@@ -5,21 +5,19 @@
 //  Created by Ted Bennett on 04/10/2022.
 //
 
-import Foundation
+import SwiftUI
+import Combine
 
 class ArtListViewModel: ObservableObject {
-    var user: User
     
+    @Published var showUpgradeView: Bool = false
     @Published var animatingId: String?
+    @Published var widgetArtId: String?
+    
     @Published var timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
-    
-    init(user: User) {
-        self.user = user
-    }
-    
-    
     
     func setAnimatingArt(_ artId: String?) {
         animatingId = animatingId == artId ? nil : artId
     }
+    
 }

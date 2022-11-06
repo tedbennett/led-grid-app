@@ -9,70 +9,53 @@ import SwiftUI
 import AuthenticationServices
 
 struct SettingsView: View {
-    @EnvironmentObject var friendsViewModel: FriendsViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @Binding var loggedIn: Bool
-    @State private var friends = Utility.friends
     @State private var showEditView = false
     @State private var showEmailModal = false
     @State private var showWidgetModal = false
     @State private var showUpgradeView = false
     @State private var showDeleteAccountAlert = false
     
+    
+    
+    @AppStorage(UDKeys.haptics.rawValue, store: Utility.store) var haptics = true
+    @AppStorage(UDKeys.spinningLogo.rawValue, store: Utility.store) var spinner = true
+    @AppStorage(UDKeys.showGuides.rawValue, store: Utility.store) var showGuides = true
+    
+    @FetchRequest(sortDescriptors: []) var friends: FetchedResults<User>
+    
     var body: some View {
         NavigationView {
             ZStack {
                 List {
-                    Section {
-                        if friendsViewModel.friends.isEmpty {
-                            Button {
-                                Helpers.presentShareSheet()
-                            } label: {
-                                Text("Add friends to get started!")
-                            }
+                    Section("Your Details") {
+                        NavigationLink(userViewModel.user?.fullName ?? "Unknown name", isActive: $showEditView) {
+                            EditNameView(isPresented: $showEditView)
                         }
-                        ForEach(friendsViewModel.friends) { friend in
-                            Text(friend.fullName ?? "Unknown Friend")
-                                .swipeActions(allowsFullSwipe: false) {
-                                    Button(role: .destructive) {
-                                        friendsViewModel.removeFriend(id: friend.id)
-                                    } label: {
-                                        Label("Remove", systemImage: "trash.fill")
-                                    }
-                                }
-                        }
-                    } header: {
-                        HStack {
-                            Text("Friends")
-                            Spacer()
-                            Button {
-                                Helpers.presentShareSheet()
-                            } label: {
-                                Image(systemName: "person.badge.plus")
-                                    .font(.title3)
-                            }
-                        }
-                    }
-                    
-                    Section {
-                        Text(userViewModel.user?.fullName ?? "Unknown name")
-                    } header: {
-                        HStack {
-                            Text("Name")
-                            Spacer()
-                            NavigationLink(isActive: $showEditView) {
-                                EditNameView(isPresented: $showEditView)
-                            } label: {
-                                Text("Edit")
-                            }
-                        }
-                    }
-                    Section("Email") {
                         Text(userViewModel.user?.email ?? "Unknown email").foregroundColor(.gray)
+                        NavigationLink {
+                            FriendsSettingsView(friends: Array(friends))
+                        } label: {
+                            HStack {
+                                Text("Friends")
+                                Spacer()
+                                Text("\(friends.count)").foregroundColor(.gray)
+                            }
+                        }
+                    }
+                    
+                    Section("Preferences") {
+                        NavigationLink("Colour Picker") {
+                            ColorPickerSettingsView()
+                        }
+                        Toggle("Haptic Feedback", isOn: $haptics)
+                        Toggle("Draw View Spinner", isOn: $spinner)
+                        Toggle("Draw View Guides", isOn: $showGuides)
                     }
                     
                     
-                    Section {
+                    Section("About Pixee") {
                         Button {
                             withAnimation {
                                 showUpgradeView = true
@@ -93,7 +76,7 @@ struct SettingsView: View {
                                 Image(systemName: "plus.square.on.square")
                             }
                         }
-                    
+                        
                         Button {
                             showEmailModal = true
                         } label: {
@@ -104,9 +87,32 @@ struct SettingsView: View {
                             }
                         }
                     }
+                    
+                    Section("Account Actions") {
+                        Button(role: .destructive) {
+                            loggedIn = false
+                            userViewModel.logout()
+                        } label: {
+                            Label {
+                                Text("Logout")
+                            } icon: {
+                                Image(systemName: "door.left.hand.open").foregroundColor(.red)
+                            }
+                        }
+                        
+                        Button(role: .destructive) {
+                            showDeleteAccountAlert = true
+                        } label: {
+                            Label {
+                                Text("Delete Account")
+                            } icon: {
+                                Image(systemName: "xmark.octagon").foregroundColor(.red)
+                            }
+                        }
+                    }
                 }
                 .refreshable {
-                    await friendsViewModel.refreshFriends()
+                    await PixeeProvider.fetchFriends()
                 }
                 
                 .blur(radius: showUpgradeView ? 20 : 0)
@@ -117,28 +123,7 @@ struct SettingsView: View {
                 SlideOverView(isOpened: $showUpgradeView) {
                     UpgradeView(isOpened: $showUpgradeView)
                 }
-            }.navigationTitle("Settings").toolbar {
-                
-                Menu {
-                    Button {
-                        userViewModel.logout()
-                        loggedIn = false
-                    } label: {
-                        Text("Logout")
-                    }
-                    
-                    Button(role: .destructive) {
-                        showDeleteAccountAlert = true
-                    } label: {
-                        Text("Delete Account")
-                    }
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .font(.system(.title3, design: .rounded))
-                        .padding(5)
-                        .padding(.horizontal, 6)
-                }
-            }
+            }.navigationTitle("Settings")
             .sheet(isPresented: $showEmailModal) {
                 MailView(recipient: "ted_bennett@icloud.com", subject: "Pixee Feedback", body: "Please enter your feedback below:\n\n\n\n\nThank you for leaving feedback and helping to improve Pixee!\n\nTed")
             }
@@ -147,28 +132,25 @@ struct SettingsView: View {
             }
             .alert("Delete account?", isPresented: $showDeleteAccountAlert) {
                 Button("Delete", role: .destructive) {
-                    Task {
-                        do {
-                            try await NetworkManager.shared.deleteAccount()
-                        } catch {
-                            print("Error deleting account: \(error.localizedDescription)")
-                        }
-                    }
                     loggedIn = false
+                    userViewModel.deleteAccount()
                 }
             } message: {
                 Text("This action cannot be undone.")
+            }
+            .onChange(of: haptics) { _ in
+                print(haptics)
             }
         }
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView(loggedIn: .constant(true))
-            .environmentObject(UserViewModel())
-    }
-}
+//struct SettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SettingsView(loggedIn: .constant(true))
+//            .environmentObject(UserViewModel())
+//    }
+//}
 
 struct EditNameView: View {
     @EnvironmentObject var userViewModel: UserViewModel

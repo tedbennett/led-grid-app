@@ -14,7 +14,7 @@ class NavigationManager: ObservableObject {
     private init () { }
     
     @Published var selectedGrid: String?
-    @Published var selectedFriend: User?
+    @Published var selectedFriend: String?
     @Published var currentTab: Int = 0 {
         willSet {
             if newValue == 1 && currentTab == 1 {
@@ -25,19 +25,19 @@ class NavigationManager: ObservableObject {
     
     func navigateTo(friend: String, grid: String?) {
         DispatchQueue.main.async {
-            self.currentTab = 1
+            if self.currentTab != 1 { self.currentTab = 1 }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.selectedFriend = Utility.friends.first { $0.id == friend }
+            self.selectedFriend = friend
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             self.selectedGrid = grid
         }
     }
     
-    func setFriend(_ friend: User?) {
+    func setFriend(_ friendId: String?) {
         DispatchQueue.main.async {
-            self.selectedFriend = friend
+            self.selectedFriend = friendId
         }
     }
 }

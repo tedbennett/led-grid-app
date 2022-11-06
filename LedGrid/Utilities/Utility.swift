@@ -7,71 +7,67 @@
 
 import SwiftUI
 
+enum UDKeys: String {
+    case currentGrids
+    case currentGridIndex
+    case lastReactions
+    case lastReactionFetchDate
+    case artNamesForWidget
+    case showGuides
+    case user
+    case friends
+    case colorPicker
+    case haptics
+    case spinningLogo
+}
+
 struct Utility {
-    private enum Keys: String {
-        case currentGrids
-        case currentGridIndex
-    }
+    
     static let store = UserDefaults(suiteName: "group.9Y2AMH5S23.com.edwardbennett.pixee")!
     
-    
-    static var currentGrids: [Grid] {
-        get {
-            guard let data = store.data(forKey: Keys.currentGrids.rawValue),
-                  let colors = try? JSONDecoder().decode([Grid].self, from: data) else {
-                return [GridSize.small.blankGrid]
-            }
-            return colors
-        }
-        set {
-            let data = try? JSONEncoder().encode(newValue)
-            DispatchQueue.main.async {
-                store.set(data, forKey: Keys.currentGrids.rawValue)
-            }
-        }
+    static func clear() {
+        currentGrids = [GridSize.small.blankGrid]
+        currentGridIndex = 0
+//        user = nil
+        friends = []
+        isPlus = false
+        lastReceivedFetchDate = nil
+        lastSelectedFriends = []
     }
     
     static var currentGridIndex: Int {
         get {
-            return store.integer(forKey: Keys.currentGridIndex.rawValue)
+            return store.integer(forKey: UDKeys.currentGridIndex.rawValue)
         }
         set {
-            DispatchQueue.main.async {
-                store.set(newValue, forKey: Keys.currentGridIndex.rawValue)
-            }
+            store.set(newValue, forKey: UDKeys.currentGridIndex.rawValue)
         }
     }
     
-    static var user: User? {
+    @UserDefaultsValue(nil, key: .user) static var user: MUser?
+    @UserDefaultsValue([], key: .friends) static var friends: [MUser]
+    @UserDefaultsValue([GridSize.small.blankGrid], key: .currentGrids) static var currentGrids: [Grid]
+    static var haptics: Bool {
         get {
-            guard let data = store.data(forKey: "user") else {
-                return nil
-            }
-            return try? JSONDecoder().decode(User.self, from: data)
+            store.bool(forKey: UDKeys.haptics.rawValue)
         }
         set {
-            let data = try? JSONEncoder().encode(newValue)
-            DispatchQueue.main.async {
-                store.set(data, forKey: "user")
-            }
+            store.set(newValue, forKey: UDKeys.haptics.rawValue)
         }
     }
     
-    static var friends: [User] {
-        get {
-            guard let data = store.data(forKey: "friends"),
-                  let users = try? JSONDecoder().decode([User].self, from: data) else {
-                return []
-            }
-            return users
-        }
-        set {
-            let data = try? JSONEncoder().encode(newValue)
-            DispatchQueue.main.async {
-                store.set(data, forKey: "friends")
-            }
-        }
-    }
+//    static var user: MUser? {
+//        get {
+//            guard let data = store.data(forKey: "user") else {
+//                return nil
+//            }
+//            return try? JSONDecoder().decode(MUser.self, from: data)
+//        }
+//        set {
+//            let data = try? JSONEncoder().encode(newValue)
+//            store.set(data, forKey: "user")
+//        }
+//    }
     
     static var isPlus: Bool {
         get {
@@ -91,6 +87,15 @@ struct Utility {
         }
     }
     
+    static var lastReactionFetchDate: Date? {
+        get {
+            store.object(forKey: UDKeys.lastReactionFetchDate.rawValue) as? Date
+        }
+        set {
+            store.set(newValue, forKey: UDKeys.lastReactionFetchDate.rawValue)
+        }
+    }
+    
     static var lastSelectedFriends: [String] {
         get {
             store.array(forKey: "lastSelectedFriends") as? [String] ?? []
@@ -102,10 +107,10 @@ struct Utility {
     
     static var lastReactions: [String] {
         get {
-            store.array(forKey: "lastReactions") as? [String] ?? ["🥰", "😂", "🤨"]
+            store.array(forKey: UDKeys.lastReactions.rawValue) as? [String] ?? ["🥰", "😂", "🤨"]
         }
         set {
-            store.set(newValue, forKey: "lastReactions")
+            store.set(newValue, forKey: UDKeys.lastReactions.rawValue)
         }
     }
     
@@ -125,5 +130,49 @@ struct Utility {
         set {
             store.set(newValue, forKey: "lastOpenedVersion")
         }
+    }
+    
+    @UserDefaultsValue([], key: .artNamesForWidget) static var artNamesForWidget: [ArtAssociatedName]
+    
+    static var showGuides: Bool {
+        get {
+            store.bool(forKey: UDKeys.showGuides.rawValue)
+        }
+        set {
+            store.set(newValue, forKey: UDKeys.showGuides.rawValue)
+        }
+    }
+}
+
+
+@propertyWrapper struct UserDefaultsValue<T: Codable> {
+    var wrappedValue: T {
+        get {
+            guard let data = store.data(forKey: key),
+                  let value = try? JSONDecoder().decode(T.self, from: data) else {
+                return fallback
+            }
+            return value
+        }
+        set {
+            let data = try? JSONEncoder().encode(newValue)
+            store.set(data, forKey: key)
+        }
+    }
+    
+    var store: UserDefaults
+    var key: String
+    var fallback: T
+    
+    init(_ fallback: T, key: String,  store: UserDefaults) {
+        self.key = key
+        self.store = store
+        self.fallback = fallback
+    }
+}
+
+extension UserDefaultsValue {
+    init(_ fallback: T, key: UDKeys) {
+        self.init(fallback, key: key.rawValue, store: UserDefaults(suiteName: "group.9Y2AMH5S23.com.edwardbennett.pixee")!)
     }
 }

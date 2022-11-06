@@ -50,6 +50,8 @@ class DrawColourViewModel: ObservableObject {
     
     func selectColor(_ color: Color) {
         currentColor = color
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        if Utility.haptics {
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        }
     }
 }

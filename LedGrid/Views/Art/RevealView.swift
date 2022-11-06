@@ -51,7 +51,7 @@ struct RevealView: View {
 //        }
         .onReceive(timer) { time in
             if isTimerRunning {
-                if gridSize == .small || (gridSize == .medium && revealed % 2 == 1) || (gridSize == .large && revealed % 3 == 1) {
+                if Utility.haptics && (gridSize == .small || (gridSize == .medium && revealed % 2 == 1) || (gridSize == .large && revealed % 3 == 1)) {
                     UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
                 }
                 if revealed >= grid.count * grid.count {

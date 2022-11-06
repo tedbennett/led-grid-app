@@ -19,33 +19,51 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        Task {
-            // Handle notification
-            NotificationCenter.default.post(name: Notification.Name("REFRESH_ART"), object: nil)
-            WidgetCenter.shared.reloadAllTimelines()
-        }
         completionHandler([.banner, .badge, .sound])
     }
     
     // User opened notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        if let _ = notificationBody(from: response.notification.request.content.userInfo) {
-            // pass
+        if let payload = response.notification.request.content.userInfo["payload"] as? [String: Any] {
+            handleNotification(payload: payload)
         }
         
-        DispatchQueue.main.async {
-            NavigationManager.shared.currentTab = 1
-        }
         completionHandler()
     }
     
-    func notificationBody(from payload: [AnyHashable : Any]) -> [String: Any]? {
-        if let aps = payload["aps"] as? [String: Any],
-           let alert = aps["alert"] as? [String: Any],
-           let body = alert["body"] as? [String: Any] {
-            return body
+    
+    func handleNotification(payload: [String: Any]) {
+        guard let type = payload["type"] as? String,
+              let notification = PixeeNotification(rawValue: type) else {
+            return
         }
-        return nil
+        
+        guard notification != .friend,
+              let artId = payload["art_id"] as? String,
+              let sender = payload["sender"] as? String else {
+            return
+        }
+        
+        switch notification {
+        case .art:
+            Task {
+                await PixeeProvider.fetchArt()
+                WidgetCenter.shared.reloadAllTimelines()
+                NavigationManager.shared.navigateTo(friend: sender, grid: artId)
+            }
+        case .reaction:
+            Task {
+                await PixeeProvider.fetchReactions()
+                NavigationManager.shared.navigateTo(friend: sender, grid: artId)
+            }
+        case .friend: break
+        }
     }
+}
+
+enum PixeeNotification: String {
+    case art = "art"
+    case reaction = "reaction"
+    case friend = "friend"
 }

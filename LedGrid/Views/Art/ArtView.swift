@@ -8,36 +8,25 @@
 import SwiftUI
 
 struct ArtView: View {
-    @EnvironmentObject var friendsViewModel: FriendsViewModel
-    @EnvironmentObject var artViewModel: ArtViewModel
     @ObservedObject var navigationManager = NavigationManager.shared
-    
-    var friends: [User] {
-        friendsViewModel.friends.sorted {
-            guard let art1 = artViewModel.art[$0.id]?.first else { return false }
-            guard let art2 = artViewModel.art[$1.id]?.first else { return true }
-            
-            return art1.sentAt > art2.sentAt
-        }
-    }
-    
-    func hasUnreads(for friend: String) -> Bool {
-        artViewModel.art[friend]?.first { !$0.opened } != nil
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.lastUpdated, order: .reverse)]) var users: FetchedResults<User>
+    func hasUnreads(for friend: User) -> Bool {
+        friend.artArray.contains { !$0.opened }
     }
     
     var body: some View {
         NavigationView {
-            List(friends) { friend in
+            List(users) { friend in
                 Section {
                     Button {
-                        navigationManager.setFriend(friend)
+                        navigationManager.setFriend(friend.id)
                     } label: {
-                        FriendCardView(friend: friend, hasUnread: hasUnreads(for: friend.id)).padding(.vertical, 20)
+                        FriendCardView(friend: friend, hasUnread: hasUnreads(for: friend)).padding(.vertical, 20)
                     }
                 }
             }
             .refreshable {
-                await artViewModel.refreshArt()
+                await PixeeProvider.fetchArt()
             }
             .toolbar {
                 Button {
@@ -47,9 +36,13 @@ struct ArtView: View {
                 }
             }
             .navigationTitle("Friends")
-            .navigationDestination(for: $navigationManager.selectedFriend) { friend in
-                let art = artViewModel.art[friend.id] ?? []
-                ArtListView(user: friend, art: art)
+            .navigationDestination(for: $navigationManager.selectedFriend) { friendId in
+                let friend = users.first(where: { $0.id == friendId })
+                if let friend = friend {
+                    ArtListView(user: friend)
+                } else {
+                    EmptyView()
+                }
             }
         }
     }
@@ -57,10 +50,9 @@ struct ArtView: View {
 
 struct ArtView_Previews: PreviewProvider {
     static var previews: some View {
-        Utility.friends = [User.example]
-        return ArtView()
+        ArtView()
             .environmentObject(FriendsViewModel())
-            .environmentObject(ArtViewModel())
+            .environment(\.managedObjectContext, MockPersistenceController.shared.viewContext)
     }
 }
 

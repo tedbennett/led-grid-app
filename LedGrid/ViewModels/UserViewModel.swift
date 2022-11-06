@@ -8,7 +8,7 @@
 import SwiftUI
 
 class UserViewModel: ObservableObject {
-    @Published var user: User? = Utility.user {
+    @Published var user: MUser? = Utility.user {
         didSet {
             Utility.user = user
         }
@@ -33,7 +33,20 @@ class UserViewModel: ObservableObject {
     func logout() {
         AuthService.logout()
         user = nil
-        Utility.lastSelectedFriends = []
-        Utility.lastReceivedFetchDate = nil
+        Utility.clear()
+        Task {
+            await PixeeProvider.removeAllArtAndUsers()
+        }
+    }
+    
+    func deleteAccount() {
+        Task {
+            do {
+                try await NetworkManager.shared.deleteAccount()
+            } catch {
+                print("Error deleting account: \(error.localizedDescription)")
+            }
+        }
+        logout()
     }
 }

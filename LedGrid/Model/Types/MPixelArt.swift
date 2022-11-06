@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PixelArt: Codable, Identifiable {
+struct MPixelArt: Codable, Identifiable {
     var id: String
     var title: String?
     var sentAt: Date
@@ -57,7 +57,7 @@ struct PixelArt: Codable, Identifiable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let encodedGrids = try (try? container.decode([String].self, forKey: .grid)) ?? [try container.decode(String.self, forKey: .grid)]
         
-        self.grids = PixelArt.parseGrids(from: encodedGrids)
+        self.grids = MPixelArt.parseGrids(from: encodedGrids)
         self.id = try container.decode(String.self, forKey: .id)
         self.title = try? container.decodeIfPresent(String.self, forKey: .title)
         self.sentAt = try container.decode(Date.self, forKey: .sentAt)
@@ -67,7 +67,7 @@ struct PixelArt: Codable, Identifiable {
         } else {
             self.receivers = [try container.decode(String.self, forKey: .receivers)]
         }
-        self.opened = (try? container.decode(Bool.self, forKey: .opened)) ?? true
+        self.opened = (try? container.decode(Bool.self, forKey: .opened)) ?? false
         self.hidden = (try? container.decode(Bool.self, forKey: .hidden)) ?? false
     }
     
@@ -86,7 +86,7 @@ struct PixelArt: Codable, Identifiable {
         grids[0].size
     }
     
-    static var example: Self = PixelArt(
+    static var example: Self = MPixelArt(
         id: UUID().uuidString,
         title: nil,
         sentAt: Date.now,
@@ -96,7 +96,7 @@ struct PixelArt: Codable, Identifiable {
         hidden: false,
         grids: [Grid.example, Grid.example2])
     
-    static var example2: Self = PixelArt(
+    static var example2: Self = MPixelArt(
         id: UUID().uuidString,
         title: nil,
         sentAt: Date.now,
@@ -106,7 +106,7 @@ struct PixelArt: Codable, Identifiable {
         hidden: false,
         grids: [Grid.example2, Grid.example])
     
-    static var example3: Self = PixelArt(
+    static var example3: Self = MPixelArt(
         id: UUID().uuidString,
         title: nil,
         sentAt: Date.now,

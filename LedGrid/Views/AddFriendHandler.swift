@@ -15,8 +15,8 @@ struct AddFriendHandler: View {
     @State private var alreadyFriend = false
     
     func parseUrl(_ url: URL) {
-        if url.scheme == "widget" && url.host == "received" {
-            NavigationManager.shared.currentTab = 1
+        if url.scheme == "widget" {
+            parseWidgetUrl(url)
             return
         }
         guard url.pathComponents.count == 3,
@@ -31,6 +31,7 @@ struct AddFriendHandler: View {
         Task {
             do {
                 let added = try await friendsViewModel.addFriend(id: id)
+                try await PixeeProvider.addFriend(id)
                 await MainActor.run {
                     if added {
                         addedFriend.toggle()
@@ -42,6 +43,20 @@ struct AddFriendHandler: View {
                 failedToAddFriend.toggle()
             }
         }
+    }
+    
+    func parseWidgetUrl(_ url: URL) {
+        guard url.host == "received" else {
+            return
+        }
+        // pathComponents[0] == "/"
+        guard url.pathComponents.count == 4,
+              url.pathComponents[2] == "id" else {
+            NavigationManager.shared.currentTab = 1
+            return
+        }
+        
+        NavigationManager.shared.navigateTo(friend: url.pathComponents[1], grid: url.pathComponents[3])
     }
     
     var body: some View {

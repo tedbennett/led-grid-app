@@ -47,6 +47,7 @@ struct EditFramesView: View {
                                 }.padding(.horizontal, 5)
                                     .padding(.top, 5)
                                 GridView(grid: frame.grid, viewSize: .small)
+                                    .drawingGroup()
                                     .onTapGesture {
                                         guard let index = viewModel.frames.firstIndex(where: { $0.id == frame.id }) else { return }
                                         drawViewModel.changeToGrid(at: index)

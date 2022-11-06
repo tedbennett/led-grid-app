@@ -6,82 +6,99 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct ArtListView: View {
-    @EnvironmentObject var artViewModel: ArtViewModel
-    @ObservedObject var viewModel: ArtListViewModel
-    @StateObject var reactionsViewModel = ArtReactionsViewModel()
-    var art: [PixelArt]
+    @ObservedObject var viewModel = ArtListViewModel()
+    @StateObject var reactionsViewModel: ArtReactionsViewModel
+    var user: User
     
+    @FetchRequest var art: FetchedResults<PixelArt>
     
-    init(user: User, art: [PixelArt]) {
-        viewModel = ArtListViewModel(user: user)
-        self.art = art
-        //        let predicate = {
-        //            let sender = NSPredicate(format: "sender = %@", user.id)
-        //            let receivers = NSPredicate(format: "ANY receivers = %@", [user.id])
-        //            let compound = NSCompoundPredicate(orPredicateWithSubpredicates: [sender, receivers])
-        //            return NSCompoundPredicate(andPredicateWithSubpredicates: [
-        //                compound,
-        //                NSPredicate(format: "hidden != true")
-        //            ])
-        //        }()
-        //        let sortDescriptor = NSSortDescriptor(key: #keyPath(StoredPixelArt.sentAt), ascending: false)
-        //        self._art = FetchRequest(entity: StoredPixelArt.entity(), sortDescriptors: [sortDescriptor], predicate: predicate)
+    init(user: User) {
+        let request = PixelArt.fetchRequest()
+        request.predicate = NSPredicate(format: "ANY users.id == %@", user.id)
+        request.sortDescriptors = [NSSortDescriptor(key: #keyPath(PixelArt.sentAt), ascending: false)]
+        self._art = FetchRequest(fetchRequest: request)
+        self.user = user
+        self._reactionsViewModel = StateObject(wrappedValue: ArtReactionsViewModel(userId: user.id))
     }
     
     var body: some View {
         GeometryReader { listGeometry in
-            ScrollView {
-                ScrollViewReader { proxy in
-                    LazyVStack {
-                        ForEach(art.filter { !$0.hidden }) { art in
-                            
-                            Section {
-                                ArtCardView(art: art)
-                                    .id(art.id)
-                                    .padding()
-                                    .background(
-                                        GeometryReader { geo in
-                                            Color(uiColor: .systemGray6)
-                                                .onChange(of: geo.frame(in: .global)) {
-                                                    if $0.minY > listGeometry.frame(in: .global).minY && $0.maxY < listGeometry.frame(in: .global).maxY {
-                                                        if viewModel.animatingId != art.id {
-                                                            viewModel.setAnimatingArt(art.id)
+            ZStack {
+                ScrollView {
+                    ScrollViewReader { proxy in
+                        LazyVStack {
+                            ForEach(art) { art in
+                                Section {
+                                    ArtCardView(art: art)
+                                        .id(art.id)
+                                        .padding()
+                                        .background(
+                                            GeometryReader { geo in
+                                                Color(uiColor: .systemGray6)
+                                                    .onChange(of: geo.frame(in: .global)) {
+                                                        if $0.minY > listGeometry.frame(in: .global).minY && $0.maxY < listGeometry.frame(in: .global).maxY {
+                                                            if viewModel.animatingId != art.id {
+                                                                viewModel.setAnimatingArt(art.id)
+                                                                reactionsViewModel.emojiPickerOpen = false
+                                                            }
+                                                            if reactionsViewModel.openedReactionsId != nil && art.id != reactionsViewModel.openedReactionsId {
+                                                                reactionsViewModel.closeReactions()
+                                                            }
                                                         }
                                                     }
-                                                }
-                                        })
-                                    .cornerRadius(10)
-                                    .padding(8)
-                                
+                                            })
+                                        .cornerRadius(10)
+                                        .padding(8)
+                                    
+                                }
                             }
                         }
-                    }
-                    .onChange(of: NavigationManager.shared.selectedGrid) { selectedGrid in
-                        guard let selectedGrid = selectedGrid else { return }
-                        withAnimation {
-                            proxy.scrollTo(selectedGrid, anchor: .center)
+                        .onChange(of: NavigationManager.shared.selectedGrid) { selectedGrid in
+                            guard let selectedGrid = selectedGrid else { return }
+                            withAnimation {
+                                proxy.scrollTo(selectedGrid, anchor: .center)
+                                NavigationManager.shared.selectedGrid = nil
+                            }
                         }
+                        
                     }
-                    
                 }
+                .refreshable {
+                    await PixeeProvider.fetchArt()
+                    await PixeeProvider.fetchReactions()
+                }
+                .environmentObject(viewModel)
+                .environmentObject(reactionsViewModel)
+                .navigationTitle(user.fullName ?? "Unknown")
+                .blur(radius: (viewModel.showUpgradeView || viewModel.widgetArtId != nil) ? 20 : 0)
             }
-            .refreshable {
-                await artViewModel.refreshArt()
+            SlideOverView(isOpened: $viewModel.showUpgradeView) {
+                UpgradeView(isOpened: $viewModel.showUpgradeView)
             }
-            .environmentObject(viewModel)
-            .environmentObject(reactionsViewModel)
-            .navigationTitle(viewModel.user.fullName ?? "Unknown")
+            SlideOverView(isOpened: $viewModel.widgetArtId.mappedToBool()) {
+                WidgetNameView(artId: viewModel.widgetArtId, isOpened: $viewModel.widgetArtId.mappedToBool())
+            }
+        }.simultaneousGesture(TapGesture()
+            .onEnded { _ in
+                reactionsViewModel.emojiPickerOpen = false
+            }
+        )
+        .toast(isPresenting: $reactionsViewModel.didSendGrid) {
+            AlertToast(type: .complete(.gray), title: "Sent Reaction")
+        }
+        .toast(isPresenting: $reactionsViewModel.failedToSendGrid) {
+            AlertToast(type: .error(.gray), title: "Failed to send reaction")
         }
     }
-    
 }
 
-struct ArtListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            ArtListView(user: User.example, art: [PixelArt.example]).environmentObject(ArtViewModel())
-        }
-    }
-}
+//struct ArtListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            ArtListView(user: User.example, art: [PixelArt.example]).environmentObject(ArtViewModel())
+//        }
+//    }
+//}

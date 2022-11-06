@@ -26,8 +26,23 @@ struct LedGridApp: App {
             options.tracesSampleRate = 0.5
         }
         #endif
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: .badge) { (granted, error) in
+            guard error == nil else { return }
+            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        }
+        
+        if AuthService.canRenew() && Utility.user?.id != nil && hasNoData() {
+            Task {
+                try? await PixeeProvider.fetchAllData()
+            }
+        }
     }
     
+    func hasNoData() -> Bool {
+        let fetch = User.fetchRequest()
+        return (try? PersistenceManager.shared.viewContext.count(for: fetch) == 0) ?? true
+    }
     
     var body: some Scene {
         WindowGroup {

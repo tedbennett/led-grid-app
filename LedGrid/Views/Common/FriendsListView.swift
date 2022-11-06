@@ -9,22 +9,21 @@ import SwiftUI
 
 
 struct FriendsView: View {
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.lastUpdated, order: .reverse)]) var friends: FetchedResults<User>
     @Binding var selectedFriends: [String]
-    @EnvironmentObject var friendsViewModel: FriendsViewModel
-    
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    if friendsViewModel.friends.isEmpty {
+                    if friends.isEmpty {
                         Button {
                             Helpers.presentShareSheet()
                         } label: {
                             Text("Add some friends in settings to send art").font(.caption).foregroundColor(.gray)
                         }
                     } else {
-                        ForEach(friendsViewModel.friends) { user in
+                        ForEach(friends) { user in
                             VStack {
                                 Button {
                                     if selectedFriends.contains(where: { user.id == $0 }) {
@@ -32,8 +31,9 @@ struct FriendsView: View {
                                     } else {
                                         selectedFriends.append(user.id)
                                     }
-                                    
-                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                    if Utility.haptics {
+                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                    }
                                 } label: {
                                     UserOrb(user: user, isSelected: selectedFriends.contains(where: { user.id == $0 }))
                                 }.buttonStyle(.plain)
@@ -50,6 +50,10 @@ struct FriendsView: View {
                 }
                 .frame(minWidth: geometry.size.width)      // Make the scroll view full-width
                 .frame(height: geometry.size.height)
+            }
+        }.onAppear {
+            if friends.count == 1 {
+                selectedFriends = friends.map { $0.id }
             }
         }
     }

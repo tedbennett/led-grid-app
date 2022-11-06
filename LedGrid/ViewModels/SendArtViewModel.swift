@@ -18,18 +18,15 @@ class SendArtViewModel: ObservableObject {
         self.grids = grids
     }
     
-    func sendArt() async -> PixelArt? {
+    func sendArt() async -> Bool {
         await MainActor.run {
             sendingArt = true
         }
         Utility.lastSelectedFriends = selectedUsers
-        let art = try? await NetworkManager.shared.sendGrid(
-            to: selectedUsers,
-            grids: grids.map { $0.hex() }
-        )
+        let success = await PixeeProvider.sendArt(to: selectedUsers, grids: grids)
         await MainActor.run {
             sendingArt = false
         }
-        return art
+        return success
     }
 }

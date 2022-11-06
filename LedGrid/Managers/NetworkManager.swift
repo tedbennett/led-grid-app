@@ -21,7 +21,7 @@ class NetworkManager {
         return try JSONDecoder.standard.decode(T.self, from: data)
     }
     
-    func handleSignInWithApple(authorization: ASAuthorization) async throws -> User {
+    func handleSignInWithApple(authorization: ASAuthorization) async throws -> MUser {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
               let code = appleIDCredential.authorizationCode,
               let authorizationCode = String(data: code, encoding: .utf8) else {
@@ -33,7 +33,7 @@ class NetworkManager {
        
         let user = try await {
             if try await !checkUserExists(id: appleIDCredential.user) {
-                let user = User(
+                let user = MUser(
                     id: appleIDCredential.user,
                     fullName: appleIDCredential.fullName?.formatted(),
                     givenName: appleIDCredential.fullName?.givenName,
@@ -64,18 +64,19 @@ class NetworkManager {
             
             let _ = try await Network.makeRequest(url: url, body: body, method: .delete, headers: headers)
         }
-        AuthService.logout()
     }
     
-    func getGrid(id: String) async throws -> PixelArt {
+    func getGrid(id: String) async throws -> MPixelArt {
         let url = Network.makeUrl([.art, .dynamic(id)])
         let headers = try await AuthService.getToken()
         
         return try await getRequest(url: url, headers: headers)
     }
     
-    func getGrids(after: Date?) async throws -> [PixelArt] {
-        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+    func getGrids(after: Date?) async throws -> [MPixelArt] {
+        guard let userId = Utility.user?.id else {
+            throw ApiError.noUser
+        }
         let queries: [String: String] = after != nil ? ["after": after!.ISO8601Format()] : [:]
         let url = Network.makeUrl([.art, .users, .dynamic(userId), .received], queries: queries)
         let headers = try await AuthService.getToken()
@@ -84,7 +85,7 @@ class NetworkManager {
     }
     
     
-    func getSentGrids(after: Date?) async throws -> [PixelArt] {
+    func getSentGrids(after: Date?) async throws -> [MPixelArt] {
         guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let queries: [String: String] = after != nil ? ["after": after!.ISO8601Format()] : [:]
         let url = Network.makeUrl([.art, .users, .dynamic(userId), .sent], queries: queries)
@@ -93,7 +94,7 @@ class NetworkManager {
         return try await getRequest(url: url, headers: headers)
     }
     
-    func sendGrid(to recipients: [String], grids: [String]) async throws -> PixelArt {
+    func sendGrid(to recipients: [String], grids: [String]) async throws -> MPixelArt {
         guard let userId = Utility.user?.id else { throw ApiError.noUser }
         let payload = [
             "receivers": recipients,
@@ -105,12 +106,46 @@ class NetworkManager {
         let headers = try await AuthService.getToken()
         
         let data = try await Network.makeRequest(url: url, body: body, method: .post, headers: headers)
-        let art = try JSONDecoder.standard.decode(PixelArt.self, from: data)
-        
+        var art = try JSONDecoder.standard.decode(MPixelArt.self, from: data)
+        art.opened = true
         return art
     }
     
-    func getUser(id: String) async throws -> User {
+    func sendReaction(_ reaction: String, for artId: String, to recipient: String) async throws -> MReaction {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        let payload = [
+            "reaction": reaction,
+            "sender": userId,
+            "receiver": recipient
+        ] as [String : Any]
+        let body = try JSONSerialization.data(withJSONObject: payload)
+        let url = Network.makeUrl([.art, .dynamic(artId), .reactions])
+        
+        let headers = try await AuthService.getToken()
+        
+        let data = try await Network.makeRequest(url: url, body: body, method: .post, headers: headers)
+        let reaction = try JSONDecoder.standard.decode(MReaction.self, from: data)
+        return reaction
+    }
+    
+    func getReactions(after: Date?) async throws -> [MReaction] {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        let queries: [String: String] = after != nil ? ["after": after!.ISO8601Format()] : [:]
+        let url = Network.makeUrl([.art, .users, .dynamic(userId), .reactions, .received], queries: queries)
+        let headers = try await AuthService.getToken()
+        
+        return try await getRequest(url: url, headers: headers)
+    }
+    
+    func getAllReactions() async throws -> [MReaction] {
+        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+        let url = Network.makeUrl([.art, .users, .dynamic(userId), .reactions])
+        let headers = try await AuthService.getToken()
+        
+        return try await getRequest(url: url, headers: headers)
+    }
+    
+    func getUser(id: String) async throws -> MUser {
         let url = Network.makeUrl([.users, .dynamic(id)])
         let headers = try await AuthService.getToken()
         
@@ -118,7 +153,7 @@ class NetworkManager {
     }
     
     func createAccount(id: String, fullName: String?, givenName: String?, email: String?) async throws {
-        let payload = User(id: id, fullName: fullName, givenName: givenName, email: email)
+        let payload = MUser(id: id, fullName: fullName, givenName: givenName, email: email)
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.dateEncodingStrategy = .iso8601
@@ -135,7 +170,7 @@ class NetworkManager {
     }
     
     func updateUser(id: String, fullName: String, givenName: String, email: String) async throws {
-        let payload = User(id: id, fullName: fullName, givenName: givenName, email: email)
+        let payload = MUser(id: id, fullName: fullName, givenName: givenName, email: email)
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.dateEncodingStrategy = .iso8601
@@ -147,8 +182,10 @@ class NetworkManager {
         let _ = try await Network.makeRequest(url: url, body: data, method: .put, headers: headers)
     }
     
-    func getFriends() async throws -> [User] {
-        guard let userId = Utility.user?.id else { throw ApiError.noUser }
+    func getFriends() async throws -> [MUser] {
+        guard let userId = Utility.user?.id else {
+            throw ApiError.noUser
+        }
         let url = Network.makeUrl([.users, .dynamic(userId), .friends])
         let headers = try await AuthService.getToken()
         
