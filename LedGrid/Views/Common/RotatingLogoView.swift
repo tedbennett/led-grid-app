@@ -12,28 +12,42 @@ struct RotatingLogoView: View {
     let motionManager = CMMotionManager()
     let queue = OperationQueue()
     
-    @State private var yaw = Double.zero
+    @AppStorage(UDKeys.spinningLogo.rawValue, store: Utility.store) var allowSpin = true
+    
+    @State private var angle = 45.0
+    
+    var timer = Timer.publish(every: 0.15, on: .main, in: .common).autoconnect()
+    
     var body: some View {
         HStack {
             
             Image(systemName: "square.grid.2x2")
                 .font(.system(size: 48, weight: .regular))
                 .padding(0)
-                .rotationEffect(Angle(degrees: (yaw * 90) + 45))
+                .rotationEffect(Angle(degrees: angle))
+                .coordinateSpace(name: "icon")
+            
        }
+//        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+//            .onChanged { drag in
+//                drag.
+//            })
        .onAppear {
-           self.motionManager.startDeviceMotionUpdates(to: self.queue) { (data: CMDeviceMotion?, error: Error?) in
-               guard let data = data else {
+           self.motionManager.startDeviceMotionUpdates(to: queue) { (data: CMDeviceMotion?, error: Error?) in
+               guard let data = data, allowSpin else {
                    return
                }
-               let attitude: CMAttitude = data.attitude
 
-               if abs(self.yaw - attitude.yaw) > 0.1 {
-                   withAnimation {
-                       self.yaw = attitude.yaw
-                   }
-               }
+               angle -= (data.rotationRate.z / 2)
            }
+       }.onReceive(timer) { _ in
+           if !allowSpin { return }
+           withAnimation {
+               angle += 1
+           }
+       }
+       .onChange(of: allowSpin) {
+           if !$0 { angle = 45}
        }
     }
 }

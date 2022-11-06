@@ -17,60 +17,41 @@ struct SettingsView: View {
     @State private var showUpgradeView = false
     @State private var showDeleteAccountAlert = false
     
+    
+    
+    @AppStorage(UDKeys.haptics.rawValue, store: Utility.store) var haptics = true
+    @AppStorage(UDKeys.spinningLogo.rawValue, store: Utility.store) var spinner = true
+    @AppStorage(UDKeys.showGuides.rawValue, store: Utility.store) var showGuides = true
+    
     @FetchRequest(sortDescriptors: []) var friends: FetchedResults<User>
     
     var body: some View {
         NavigationView {
             ZStack {
                 List {
-                    Section {
-                        if friends.isEmpty {
-                            Button {
-                                Helpers.presentShareSheet()
-                            } label: {
-                                Text("Add friends to get started!")
-                            }
+                    Section("Your Details") {
+                        NavigationLink(userViewModel.user?.fullName ?? "Unknown name", isActive: $showEditView) {
+                            EditNameView(isPresented: $showEditView)
                         }
-                        ForEach(friends) { friend in
-                            Text(friend.fullName ?? "Unknown Friend")
-                                .swipeActions(allowsFullSwipe: false) {
-                                    Button(role: .destructive) {
-                                        Task {
-                                            await PixeeProvider.removeFriend(friend.id)
-                                        }
-                                    } label: {
-                                        Label("Remove", systemImage: "trash.fill")
-                                    }
-                                }
-                        }
-                    } header: {
-                        HStack {
-                            Text("Friends")
-                            Spacer()
-                            Button {
-                                Helpers.presentShareSheet()
-                            } label: {
-                                Image(systemName: "person.badge.plus")
-                                    .font(.title3)
+                        Text(userViewModel.user?.email ?? "Unknown email").foregroundColor(.gray)
+                        NavigationLink {
+                            FriendsSettingsView(friends: Array(friends))
+                        } label: {
+                            HStack {
+                                Text("Friends")
+                                Spacer()
+                                Text("\(friends.count)").foregroundColor(.gray)
                             }
                         }
                     }
                     
-                    Section {
-                        Text(userViewModel.user?.fullName ?? "Unknown name")
-                    } header: {
-                        HStack {
-                            Text("Name")
-                            Spacer()
-                            NavigationLink(isActive: $showEditView) {
-                                EditNameView(isPresented: $showEditView)
-                            } label: {
-                                Text("Edit")
-                            }
+                    Section("Preferences") {
+                        NavigationLink("Colour Picker") {
+                            ColorPickerSettingsView()
                         }
-                    }
-                    Section("Email") {
-                        Text(userViewModel.user?.email ?? "Unknown email").foregroundColor(.gray)
+                        Toggle("Haptic Feedback", isOn: $haptics)
+                        Toggle("Draw View Spinner", isOn: $spinner)
+                        Toggle("Draw View Guides", isOn: $showGuides)
                     }
                     
                     
@@ -157,16 +138,19 @@ struct SettingsView: View {
             } message: {
                 Text("This action cannot be undone.")
             }
+            .onChange(of: haptics) { _ in
+                print(haptics)
+            }
         }
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView(loggedIn: .constant(true))
-            .environmentObject(UserViewModel())
-    }
-}
+//struct SettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SettingsView(loggedIn: .constant(true))
+//            .environmentObject(UserViewModel())
+//    }
+//}
 
 struct EditNameView: View {
     @EnvironmentObject var userViewModel: UserViewModel

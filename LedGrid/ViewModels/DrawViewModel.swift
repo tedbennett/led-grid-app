@@ -28,13 +28,7 @@ class DrawViewModel: ObservableObject {
     @Published var redoStates: [[Grid]] = [[]]
     
     @Published var gridFrame: CGRect = .zero
-    
-    @Published var showGuides = Utility.showGuides {
-        didSet {
-            Utility.showGuides = showGuides
-        }
-    }
-    
+    @AppStorage(UDKeys.showGuides.rawValue, store: Utility.store) var showGuides = true
     init() {
         clearUndoAndRedo()
         NotificationCenter.default.addObserver(self, selector: #selector(copyGrids), name: Notifications.copyGrid, object: nil)
@@ -90,14 +84,18 @@ class DrawViewModel: ObservableObject {
     func clearGrid() {
         currentGrid = gridSize.blankGrid
         pushUndoState()
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        if Utility.haptics {
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        }
     }
     
     func clearAllGrids() {
         grids = [gridSize.blankGrid]
         clearUndoAndRedo()
         currentGridIndex = 0
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        if Utility.haptics {
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        }
     }
     
     func undo() {
@@ -107,7 +105,9 @@ class DrawViewModel: ObservableObject {
         currentGrid = previousState
         self.currentState = previousState
         
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        if Utility.haptics {
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        }
     }
     
     func redo() {
@@ -117,7 +117,9 @@ class DrawViewModel: ObservableObject {
         currentGrid = previousState
         self.currentState = previousState
         
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        if Utility.haptics {
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        }
     }
     
     func pushUndoState() {
@@ -146,7 +148,9 @@ class DrawViewModel: ObservableObject {
         guard col < gridSize.rawValue, col >= 0, row < gridSize.rawValue, row >= 0 else { return }
         guard currentGrid[col][row] != color else { return }
         currentGrid[col][row] = color
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        if Utility.haptics {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        }
     }
     
     var isGridBlank: Bool {
@@ -168,14 +172,14 @@ class DrawViewModel: ObservableObject {
     }
     
     func removeGrid(at index: Int) {
-        grids.remove(at: index)
-        _ = undoStates.remove(at: index)
-        _ = redoStates.remove(at: index)
         if currentGridIndex == index {
             currentGridIndex = 0
         } else if index < currentGridIndex {
             currentGridIndex -= 1
         }
+        grids.remove(at: index)
+        _ = undoStates.remove(at: index)
+        _ = redoStates.remove(at: index)
     }
     
     func moveGrid(from origin: Int, to destination: Int) {
@@ -237,18 +241,21 @@ extension DrawViewModel {
             toFill.append(contentsOf: remainingNeighbours)
             remainingNeighbours = current
         }
-        let speed = UInt64(200_000 * (1.0 / Double(currentGrid.count)))
+        let speed = UInt64(50_000 * (1.0 / Double(currentGrid.count)))
         let generator = UIImpactFeedbackGenerator(style: .rigid)
         generator.prepare()
+        let haptics = Utility.haptics
         Task { [toFill, speed] in
             for (i, neighbour) in toFill.enumerated() {
                 await MainActor.run {
                     self.currentGrid[neighbour.col][neighbour.row] = color
+                    if !haptics { return }
                     switch gridSize {
                     case .small: break
                     case .medium: if (i % 2) != 0 { return }
                     case .large: if (i % 3) != 0 { return }
                     }
+                    
                     generator.impactOccurred()
                     
                 }

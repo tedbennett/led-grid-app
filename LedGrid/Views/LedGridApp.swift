@@ -27,6 +27,11 @@ struct LedGridApp: App {
         }
         #endif
         
+        UNUserNotificationCenter.current().requestAuthorization(options: .badge) { (granted, error) in
+            guard error == nil else { return }
+            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        }
+        
         if AuthService.canRenew() && Utility.user?.id != nil && hasNoData() {
             Task {
                 try? await PixeeProvider.fetchAllData()

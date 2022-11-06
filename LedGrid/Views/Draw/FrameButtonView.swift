@@ -40,7 +40,7 @@ struct FrameButtonView: View {
                 }
             } label: {
                 Label {
-                    Text(viewModel.grids.count > 1 ? "\(viewModel.currentGridIndex + 1)" : "Frames").font(.system(.title3, design: .rounded)).fontWeight(.medium)
+                    Text(viewModel.grids.count > 1 ? "\(viewModel.currentGridIndex + 1)/\(viewModel.grids.count)" : "Frames").font(.system(.title3, design: .rounded)).fontWeight(.medium)
                 } icon: {
                     Image(systemName: "square.stack.3d.up.fill")
                 }.padding(.vertical)

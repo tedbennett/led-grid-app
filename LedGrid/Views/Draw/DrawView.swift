@@ -20,26 +20,21 @@ struct DrawView: View {
         ZStack {
             VStack {
                 
-//                Title("Draw Something").frame(width: 100, height: 40)
-                RotatingLogoView()
-                    .padding(.bottom, 10)
-                    
-//                    .padding(.top, 45)
-                Spacer()
-                ArtActionsView(showSendView: $showSendView, showUpgradeView: $showUpgradeView)
-                    .padding(.top, 0)
-                    .padding(.bottom, 10)
-                DrawGridView(colorViewModel: colorViewModel)
-                    .coordinateSpace(name: "draw-grid")
-                    .padding(2)
-                    .drawingGroup()
-                    .padding(.bottom, 10)
-                    .padding(.horizontal, 3)
-                EditingToolbarView(viewModel: colorViewModel)
-                    .padding(.bottom, 30)
-//                DrawActionsView(showUpgradeView: $showUpgradeView)
-//                    .padding(.bottom, 20)
                 
+                    Spacer()
+                RotatingLogoView()
+                    Spacer()
+                VStack(spacing: 10) {
+                    ArtActionsView(showSendView: $showSendView, showUpgradeView: $showUpgradeView)
+                    DrawGridView(colorViewModel: colorViewModel)
+                        .coordinateSpace(name: "draw-grid")
+                        .padding(1)
+                        .drawingGroup()
+                        
+                    EditingToolbarView(viewModel: colorViewModel)
+                }.padding(.horizontal, 7)
+                
+                    Spacer()
                 Button {
                     drawViewModel.saveGrid()
                     withAnimation {
@@ -64,6 +59,7 @@ struct DrawView: View {
                 .background(Color(uiColor: .label).cornerRadius(15))
                 .padding(.horizontal, 30)
                 
+                    Spacer()
             }.padding(20)
             
             .blur(radius: showSendView || showUpgradeView ? 20 : 0)

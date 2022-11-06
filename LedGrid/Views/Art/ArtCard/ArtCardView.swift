@@ -49,6 +49,7 @@ struct ArtCardView: View {
                     RevealView(grid: grids[0]) {
                         isRevealing = false
                         guard grids.count > 1 else { return }
+                        gridIndex = 0
                         viewModel.animatingId = art.id
                         pauseAnimating = false
                     }

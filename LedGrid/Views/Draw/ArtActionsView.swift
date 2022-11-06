@@ -19,6 +19,8 @@ struct ArtActionsView: View {
     
     @State private var showEditFrames = false
     
+    @AppStorage(UDKeys.showGuides.rawValue, store: Utility.store) var showGuides = true
+    
     var menu: some View {
         Menu {
             Button {
@@ -37,12 +39,12 @@ struct ArtActionsView: View {
                 Text("Change Size")
             }
             Button {
-                drawViewModel.showGuides.toggle()
+                showGuides.toggle()
             } label: {
                 HStack {
                     Text("Grid Guides")
                     Spacer()
-                    if drawViewModel.showGuides {
+                    if showGuides {
                         Image(systemName: "checkmark")
                     }
                 }

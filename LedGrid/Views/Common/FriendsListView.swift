@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct FriendsView: View {
-    @FetchRequest(sortDescriptors: []) var friends: FetchedResults<User>
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.lastUpdated, order: .reverse)]) var friends: FetchedResults<User>
     @Binding var selectedFriends: [String]
     
     var body: some View {
@@ -31,8 +31,9 @@ struct FriendsView: View {
                                     } else {
                                         selectedFriends.append(user.id)
                                     }
-                                    
-                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                    if Utility.haptics {
+                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                    }
                                 } label: {
                                     UserOrb(user: user, isSelected: selectedFriends.contains(where: { user.id == $0 }))
                                 }.buttonStyle(.plain)

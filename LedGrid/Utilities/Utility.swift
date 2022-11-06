@@ -16,6 +16,9 @@ enum UDKeys: String {
     case showGuides
     case user
     case friends
+    case colorPicker
+    case haptics
+    case spinningLogo
 }
 
 struct Utility {
@@ -44,6 +47,14 @@ struct Utility {
     @UserDefaultsValue(nil, key: .user) static var user: MUser?
     @UserDefaultsValue([], key: .friends) static var friends: [MUser]
     @UserDefaultsValue([GridSize.small.blankGrid], key: .currentGrids) static var currentGrids: [Grid]
+    static var haptics: Bool {
+        get {
+            store.bool(forKey: UDKeys.haptics.rawValue)
+        }
+        set {
+            store.set(newValue, forKey: UDKeys.haptics.rawValue)
+        }
+    }
     
 //    static var user: MUser? {
 //        get {
@@ -123,7 +134,14 @@ struct Utility {
     
     @UserDefaultsValue([], key: .artNamesForWidget) static var artNamesForWidget: [ArtAssociatedName]
     
-    @UserDefaultsValue(false, key: .showGuides) static var showGuides: Bool
+    static var showGuides: Bool {
+        get {
+            store.bool(forKey: UDKeys.showGuides.rawValue)
+        }
+        set {
+            store.set(newValue, forKey: UDKeys.showGuides.rawValue)
+        }
+    }
 }
 
 

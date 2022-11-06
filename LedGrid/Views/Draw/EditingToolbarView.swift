@@ -16,7 +16,7 @@ struct EditingToolbarView: View {
     var simpleDrag: some Gesture {
         DragGesture()
             .onChanged { value in
-                self.translation = value.translation
+                translation = value.translation
             }
     }
                       
@@ -25,17 +25,16 @@ struct EditingToolbarView: View {
             .onEnded { value in
                 if let coordinates = drawViewModel.findGridCoordinates(at: value.location) {
                     drawViewModel.fillGrid(at: coordinates, color: viewModel.currentColor)
-                    self.translation = CGSize.zero
+                    translation = CGSize.zero
                 } else {
                     withAnimation {
-                        self.translation = CGSize.zero
+                        translation = CGSize.zero
                     }
                 }
             }
     }
     
     var body: some View {
-        ZStack {
             HStack {
                 if !showSliders {
                     Button {
@@ -55,53 +54,30 @@ struct EditingToolbarView: View {
                         .buttonStyle(StandardButton())
                 }
                 Spacer()
-            }
-            HStack {
-                if showSliders {
-                    HStack {
-                        VStack {
-                            ColorPickerSlider(value: $viewModel.hue).padding(.horizontal, 5)
-                                .padding(.vertical, 0)
-                                .frame(height: 20)
-                            OpacityPickerSlider(value: $viewModel.opacity)
-                                .padding(.horizontal, 5)
-                                .padding(.vertical, 0)
-                                .frame(height: 20)
-                        }.coordinateSpace(name: "draw")
-                        ColorPicker("", selection: $viewModel.currentColor, supportsOpacity: false)
-                            .labelsHidden()
+                ColorPickerView(
+                    viewModel: viewModel,
+                    translation: $translation,
+                    showSliders: $showSliders
+                ) { drag in
+                    withAnimation {
+                        translation = drag
                     }
-                } else {
-                    Spacer()
-                }
-                ZStack {
-                    SquareView(color: viewModel.currentColor, strokeWidth: 1, cornerRadius: 5)
-                        .frame(width: 40, height: 40, alignment: .center)
-                        .padding(10)
-    //                    .allowsHitTesting(false)
-                        .onTapGesture {
-                            withAnimation {
-                                showSliders.toggle()
-                            }
+                } onDragEnd: { location in
+                    if let coordinates = drawViewModel.findGridCoordinates(at: location) {
+                        drawViewModel.fillGrid(at: coordinates, color: viewModel.currentColor)
+                        translation = CGSize.zero
+                    } else {
+                        withAnimation {
+                            translation = CGSize.zero
                         }
-                        .simultaneousGesture(simpleDrag)
-                        .simultaneousGesture(coordinateDrag)
-                    Circle().fill(viewModel.currentColor).frame(width: 40, height: 40).padding(10)
-                        .scaleEffect(translation == CGSize.zero ? 0.5 : 1.2)
-                        .offset(translation)
-                        .shadow(color: translation == CGSize.zero ? .clear : .black, radius: translation == CGSize.zero ? 0 : 5)
-    //                    .gesture(
-    //                        simpleDrag
-    //                    )
-    //                    .simultaneousGesture(coordinateDrag)
+                    }
                 }
-            }.transition(.slide)
+            }
+//            .transition(.slide)
         }
-        
-    }
 }
 
-struct ColorPickerView_Previews: PreviewProvider {
+struct EditingToolbarView_Previews: PreviewProvider {
     static var previews: some View {
         EditingToolbarView(viewModel: DrawColourViewModel())
     }

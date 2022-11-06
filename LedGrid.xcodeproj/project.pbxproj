@@ -17,6 +17,9 @@
 		1F44FEFB29046A40000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
 		1F44FEFC29046A41000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
 		1F44FEFD29046A44000BAFAB /* Reaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795028FC27EF0066AE71 /* Reaction+CoreDataClass.swift */; };
+		1F502C322917B27700328353 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F502C312917B27700328353 /* ColorPickerView.swift */; };
+		1F502C342917B6DB00328353 /* ColorPickerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F502C332917B6DB00328353 /* ColorPickerSettingsView.swift */; };
+		1F5BA8C92917C730005BA5CE /* FriendsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8C82917C730005BA5CE /* FriendsSettingsView.swift */; };
 		1F9D489828E68F93004098B5 /* ArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489728E68F93004098B5 /* ArtView.swift */; };
 		1F9D489A28E68FD9004098B5 /* FriendCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489928E68FD9004098B5 /* FriendCardView.swift */; };
 		1F9D489C28E69068004098B5 /* InitialsOrbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489B28E69068004098B5 /* InitialsOrbView.swift */; };
@@ -77,7 +80,7 @@
 		5799B42827F0D7E60039F621 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B42727F0D7E60039F621 /* ContentView.swift */; };
 		5799B42A27F0D7E70039F621 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5799B42927F0D7E70039F621 /* Assets.xcassets */; };
 		5799B42D27F0D7E70039F621 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5799B42C27F0D7E70039F621 /* Preview Assets.xcassets */; };
-		5799B43427F0D89D0039F621 /* DrawableGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B43327F0D89D0039F621 /* DrawableGridView.swift */; };
+		5799B43427F0D89D0039F621 /* DrawGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B43327F0D89D0039F621 /* DrawGridView.swift */; };
 		5799B43627F0D8AA0039F621 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B43527F0D8AA0039F621 /* SquareView.swift */; };
 		57C96D9E27F1D295008C52BB /* DrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9D27F1D295008C52BB /* DrawViewModel.swift */; };
 		57C96DA027F1D390008C52BB /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9F27F1D390008C52BB /* Utility.swift */; };
@@ -187,6 +190,9 @@
 		1F1A16DB290C13D600033745 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		1F1A16DD290C8CB700033745 /* RotatingLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingLogoView.swift; sourceTree = "<group>"; };
 		1F1A16DF290D4F3800033745 /* WidgetNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetNameView.swift; sourceTree = "<group>"; };
+		1F502C312917B27700328353 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
+		1F502C332917B6DB00328353 /* ColorPickerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerSettingsView.swift; sourceTree = "<group>"; };
+		1F5BA8C82917C730005BA5CE /* FriendsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsSettingsView.swift; sourceTree = "<group>"; };
 		1F9D489728E68F93004098B5 /* ArtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtView.swift; sourceTree = "<group>"; };
 		1F9D489928E68FD9004098B5 /* FriendCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCardView.swift; sourceTree = "<group>"; };
 		1F9D489B28E69068004098B5 /* InitialsOrbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialsOrbView.swift; sourceTree = "<group>"; };
@@ -227,7 +233,7 @@
 		5799B42727F0D7E60039F621 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5799B42927F0D7E70039F621 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5799B42C27F0D7E70039F621 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		5799B43327F0D89D0039F621 /* DrawableGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawableGridView.swift; sourceTree = "<group>"; };
+		5799B43327F0D89D0039F621 /* DrawGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawGridView.swift; sourceTree = "<group>"; };
 		5799B43527F0D8AA0039F621 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
 		57A929692802BBAA0096CC96 /* LedGrid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LedGrid.entitlements; sourceTree = "<group>"; };
 		57A9296A28031F790096CC96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -421,7 +427,7 @@
 				57C96DA627F3A266008C52BB /* DrawView.swift */,
 				9F28FB9728B2A1A700403F4D /* ArtActionsView.swift */,
 				5756DB4727F1AA7E0028A90E /* EditingToolbarView.swift */,
-				5799B43327F0D89D0039F621 /* DrawableGridView.swift */,
+				5799B43327F0D89D0039F621 /* DrawGridView.swift */,
 				9F317B6128A3052400105E8C /* SendArtView.swift */,
 				1FFB1A5728FAD91D00B126AE /* FrameButtonView.swift */,
 				9F317B6E28A6E9DF00105E8C /* EditFramesView.swift */,
@@ -446,6 +452,7 @@
 				9F317B6328A3159500105E8C /* MailView.swift */,
 				9F28FB9B28B2A20500403F4D /* FriendsListView.swift */,
 				9FC6245F28BAAFB600723C97 /* CloseButton.swift */,
+				1F502C312917B27700328353 /* ColorPickerView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -466,6 +473,8 @@
 			isa = PBXGroup;
 			children = (
 				57C96DB427F45C01008C52BB /* SettingsView.swift */,
+				1F502C332917B6DB00328353 /* ColorPickerSettingsView.swift */,
+				1F5BA8C82917C730005BA5CE /* FriendsSettingsView.swift */,
 				9F626C1128AC1B3700587B57 /* WidgetTutorialView.swift */,
 			);
 			path = Settings;
@@ -761,13 +770,16 @@
 				57C96DA727F3A266008C52BB /* DrawView.swift in Sources */,
 				1FB1794D28FB623C0066AE71 /* SerializableArt.swift in Sources */,
 				1F9D48A128E69BB6004098B5 /* LoggedInView.swift in Sources */,
-				5799B43427F0D89D0039F621 /* DrawableGridView.swift in Sources */,
+				5799B43427F0D89D0039F621 /* DrawGridView.swift in Sources */,
+				1F502C342917B6DB00328353 /* ColorPickerSettingsView.swift in Sources */,
 				9F28FB8928B29FF000403F4D /* NetworkTypes.swift in Sources */,
 				1F9D48AB28ECD8AA004098B5 /* EditGridViewModel.swift in Sources */,
+				1F502C322917B27700328353 /* ColorPickerView.swift in Sources */,
 				1F9D48A328E69C37004098B5 /* AddFriendHandler.swift in Sources */,
 				1FB1795528FC27EF0066AE71 /* Reaction+CoreDataProperties.swift in Sources */,
 				1FFB1A5328F1DCDC00B126AE /* NavigationManager.swift in Sources */,
 				9FC6245E28BAAEF300723C97 /* LargeButton.swift in Sources */,
+				1F5BA8C92917C730005BA5CE /* FriendsSettingsView.swift in Sources */,
 				1FB1798829031B600066AE71 /* MReaction.swift in Sources */,
 				1FB1795728FC351A0066AE71 /* CoreDataService.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
