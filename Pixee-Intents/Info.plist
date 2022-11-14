@@ -12,6 +12,7 @@
 			<array/>
 			<key>IntentsSupported</key>
 			<array>
+				<string>NamedArtIntent</string>
 				<string>SelectFriendIntent</string>
 			</array>
 		</dict>

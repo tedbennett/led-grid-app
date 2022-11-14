@@ -48,11 +48,7 @@ struct LoginView: View {
                 Spacer()
             }
             .navigationTitle("Welcome to Pixee")
-            .alert("Failed to sign up", isPresented: $viewModel.showSignInAlert) {
-                Button("OK") { }
-            } message: {
-                Text("Please try again later.")
-            }
+            
             .onAppear {
                 if viewModel.shouldLogin() { loggedIn = true }
             }

@@ -99,13 +99,14 @@ public class SerializableColor: NSObject, NSCoding, NSSecureCoding {
   }
 }
 
+@objc(SerializableArt)
 public class SerializableArt: NSObject, NSSecureCoding {
     public static var supportsSecureCoding = true
     
     public var grids: [[[SerializableColor]]] = []
     
     enum Key: String {
-        case grids = "grids"
+        case art = "art"
     }
     
     init(grids: [[[SerializableColor]]]) {
@@ -123,12 +124,12 @@ public class SerializableArt: NSObject, NSSecureCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(grids, forKey: Key.grids.rawValue)
+        aCoder.encode(grids, forKey: Key.art.rawValue)
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {
         // 5
-        let mGrids = aDecoder.decodeObject(of: [NSArray.self,NSArray.self,NSArray.self, SerializableColor.self], forKey: Key.grids.rawValue) as! [[[SerializableColor]]]
+        let mGrids = aDecoder.decodeObject(of: [NSArray.self,NSArray.self,NSArray.self, SerializableColor.self], forKey: Key.art.rawValue) as! [[[SerializableColor]]]
         
         self.init(grids: mGrids)
     }

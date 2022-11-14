@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-extension View {
-    func editableText(editing: Binding<Bool>, _ didSelectEmoji: @escaping (String) -> Void) -> some View {
-        modifier(EditableText(editing: editing, didSelectEmoji: didSelectEmoji))
-    }
-}
-
-
 enum CenteredAlignment {
     case vertical
     case horizontal
@@ -47,5 +40,25 @@ struct Centered: ViewModifier {
 extension View {
     func centered(_ alignment: CenteredAlignment = .both) -> some View {
         modifier(Centered(alignment: alignment))
+    }
+}
+
+extension View {
+    func snapshot() -> UIImage {
+        let controller = UIHostingController(rootView: self.frame(width: 80, height: 80).edgesIgnoringSafeArea(.all))
+        let view = controller.view
+
+        let targetSize = controller.view.intrinsicContentSize
+        view?.bounds = CGRect(origin: .zero, size: targetSize)
+        view?.backgroundColor = .clear
+
+        
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 0.8
+        let renderer = UIGraphicsImageRenderer(size: targetSize, format: format)
+
+        return renderer.image { _ in
+            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+        }
     }
 }

@@ -18,7 +18,7 @@ struct FriendsView: View {
                 HStack {
                     if friends.isEmpty {
                         Button {
-                            Helpers.presentShareSheet()
+                            Helpers.presentAddFriendShareSheet()
                         } label: {
                             Text("Add some friends in settings to send art").font(.caption).foregroundColor(.gray)
                         }

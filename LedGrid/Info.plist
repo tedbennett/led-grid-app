@@ -20,6 +20,7 @@
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>FriendIntentIntent</string>
+		<string>NamedArtIntent</string>
 		<string>SelectFriendIntent</string>
 	</array>
 	<key>UIBackgroundModes</key>

@@ -16,70 +16,64 @@ struct DrawView: View {
     @State private var showSendView = false
     @State private var showUpgradeView = false
     
+    @State private var initialised = false
+    
     var body: some View {
         ZStack {
             VStack {
-                
-                
-                    Spacer()
+                Spacer()
                 RotatingLogoView()
-                    Spacer()
+                Spacer()
                 VStack(spacing: 10) {
                     ArtActionsView(showSendView: $showSendView, showUpgradeView: $showUpgradeView)
-                    DrawGridView(colorViewModel: colorViewModel)
-                        .coordinateSpace(name: "draw-grid")
-                        .padding(1)
-                        .drawingGroup()
-                        
+                    
+//                    if initialised {
+                        DrawGridView(colorViewModel: colorViewModel)
+                            .coordinateSpace(name: "draw-grid")
+                            .padding(1)
+                            .drawingGroup()
+                            .simultaneousGesture(
+                                DragGesture(minimumDistance: 0).onChanged { _ in
+                                    if colorViewModel.showSliders {
+                                        withAnimation {
+                                            colorViewModel.showSliders = false
+                                        }
+                                    }
+                                }
+                            )
+//                    }
+                    
                     EditingToolbarView(viewModel: colorViewModel)
                 }.padding(.horizontal, 7)
                 
-                    Spacer()
+                Spacer()
                 Button {
                     drawViewModel.saveGrid()
                     withAnimation {
                         showSendView = true
                     }
                 } label: {
-                    HStack {
-                        Spacer()
-                        Label {
-                            Text("Send")
-                        } icon: {
-                            Image(systemName: "paperplane.fill")
-                        }.font(
-                            .system(.title3, design: .rounded)
-                            .weight(.medium)
-                        ).foregroundColor(Color(uiColor: .systemBackground))
-                            .padding(4)
-                        Spacer()
+                    Label {
+                        Text("Send")
+                    } icon: {
+                        Image(systemName: "paperplane.fill")
+                    }
+                    .padding(4)
+                }.buttonStyle(LargeButton())
+                    .padding(.horizontal, 30)
+                
+                Spacer()
+            }.padding(20)
+                .blur(radius: showSendView || showUpgradeView ? 20 : 0)
+                .allowsHitTesting(!showSendView && !showUpgradeView)
+//                .onAppear {
+//                    drawViewModel.saveGrid()
+//                }
+                .onChange(of: scenePhase) { newPhase in
+                    if newPhase == .background {
+                        drawViewModel.saveGrid()
                     }
                 }
-                .padding(10)
-                .background(Color(uiColor: .label).cornerRadius(15))
-                .padding(.horizontal, 30)
-                
-                    Spacer()
-            }.padding(20)
-            
-            .blur(radius: showSendView || showUpgradeView ? 20 : 0)
-//            .simultaneousGesture(TapGesture().onEnded {
-//                if !showSendView && !showUpgradeView { return }
-//                withAnimation {
-//                    showSendView = false
-//                    showUpgradeView = false
-//                }
-//            })
-            .allowsHitTesting(!showSendView && !showUpgradeView)
-            .onAppear {
-                drawViewModel.saveGrid()
-            }
-            .onChange(of: scenePhase) { newPhase in
-                if newPhase == .inactive || newPhase == .background {
-                    drawViewModel.saveGrid()
-                }
-            }
-            
             SlideOverView(isOpened: $showSendView) {
                 SendArtView(grids: drawViewModel.grids, isOpened: $showSendView)
             }
@@ -107,3 +101,13 @@ struct DrawView_Previews: PreviewProvider {
             .previewDevice("iPhone 13 mini")
     }
 }
+
+
+//struct AnimatedGridView: View {
+//    var grid: Grid
+//    var body: some View {
+//        GridView(grid: <#T##Grid#>) {
+//            Color, Double, Double, Int, Int
+//        }
+//    }
+//}

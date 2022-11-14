@@ -16,11 +16,17 @@ struct LargeButton: ButtonStyle {
             Spacer()
             if isLoading {
                 Spinner()
-                    .font(.system(size: 22, weight: .semibold, design: .rounded))
+                    .font(
+                        .system(.title3, design: .rounded)
+                        .weight(.semibold)
+                    )
                     .foregroundColor(Color(uiColor: .systemBackground))
             } else {
                 configuration.label
-                    .font(.system(size: 22, weight: .semibold, design: .rounded))
+                    .font(
+                        .system(.title3, design: .rounded)
+                        .weight(.semibold)
+                    )
                     .foregroundColor(Color(uiColor: .systemBackground))
             }
             Spacer()

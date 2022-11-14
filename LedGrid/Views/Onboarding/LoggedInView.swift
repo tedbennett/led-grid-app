@@ -13,6 +13,7 @@ struct LoggedInView: View {
     @ObservedObject var navigationManager = NavigationManager.shared
     @Environment(\.scenePhase) var scenePhase
     @Binding var loggedIn: Bool
+    @State private var showUpdateView = false
     
     @StateObject var userViewModel = UserViewModel()
     
@@ -54,6 +55,14 @@ struct LoggedInView: View {
                 Task {
                     await PixeeProvider.removeAllArtAndUsers()
                 }
+            }
+            .sheet(isPresented: $showUpdateView) {
+                UpdateView {
+                    showUpdateView = false
+                }
+            }
+            .onAppear {
+                showUpdateView = VersionManager.checkVersionNumber()
             }
         }
     }

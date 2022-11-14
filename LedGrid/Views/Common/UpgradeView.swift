@@ -64,7 +64,9 @@ struct UpgradeView: View {
         VStack(spacing: 15) {
             IconListItemView(image: "square.grid.3x3.fill", title: "Multiple Sizes", subtitle: "Create more detailed art with 12x12 and 16x16 grids")
             IconListItemView(image: "square.stack.3d.up.fill", title: "Frames", subtitle: "Send movies of multiple grids, just like a gif")
-//            IconListItemView(image: "square.fill.on.square.fill", title: "More Widgets", subtitle: "Personalise your home screen with any art you'd like")
+            IconListItemView(image: "plus.circle", title: "And More...", subtitle: "Improved widgets and better sharing are on the way")
+            // TODO: 1.2
+//            IconListItemView(image: "plus.square.dashed", title: "Custom Widgets", subtitle: "Personalise your home screen with any art you'd like")
         }
     }
     
@@ -91,9 +93,8 @@ struct UpgradeView: View {
                     }
                 }
             }
-            Title("Pixee Plus", size: 40).frame(width: 100, height: 40)
-                .padding(.top, 20)
-                .padding(.bottom, 10)
+            Text("Pixee Plus")
+                .font(.system(size: 40, design: .rounded).weight(.bold))
             Spacer()
             Text("Features include:")
                 .fontWeight(.medium)

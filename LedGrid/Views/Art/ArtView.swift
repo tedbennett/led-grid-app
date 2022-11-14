@@ -30,7 +30,7 @@ struct ArtView: View {
             }
             .toolbar {
                 Button {
-                    Helpers.presentShareSheet()
+                    Helpers.presentAddFriendShareSheet()
                 } label: {
                     Image(systemName: "person.badge.plus")
                 }
