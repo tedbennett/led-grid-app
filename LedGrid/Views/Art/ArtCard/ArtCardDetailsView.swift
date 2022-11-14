@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ArtCardDetailsView: View {
     var art: PixelArt
-    
+//    var snapshot: () -> UIImage
     
     var body: some View {
         HStack {
@@ -21,6 +21,13 @@ struct ArtCardDetailsView: View {
             Image(
                 systemName: art.sender == Utility.user?.id ?  "arrow.up.right.square" : "arrow.down.left.square"
             ).font(.title2)
+            // TODO: 1.2
+//            Button {
+//                let image = snapshot()
+//                Helpers.presentArtShareSheet(image: image)
+//            } label: {
+//                Image(systemName: "square.and.arrow.up")
+//            }
         }.foregroundColor(.gray)
     }
 }

@@ -73,13 +73,14 @@ struct ArtListView: View {
                 .environmentObject(viewModel)
                 .environmentObject(reactionsViewModel)
                 .navigationTitle(user.fullName ?? "Unknown")
-                .blur(radius: (viewModel.showUpgradeView || viewModel.widgetArtId != nil) ? 20 : 0)
+                .blur(radius: (viewModel.showUpgradeView || viewModel.widgetArt != nil) ? 20 : 0)
+                .allowsHitTesting(!viewModel.showUpgradeView && viewModel.widgetArt == nil)
             }
             SlideOverView(isOpened: $viewModel.showUpgradeView) {
                 UpgradeView(isOpened: $viewModel.showUpgradeView)
             }
-            SlideOverView(isOpened: $viewModel.widgetArtId.mappedToBool()) {
-                WidgetNameView(artId: viewModel.widgetArtId, isOpened: $viewModel.widgetArtId.mappedToBool())
+            SlideOverView(isOpened: $viewModel.widgetArt.mappedToBool()) {
+                WidgetNameView(art: viewModel.widgetArt!, isOpened: $viewModel.widgetArt.mappedToBool())
             }
         }.simultaneousGesture(TapGesture()
             .onEnded { _ in

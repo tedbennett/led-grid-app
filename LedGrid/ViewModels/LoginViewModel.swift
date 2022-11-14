@@ -36,18 +36,19 @@ class LoginViewModel: ObservableObject {
             await MainActor.run {
                 isSigningIn = true
             }
-                do {
-                    let user = try await NetworkManager.shared.handleSignInWithApple(authorization: authResults)
-                    Utility.user = user
-                    try await PixeeProvider.fetchAllData()
-                    requestNotificationPermissions()
-                    await MainActor.run {
-                        isSigningIn = false
-                    }
-                    return true
-                } catch {
-                    print("Sign in failed: \(error.localizedDescription)")
+            do {
+                let user = try await NetworkManager.shared.handleSignInWithApple(authorization: authResults)
+                Utility.user = user
+                try await PixeeProvider.fetchAllData()
+                requestNotificationPermissions()
+                await MainActor.run {
+                    isSigningIn = false
                 }
+                return true
+            } catch {
+                print("Sign in failed: \(error.localizedDescription)")
+                Utility.user = nil
+            }
         case .failure(let error):
             print("Authorisation failed: \(error.localizedDescription)")
         }

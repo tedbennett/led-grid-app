@@ -14,6 +14,16 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     
     private override init() { super.init() }
     
+    func requestPermission() async {
+        do {
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            _ = try await UNUserNotificationCenter.current().requestAuthorization(options: authOptions)
+             
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,

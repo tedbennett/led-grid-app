@@ -100,26 +100,34 @@ struct DrawGridView: View {
     
     @State private var dragState: DragType = .none
     
+    var onTap: (() -> Void)? = nil
+    var onDrag: (() -> Void)? = nil
+    var onLongPress: (() -> Void)? = nil
     
-    func onDragStart(at location: (Int, Int), start: (Int, Int)) {
+    
+    func handleDragStart(at location: (Int, Int), start: (Int, Int)) {
         let color = colorViewModel.currentColor
         drawViewModel.trySetGridSquare(row: start.0, col: start.1, color: color)
         drawViewModel.trySetGridSquare(row: location.0, col: location.1, color: color)
         dragState = .drag(start: start)
     }
     
-    func onLongPress(at location: (Int, Int)) {
+    func handleLongPress(at location: (Int, Int)) {
         colorViewModel.setColor(drawViewModel.currentGrid[location.1][location.0])
         drawViewModel.showColorChangeToast = true
         dragState = .longPress(location: location)
-        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+        if let onLongPress = onLongPress {
+            onLongPress()
+        } else {
+            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+        }
     }
     
-    
     var body: some View {
+        let guides = Utility.showGuides
         GeometryReader { geometry in
             PixelArtGrid(gridSize: drawViewModel.gridSize) { col, row in
-                SquareView(color: drawViewModel.currentGrid[col][row], strokeWidth: Utility.showGuides ? 1.0 : 0.0)
+                SquareView(color: drawViewModel.currentGrid[col][row], strokeWidth: guides ? 1.0 : 0.0)
             }.gesture(
                 DragGesture(minimumDistance: 0, coordinateSpace: .local)
                     .onChanged { value in
@@ -131,7 +139,7 @@ struct DrawGridView: View {
                                 switch dragState {
                                 case .tap(let start, _):
                                     if start == location {
-                                        onLongPress(at: location)
+                                        handleLongPress(at: location)
                                     }
                                 default: break
                                 }
@@ -139,10 +147,10 @@ struct DrawGridView: View {
                         case .tap(let start, let time):
                             if start == location && time.distance(to: value.time) > 0.5 {
                                 // Long press
-                                onLongPress(at: location)
+                                handleLongPress(at: location)
                             } else if start != location {
                                 // Drag
-                                onDragStart(at: location, start: start)
+                                handleDragStart(at: location, start: start)
                             }
                         case .longPress(_):
                             // Do nothing
@@ -160,10 +168,12 @@ struct DrawGridView: View {
                             DispatchQueue.main.async {
                                 drawViewModel.pushUndoState()
                             }
+                            onTap?()
                         case .drag(_):
                             DispatchQueue.main.async {
                                 drawViewModel.pushUndoState()
                             }
+                            onDrag?()
                         default: break
                         }
                         dragState = .none

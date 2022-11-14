@@ -55,10 +55,15 @@ struct ArtCardActionsView: View {
                         Image(systemName: viewModel.animatingId == art.id ? "pause" :  "play").font(.title2).frame(width: 25, height: 25)
                     }.buttonStyle(StandardButton())
                 }
-                // TODO: Add Widget Name view back
+                
+                // TODO: 1.2
 //                Button {
-//                    withAnimation {
-//                        viewModel.widgetArtId = art.id
+//                    if !Utility.isPlus {
+//                        showUpgradeWarning = true
+//                    } else {
+//                        withAnimation {
+//                            viewModel.widgetArt = art
+//                        }
 //                    }
 //                } label: {
 //                    Image(systemName: "plus.square").font(.title2).frame(width: 25, height: 25)

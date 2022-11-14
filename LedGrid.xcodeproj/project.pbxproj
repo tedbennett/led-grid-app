@@ -11,8 +11,6 @@
 		1F1A16DE290C8CB700033745 /* RotatingLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DD290C8CB700033745 /* RotatingLogoView.swift */; };
 		1F1A16E0290D4F3800033745 /* WidgetNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DF290D4F3800033745 /* WidgetNameView.swift */; };
 		1F1A16E1290D679900033745 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9F27F1D390008C52BB /* Utility.swift */; };
-		1F1A16E2290D67BC00033745 /* WidgetNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DF290D4F3800033745 /* WidgetNameView.swift */; };
-		1F1A16E3290D67BD00033745 /* WidgetNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DF290D4F3800033745 /* WidgetNameView.swift */; };
 		1F1A16E4290D67CB00033745 /* MUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8A28B2A00800403F4D /* MUser.swift */; };
 		1F44FEFB29046A40000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
 		1F44FEFC29046A41000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
@@ -20,6 +18,40 @@
 		1F502C322917B27700328353 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F502C312917B27700328353 /* ColorPickerView.swift */; };
 		1F502C342917B6DB00328353 /* ColorPickerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F502C332917B6DB00328353 /* ColorPickerSettingsView.swift */; };
 		1F5BA8C92917C730005BA5CE /* FriendsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8C82917C730005BA5CE /* FriendsSettingsView.swift */; };
+		1F5BA8CB2917D61F005BA5CE /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8CA2917D61F005BA5CE /* VersionManager.swift */; };
+		1F5BA8CD2917E72A005BA5CE /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8CC2917E72A005BA5CE /* UpdateView.swift */; };
+		1F5BA8D12917FD11005BA5CE /* PixeeLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8D02917FD11005BA5CE /* PixeeLogoView.swift */; };
+		1F5BA8D729183459005BA5CE /* Accordion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8D629183459005BA5CE /* Accordion.swift */; };
+		1F5BA8E029183DEE005BA5CE /* ArtAssociatedNamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8DF29183DEE005BA5CE /* ArtAssociatedNamesView.swift */; };
+		1F5BA8E229183E78005BA5CE /* ArtAssociatedNameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8E129183E78005BA5CE /* ArtAssociatedNameCard.swift */; };
+		1F5BA8E629187741005BA5CE /* ColorPickerVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8E529187741005BA5CE /* ColorPickerVariant.swift */; };
+		1F5BA8E729187781005BA5CE /* ColorPickerVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8E529187741005BA5CE /* ColorPickerVariant.swift */; };
+		1F5BA8E829187781005BA5CE /* ColorPickerVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8E529187741005BA5CE /* ColorPickerVariant.swift */; };
+		1F5BA8EB29187B10005BA5CE /* ArtAssociatedName+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8E929187B10005BA5CE /* ArtAssociatedName+CoreDataClass.swift */; };
+		1F5BA8EC29187B10005BA5CE /* ArtAssociatedName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8EA29187B10005BA5CE /* ArtAssociatedName+CoreDataProperties.swift */; };
+		1F5BA8ED29187B47005BA5CE /* ArtAssociatedName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8EA29187B10005BA5CE /* ArtAssociatedName+CoreDataProperties.swift */; };
+		1F5BA8EE29187B47005BA5CE /* ArtAssociatedName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8EA29187B10005BA5CE /* ArtAssociatedName+CoreDataProperties.swift */; };
+		1F5BA8EF29187B4A005BA5CE /* ArtAssociatedName+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8E929187B10005BA5CE /* ArtAssociatedName+CoreDataClass.swift */; };
+		1F5BA8F029187B4B005BA5CE /* ArtAssociatedName+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8E929187B10005BA5CE /* ArtAssociatedName+CoreDataClass.swift */; };
+		1F5BA8F2291889AC005BA5CE /* FriendWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8F1291889AC005BA5CE /* FriendWidget.swift */; };
+		1F5BA8F4291889E5005BA5CE /* PixeeWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8F3291889E5005BA5CE /* PixeeWidgets.swift */; };
+		1F5BA8F629188A0C005BA5CE /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8F529188A0C005BA5CE /* Common.swift */; };
+		1F5BA8F829188A34005BA5CE /* NamedArtWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8F729188A34005BA5CE /* NamedArtWidget.swift */; };
+		1F5BA8FA291900A2005BA5CE /* FriendWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8F9291900A2005BA5CE /* FriendWidgetProvider.swift */; };
+		1F5BA8FC291900AA005BA5CE /* NamedArtWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8FB291900AA005BA5CE /* NamedArtWidgetProvider.swift */; };
+		1F808DEC291B1D11005FE060 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAD27F3A702008C52BB /* GridView.swift */; };
+		1F808DED291B1D18005FE060 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAD27F3A702008C52BB /* GridView.swift */; };
+		1F808DEE291B1D21005FE060 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B43527F0D8AA0039F621 /* SquareView.swift */; };
+		1F808DEF291B1DCC005FE060 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DB290C13D600033745 /* View.swift */; };
+		1F808DF0291B1DCD005FE060 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DB290C13D600033745 /* View.swift */; };
+		1F808DF2291B1DF7005FE060 /* EditableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DF1291B1DF7005FE060 /* EditableText.swift */; };
+		1F808DF3291B26C9005FE060 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD8AE3728A9B3ED0005A4CF /* IntentsUI.framework */; };
+		1F808DF5291EDA33005FE060 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DF4291EDA33005FE060 /* OnboardingView.swift */; };
+		1F808DF729201A22005FE060 /* DrawTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DF629201A22005FE060 /* DrawTutorialView.swift */; };
+		1F808DF92922CE44005FE060 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DF82922CE44005FE060 /* SignInView.swift */; };
+		1F808DFB2922CEC4005FE060 /* RequestNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DFA2922CEC4005FE060 /* RequestNotificationsView.swift */; };
+		1F808DFD2922CF08005FE060 /* OnboardingPlusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DFC2922CF08005FE060 /* OnboardingPlusView.swift */; };
+		1F808DFF2922F0AD005FE060 /* SettingsTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DFE2922F0AD005FE060 /* SettingsTutorialView.swift */; };
 		1F9D489828E68F93004098B5 /* ArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489728E68F93004098B5 /* ArtView.swift */; };
 		1F9D489A28E68FD9004098B5 /* FriendCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489928E68FD9004098B5 /* FriendCardView.swift */; };
 		1F9D489C28E69068004098B5 /* InitialsOrbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9D489B28E69068004098B5 /* InitialsOrbView.swift */; };
@@ -149,7 +181,6 @@
 		9FC6245E28BAAEF300723C97 /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245D28BAAEF300723C97 /* LargeButton.swift */; };
 		9FC6246028BAAFB600723C97 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245F28BAAFB600723C97 /* CloseButton.swift */; };
 		9FC6246228BAC79700723C97 /* IconListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6246128BAC79700723C97 /* IconListItemView.swift */; };
-		9FD8AE2328A967A20005A4CF /* Pixee_Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F317B7A28A9414C00105E8C /* Pixee_Widget.swift */; };
 		9FD8AE4F28AADB7B0005A4CF /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
 		9FD8AE7728AADD190005A4CF /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
 /* End PBXBuildFile section */
@@ -193,6 +224,28 @@
 		1F502C312917B27700328353 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		1F502C332917B6DB00328353 /* ColorPickerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerSettingsView.swift; sourceTree = "<group>"; };
 		1F5BA8C82917C730005BA5CE /* FriendsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsSettingsView.swift; sourceTree = "<group>"; };
+		1F5BA8CA2917D61F005BA5CE /* VersionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
+		1F5BA8CC2917E72A005BA5CE /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
+		1F5BA8D02917FD11005BA5CE /* PixeeLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeLogoView.swift; sourceTree = "<group>"; };
+		1F5BA8D629183459005BA5CE /* Accordion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accordion.swift; sourceTree = "<group>"; };
+		1F5BA8DF29183DEE005BA5CE /* ArtAssociatedNamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtAssociatedNamesView.swift; sourceTree = "<group>"; };
+		1F5BA8E129183E78005BA5CE /* ArtAssociatedNameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtAssociatedNameCard.swift; sourceTree = "<group>"; };
+		1F5BA8E529187741005BA5CE /* ColorPickerVariant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVariant.swift; sourceTree = "<group>"; };
+		1F5BA8E929187B10005BA5CE /* ArtAssociatedName+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtAssociatedName+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F5BA8EA29187B10005BA5CE /* ArtAssociatedName+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtAssociatedName+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1F5BA8F1291889AC005BA5CE /* FriendWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendWidget.swift; sourceTree = "<group>"; };
+		1F5BA8F3291889E5005BA5CE /* PixeeWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeWidgets.swift; sourceTree = "<group>"; };
+		1F5BA8F529188A0C005BA5CE /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		1F5BA8F729188A34005BA5CE /* NamedArtWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedArtWidget.swift; sourceTree = "<group>"; };
+		1F5BA8F9291900A2005BA5CE /* FriendWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendWidgetProvider.swift; sourceTree = "<group>"; };
+		1F5BA8FB291900AA005BA5CE /* NamedArtWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedArtWidgetProvider.swift; sourceTree = "<group>"; };
+		1F808DF1291B1DF7005FE060 /* EditableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableText.swift; sourceTree = "<group>"; };
+		1F808DF4291EDA33005FE060 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		1F808DF629201A22005FE060 /* DrawTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawTutorialView.swift; sourceTree = "<group>"; };
+		1F808DF82922CE44005FE060 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		1F808DFA2922CEC4005FE060 /* RequestNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestNotificationsView.swift; sourceTree = "<group>"; };
+		1F808DFC2922CF08005FE060 /* OnboardingPlusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPlusView.swift; sourceTree = "<group>"; };
+		1F808DFE2922F0AD005FE060 /* SettingsTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTutorialView.swift; sourceTree = "<group>"; };
 		1F9D489728E68F93004098B5 /* ArtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtView.swift; sourceTree = "<group>"; };
 		1F9D489928E68FD9004098B5 /* FriendCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCardView.swift; sourceTree = "<group>"; };
 		1F9D489B28E69068004098B5 /* InitialsOrbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialsOrbView.swift; sourceTree = "<group>"; };
@@ -272,7 +325,6 @@
 		9F317B7428A9414C00105E8C /* Pixee-WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pixee-WidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F317B7528A9414C00105E8C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		9F317B7728A9414C00105E8C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		9F317B7A28A9414C00105E8C /* Pixee_Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixee_Widget.swift; sourceTree = "<group>"; };
 		9F317B7D28A9414E00105E8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F317B7F28A9414E00105E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F317B8928A95A7600105E8C /* Pixee-WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pixee-WidgetExtension.entitlements"; sourceTree = "<group>"; };
@@ -326,6 +378,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F808DF3291B26C9005FE060 /* IntentsUI.framework in Frameworks */,
 				9F626C0028AAE2A500587B57 /* Intents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,6 +421,7 @@
 				9F28FB8A28B2A00800403F4D /* MUser.swift */,
 				9FC6245628BA535400723C97 /* MPixelArt.swift */,
 				9F28FB8828B29FF000403F4D /* NetworkTypes.swift */,
+				1F5BA8E529187741005BA5CE /* ColorPickerVariant.swift */,
 				1FB1798729031B600066AE71 /* MReaction.swift */,
 			);
 			path = Types;
@@ -450,9 +504,12 @@
 				1F1A16DF290D4F3800033745 /* WidgetNameView.swift */,
 				9F3A842D289F080A0053F3DD /* Sliders.swift */,
 				9F317B6328A3159500105E8C /* MailView.swift */,
+				1F5BA8D02917FD11005BA5CE /* PixeeLogoView.swift */,
 				9F28FB9B28B2A20500403F4D /* FriendsListView.swift */,
 				9FC6245F28BAAFB600723C97 /* CloseButton.swift */,
 				1F502C312917B27700328353 /* ColorPickerView.swift */,
+				1F5BA8D629183459005BA5CE /* Accordion.swift */,
+				1F5BA8CC2917E72A005BA5CE /* UpdateView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -475,7 +532,10 @@
 				57C96DB427F45C01008C52BB /* SettingsView.swift */,
 				1F502C332917B6DB00328353 /* ColorPickerSettingsView.swift */,
 				1F5BA8C82917C730005BA5CE /* FriendsSettingsView.swift */,
+				1F808DFE2922F0AD005FE060 /* SettingsTutorialView.swift */,
 				9F626C1128AC1B3700587B57 /* WidgetTutorialView.swift */,
+				1F5BA8DF29183DEE005BA5CE /* ArtAssociatedNamesView.swift */,
+				1F5BA8E129183E78005BA5CE /* ArtAssociatedNameCard.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -495,6 +555,8 @@
 		9F28FB7A28B29E6A00403F4D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				1F5BA8E929187B10005BA5CE /* ArtAssociatedName+CoreDataClass.swift */,
+				1F5BA8EA29187B10005BA5CE /* ArtAssociatedName+CoreDataProperties.swift */,
 				1FB1794E28FC27EF0066AE71 /* User+CoreDataClass.swift */,
 				1FB1794F28FC27EF0066AE71 /* User+CoreDataProperties.swift */,
 				1FB1797228FE18C80066AE71 /* User+CoreDataExtensions.swift */,
@@ -549,6 +611,7 @@
 				1FB1795628FC351A0066AE71 /* CoreDataService.swift */,
 				1FB1795828FC8D6C0066AE71 /* PixeeProvider.swift */,
 				1FFB1A5228F1DCDC00B126AE /* NavigationManager.swift */,
+				1F5BA8CA2917D61F005BA5CE /* VersionManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -559,6 +622,11 @@
 				1F9D48A028E69BB6004098B5 /* LoggedInView.swift */,
 				9FAB5EA52891D03B00A620BB /* LoginView.swift */,
 				9F28FB9328B2A0C200403F4D /* LargeSpinner.swift */,
+				1F808DF4291EDA33005FE060 /* OnboardingView.swift */,
+				1F808DF82922CE44005FE060 /* SignInView.swift */,
+				1F808DFA2922CEC4005FE060 /* RequestNotificationsView.swift */,
+				1F808DF629201A22005FE060 /* DrawTutorialView.swift */,
+				1F808DFC2922CF08005FE060 /* OnboardingPlusView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -568,6 +636,7 @@
 			children = (
 				9F28FBA028B2A26000403F4D /* StandardButton.swift */,
 				9FC6245D28BAAEF300723C97 /* LargeButton.swift */,
+				1F808DF1291B1DF7005FE060 /* EditableText.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -575,7 +644,12 @@
 		9F317B7928A9414C00105E8C /* Pixee-Widget */ = {
 			isa = PBXGroup;
 			children = (
-				9F317B7A28A9414C00105E8C /* Pixee_Widget.swift */,
+				1F5BA8F3291889E5005BA5CE /* PixeeWidgets.swift */,
+				1F5BA8F1291889AC005BA5CE /* FriendWidget.swift */,
+				1F5BA8F9291900A2005BA5CE /* FriendWidgetProvider.swift */,
+				1F5BA8F729188A34005BA5CE /* NamedArtWidget.swift */,
+				1F5BA8FB291900AA005BA5CE /* NamedArtWidgetProvider.swift */,
+				1F5BA8F529188A0C005BA5CE /* Common.swift */,
 				9F317B7D28A9414E00105E8C /* Assets.xcassets */,
 				9F317B7F28A9414E00105E8C /* Info.plist */,
 			);
@@ -767,6 +841,8 @@
 				1F9D489C28E69068004098B5 /* InitialsOrbView.swift in Sources */,
 				9F317B6D28A59ED700105E8C /* PixelArt+CoreDataProperties.swift in Sources */,
 				57C96D9E27F1D295008C52BB /* DrawViewModel.swift in Sources */,
+				1F808DF5291EDA33005FE060 /* OnboardingView.swift in Sources */,
+				1F5BA8E229183E78005BA5CE /* ArtAssociatedNameCard.swift in Sources */,
 				57C96DA727F3A266008C52BB /* DrawView.swift in Sources */,
 				1FB1794D28FB623C0066AE71 /* SerializableArt.swift in Sources */,
 				1F9D48A128E69BB6004098B5 /* LoggedInView.swift in Sources */,
@@ -778,19 +854,25 @@
 				1F9D48A328E69C37004098B5 /* AddFriendHandler.swift in Sources */,
 				1FB1795528FC27EF0066AE71 /* Reaction+CoreDataProperties.swift in Sources */,
 				1FFB1A5328F1DCDC00B126AE /* NavigationManager.swift in Sources */,
+				1F808DF92922CE44005FE060 /* SignInView.swift in Sources */,
+				1F5BA8E629187741005BA5CE /* ColorPickerVariant.swift in Sources */,
 				9FC6245E28BAAEF300723C97 /* LargeButton.swift in Sources */,
 				1F5BA8C92917C730005BA5CE /* FriendsSettingsView.swift in Sources */,
 				1FB1798829031B600066AE71 /* MReaction.swift in Sources */,
+				1F808DF729201A22005FE060 /* DrawTutorialView.swift in Sources */,
 				1FB1795728FC351A0066AE71 /* CoreDataService.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
 				1FFB1A4E28F1A1AE00B126AE /* FriendsModel.swift in Sources */,
+				1F5BA8EC29187B10005BA5CE /* ArtAssociatedName+CoreDataProperties.swift in Sources */,
 				1FFB1A4228EDC60400B126AE /* ArtReactionsView.swift in Sources */,
 				1F9D48AD28ED25A8004098B5 /* ArtListView.swift in Sources */,
+				1F5BA8EB29187B10005BA5CE /* ArtAssociatedName+CoreDataClass.swift in Sources */,
 				9F28FB7828B29DFB00403F4D /* Network.swift in Sources */,
 				1F1A16DC290C13D600033745 /* View.swift in Sources */,
 				9F28FB6F28B108B400403F4D /* StoreManager.swift in Sources */,
 				9FC6245A28BA8A7000723C97 /* UpgradeView.swift in Sources */,
 				1FB1795B28FDEC390066AE71 /* Notifications.swift in Sources */,
+				1F5BA8D12917FD11005BA5CE /* PixeeLogoView.swift in Sources */,
 				1F9D48A928EC729C004098B5 /* SendArtViewModel.swift in Sources */,
 				9F28FB8F28B2A06C00403F4D /* AppDelegate.swift in Sources */,
 				1FFB1A4A28EFD00E00B126AE /* FriendsViewModel.swift in Sources */,
@@ -802,12 +884,15 @@
 				9FC6246228BAC79700723C97 /* IconListItemView.swift in Sources */,
 				1FFB1A3D28ED2F2900B126AE /* ArtListViewModel.swift in Sources */,
 				57C96DA027F1D390008C52BB /* Utility.swift in Sources */,
+				1F5BA8CD2917E72A005BA5CE /* UpdateView.swift in Sources */,
 				5799B42627F0D7E60039F621 /* LedGridApp.swift in Sources */,
 				1F1A16E0290D4F3800033745 /* WidgetNameView.swift in Sources */,
+				1F808DFF2922F0AD005FE060 /* SettingsTutorialView.swift in Sources */,
 				9F317B6228A3052400105E8C /* SendArtView.swift in Sources */,
 				9F28FB9428B2A0C200403F4D /* LargeSpinner.swift in Sources */,
 				9F28FB9628B2A11F00403F4D /* Date.swift in Sources */,
 				1FFB1A5128F1D94000B126AE /* PreviewModel.swift in Sources */,
+				1F5BA8CB2917D61F005BA5CE /* VersionManager.swift in Sources */,
 				9FC6245C28BA8F8D00723C97 /* SlideOverView.swift in Sources */,
 				9FD8AE4F28AADB7B0005A4CF /* pixee-intents.intentdefinition in Sources */,
 				9F317B6728A596F000105E8C /* Pixee.xcdatamodeld in Sources */,
@@ -815,12 +900,14 @@
 				9F28FB7428B29D3300403F4D /* AuthService.swift in Sources */,
 				9F28FB9828B2A1A700403F4D /* ArtActionsView.swift in Sources */,
 				5799B43627F0D8AA0039F621 /* SquareView.swift in Sources */,
+				1F808DF2291B1DF7005FE060 /* EditableText.swift in Sources */,
 				9FC6246028BAAFB600723C97 /* CloseButton.swift in Sources */,
 				9F28FB9C28B2A20500403F4D /* FriendsListView.swift in Sources */,
 				1FFB1A4828EFA5B600B126AE /* ArtCardDetailsView.swift in Sources */,
 				9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */,
 				1FFB1A5828FAD91D00B126AE /* FrameButtonView.swift in Sources */,
 				9F3A842E289F080A0053F3DD /* Sliders.swift in Sources */,
+				1F808DFB2922CEC4005FE060 /* RequestNotificationsView.swift in Sources */,
 				9F28FB7D28B29E9500403F4D /* Color.swift in Sources */,
 				1F9D489A28E68FD9004098B5 /* FriendCardView.swift in Sources */,
 				9F28FB8328B29EE700403F4D /* Grid.swift in Sources */,
@@ -830,15 +917,18 @@
 				1FB1797328FE18C80066AE71 /* User+CoreDataExtensions.swift in Sources */,
 				1FFB1A5628F332CD00B126AE /* DrawColourViewModel.swift in Sources */,
 				9FC6245728BA535400723C97 /* MPixelArt.swift in Sources */,
+				1F5BA8E029183DEE005BA5CE /* ArtAssociatedNamesView.swift in Sources */,
 				9F317B6428A3159500105E8C /* MailView.swift in Sources */,
 				9F39683328BC944700AA8315 /* Helpers.swift in Sources */,
 				1F1A16DE290C8CB700033745 /* RotatingLogoView.swift in Sources */,
 				9F3A842A28980EE30053F3DD /* UserOrb.swift in Sources */,
 				9F317B6928A59DBE00105E8C /* CoreDataStack.swift in Sources */,
 				1F9D48A728EB9003004098B5 /* LoginViewModel.swift in Sources */,
+				1F5BA8D729183459005BA5CE /* Accordion.swift in Sources */,
 				1FB1795328FC27EF0066AE71 /* User+CoreDataProperties.swift in Sources */,
 				9F626C1228AC1B3700587B57 /* WidgetTutorialView.swift in Sources */,
 				1FB1795928FC8D6C0066AE71 /* PixeeProvider.swift in Sources */,
+				1F808DFD2922CF08005FE060 /* OnboardingPlusView.swift in Sources */,
 				1FFB1A4628EF9F8A00B126AE /* ArtCardActionsView.swift in Sources */,
 				9F28FB9F28B2A23600403F4D /* NotificationsManager.swift in Sources */,
 				1F9D489828E68F93004098B5 /* ArtView.swift in Sources */,
@@ -860,28 +950,37 @@
 			files = (
 				1FB1797B28FE23A00066AE71 /* SerializableArt.swift in Sources */,
 				1FB1798328FE28B80066AE71 /* PixelArt+CoreDataExtensions.swift in Sources */,
+				1F5BA8ED29187B47005BA5CE /* ArtAssociatedName+CoreDataProperties.swift in Sources */,
 				1FB1795C28FE172E0066AE71 /* CoreDataStack.swift in Sources */,
+				1F808DF0291B1DCD005FE060 /* View.swift in Sources */,
 				9F28FB9028B2A08C00403F4D /* NetworkTypes.swift in Sources */,
+				1F5BA8FC291900AA005BA5CE /* NamedArtWidgetProvider.swift in Sources */,
 				1F44FEFB29046A40000BAFAB /* Reaction+CoreDataProperties.swift in Sources */,
+				1F5BA8E729187781005BA5CE /* ColorPickerVariant.swift in Sources */,
 				9F28FBAA28B2AADE00403F4D /* String.swift in Sources */,
+				1F5BA8EF29187B4A005BA5CE /* ArtAssociatedName+CoreDataClass.swift in Sources */,
 				9F28FBA728B2AA6200403F4D /* SquareView.swift in Sources */,
 				1FB1797728FE1F380066AE71 /* PixelArt+CoreDataClass.swift in Sources */,
-				1F1A16E3290D67BD00033745 /* WidgetNameView.swift in Sources */,
 				9F28FB8628B29F3F00403F4D /* Utility.swift in Sources */,
 				1FB1797828FE1F3A0066AE71 /* PixelArt+CoreDataProperties.swift in Sources */,
 				9F28FB7528B29D3300403F4D /* AuthService.swift in Sources */,
+				1F5BA8F4291889E5005BA5CE /* PixeeWidgets.swift in Sources */,
 				9F28FBA228B2A4BC00403F4D /* Endpoints.swift in Sources */,
 				1FB1797C28FE23BB0066AE71 /* User+CoreDataProperties.swift in Sources */,
 				9F28FBA928B2AAC900403F4D /* Color.swift in Sources */,
+				1F5BA8F2291889AC005BA5CE /* FriendWidget.swift in Sources */,
 				1FB1797528FE19350066AE71 /* Grid.swift in Sources */,
 				9F28FBA528B2A8D900403F4D /* JSONDecoder.swift in Sources */,
 				1FB1797D28FE23BE0066AE71 /* User+CoreDataClass.swift in Sources */,
 				9FD8AE7728AADD190005A4CF /* pixee-intents.intentdefinition in Sources */,
 				9F28FB7928B29DFB00403F4D /* Network.swift in Sources */,
-				9FD8AE2328A967A20005A4CF /* Pixee_Widget.swift in Sources */,
+				1F808DED291B1D18005FE060 /* GridView.swift in Sources */,
 				1FB1797428FE192D0066AE71 /* MPixelArt.swift in Sources */,
+				1F5BA8F829188A34005BA5CE /* NamedArtWidget.swift in Sources */,
 				1FB1798428FE28BF0066AE71 /* Reaction+CoreDataClass.swift in Sources */,
+				1F5BA8FA291900A2005BA5CE /* FriendWidgetProvider.swift in Sources */,
 				9F28FBA828B2AAC200403F4D /* MUser.swift in Sources */,
+				1F5BA8F629188A0C005BA5CE /* Common.swift in Sources */,
 				1FB1797E28FE24600066AE71 /* Pixee.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -890,20 +989,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F808DEC291B1D11005FE060 /* GridView.swift in Sources */,
 				1F1A16E1290D679900033745 /* Utility.swift in Sources */,
 				1F44FEFD29046A44000BAFAB /* Reaction+CoreDataClass.swift in Sources */,
 				1F1A16E4290D67CB00033745 /* MUser.swift in Sources */,
 				1FB1796528FE17B00066AE71 /* CoreDataStack.swift in Sources */,
+				1F808DEF291B1DCC005FE060 /* View.swift in Sources */,
 				9F626C0F28AAE2C100587B57 /* pixee-intents.intentdefinition in Sources */,
 				1FB1798528FE8D780066AE71 /* PixelArt+CoreDataClass.swift in Sources */,
 				9F626C0E28AAE2B200587B57 /* IntentHandler.swift in Sources */,
 				1F44FEFC29046A41000BAFAB /* Reaction+CoreDataProperties.swift in Sources */,
+				1F5BA8F029187B4B005BA5CE /* ArtAssociatedName+CoreDataClass.swift in Sources */,
+				1F5BA8E829187781005BA5CE /* ColorPickerVariant.swift in Sources */,
+				1F808DEE291B1D21005FE060 /* SquareView.swift in Sources */,
 				1FB1798128FE25990066AE71 /* Grid.swift in Sources */,
-				1F1A16E2290D67BC00033745 /* WidgetNameView.swift in Sources */,
 				1FB1796028FE17770066AE71 /* User+CoreDataClass.swift in Sources */,
 				1FB1795D28FE17730066AE71 /* User+CoreDataProperties.swift in Sources */,
 				1FB1798628FE8D7B0066AE71 /* PixelArt+CoreDataProperties.swift in Sources */,
 				1FB1798028FE25920066AE71 /* SerializableArt.swift in Sources */,
+				1F5BA8EE29187B47005BA5CE /* ArtAssociatedName+CoreDataProperties.swift in Sources */,
 				1FB1797628FE1EF50066AE71 /* Pixee.xcdatamodeld in Sources */,
 				1FB1798228FE25A90066AE71 /* Color.swift in Sources */,
 			);

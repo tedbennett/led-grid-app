@@ -11,12 +11,13 @@ struct EditingToolbarView: View {
     @ObservedObject var viewModel: DrawColourViewModel
     @EnvironmentObject var drawViewModel: DrawViewModel
     @State var translation = CGSize.zero
-    @State private var showSliders = false
     @State private var colour = Color.red
     var simpleDrag: some Gesture {
         DragGesture()
             .onChanged { value in
-                translation = value.translation
+                withAnimation {
+                    translation = value.translation
+                }
             }
     }
                       
@@ -27,7 +28,7 @@ struct EditingToolbarView: View {
                     drawViewModel.fillGrid(at: coordinates, color: viewModel.currentColor)
                     translation = CGSize.zero
                 } else {
-                    withAnimation {
+                    withAnimation(.linear(duration: 0.01)) {
                         translation = CGSize.zero
                     }
                 }
@@ -36,7 +37,7 @@ struct EditingToolbarView: View {
     
     var body: some View {
             HStack {
-                if !showSliders {
+                if !viewModel.showSliders {
                     Button {
                         drawViewModel.undo()
                     } label: {
@@ -57,10 +58,15 @@ struct EditingToolbarView: View {
                 ColorPickerView(
                     viewModel: viewModel,
                     translation: $translation,
-                    showSliders: $showSliders
+                    showSliders: $viewModel.showSliders
                 ) { drag in
                     withAnimation {
                         translation = drag
+                    }
+                    if viewModel.showSliders {
+                        withAnimation {
+                            viewModel.showSliders = false
+                        }
                     }
                 } onDragEnd: { location in
                     if let coordinates = drawViewModel.findGridCoordinates(at: location) {

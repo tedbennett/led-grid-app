@@ -16,7 +16,7 @@ struct RotatingLogoView: View {
     
     @State private var angle = 45.0
     
-    var timer = Timer.publish(every: 0.15, on: .main, in: .common).autoconnect()
+    var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         HStack {
@@ -38,7 +38,7 @@ struct RotatingLogoView: View {
                    return
                }
 
-               angle -= (data.rotationRate.z / 2)
+               angle -= (data.rotationRate.z / 3)
            }
        }.onReceive(timer) { _ in
            if !allowSpin { return }

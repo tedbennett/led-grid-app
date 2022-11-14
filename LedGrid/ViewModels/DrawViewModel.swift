@@ -241,7 +241,7 @@ extension DrawViewModel {
             toFill.append(contentsOf: remainingNeighbours)
             remainingNeighbours = current
         }
-        let speed = UInt64(50_000 * (1.0 / Double(currentGrid.count)))
+        let speed = UInt64(100_000 * (1.0 / Double(currentGrid.count)))
         let generator = UIImpactFeedbackGenerator(style: .rigid)
         generator.prepare()
         let haptics = Utility.haptics

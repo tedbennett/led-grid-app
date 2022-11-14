@@ -188,6 +188,40 @@ struct CoreDataService {
         }
     }
     
+    static func setArtName(_ name: String, for id: NSManagedObjectID, imageData: Data?) async throws {
+        let backgroundContext = newTaskContext()
+        
+        try await backgroundContext.perform {
+            guard let art: PixelArt = try backgroundContext.existingObject(with: id) as? PixelArt else {
+                return
+            }
+            if let associatedName = art.associatedName {
+                associatedName.name = name
+                associatedName.lastUpdated = Date()
+            } else {
+                let associatedName = ArtAssociatedName(context: backgroundContext)
+                associatedName.name = name
+                associatedName.lastUpdated = Date()
+                associatedName.art = art
+                associatedName.imageData = imageData
+            }
+            try backgroundContext.save()
+        }
+    }
+    
+    static func removeArtName(id: NSManagedObjectID) async throws {
+        let backgroundContext = newTaskContext()
+        
+        try await backgroundContext.perform {
+            guard let art: PixelArt = try backgroundContext.existingObject(with: id) as? PixelArt,
+             let name = art.associatedName else {
+                return
+            }
+            backgroundContext.delete(name)
+            try backgroundContext.save()
+        }
+    }
+    
 }
 
 enum PixeeError: Error {

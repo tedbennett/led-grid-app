@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Spinner: View {
-    @State var isAnimating = false
+    @State private var isAnimating = false
     
     var foreverAnimation: Animation {
         Animation.linear(duration: 1.3)
@@ -19,7 +19,6 @@ struct Spinner: View {
             .padding(0)
         
         .rotationEffect(Angle(degrees: isAnimating ? 360: 0 ))
-        
         .task {
             withAnimation(self.foreverAnimation) {
                 isAnimating = true

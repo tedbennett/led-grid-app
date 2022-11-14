@@ -8,6 +8,16 @@
 import SwiftUI
 import AuthenticationServices
 
+enum SettingsPresentationSheet: String, Identifiable {
+    var id: Self { self }
+    
+    case email
+    case widget
+    case whatsNew
+    case tutorial
+}
+
+
 struct SettingsView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @Binding var loggedIn: Bool
@@ -16,8 +26,7 @@ struct SettingsView: View {
     @State private var showWidgetModal = false
     @State private var showUpgradeView = false
     @State private var showDeleteAccountAlert = false
-    
-    
+    @State private var sheet: SettingsPresentationSheet? = nil
     
     @AppStorage(UDKeys.haptics.rawValue, store: Utility.store) var haptics = true
     @AppStorage(UDKeys.spinningLogo.rawValue, store: Utility.store) var spinner = true
@@ -54,8 +63,41 @@ struct SettingsView: View {
                         Toggle("Draw View Guides", isOn: $showGuides)
                     }
                     
+                    Section("Widgets") {
+                        
+                        Button {
+                            sheet = .widget
+                        } label: {
+                            Label {
+                                Text("How to add a widget")
+                            } icon: {
+                                Image(systemName: "plus.square.on.square")
+                            }
+                        }
+                        
+                        // TODO: 1.2
+//                        NavigationLink {
+//                            ArtAssociatedNamesView()
+//                        } label: {
+//                            Label {
+//                                Text("Named Widgets")
+//                            } icon: {
+//                                Image(systemName: "pencil")
+//                            }
+//                        }
+                    }
+                    
                     
                     Section("About Pixee") {
+                        Button {
+                            sheet = .whatsNew
+                        } label: {
+                            Label {
+                                Text("What's New")
+                            } icon: {
+                                Image(systemName: "sparkles")
+                            }
+                        }
                         Button {
                             withAnimation {
                                 showUpgradeView = true
@@ -67,18 +109,9 @@ struct SettingsView: View {
                                 Image(systemName: "star")
                             }
                         }
-                        Button {
-                            showWidgetModal = true
-                        } label: {
-                            Label {
-                                Text("How to add a widget")
-                            } icon: {
-                                Image(systemName: "plus.square.on.square")
-                            }
-                        }
                         
                         Button {
-                            showEmailModal = true
+                            sheet = .email
                         } label: {
                             Label {
                                 Text("Send Feedback")
@@ -114,6 +147,25 @@ struct SettingsView: View {
                 .refreshable {
                     await PixeeProvider.fetchFriends()
                 }
+                .sheet(item: $sheet) { destination in
+                    switch destination {
+                    case .email:
+                        MailView(recipient: "ted_bennett@icloud.com", subject: "Pixee Feedback", body: "Please enter your feedback below:\n\n\n\n\nThank you for leaving feedback and helping to improve Pixee!\n\nTed")
+                    case .widget:
+                        WidgetTutorialView {
+                            sheet = .none
+                        }.tint(Color(uiColor: .label))
+                    case .whatsNew:
+                        UpdateView {
+                            sheet = .none
+                        }.tint(Color(uiColor: .label))
+                        
+                    case .tutorial:
+                        SettingsTutorialView {
+                            sheet = .none
+                        }.tint(Color(uiColor: .label))
+                    }
+                }
                 
                 .blur(radius: showUpgradeView ? 20 : 0)
                 .allowsHitTesting(!showUpgradeView)
@@ -123,13 +175,9 @@ struct SettingsView: View {
                 SlideOverView(isOpened: $showUpgradeView) {
                     UpgradeView(isOpened: $showUpgradeView)
                 }
-            }.navigationTitle("Settings")
-            .sheet(isPresented: $showEmailModal) {
-                MailView(recipient: "ted_bennett@icloud.com", subject: "Pixee Feedback", body: "Please enter your feedback below:\n\n\n\n\nThank you for leaving feedback and helping to improve Pixee!\n\nTed")
             }
-            .sheet(isPresented: $showWidgetModal) {
-                WidgetTutorialView(presented: $showWidgetModal).tint(Color(uiColor: .label))
-            }
+           
+            .navigationTitle("Settings")
             .alert("Delete account?", isPresented: $showDeleteAccountAlert) {
                 Button("Delete", role: .destructive) {
                     loggedIn = false
@@ -161,6 +209,9 @@ struct EditNameView: View {
             Section("Full Name") {
                 TextField("Full Name", text: $fullName)
             }
+            .onAppear {
+                fullName = userViewModel.user?.fullName ?? ""
+            }
             Button {
                 Task {
                     await userViewModel.updateUser(fullName: fullName)
@@ -170,8 +221,5 @@ struct EditNameView: View {
                 Text("Save")
             }
         }.navigationTitle("Edit Name")
-            .onAppear {
-                fullName = userViewModel.user?.fullName ?? ""
-            }
     }
 }

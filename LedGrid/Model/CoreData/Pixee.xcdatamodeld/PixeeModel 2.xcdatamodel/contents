@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A380" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ArtAssociatedName" representedClassName="ArtAssociatedName" syncable="YES">
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
+        <attribute name="lastUpdated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="art" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PixelArt" inverseName="associatedName" inverseEntity="PixelArt"/>
+    </entity>
     <entity name="PixelArt" representedClassName="PixelArt" syncable="YES">
         <attribute name="art" attributeType="Transformable" valueTransformerName="SerializableArtTransformer" customClassName="SerializableArt"/>
         <attribute name="hidden" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -8,6 +14,7 @@
         <attribute name="sender" attributeType="String"/>
         <attribute name="sentAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="associatedName" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ArtAssociatedName" inverseName="art" inverseEntity="ArtAssociatedName"/>
         <relationship name="reactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Reaction" inverseName="art" inverseEntity="Reaction"/>
         <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="art" inverseEntity="User"/>
         <uniquenessConstraints>

@@ -25,7 +25,7 @@ struct FriendsSettingsView: View {
                 
                 if friends.isEmpty {
                     Button {
-                        Helpers.presentShareSheet()
+                        Helpers.presentAddFriendShareSheet()
                     } label: {
                         Text("Add friends to get started!")
                     }
@@ -34,7 +34,7 @@ struct FriendsSettingsView: View {
         }.navigationTitle("Friends")
             .toolbar {
                 Button {
-                    Helpers.presentShareSheet()
+                    Helpers.presentAddFriendShareSheet()
                 } label: {
                     Image(systemName: "person.badge.plus")
                         .font(.title3)

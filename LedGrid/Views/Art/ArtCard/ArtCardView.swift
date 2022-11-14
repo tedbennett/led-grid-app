@@ -23,10 +23,17 @@ struct ArtCardView: View {
         self.grids = art.art.toColors()
     }
     
+    func gridView(size: GridViewSize = .large) -> some View {
+        return GridView(grid: grids[gridIndex], viewSize: size)    
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             // Top Bar
             ArtCardDetailsView(art: art)
+            // {
+            //    gridView(size: .custom(stroke: 0, cornerRadius: 5, spacing: 0)).snapshot()
+            // }
             
             // Grid View
             Group {
@@ -54,7 +61,7 @@ struct ArtCardView: View {
                         pauseAnimating = false
                     }
                 } else {
-                    GridView(grid: grids[gridIndex])
+                    gridView()
                         .drawingGroup()
                         .onTapGesture {
                             guard grids.count > 1 else { return }

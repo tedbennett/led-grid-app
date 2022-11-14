@@ -9,6 +9,7 @@ import SwiftUI
 
 class DrawColourViewModel: ObservableObject {
     @Published var currentColor: Color = .red
+    @Published var showSliders = false
     
     @Published var hue = 0.03 {
         didSet {
@@ -32,6 +33,11 @@ class DrawColourViewModel: ObservableObject {
     }
     
     func setColor(_ color: Color) {
+        if Utility.colourPickerVariant != .slider {
+            currentColor = color
+            return
+        }
+        
         var h: CGFloat = 0
         var s: CGFloat = 0
         var b: CGFloat = 0

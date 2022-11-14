@@ -13,7 +13,7 @@ import Mixpanel
 @main
 struct LedGridApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State private var loggedIn = false
+    @State private var loggedIn: Bool
 
     init() {
         UNUserNotificationCenter.current().delegate  = NotificationManager.shared
@@ -27,15 +27,17 @@ struct LedGridApp: App {
         }
         #endif
         
-        UNUserNotificationCenter.current().requestAuthorization(options: .badge) { (granted, error) in
-            guard error == nil else { return }
-            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-        }
-        
-        if AuthService.canRenew() && Utility.user?.id != nil && hasNoData() {
-            Task {
-                try? await PixeeProvider.fetchAllData()
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        if AuthService.canRenew() && Utility.user?.id != nil {
+            _loggedIn = State(initialValue: true)
+            if hasNoData() {
+                Task {
+                    try? await PixeeProvider.fetchAllData()
+                }
+                
             }
+        } else {
+            _loggedIn = State(initialValue: false)
         }
     }
     
@@ -46,7 +48,7 @@ struct LedGridApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView().accentColor(Color(uiColor: .label))
+            ContentView(loggedIn: $loggedIn).accentColor(Color(uiColor: .label))
                 .environment(
                     \.managedObjectContext,
                     PersistenceManager.shared.container.viewContext

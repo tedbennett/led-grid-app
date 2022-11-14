@@ -19,6 +19,7 @@ struct SlideOverView<Content>: View where Content: View {
     }
     var body: some View {
         if isOpened {
+            
             content()
                 .padding(20)
                 .background(RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray6)))
@@ -31,6 +32,7 @@ struct SlideOverView<Content>: View where Content: View {
                 })
                 .padding(10)
                 .padding(.bottom, 20)
+                .centered(.vertical)
                 .transition(AnyTransition.move(edge: .bottom))
                 .zIndex(99)
             

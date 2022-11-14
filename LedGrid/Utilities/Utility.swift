@@ -12,6 +12,8 @@ enum UDKeys: String {
     case currentGridIndex
     case lastReactions
     case lastReactionFetchDate
+    case lastReceivedFetchDate
+    case lastSelectedFriends
     case artNamesForWidget
     case showGuides
     case user
@@ -19,8 +21,23 @@ enum UDKeys: String {
     case colorPicker
     case haptics
     case spinningLogo
+    case lastOpenedVersion
+    case launchedBefore
+    case isPlus
 }
+let background = Color(uiColor: .systemBackground)
+let foreground = Color(uiColor: .label)
 
+let DEFAULT_GRID = [
+    [background, background, background, background, background, background, background, background],
+    [background, background, foreground, background, background, foreground, background, background],
+    [background, background, foreground, background, background, foreground, background, background],
+    [background, background, background, background, background, background, background, background],
+    [background, background, background, background, background, background, background, background],
+    [background, foreground, background, background, background, background, foreground, background],
+    [background, foreground, foreground, foreground, foreground, foreground, foreground, background],
+    [background, background, background, background, background, background, background, background],
+]
 struct Utility {
     
     static let store = UserDefaults(suiteName: "group.9Y2AMH5S23.com.edwardbennett.pixee")!
@@ -28,120 +45,42 @@ struct Utility {
     static func clear() {
         currentGrids = [GridSize.small.blankGrid]
         currentGridIndex = 0
+        // User is cleared elsewhere
 //        user = nil
         friends = []
         isPlus = false
         lastReceivedFetchDate = nil
+        lastReactionFetchDate = nil
+        lastSelectedFriends = []
+        colourPickerVariant = .full
+        haptics = true
+        showGuides = true
         lastSelectedFriends = []
     }
     
-    static var currentGridIndex: Int {
-        get {
-            return store.integer(forKey: UDKeys.currentGridIndex.rawValue)
-        }
-        set {
-            store.set(newValue, forKey: UDKeys.currentGridIndex.rawValue)
-        }
-    }
-    
+    // User data
     @UserDefaultsValue(nil, key: .user) static var user: MUser?
     @UserDefaultsValue([], key: .friends) static var friends: [MUser]
+    @AppStorage(UDKeys.isPlus.rawValue, store: Utility.store) static var isPlus = false
+    
+    // Editor
     @UserDefaultsValue([GridSize.small.blankGrid], key: .currentGrids) static var currentGrids: [Grid]
-    static var haptics: Bool {
-        get {
-            store.bool(forKey: UDKeys.haptics.rawValue)
-        }
-        set {
-            store.set(newValue, forKey: UDKeys.haptics.rawValue)
-        }
-    }
+    @AppStorage(UDKeys.currentGridIndex.rawValue, store: Utility.store) static var currentGridIndex = 0
+    @AppStorage(UDKeys.lastSelectedFriends.rawValue, store: Utility.store) static var lastSelectedFriends: [String] = []
+    @AppStorage(UDKeys.lastReactions.rawValue, store: Utility.store) static var lastReactions = ["🥰", "😂", "🤨"]
+
+    // App MetaData
+    @AppStorage(UDKeys.launchedBefore.rawValue, store: Utility.store) static var launchedBefore = false
+    @AppStorage(UDKeys.lastOpenedVersion.rawValue, store: Utility.store) static var lastOpenedVersion = 1
     
-//    static var user: MUser? {
-//        get {
-//            guard let data = store.data(forKey: "user") else {
-//                return nil
-//            }
-//            return try? JSONDecoder().decode(MUser.self, from: data)
-//        }
-//        set {
-//            let data = try? JSONEncoder().encode(newValue)
-//            store.set(data, forKey: "user")
-//        }
-//    }
+    // Data fetching
+    @AppStorage(UDKeys.lastReactionFetchDate.rawValue, store: Utility.store) static var lastReactionFetchDate: Date?
+    @AppStorage(UDKeys.lastReceivedFetchDate.rawValue, store: Utility.store) static var lastReceivedFetchDate: Date?
     
-    static var isPlus: Bool {
-        get {
-            store.bool(forKey: "isPlus")
-        }
-        set {
-            store.set(newValue, forKey: "isPlus")
-        }
-    }
-    
-    static var lastReceivedFetchDate: Date? {
-        get {
-            store.object(forKey: "lastReceivedFetchDate") as? Date
-        }
-        set {
-            store.set(newValue, forKey: "lastReceivedFetchDate")
-        }
-    }
-    
-    static var lastReactionFetchDate: Date? {
-        get {
-            store.object(forKey: UDKeys.lastReactionFetchDate.rawValue) as? Date
-        }
-        set {
-            store.set(newValue, forKey: UDKeys.lastReactionFetchDate.rawValue)
-        }
-    }
-    
-    static var lastSelectedFriends: [String] {
-        get {
-            store.array(forKey: "lastSelectedFriends") as? [String] ?? []
-        }
-        set {
-            store.set(newValue, forKey: "lastSelectedFriends")
-        }
-    }
-    
-    static var lastReactions: [String] {
-        get {
-            store.array(forKey: UDKeys.lastReactions.rawValue) as? [String] ?? ["🥰", "😂", "🤨"]
-        }
-        set {
-            store.set(newValue, forKey: UDKeys.lastReactions.rawValue)
-        }
-    }
-    
-    static var launchedBefore: Bool {
-        get {
-            store.bool(forKey: "launchedBefore")
-        }
-        set {
-            store.set(newValue, forKey: "launchedBefore")
-        }
-    }
-    
-    static var lastOpenedVersion: String? {
-        get {
-            store.string(forKey: "lastOpenedVersion")
-        }
-        set {
-            store.set(newValue, forKey: "lastOpenedVersion")
-        }
-    }
-    
-    @UserDefaultsValue([], key: .artNamesForWidget) static var artNamesForWidget: [ArtAssociatedName]
-    
-    static var showGuides: Bool {
-        get {
-            store.bool(forKey: UDKeys.showGuides.rawValue)
-        }
-        set {
-            store.set(newValue, forKey: UDKeys.showGuides.rawValue)
-        }
-    }
+    // Preferences
+    @AppStorage(UDKeys.colorPicker.rawValue, store: Utility.store) static var colourPickerVariant: ColorPickerVariant = .full
+    @AppStorage(UDKeys.haptics.rawValue, store: Utility.store) static var haptics = true
+    @AppStorage(UDKeys.showGuides.rawValue, store: Utility.store) static var showGuides = true
 }
 
 
@@ -174,5 +113,37 @@ struct Utility {
 extension UserDefaultsValue {
     init(_ fallback: T, key: UDKeys) {
         self.init(fallback, key: key.rawValue, store: UserDefaults(suiteName: "group.9Y2AMH5S23.com.edwardbennett.pixee")!)
+    }
+}
+
+typealias StringArray = [String]
+
+extension Array: RawRepresentable where Element: Codable {
+    public init?(rawValue: String) {
+        guard let data = rawValue.data(using: .utf8),
+              let result = try? JSONDecoder().decode([Element].self, from: data)
+        else {
+            return nil
+        }
+        self = result
+    }
+
+    public var rawValue: String {
+        guard let data = try? JSONEncoder().encode(self),
+              let result = String(data: data, encoding: .utf8)
+        else {
+            return "[]"
+        }
+        return result
+    }
+}
+
+extension Date: RawRepresentable {
+    public var rawValue: String {
+        self.timeIntervalSinceReferenceDate.description
+    }
+    
+    public init?(rawValue: String) {
+        self = Date(timeIntervalSinceReferenceDate: Double(rawValue) ?? 0.0)
     }
 }

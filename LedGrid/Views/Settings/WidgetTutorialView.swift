@@ -6,18 +6,10 @@
 //
 
 import SwiftUI
-let gridColors = [
-    [Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground)],
-    [Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .label), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .label), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground)],
-    [Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .label), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .label), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground)],
-    [Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground)],
-    [Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground)],
-    [Color(uiColor: .systemBackground), Color(uiColor: .label), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .label), Color(uiColor: .systemBackground)],
-    [Color(uiColor: .systemBackground), Color(uiColor: .label), Color(uiColor: .label), Color(uiColor: .label), Color(uiColor: .label), Color(uiColor: .label), Color(uiColor: .label), Color(uiColor: .systemBackground)],
-    [Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground), Color(uiColor: .systemBackground)]
-]
+
+
 struct WidgetTutorialView: View {
-    @Binding var presented: Bool
+    var dismiss: () -> Void
     var body: some View {
         VStack() {
             ZStack {
@@ -30,20 +22,20 @@ struct WidgetTutorialView: View {
                     Spacer()
                     
                     CloseButton {
-                        presented = false
-                        
+                        dismiss()
                     }
                 }.padding(.top, 15)
             }
-            Title("Widgets", size: 40).frame(width: 100, height: 40)
-                .padding(.top, 50)
+            Text("Widgets")
+                .font(.system(size: 40, design: .rounded).weight(.bold))
+                .padding(.top, 30)
                 .padding(.bottom, 10)
             VStack() {
                 Text("Pixee widgets let you see your last received pixel art, right on your home screen.").foregroundColor(.gray)
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 10)
                 
-                GridView(grid: gridColors, viewSize: .custom(stroke: 0, cornerRadius: 3, spacing: 3)).frame(width: 150, height: 150).padding(10).overlay(
+                GridView(grid: DEFAULT_GRID, viewSize: .custom(stroke: 0, cornerRadius: 3, spacing: 3)).frame(width: 150, height: 150).padding(10).overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(Color(uiColor: .label), lineWidth: 2)
                 ).padding(.bottom, 30)
@@ -86,49 +78,49 @@ struct WidgetTutorialView: View {
 
 struct WidgetTutorial_Previews: PreviewProvider {
     static var previews: some View {
-        WidgetTutorialView(presented: .constant(true))
+        WidgetTutorialView { }
             .previewDevice("iPhone 13 mini")
     }
 }
 
-struct Title: UIViewRepresentable {
-    
-    let string: String
-    let size: Double
-    let alignment: NSTextAlignment
-    
-    init(_ string: String, size: Double = 36, alignment: NSTextAlignment = .center) {
-        self.string = string
-        self.size = size
-        self.alignment = alignment
-    }
-    
-    func makeUIView(context: Context) -> UILabel {
-        let label = UILabel()
-        
-        label.lineBreakMode = .byClipping
-        label.numberOfLines = 0
-        label.textAlignment = alignment
-        
-        return label
-    }
-    
-    func updateUIView(_ uiView: UILabel, context: Context) {
-        let systemFont = UIFont.systemFont(ofSize: size, weight: .bold)
-        var font: UIFont
-        
-        if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
-            font = UIFont(descriptor: descriptor, size: size)
-        } else {
-            font = systemFont
-        }
-        let attributes = [
-            NSAttributedString.Key.strokeColor : UIColor.label,
-            NSAttributedString.Key.foregroundColor : UIColor.systemBackground,
-            NSAttributedString.Key.font : font,
-            NSAttributedString.Key.strokeWidth : 4]
-        as [NSAttributedString.Key : Any]
-        let attributedString = NSAttributedString(string: string, attributes: attributes)
-        uiView.attributedText = attributedString
-    }
-}
+//struct Title: UIViewRepresentable {
+//    
+//    let string: String
+//    let size: Double
+//    let alignment: NSTextAlignment
+//    
+//    init(_ string: String, size: Double = 36, alignment: NSTextAlignment = .center) {
+//        self.string = string
+//        self.size = size
+//        self.alignment = alignment
+//    }
+//    
+//    func makeUIView(context: Context) -> UILabel {
+//        let label = UILabel()
+//        
+//        label.lineBreakMode = .byClipping
+//        label.numberOfLines = 0
+//        label.textAlignment = alignment
+//        
+//        return label
+//    }
+//    
+//    func updateUIView(_ uiView: UILabel, context: Context) {
+//        let systemFont = UIFont.systemFont(ofSize: size, weight: .bold)
+//        var font: UIFont
+//        
+//        if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
+//            font = UIFont(descriptor: descriptor, size: size)
+//        } else {
+//            font = systemFont
+//        }
+//        let attributes = [
+//            NSAttributedString.Key.strokeColor : UIColor.label,
+//            NSAttributedString.Key.foregroundColor : UIColor.systemBackground,
+//            NSAttributedString.Key.font : font,
+//            NSAttributedString.Key.strokeWidth : 4
+//        ] as [NSAttributedString.Key : Any]
+//        let attributedString = NSAttributedString(string: string, attributes: attributes)
+//        uiView.attributedText = attributedString
+//    }
+//}

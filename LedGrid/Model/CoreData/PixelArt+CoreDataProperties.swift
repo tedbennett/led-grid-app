@@ -25,9 +25,15 @@ extension PixelArt {
     @NSManaged public var art: SerializableArt
     @NSManaged public var users: NSSet?
     @NSManaged public var reactions: NSSet?
+    @NSManaged public var associatedName: ArtAssociatedName?
     
     func reaction(for user: String) -> Reaction? {
         return Array(reactions as? Set<Reaction> ?? []).first { $0.sender == user }
+    }
+    
+    public var userArray: [User] {
+        return Array(users as? Set<User> ?? [])
+        
     }
 }
 
