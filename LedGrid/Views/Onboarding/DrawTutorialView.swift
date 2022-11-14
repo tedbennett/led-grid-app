@@ -51,7 +51,7 @@ struct DrawTutorialView: View {
     
     var doneButton: some View {
         Button {
-            viewModel.saveGrid()
+            Utility.currentGrids = [viewModel.currentGrid]
             onComplete()
         } label: {
             let text: String = {

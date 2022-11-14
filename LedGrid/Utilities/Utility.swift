@@ -25,8 +25,8 @@ enum UDKeys: String {
     case launchedBefore
     case isPlus
 }
-let background = Color(uiColor: .systemBackground)
-let foreground = Color(uiColor: .label)
+let background = Color.black
+let foreground = Color.white
 
 let DEFAULT_GRID = [
     [background, background, background, background, background, background, background, background],
