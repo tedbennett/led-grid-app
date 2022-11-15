@@ -15,21 +15,6 @@ class LoginViewModel: ObservableObject {
     
     var friendsModel = FriendsModel()
     
-    func requestNotificationPermissions() {
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        
-        Task {
-            do {
-                _ = try await UNUserNotificationCenter.current().requestAuthorization(options: authOptions)
-                await MainActor.run {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
-            } catch {
-                print("Failed to register for notifications: \(error.localizedDescription)")
-            }
-        }
-    }
-    
     func handleSignIn(result: (Result<ASAuthorization, Error>)) async -> Bool {
         switch result {
         case .success(let authResults):
@@ -40,7 +25,6 @@ class LoginViewModel: ObservableObject {
                 let user = try await NetworkManager.shared.handleSignInWithApple(authorization: authResults)
                 Utility.user = user
                 try await PixeeProvider.fetchAllData()
-                requestNotificationPermissions()
                 await MainActor.run {
                     isSigningIn = false
                 }
@@ -61,7 +45,6 @@ class LoginViewModel: ObservableObject {
     
     func shouldLogin() -> Bool {
         if AuthService.canRenew() && Utility.user?.id != nil {
-            requestNotificationPermissions()
             return true
         } else {
             AuthService.logout()

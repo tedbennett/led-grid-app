@@ -32,3 +32,4 @@ struct Helpers {
         return GridView(grid: colors[0], viewSize: .large).snapshot().pngData()
     }
 }
+

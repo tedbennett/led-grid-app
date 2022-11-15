@@ -21,6 +21,7 @@ enum UDKeys: String {
     case colorPicker
     case haptics
     case spinningLogo
+    case motionLogo
     case lastOpenedVersion
     case launchedBefore
     case isPlus
@@ -56,6 +57,8 @@ struct Utility {
         haptics = true
         showGuides = true
         lastSelectedFriends = []
+        motionLogo = false
+        spinningLogo = true
     }
     
     // User data
@@ -81,6 +84,8 @@ struct Utility {
     @AppStorage(UDKeys.colorPicker.rawValue, store: Utility.store) static var colourPickerVariant: ColorPickerVariant = .full
     @AppStorage(UDKeys.haptics.rawValue, store: Utility.store) static var haptics = true
     @AppStorage(UDKeys.showGuides.rawValue, store: Utility.store) static var showGuides = true
+    @AppStorage(UDKeys.motionLogo.rawValue, store: Utility.store) static var motionLogo = false
+    @AppStorage(UDKeys.spinningLogo.rawValue, store: Utility.store) static var spinningLogo = true
 }
 
 

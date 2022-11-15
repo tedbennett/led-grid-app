@@ -13,6 +13,7 @@ struct RotatingLogoView: View {
     let queue = OperationQueue()
     
     @AppStorage(UDKeys.spinningLogo.rawValue, store: Utility.store) var allowSpin = true
+    @AppStorage(UDKeys.motionLogo.rawValue, store: Utility.store) var motionSpin = false
     
     @State private var angle = 45.0
     
@@ -34,7 +35,7 @@ struct RotatingLogoView: View {
 //            })
        .onAppear {
            self.motionManager.startDeviceMotionUpdates(to: queue) { (data: CMDeviceMotion?, error: Error?) in
-               guard let data = data, allowSpin else {
+               guard let data = data, Utility.motionLogo else {
                    return
                }
 
@@ -47,7 +48,10 @@ struct RotatingLogoView: View {
            }
        }
        .onChange(of: allowSpin) {
-           if !$0 { angle = 45}
+           if !$0 { angle = 45 }
+       }
+       .onChange(of: motionSpin) {
+           if !$0 { angle = 45 }
        }
     }
 }

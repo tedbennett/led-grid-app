@@ -36,6 +36,7 @@ struct LedGridApp: App {
                 }
                 
             }
+            UIApplication.shared.registerForRemoteNotifications()
         } else {
             _loggedIn = State(initialValue: false)
         }

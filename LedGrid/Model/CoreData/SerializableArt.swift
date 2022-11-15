@@ -106,7 +106,7 @@ public class SerializableArt: NSObject, NSSecureCoding {
     public var grids: [[[SerializableColor]]] = []
     
     enum Key: String {
-        case art = "art"
+        case art = "grids"
     }
     
     init(grids: [[[SerializableColor]]]) {
