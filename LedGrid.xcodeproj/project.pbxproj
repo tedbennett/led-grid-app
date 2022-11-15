@@ -1158,7 +1158,7 @@
 				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_ASSET_PATHS = "\"LedGrid/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
@@ -1178,7 +1178,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1197,7 +1197,7 @@
 				CODE_SIGN_ENTITLEMENTS = LedGrid/LedGrid.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_ASSET_PATHS = "\"LedGrid/Preview Content\"";
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				ENABLE_PREVIEWS = YES;
@@ -1217,7 +1217,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1235,7 +1235,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-WidgetExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
@@ -1247,7 +1247,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1265,7 +1265,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-WidgetExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
@@ -1277,7 +1277,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Widget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1293,7 +1293,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-Intents/Pixee-Intents.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Intents/Info.plist";
@@ -1305,7 +1305,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1321,7 +1321,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pixee-Intents/Pixee-Intents.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 9Y2AMH5S23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pixee-Intents/Info.plist";
@@ -1333,7 +1333,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.edwardbennett.LedGrid.Pixee-Intents";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
