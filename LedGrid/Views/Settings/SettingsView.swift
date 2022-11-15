@@ -30,6 +30,7 @@ struct SettingsView: View {
     
     @AppStorage(UDKeys.haptics.rawValue, store: Utility.store) var haptics = true
     @AppStorage(UDKeys.spinningLogo.rawValue, store: Utility.store) var spinner = true
+    @AppStorage(UDKeys.motionLogo.rawValue, store: Utility.store) var responsiveSpinner = true
     @AppStorage(UDKeys.showGuides.rawValue, store: Utility.store) var showGuides = true
     
     @FetchRequest(sortDescriptors: []) var friends: FetchedResults<User>
@@ -54,13 +55,17 @@ struct SettingsView: View {
                         }
                     }
                     
-                    Section("Preferences") {
+                    Section(
+                        header: Text("Preferences"),
+                        footer: Text("Animated logo refers to the logo at the top of the Draw View. Responsive logo responds to device orientation")
+                    ) {
                         NavigationLink("Colour Picker") {
                             ColorPickerSettingsView()
                         }
                         Toggle("Haptic Feedback", isOn: $haptics)
-                        Toggle("Draw View Spinner", isOn: $spinner)
                         Toggle("Draw View Guides", isOn: $showGuides)
+                        Toggle("Animated Logo", isOn: $spinner)
+                        Toggle("Responsive Logo", isOn: $responsiveSpinner)
                     }
                     
                     Section("Widgets") {
@@ -96,6 +101,15 @@ struct SettingsView: View {
                                 Text("What's New")
                             } icon: {
                                 Image(systemName: "sparkles")
+                            }
+                        }
+                        Button {
+                            sheet = .tutorial
+                        } label: {
+                            Label {
+                                Text("How to use Pixee")
+                            } icon: {
+                                Image(systemName: "questionmark.circle")
                             }
                         }
                         Button {

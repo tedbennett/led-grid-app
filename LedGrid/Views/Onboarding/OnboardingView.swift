@@ -11,6 +11,7 @@ enum OnboardingStep {
     case none
     case signIn
     case notifications
+    case friends
     case tutorialDraw
     case plus
 }
@@ -47,12 +48,26 @@ struct OnboardingView: View {
             switch step {
             case .signIn:
                 SignInView {
-                    withAnimation {
-                        step = .notifications
+                    Task {
+                        if await NotificationManager.shared.isAuthorised() {
+                            withAnimation {
+                                step = .friends
+                            }
+                        } else {
+                            withAnimation {
+                                step = .notifications
+                            }
+                        }
                     }
                 }
             case .notifications:
                 RequestNotificationsView {
+                    withAnimation {
+                        step = .friends
+                    }
+                }
+            case .friends:
+                OnboardingFriendsView {
                     withAnimation {
                         step = .tutorialDraw
                     }

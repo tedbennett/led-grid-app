@@ -8,6 +8,7 @@
 import Foundation
 import UserNotifications
 import WidgetKit
+import UIKit
 
 class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     static var shared = NotificationManager()
@@ -17,10 +18,22 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     func requestPermission() async {
         do {
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-            _ = try await UNUserNotificationCenter.current().requestAuthorization(options: authOptions)
-             
+            let success = try await UNUserNotificationCenter.current().requestAuthorization(options: authOptions)
+            if success {
+                await MainActor.run {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
         } catch {
             print(error.localizedDescription)
+        }
+    }
+    
+    func isAuthorised() async -> Bool {
+        await withCheckedContinuation { continuation in
+            UNUserNotificationCenter.current().getNotificationSettings {
+                continuation.resume(with: .success($0.authorizationStatus == .authorized))
+            }
         }
     }
     
