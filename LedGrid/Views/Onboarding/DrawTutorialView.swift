@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct DrawTutorialView: View {
     
@@ -28,6 +29,7 @@ struct DrawTutorialView: View {
         return viewModel
     }()
     @State private var translation = CGSize.zero
+    @State private var showColorChangeToast = false
     
     func completeStep(nextStep: Step) {
         guard nextStep != step && !stepComplete else { return }
@@ -95,6 +97,7 @@ struct DrawTutorialView: View {
                     if step == .copyColour {
                         completeStep(nextStep: .fillColour)
                     }
+                    showColorChangeToast = true
                 }
                     .environmentObject(viewModel)
                 HStack {
@@ -173,6 +176,9 @@ struct DrawTutorialView: View {
             }
             .fadeInWithDelay(0.9)
                 
+        }
+        .toast(isPresenting: $showColorChangeToast, duration: 1.0) {
+            AlertToast(displayMode: .hud, type: .complete(.white), title: "Color copied!")
         }
     }
 }

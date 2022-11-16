@@ -30,7 +30,7 @@ struct SettingsView: View {
     
     @AppStorage(UDKeys.haptics.rawValue, store: Utility.store) var haptics = true
     @AppStorage(UDKeys.spinningLogo.rawValue, store: Utility.store) var spinner = true
-    @AppStorage(UDKeys.motionLogo.rawValue, store: Utility.store) var responsiveSpinner = true
+    @AppStorage(UDKeys.motionLogo.rawValue, store: Utility.store) var responsiveSpinner = false
     @AppStorage(UDKeys.showGuides.rawValue, store: Utility.store) var showGuides = true
     
     @FetchRequest(sortDescriptors: []) var friends: FetchedResults<User>
