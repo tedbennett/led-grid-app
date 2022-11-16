@@ -108,6 +108,9 @@ class NetworkManager {
         let data = try await Network.makeRequest(url: url, body: body, method: .post, headers: headers)
         var art = try JSONDecoder.standard.decode(MPixelArt.self, from: data)
         art.opened = true
+        
+        AnalyticsManager.trackEvent(.sendArt)
+        
         return art
     }
     
@@ -125,6 +128,9 @@ class NetworkManager {
         
         let data = try await Network.makeRequest(url: url, body: body, method: .post, headers: headers)
         let reaction = try JSONDecoder.standard.decode(MReaction.self, from: data)
+        
+        AnalyticsManager.trackEvent(.sendReaction)
+        
         return reaction
     }
     
@@ -164,7 +170,7 @@ class NetworkManager {
         
         let _ = try await Network.makeRequest(url: url, body: data, method: .post, headers: headers)
         
-        Mixpanel.mainInstance().track(event: "sign_up", properties: [
+        AnalyticsManager.trackEvent(.signUp, properties: [
             "with_name": fullName != nil
         ])
     }
@@ -200,6 +206,8 @@ class NetworkManager {
         let headers = try await AuthService.getToken()
         
         let _ = try await Network.makeRequest(url: url, body: data, method: .post, headers: headers)
+        
+        AnalyticsManager.trackEvent(.addFriend)
     }
     
     func deleteFriend(id: String) async throws {
@@ -237,7 +245,8 @@ class NetworkManager {
         let headers = try await AuthService.getToken()
         
         let _ = try await Network.makeRequest(url: url, body: data, method: .put, headers: headers)
-        Mixpanel.mainInstance().track(event: "upgrade_to_plus", properties: [:])
+        
+        AnalyticsManager.trackEvent(.upgrade)
     }
     
     func checkUserExists(id: String) async throws -> Bool {

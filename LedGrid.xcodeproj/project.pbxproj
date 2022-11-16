@@ -40,6 +40,7 @@
 		1F5BA8F829188A34005BA5CE /* NamedArtWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8F729188A34005BA5CE /* NamedArtWidget.swift */; };
 		1F5BA8FA291900A2005BA5CE /* FriendWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8F9291900A2005BA5CE /* FriendWidgetProvider.swift */; };
 		1F5BA8FC291900AA005BA5CE /* NamedArtWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8FB291900AA005BA5CE /* NamedArtWidgetProvider.swift */; };
+		1F5E0E2429259CF600CB343C /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5E0E2329259CF600CB343C /* AnalyticsManager.swift */; };
 		1F808DEC291B1D11005FE060 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAD27F3A702008C52BB /* GridView.swift */; };
 		1F808DED291B1D18005FE060 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAD27F3A702008C52BB /* GridView.swift */; };
 		1F808DEE291B1D21005FE060 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B43527F0D8AA0039F621 /* SquareView.swift */; };
@@ -241,6 +242,7 @@
 		1F5BA8F729188A34005BA5CE /* NamedArtWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedArtWidget.swift; sourceTree = "<group>"; };
 		1F5BA8F9291900A2005BA5CE /* FriendWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendWidgetProvider.swift; sourceTree = "<group>"; };
 		1F5BA8FB291900AA005BA5CE /* NamedArtWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedArtWidgetProvider.swift; sourceTree = "<group>"; };
+		1F5E0E2329259CF600CB343C /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		1F808DF1291B1DF7005FE060 /* EditableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableText.swift; sourceTree = "<group>"; };
 		1F808DF4291EDA33005FE060 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		1F808DF629201A22005FE060 /* DrawTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawTutorialView.swift; sourceTree = "<group>"; };
@@ -614,6 +616,7 @@
 				1FB1795828FC8D6C0066AE71 /* PixeeProvider.swift */,
 				1FFB1A5228F1DCDC00B126AE /* NavigationManager.swift */,
 				1F5BA8CA2917D61F005BA5CE /* VersionManager.swift */,
+				1F5E0E2329259CF600CB343C /* AnalyticsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -877,6 +880,7 @@
 				9FC6245A28BA8A7000723C97 /* UpgradeView.swift in Sources */,
 				1FB1795B28FDEC390066AE71 /* Notifications.swift in Sources */,
 				1F5BA8D12917FD11005BA5CE /* PixeeLogoView.swift in Sources */,
+				1F5E0E2429259CF600CB343C /* AnalyticsManager.swift in Sources */,
 				1F9D48A928EC729C004098B5 /* SendArtViewModel.swift in Sources */,
 				9F28FB8F28B2A06C00403F4D /* AppDelegate.swift in Sources */,
 				1FFB1A4A28EFD00E00B126AE /* FriendsViewModel.swift in Sources */,

@@ -19,13 +19,9 @@ struct LedGridApp: App {
         UNUserNotificationCenter.current().delegate  = NotificationManager.shared
         WidgetCenter.shared.reloadAllTimelines()
         StoreManager.shared.getProducts()
-        #if !DEBUG
-        Mixpanel.initialize(token: "e2084c8238e48af2dc78abebd84c3f01", trackAutomaticEvents: true)
-        SentrySDK.start { options in
-            options.dsn = "https://e29612af279847dda6037ba43aa31e1a@o1421379.ingest.sentry.io/6769769"
-            options.tracesSampleRate = 0.5
-        }
-        #endif
+        
+        AnalyticsManager.initialiseMixpanel()
+        AnalyticsManager.initialiseSentry()
         
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         if AuthService.canRenew() && Utility.user?.id != nil {
