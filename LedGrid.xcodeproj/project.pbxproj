@@ -12,6 +12,7 @@
 		1F1A16E0290D4F3800033745 /* WidgetNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DF290D4F3800033745 /* WidgetNameView.swift */; };
 		1F1A16E1290D679900033745 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9F27F1D390008C52BB /* Utility.swift */; };
 		1F1A16E4290D67CB00033745 /* MUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8A28B2A00800403F4D /* MUser.swift */; };
+		1F1D71FF2949382100BCA3FB /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D71FE2949382100BCA3FB /* SignInView.swift */; };
 		1F44FEFB29046A40000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
 		1F44FEFC29046A41000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
 		1F44FEFD29046A44000BAFAB /* Reaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795028FC27EF0066AE71 /* Reaction+CoreDataClass.swift */; };
@@ -96,7 +97,6 @@
 		1FD8118F28DCF6A600D3F95C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8118E28DCF6A600D3F95C /* Sentry */; };
 		1FD8119228DD0E3900D3F95C /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8119128DD0E3900D3F95C /* Mixpanel */; };
 		1FF3B3CD29424B8F00867E85 /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = 1FF3B3CC29424B8F00867E85 /* Auth0 */; };
-		1FF3B3CF294251DC00867E85 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3B3CE294251DC00867E85 /* SignInView.swift */; };
 		1FF3B3D12945F2E400867E85 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FF3B3D02945F2E400867E85 /* Auth0.plist */; };
 		1FFB1A3D28ED2F2900B126AE /* ArtListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */; };
 		1FFB1A3F28ED9AEB00B126AE /* ArtCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */; };
@@ -222,6 +222,7 @@
 		1F1A16DB290C13D600033745 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		1F1A16DD290C8CB700033745 /* RotatingLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingLogoView.swift; sourceTree = "<group>"; };
 		1F1A16DF290D4F3800033745 /* WidgetNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetNameView.swift; sourceTree = "<group>"; };
+		1F1D71FE2949382100BCA3FB /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		1F502C312917B27700328353 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		1F502C332917B6DB00328353 /* ColorPickerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerSettingsView.swift; sourceTree = "<group>"; };
 		1F588A232924030A00BAFBE8 /* OnboardingFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFriendsView.swift; sourceTree = "<group>"; };
@@ -269,7 +270,6 @@
 		1FB1797228FE18C80066AE71 /* User+CoreDataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataExtensions.swift"; sourceTree = "<group>"; };
 		1FB1797928FE1F4E0066AE71 /* PixelArt+CoreDataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelArt+CoreDataExtensions.swift"; sourceTree = "<group>"; };
 		1FB1798729031B600066AE71 /* MReaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MReaction.swift; sourceTree = "<group>"; };
-		1FF3B3CE294251DC00867E85 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignInView.swift; path = ../../../../../../.Trash/SignInView.swift; sourceTree = "<group>"; };
 		1FF3B3D02945F2E400867E85 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtListViewModel.swift; sourceTree = "<group>"; };
 		1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardView.swift; sourceTree = "<group>"; };
@@ -628,8 +628,8 @@
 				1F9D48A028E69BB6004098B5 /* LoggedInView.swift */,
 				9F28FB9328B2A0C200403F4D /* LargeSpinner.swift */,
 				1F808DF4291EDA33005FE060 /* OnboardingView.swift */,
-				1FF3B3CE294251DC00867E85 /* SignInView.swift */,
 				1F808DFA2922CEC4005FE060 /* RequestNotificationsView.swift */,
+				1F1D71FE2949382100BCA3FB /* SignInView.swift */,
 				1F588A232924030A00BAFBE8 /* OnboardingFriendsView.swift */,
 				1F808DF629201A22005FE060 /* DrawTutorialView.swift */,
 				1F808DFC2922CF08005FE060 /* OnboardingPlusView.swift */,
@@ -869,6 +869,7 @@
 				1F5BA8C92917C730005BA5CE /* FriendsSettingsView.swift in Sources */,
 				1FB1798829031B600066AE71 /* MReaction.swift in Sources */,
 				1F808DF729201A22005FE060 /* DrawTutorialView.swift in Sources */,
+				1F1D71FF2949382100BCA3FB /* SignInView.swift in Sources */,
 				1FB1795728FC351A0066AE71 /* CoreDataService.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
 				1FFB1A4E28F1A1AE00B126AE /* FriendsModel.swift in Sources */,
@@ -925,7 +926,6 @@
 				1FFB1A4428EF9F1600B126AE /* ArtReactionsViewModel.swift in Sources */,
 				9F28FB8D28B2A04600403F4D /* Endpoints.swift in Sources */,
 				1FB1797328FE18C80066AE71 /* User+CoreDataExtensions.swift in Sources */,
-				1FF3B3CF294251DC00867E85 /* SignInView.swift in Sources */,
 				1FFB1A5628F332CD00B126AE /* DrawColourViewModel.swift in Sources */,
 				9FC6245728BA535400723C97 /* MPixelArt.swift in Sources */,
 				1F5BA8E029183DEE005BA5CE /* ArtAssociatedNamesView.swift in Sources */,
