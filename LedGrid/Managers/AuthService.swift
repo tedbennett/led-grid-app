@@ -25,7 +25,6 @@ class AuthService {
                 audience: "https://com.edwardbennett.LedGrid",
                 scope: "offline_access"
             ).start()
-        print(credentials.idToken)
         _ = manager.store(credentials: credentials)
     }
     
