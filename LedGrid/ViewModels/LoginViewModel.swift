@@ -12,6 +12,19 @@ class LoginViewModel: ObservableObject {
     
     @Published var showSignInAlert = false
     @Published var isSigningIn = false
+    @Published var loggedIn: Bool
+    
+    init(loggedIn: Bool) {
+        self.loggedIn = loggedIn
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(logout), name: Notifications.logout, object: nil)
+    }
+    
+    @objc func logout() {
+        DispatchQueue.main.async {
+            self.loggedIn = false
+        }
+    }
     
     var friendsModel = FriendsModel()
     

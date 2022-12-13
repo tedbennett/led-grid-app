@@ -10,4 +10,5 @@ import Foundation
 struct Notifications {
     static var copyGrid = Notification.Name("COPY_GRID")
     static var refreshArt = Notification.Name("REFRESH_ART")
+    static var logout = Notification.Name("LOGOUT")
 }

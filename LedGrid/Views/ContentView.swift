@@ -10,35 +10,16 @@ import AlertToast
 import WidgetKit
 
 struct ContentView: View {
-    init(loggedIn: Binding<Bool>) {
-        self._loggedIn = loggedIn
-        
-        let systemFont = UIFont.systemFont(ofSize: 36, weight: .bold)
-        var font: UIFont
-        
-        if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
-            font = UIFont(descriptor: descriptor, size: 36)
-        } else {
-            font = systemFont
-        }
-        let strokeTextAttributes = [
-            NSAttributedString.Key.font : font,
-        ] as [NSAttributedString.Key : Any]
-        
-        UINavigationBar.appearance().largeTitleTextAttributes = strokeTextAttributes
-        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .label
-    }
-    
-    @Binding var loggedIn: Bool
+    @ObservedObject var viewModel: LoginViewModel
     
     var body: some View {
-        if loggedIn {
-            LoggedInView(loggedIn: $loggedIn)
+        if viewModel.loggedIn {
+            LoggedInView(loggedIn: $viewModel.loggedIn)
         } else {
-            OnboardingView {
+            OnboardingView(viewModel: viewModel) {
                 NavigationManager.shared.currentTab = 0
                 withAnimation {
-                    loggedIn = true
+                    viewModel.loggedIn = true
                 }
             }
         }

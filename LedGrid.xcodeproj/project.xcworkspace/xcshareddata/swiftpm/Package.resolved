@@ -10,6 +10,24 @@
       }
     },
     {
+      "identity" : "auth0.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/auth0/Auth0.swift",
+      "state" : {
+        "revision" : "f60927196902e83934adc9407134994347f24db8",
+        "version" : "2.3.2"
+      }
+    },
+    {
+      "identity" : "jwtdecode.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/auth0/JWTDecode.swift.git",
+      "state" : {
+        "revision" : "d07041068fed2d4b8a38f2b321ea6d97c9152c4a",
+        "version" : "3.0.0"
+      }
+    },
+    {
       "identity" : "mixpanel-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mixpanel/mixpanel-swift",

@@ -50,7 +50,6 @@
 		1F808DF3291B26C9005FE060 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD8AE3728A9B3ED0005A4CF /* IntentsUI.framework */; };
 		1F808DF5291EDA33005FE060 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DF4291EDA33005FE060 /* OnboardingView.swift */; };
 		1F808DF729201A22005FE060 /* DrawTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DF629201A22005FE060 /* DrawTutorialView.swift */; };
-		1F808DF92922CE44005FE060 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DF82922CE44005FE060 /* SignInView.swift */; };
 		1F808DFB2922CEC4005FE060 /* RequestNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DFA2922CEC4005FE060 /* RequestNotificationsView.swift */; };
 		1F808DFD2922CF08005FE060 /* OnboardingPlusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DFC2922CF08005FE060 /* OnboardingPlusView.swift */; };
 		1F808DFF2922F0AD005FE060 /* SettingsTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F808DFE2922F0AD005FE060 /* SettingsTutorialView.swift */; };
@@ -96,6 +95,9 @@
 		1FB1798829031B600066AE71 /* MReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1798729031B600066AE71 /* MReaction.swift */; };
 		1FD8118F28DCF6A600D3F95C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8118E28DCF6A600D3F95C /* Sentry */; };
 		1FD8119228DD0E3900D3F95C /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8119128DD0E3900D3F95C /* Mixpanel */; };
+		1FF3B3CD29424B8F00867E85 /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = 1FF3B3CC29424B8F00867E85 /* Auth0 */; };
+		1FF3B3CF294251DC00867E85 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3B3CE294251DC00867E85 /* SignInView.swift */; };
+		1FF3B3D12945F2E400867E85 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FF3B3D02945F2E400867E85 /* Auth0.plist */; };
 		1FFB1A3D28ED2F2900B126AE /* ArtListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */; };
 		1FFB1A3F28ED9AEB00B126AE /* ArtCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */; };
 		1FFB1A4228EDC60400B126AE /* ArtReactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFB1A4128EDC60400B126AE /* ArtReactionsView.swift */; };
@@ -125,9 +127,7 @@
 		9F28FB6F28B108B400403F4D /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB6E28B108B400403F4D /* StoreManager.swift */; };
 		9F28FB7228B2773500403F4D /* SimpleKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 9F28FB7128B2773500403F4D /* SimpleKeychain */; };
 		9F28FB7428B29D3300403F4D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7328B29D3300403F4D /* AuthService.swift */; };
-		9F28FB7528B29D3300403F4D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7328B29D3300403F4D /* AuthService.swift */; };
 		9F28FB7828B29DFB00403F4D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7728B29DFB00403F4D /* Network.swift */; };
-		9F28FB7928B29DFB00403F4D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7728B29DFB00403F4D /* Network.swift */; };
 		9F28FB7D28B29E9500403F4D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7C28B29E9500403F4D /* Color.swift */; };
 		9F28FB7F28B29EB700403F4D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7E28B29EB700403F4D /* String.swift */; };
 		9F28FB8128B29ED600403F4D /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8028B29ED600403F4D /* Frame.swift */; };
@@ -174,7 +174,6 @@
 		9F626C0F28AAE2C100587B57 /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
 		9F626C1228AC1B3700587B57 /* WidgetTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F626C1128AC1B3700587B57 /* WidgetTutorialView.swift */; };
 		9FA0DDCE286C9B8B00F1CB4F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */; };
-		9FAB5EA62891D03B00A620BB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB5EA52891D03B00A620BB /* LoginView.swift */; };
 		9FAB5EAD28949CD900A620BB /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 9FAB5EAC28949CD900A620BB /* AlertToast */; };
 		9FAB5EB028953F3500A620BB /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 9FAB5EAF28953F3500A620BB /* Sliders */; };
 		9FC6245728BA535400723C97 /* MPixelArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC6245628BA535400723C97 /* MPixelArt.swift */; };
@@ -246,7 +245,6 @@
 		1F808DF1291B1DF7005FE060 /* EditableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableText.swift; sourceTree = "<group>"; };
 		1F808DF4291EDA33005FE060 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		1F808DF629201A22005FE060 /* DrawTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawTutorialView.swift; sourceTree = "<group>"; };
-		1F808DF82922CE44005FE060 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		1F808DFA2922CEC4005FE060 /* RequestNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestNotificationsView.swift; sourceTree = "<group>"; };
 		1F808DFC2922CF08005FE060 /* OnboardingPlusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPlusView.swift; sourceTree = "<group>"; };
 		1F808DFE2922F0AD005FE060 /* SettingsTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTutorialView.swift; sourceTree = "<group>"; };
@@ -271,6 +269,8 @@
 		1FB1797228FE18C80066AE71 /* User+CoreDataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataExtensions.swift"; sourceTree = "<group>"; };
 		1FB1797928FE1F4E0066AE71 /* PixelArt+CoreDataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelArt+CoreDataExtensions.swift"; sourceTree = "<group>"; };
 		1FB1798729031B600066AE71 /* MReaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MReaction.swift; sourceTree = "<group>"; };
+		1FF3B3CE294251DC00867E85 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignInView.swift; path = ../../../../../../.Trash/SignInView.swift; sourceTree = "<group>"; };
+		1FF3B3D02945F2E400867E85 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		1FFB1A3C28ED2F2900B126AE /* ArtListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtListViewModel.swift; sourceTree = "<group>"; };
 		1FFB1A3E28ED9AEB00B126AE /* ArtCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtCardView.swift; sourceTree = "<group>"; };
 		1FFB1A4128EDC60400B126AE /* ArtReactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtReactionsView.swift; sourceTree = "<group>"; };
@@ -342,7 +342,6 @@
 		9F626C1028AAE3C500587B57 /* Pixee-Intents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pixee-Intents.entitlements"; sourceTree = "<group>"; };
 		9F626C1128AC1B3700587B57 /* WidgetTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTutorialView.swift; sourceTree = "<group>"; };
 		9FA0DDCD286C9B8B00F1CB4F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		9FAB5EA52891D03B00A620BB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9FC6245628BA535400723C97 /* MPixelArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPixelArt.swift; sourceTree = "<group>"; };
 		9FC6245928BA8A7000723C97 /* UpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
 		9FC6245B28BA8F8D00723C97 /* SlideOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOverView.swift; sourceTree = "<group>"; };
@@ -364,6 +363,7 @@
 				9F28FB7228B2773500403F4D /* SimpleKeychain in Frameworks */,
 				9FAB5EAD28949CD900A620BB /* AlertToast in Frameworks */,
 				9FAB5EB028953F3500A620BB /* Sliders in Frameworks */,
+				1FF3B3CD29424B8F00867E85 /* Auth0 in Frameworks */,
 				9F28FB6D28B1038B00403F4D /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,6 +458,7 @@
 			children = (
 				57A9296A28031F790096CC96 /* Info.plist */,
 				57A929692802BBAA0096CC96 /* LedGrid.entitlements */,
+				1FF3B3D02945F2E400867E85 /* Auth0.plist */,
 				9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */,
 				9F28FB8528B29F2A00403F4D /* Managers */,
 				9F28FB8428B29F0500403F4D /* Views */,
@@ -625,10 +626,9 @@
 			isa = PBXGroup;
 			children = (
 				1F9D48A028E69BB6004098B5 /* LoggedInView.swift */,
-				9FAB5EA52891D03B00A620BB /* LoginView.swift */,
 				9F28FB9328B2A0C200403F4D /* LargeSpinner.swift */,
 				1F808DF4291EDA33005FE060 /* OnboardingView.swift */,
-				1F808DF82922CE44005FE060 /* SignInView.swift */,
+				1FF3B3CE294251DC00867E85 /* SignInView.swift */,
 				1F808DFA2922CEC4005FE060 /* RequestNotificationsView.swift */,
 				1F588A232924030A00BAFBE8 /* OnboardingFriendsView.swift */,
 				1F808DF629201A22005FE060 /* DrawTutorialView.swift */,
@@ -720,6 +720,7 @@
 				9F28FB7128B2773500403F4D /* SimpleKeychain */,
 				1FD8118E28DCF6A600D3F95C /* Sentry */,
 				1FD8119128DD0E3900D3F95C /* Mixpanel */,
+				1FF3B3CC29424B8F00867E85 /* Auth0 */,
 			);
 			productName = LedGrid;
 			productReference = 5799B42227F0D7E60039F621 /* LedGrid.app */;
@@ -798,6 +799,7 @@
 				9F28FB7028B2773500403F4D /* XCRemoteSwiftPackageReference "SimpleKeychain" */,
 				1FD8118D28DCF6A600D3F95C /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				1FD8119028DD0E3900D3F95C /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
+				1FF3B3CB29424B8F00867E85 /* XCRemoteSwiftPackageReference "Auth0" */,
 			);
 			productRefGroup = 5799B42327F0D7E60039F621 /* Products */;
 			projectDirPath = "";
@@ -816,6 +818,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5799B42D27F0D7E70039F621 /* Preview Assets.xcassets in Resources */,
+				1FF3B3D12945F2E400867E85 /* Auth0.plist in Resources */,
 				5799B42A27F0D7E70039F621 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -861,7 +864,6 @@
 				1F9D48A328E69C37004098B5 /* AddFriendHandler.swift in Sources */,
 				1FB1795528FC27EF0066AE71 /* Reaction+CoreDataProperties.swift in Sources */,
 				1FFB1A5328F1DCDC00B126AE /* NavigationManager.swift in Sources */,
-				1F808DF92922CE44005FE060 /* SignInView.swift in Sources */,
 				1F5BA8E629187741005BA5CE /* ColorPickerVariant.swift in Sources */,
 				9FC6245E28BAAEF300723C97 /* LargeButton.swift in Sources */,
 				1F5BA8C92917C730005BA5CE /* FriendsSettingsView.swift in Sources */,
@@ -923,6 +925,7 @@
 				1FFB1A4428EF9F1600B126AE /* ArtReactionsViewModel.swift in Sources */,
 				9F28FB8D28B2A04600403F4D /* Endpoints.swift in Sources */,
 				1FB1797328FE18C80066AE71 /* User+CoreDataExtensions.swift in Sources */,
+				1FF3B3CF294251DC00867E85 /* SignInView.swift in Sources */,
 				1FFB1A5628F332CD00B126AE /* DrawColourViewModel.swift in Sources */,
 				9FC6245728BA535400723C97 /* MPixelArt.swift in Sources */,
 				1F5BA8E029183DEE005BA5CE /* ArtAssociatedNamesView.swift in Sources */,
@@ -948,7 +951,6 @@
 				9F3A842C289EF0150053F3DD /* RevealView.swift in Sources */,
 				9F28FB7F28B29EB700403F4D /* String.swift in Sources */,
 				1FFB1A4C28EFE0DD00B126AE /* UserViewModel.swift in Sources */,
-				9FAB5EA62891D03B00A620BB /* LoginView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -971,7 +973,6 @@
 				1FB1797728FE1F380066AE71 /* PixelArt+CoreDataClass.swift in Sources */,
 				9F28FB8628B29F3F00403F4D /* Utility.swift in Sources */,
 				1FB1797828FE1F3A0066AE71 /* PixelArt+CoreDataProperties.swift in Sources */,
-				9F28FB7528B29D3300403F4D /* AuthService.swift in Sources */,
 				1F5BA8F4291889E5005BA5CE /* PixeeWidgets.swift in Sources */,
 				9F28FBA228B2A4BC00403F4D /* Endpoints.swift in Sources */,
 				1FB1797C28FE23BB0066AE71 /* User+CoreDataProperties.swift in Sources */,
@@ -981,7 +982,6 @@
 				9F28FBA528B2A8D900403F4D /* JSONDecoder.swift in Sources */,
 				1FB1797D28FE23BE0066AE71 /* User+CoreDataClass.swift in Sources */,
 				9FD8AE7728AADD190005A4CF /* pixee-intents.intentdefinition in Sources */,
-				9F28FB7928B29DFB00403F4D /* Network.swift in Sources */,
 				1F808DED291B1D18005FE060 /* GridView.swift in Sources */,
 				1FB1797428FE192D0066AE71 /* MPixelArt.swift in Sources */,
 				1F5BA8F829188A34005BA5CE /* NamedArtWidget.swift in Sources */,
@@ -1405,6 +1405,14 @@
 				minimumVersion = 4.0.3;
 			};
 		};
+		1FF3B3CB29424B8F00867E85 /* XCRemoteSwiftPackageReference "Auth0" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/auth0/Auth0.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		9F28FB7028B2773500403F4D /* XCRemoteSwiftPackageReference "SimpleKeychain" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/SimpleKeychain";
@@ -1441,6 +1449,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1FD8119028DD0E3900D3F95C /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
 			productName = Mixpanel;
+		};
+		1FF3B3CC29424B8F00867E85 /* Auth0 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FF3B3CB29424B8F00867E85 /* XCRemoteSwiftPackageReference "Auth0" */;
+			productName = Auth0;
 		};
 		9F28FB7128B2773500403F4D /* SimpleKeychain */ = {
 			isa = XCSwiftPackageProductDependency;

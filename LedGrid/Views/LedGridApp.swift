@@ -13,8 +13,8 @@ import Mixpanel
 @main
 struct LedGridApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State private var loggedIn: Bool
-
+    @StateObject private var viewModel: LoginViewModel
+    
     init() {
         UNUserNotificationCenter.current().delegate  = NotificationManager.shared
         WidgetCenter.shared.reloadAllTimelines()
@@ -24,8 +24,24 @@ struct LedGridApp: App {
         AnalyticsManager.initialiseSentry()
         
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        
+        let systemFont = UIFont.systemFont(ofSize: 36, weight: .bold)
+        var font: UIFont
+        
+        if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
+            font = UIFont(descriptor: descriptor, size: 36)
+        } else {
+            font = systemFont
+        }
+        let strokeTextAttributes = [
+            NSAttributedString.Key.font : font,
+        ] as [NSAttributedString.Key : Any]
+        
+        UINavigationBar.appearance().largeTitleTextAttributes = strokeTextAttributes
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .label
+        
         if AuthService.canRenew() && Utility.user?.id != nil {
-            _loggedIn = State(initialValue: true)
+            _viewModel = StateObject(wrappedValue: LoginViewModel(loggedIn: true))
             if hasNoData() {
                 Task {
                     try? await PixeeProvider.fetchAllData()
@@ -34,7 +50,7 @@ struct LedGridApp: App {
             }
             UIApplication.shared.registerForRemoteNotifications()
         } else {
-            _loggedIn = State(initialValue: false)
+            _viewModel = StateObject(wrappedValue: LoginViewModel(loggedIn: false))
         }
     }
     
@@ -45,7 +61,8 @@ struct LedGridApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(loggedIn: $loggedIn).accentColor(Color(uiColor: .label))
+            ContentView(viewModel: viewModel)
+                .accentColor(Color(uiColor: .label))
                 .environment(
                     \.managedObjectContext,
                     PersistenceManager.shared.container.viewContext

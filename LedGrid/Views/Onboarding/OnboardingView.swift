@@ -17,6 +17,7 @@ enum OnboardingStep {
 }
 
 struct OnboardingView: View {
+    @ObservedObject var viewModel: LoginViewModel
     @State private var step = OnboardingStep.none
     @State private var hidden = true
     
@@ -47,7 +48,7 @@ struct OnboardingView: View {
             }
             switch step {
             case .signIn:
-                SignInView {
+                SignInView(viewModel: viewModel) {
                     Task {
                         if await NotificationManager.shared.isAuthorised() {
                             withAnimation {
@@ -100,7 +101,7 @@ struct OnboardingView: View {
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView {}
+        OnboardingView(viewModel: LoginViewModel(loggedIn: false)) {}
     }
 }
 

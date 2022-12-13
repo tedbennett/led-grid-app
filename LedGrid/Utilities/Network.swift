@@ -71,7 +71,13 @@ struct Network {
             urlRequest.addValue(value, forHTTPHeaderField: key)
         }
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        return try await request(urlRequest)
+        
+        do {
+            return try await request(urlRequest)
+        } catch NetworkError.notAuthenticated {
+            NotificationCenter.default.post(Notification(name: Notifications.logout))
+            throw NetworkError.notAuthenticated
+        }
     }
     
     
