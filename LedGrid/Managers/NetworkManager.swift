@@ -23,13 +23,13 @@ class NetworkManager {
     
     func handleSignInWithApple(authorization: ASAuthorization) async throws -> MUser {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
-              let code = appleIDCredential.authorizationCode,
-              let authorizationCode = String(data: code, encoding: .utf8) else {
+              let token = appleIDCredential.identityToken,
+              let identityToken = String(data: token, encoding: .utf8) else {
             // throw
             throw ApiError.noUser
         }
         
-        try await AuthService.login(code: authorizationCode, fullName: appleIDCredential.fullName)
+        let firebaseId = try await AuthService.login(token: identityToken)
        
         let user = try await {
             if try await !checkUserExists(id: appleIDCredential.user) {
@@ -39,10 +39,17 @@ class NetworkManager {
                     givenName: appleIDCredential.fullName?.givenName,
                     email: appleIDCredential.email
                 )
-                try await createAccount(id: appleIDCredential.user, fullName: appleIDCredential.fullName?.formatted(), givenName: appleIDCredential.fullName?.givenName, email: appleIDCredential.email)
+                try await createAccount(
+                    id: appleIDCredential.user,
+                    fullName: appleIDCredential.fullName?.formatted(),
+                    givenName: appleIDCredential.fullName?.givenName,
+                    email: appleIDCredential.email,
+                    firebaseId: firebaseId
+                )
                 return user
             } else {
                 let user = try await getUser(id: appleIDCredential.user)
+                try await updateFirebaseId(id: appleIDCredential.user, firebaseId: firebaseId)
                 return user
             }
         }()
@@ -153,7 +160,7 @@ class NetworkManager {
         return try await getRequest(url: url, headers: headers)
     }
     
-    func createAccount(id: String, fullName: String?, givenName: String?, email: String?) async throws {
+    func createAccount(id: String, fullName: String?, givenName: String?, email: String?, firebaseId: String) async throws {
         let payload = MUser(id: id, fullName: fullName, givenName: givenName, email: email)
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
@@ -168,6 +175,18 @@ class NetworkManager {
         AnalyticsManager.trackEvent(.signUp, properties: [
             "with_name": fullName != nil
         ])
+    }
+    
+    
+    func updateFirebaseId(id: String, firebaseId: String) async throws {
+        let payload = ["firebase_id": firebaseId]
+
+        let data = try JSONSerialization.data(withJSONObject: payload)
+        let url = Network.makeUrl( [.users, .dynamic(id), .firebaseId])
+        
+        let headers = try await AuthService.getToken()
+        
+        let _ = try await Network.makeRequest(url: url, body: data, method: .put, headers: headers)
     }
     
     func updateUser(id: String, fullName: String, givenName: String, email: String) async throws {

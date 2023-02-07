@@ -57,7 +57,7 @@ class LoginViewModel: ObservableObject {
     }
     
     func shouldLogin() -> Bool {
-        if AuthService.canRenew() && Utility.user?.id != nil {
+        if AuthService.isLoggedIn && Utility.user?.id != nil {
             return true
         } else {
             AuthService.logout()

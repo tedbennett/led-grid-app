@@ -12,7 +12,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
-        
         if let payload = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? [String: Any] {
             NotificationManager.shared.handleNotification(payload: payload)
         }

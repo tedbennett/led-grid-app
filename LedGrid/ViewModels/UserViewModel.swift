@@ -14,7 +14,7 @@ class UserViewModel: ObservableObject {
         }
     }
     
-    func updateUser(fullName: String) async {
+    func updateUser(fullName: String) {
         if user == nil { return }
         user?.fullName = fullName
         Task {

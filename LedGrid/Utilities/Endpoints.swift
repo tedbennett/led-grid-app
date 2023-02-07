@@ -20,6 +20,7 @@ enum Endpoint {
     case refresh
     case plus
     case reactions
+    case firebaseId
     case dynamic(String)
     
     var raw: String {
@@ -36,6 +37,7 @@ enum Endpoint {
         case .refresh: return "refresh"
         case .plus: return "plus"
         case .reactions: return "reactions"
+        case .firebaseId: return "firebaseId"
         case .dynamic(let str): return str
         }
     }

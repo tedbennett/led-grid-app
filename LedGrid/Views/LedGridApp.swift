@@ -9,6 +9,7 @@ import SwiftUI
 import WidgetKit
 import Sentry
 import Mixpanel
+import FirebaseCore
 
 @main
 struct LedGridApp: App {
@@ -20,7 +21,7 @@ struct LedGridApp: App {
         WidgetCenter.shared.reloadAllTimelines()
         StoreManager.shared.getProducts()
         
-        AnalyticsManager.initialiseMixpanel()
+//        AnalyticsManager.initialiseMixpanel()
         AnalyticsManager.initialiseSentry()
         
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
@@ -39,8 +40,8 @@ struct LedGridApp: App {
         
         UINavigationBar.appearance().largeTitleTextAttributes = strokeTextAttributes
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .label
-        
-        if AuthService.canRenew() && Utility.user?.id != nil {
+        FirebaseApp.configure()
+        if AuthService.isLoggedIn && Utility.user?.id != nil {
             _viewModel = StateObject(wrappedValue: LoginViewModel(loggedIn: true))
             if hasNoData() {
                 Task {

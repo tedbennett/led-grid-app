@@ -227,9 +227,7 @@ struct EditNameView: View {
                 fullName = userViewModel.user?.fullName ?? ""
             }
             Button {
-                Task {
-                    await userViewModel.updateUser(fullName: fullName)
-                }
+                userViewModel.updateUser(fullName: fullName)
                 isPresented = false
             } label: {
                 Text("Save")

@@ -7,7 +7,11 @@
 
 import Foundation
 
-fileprivate var API_ENDPOINT = "https://pixee-app.com/api/v1"
+#if DEBUG
+fileprivate var API_ENDPOINT = "https://pixee-api-development.up.railway.app/v1"
+#else
+fileprivate var API_ENDPOINT = "https://api.pixee-app.com/v1"
+#endif
 
 
 struct Network {

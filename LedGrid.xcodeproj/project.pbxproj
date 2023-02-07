@@ -42,8 +42,8 @@
 		1F5BA8FA291900A2005BA5CE /* FriendWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8F9291900A2005BA5CE /* FriendWidgetProvider.swift */; };
 		1F5BA8FC291900AA005BA5CE /* NamedArtWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BA8FB291900AA005BA5CE /* NamedArtWidgetProvider.swift */; };
 		1F5E0E2429259CF600CB343C /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5E0E2329259CF600CB343C /* AnalyticsManager.swift */; };
-		1F7E05D4298FD28100597778 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E05D3298FD28100597778 /* FirebaseAnalyticsSwift */; };
-		1F7E05D6298FD28100597778 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E05D5298FD28100597778 /* FirebaseAuth */; };
+		1F7E05D9298FD3E500597778 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E05D8298FD3E500597778 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		1F7E05DB298FD3E500597778 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1F7E05DA298FD3E500597778 /* FirebaseAuth */; };
 		1F808DEC291B1D11005FE060 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAD27F3A702008C52BB /* GridView.swift */; };
 		1F808DED291B1D18005FE060 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96DAD27F3A702008C52BB /* GridView.swift */; };
 		1F808DEE291B1D21005FE060 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799B43527F0D8AA0039F621 /* SquareView.swift */; };
@@ -364,11 +364,11 @@
 				1FD8118F28DCF6A600D3F95C /* Sentry in Frameworks */,
 				9F28FB7228B2773500403F4D /* SimpleKeychain in Frameworks */,
 				9FAB5EAD28949CD900A620BB /* AlertToast in Frameworks */,
-				1F7E05D6298FD28100597778 /* FirebaseAuth in Frameworks */,
-				1F7E05D4298FD28100597778 /* FirebaseAnalyticsSwift in Frameworks */,
+				1F7E05DB298FD3E500597778 /* FirebaseAuth in Frameworks */,
 				9FAB5EB028953F3500A620BB /* Sliders in Frameworks */,
 				1FF3B3CD29424B8F00867E85 /* Auth0 in Frameworks */,
 				9F28FB6D28B1038B00403F4D /* StoreKit.framework in Frameworks */,
+				1F7E05D9298FD3E500597778 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,6 +710,7 @@
 				5799B41F27F0D7E60039F621 /* Frameworks */,
 				5799B42027F0D7E60039F621 /* Resources */,
 				9F317B8828A9414E00105E8C /* Embed Foundation Extensions */,
+				1F7E05E6299312D900597778 /* Configure Firebase PList for Environment */,
 			);
 			buildRules = (
 			);
@@ -725,8 +726,8 @@
 				1FD8118E28DCF6A600D3F95C /* Sentry */,
 				1FD8119128DD0E3900D3F95C /* Mixpanel */,
 				1FF3B3CC29424B8F00867E85 /* Auth0 */,
-				1F7E05D3298FD28100597778 /* FirebaseAnalyticsSwift */,
-				1F7E05D5298FD28100597778 /* FirebaseAuth */,
+				1F7E05D8298FD3E500597778 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				1F7E05DA298FD3E500597778 /* FirebaseAuth */,
 			);
 			productName = LedGrid;
 			productReference = 5799B42227F0D7E60039F621 /* LedGrid.app */;
@@ -806,7 +807,7 @@
 				1FD8118D28DCF6A600D3F95C /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				1FD8119028DD0E3900D3F95C /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
 				1FF3B3CB29424B8F00867E85 /* XCRemoteSwiftPackageReference "Auth0" */,
-				1F7E05D2298FD28100597778 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1F7E05D7298FD3E400597778 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 5799B42327F0D7E60039F621 /* Products */;
 			projectDirPath = "";
@@ -846,6 +847,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1F7E05E6299312D900597778 /* Configure Firebase PList for Environment */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Configure Firebase PList for Environment";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Name of the resource we're selectively copying\nGOOGLESERVICE_INFO_PLIST=GoogleService-Info.plist\n\n# Get references to dev and prod versions of the GoogleService-Info.plist\n# NOTE: These should only live on the file system and should NOT be part of the target (since we'll be adding them to the target manually)\nGOOGLESERVICE_INFO_DEV=${PROJECT_DIR}/${TARGET_NAME}/Firebase/Dev/${GOOGLESERVICE_INFO_PLIST}\nGOOGLESERVICE_INFO_PROD=${PROJECT_DIR}/${TARGET_NAME}/Firebase/Prod/${GOOGLESERVICE_INFO_PLIST}\n\n# Make sure the dev version of GoogleService-Info.plist exists\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_DEV}\"\nif [ ! -f $GOOGLESERVICE_INFO_DEV ]\nthen\n    echo \"No Development GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\n    exit 1\nfi\n\n# Make sure the prod version of GoogleService-Info.plist exists\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_PROD}\"\nif [ ! -f $GOOGLESERVICE_INFO_PROD ]\nthen\n    echo \"No Production GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\n    exit 1\nfi\n\n# Get a reference to the destination location for the GoogleService-Info.plist\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\necho \"Will copy ${GOOGLESERVICE_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n\n# Copy over the prod GoogleService-Info.plist for Release builds\nif [ \"${CONFIGURATION}\" == \"Release\" ]\nthen\n    echo \"Using ${GOOGLESERVICE_INFO_PROD}\"\n    cp \"${GOOGLESERVICE_INFO_PROD}\" \"${PLIST_DESTINATION}\"\nelse\n    echo \"Using ${GOOGLESERVICE_INFO_DEV}\"\n    cp \"${GOOGLESERVICE_INFO_DEV}\" \"${PLIST_DESTINATION}\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5799B41E27F0D7E60039F621 /* Sources */ = {
@@ -1396,7 +1418,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1F7E05D2298FD28100597778 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		1F7E05D7298FD3E400597778 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -1455,14 +1477,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1F7E05D3298FD28100597778 /* FirebaseAnalyticsSwift */ = {
+		1F7E05D8298FD3E500597778 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1F7E05D2298FD28100597778 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsSwift;
+			package = 1F7E05D7298FD3E400597778 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
 		};
-		1F7E05D5298FD28100597778 /* FirebaseAuth */ = {
+		1F7E05DA298FD3E500597778 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1F7E05D2298FD28100597778 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 1F7E05D7298FD3E400597778 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
 		1FD8118E28DCF6A600D3F95C /* Sentry */ = {
