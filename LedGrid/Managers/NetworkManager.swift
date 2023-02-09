@@ -43,8 +43,7 @@ class NetworkManager {
                     id: appleIDCredential.user,
                     fullName: appleIDCredential.fullName?.formatted(),
                     givenName: appleIDCredential.fullName?.givenName,
-                    email: appleIDCredential.email,
-                    firebaseId: firebaseId
+                    email: appleIDCredential.email
                 )
                 return user
             } else {
@@ -160,7 +159,7 @@ class NetworkManager {
         return try await getRequest(url: url, headers: headers)
     }
     
-    func createAccount(id: String, fullName: String?, givenName: String?, email: String?, firebaseId: String) async throws {
+    func createAccount(id: String, fullName: String?, givenName: String?, email: String?) async throws {
         let payload = MUser(id: id, fullName: fullName, givenName: givenName, email: email)
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
