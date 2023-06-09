@@ -11,59 +11,34 @@ import SwiftUI
 let logger = Logger(subsystem: "Pixee", category: "Canvas")
 
 struct Home: View {
-    @State private var grid: Grid = .example
-    let now = Date().timeIntervalSince1970
-    @State private var feedback = false
-    var body: some View {
-        TabView {
-            VStack {
-                Canvas { context, size in
-                    let dim = size.width / CGFloat(grid.count)
-                    let size = CGSize(width: dim + 0.2, height: dim + 0.2)
-                    for (y, row) in grid.enumerated() {
-                        for (x, square) in row.enumerated() {
-                            let origin = CGPoint(x: (CGFloat(x) * dim) - 0.1, y: (CGFloat(y) * dim) - 0.1)
-                            let rect = CGRect(origin: origin, size: size)
-                            let path = Rectangle().path(in: rect)
-                            context.fill(path, with: .color(square))
-                        }
-                    }
-                }
-                .sensoryFeedback(.impact(flexibility: .soft), trigger: feedback)
-                .aspectRatio(contentMode: .fit)
-                .onLocalTapGesture { position, size in
-                    logger.info("Tapped at: \(position.x), \(position.y)")
-                    let x = Int(position.x / size.width * CGFloat(grid.count))
-                    let y = Int(position.y / size.height * CGFloat(grid.count))
-                    logger.info("Registered as: \(x), \(y)")
-                    if 0...7 ~= x && 0...7 ~= y {
-                        grid[y][x] = Color.yellow
-                        feedback.toggle()
-                    }
-                }
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding()
-                .gesture(DragGesture(), including: .gesture)
+    @State private var tab = 0
+    let model = GridModel()
 
-                Spacer()
-                HStack(alignment: .bottom) {
-                    Button {} label: {
-                        Image(systemName: "arrow.counterclockwise")
-                    }.padding(.leading, 10)
-                    Button {} label: {
-                        Image(systemName: "arrow.clockwise")
+    var body: some View {
+        ZStack {
+            TabView(selection: $tab) {
+                ZStack {
+                    VStack {
+                        Spacer()
+                        CanvasView(model: model)
+                        Spacer()
                     }
-                    Spacer()
-                    Button {} label: {
-                        Image(systemName: "paperplane").padding().background(Circle().fill(.gray))
+                    VStack {
+                        Spacer().allowsHitTesting(false)
+                        BottomBarView()
                     }
-                    Spacer()
-                    Circle().fill().frame(width: 35).padding(.trailing, 10)
-                }
+                }.tag(0)
+                VStack {
+                    Text("First")
+                }.tag(1)
             }
-            Text("First")
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .animation(.easeOut(duration: 0.2), value: tab)
+            VStack {
+                HeaderBarView(tab: $tab)
+                Spacer().allowsHitTesting(false)
+            }
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
     }
 }
 
