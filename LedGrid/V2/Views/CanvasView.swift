@@ -10,7 +10,7 @@ import SwiftUI
 struct CanvasView: View {
     @Bindable var model: GridModel
     @State private var feedback = false
-    
+
     let color: Color = .yellow
 
     var body: some View {
@@ -28,12 +28,9 @@ struct CanvasView: View {
         }
         .sensoryFeedback(.impact(flexibility: .soft), trigger: feedback)
         .aspectRatio(contentMode: .fit)
-        .gesture(DragGesture(), including: .gesture)
-        .onLocalTapGesture { position, size in
-            logger.info("Tapped at: \(position.x), \(position.y)")
+        .onLocalDragGesture { position, size in
             let x = Int(position.x / size.width * CGFloat(model.grid.count))
             let y = Int(position.y / size.height * CGFloat(model.grid.count))
-            logger.info("Registered as: \(x), \(y)")
             if 0...7 ~= x && 0...7 ~= y && model.grid[y][x] != color {
                 model.grid[y][x] = color
                 feedback.toggle()
@@ -46,4 +43,32 @@ struct CanvasView: View {
 
 #Preview {
     CanvasView(model: GridModel())
+}
+
+
+struct LocalDragGesture: ViewModifier {
+    let action: (CGPoint, CGSize) -> Void
+    let space = UUID().uuidString
+
+    func body(content: Content) -> some View {
+        content
+            .allowsHitTesting(false)
+            .coordinateSpace(.named(space))
+            .background {
+                GeometryReader { geometry in
+                    Color.black
+                        .gesture(
+                            DragGesture(minimumDistance: 0, coordinateSpace: .named(space))
+                                .onChanged { val in
+                                    action(val.location, geometry.size)
+                        })
+                }.padding(1)
+            }
+    }
+}
+
+extension View {
+    func onLocalDragGesture(_ action: @escaping (CGPoint, CGSize) -> Void) -> some View {
+        modifier(LocalDragGesture(action: action))
+    }
 }

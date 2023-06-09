@@ -45,28 +45,3 @@ struct Home: View {
 #Preview {
     Home()
 }
-
-struct LocalTapGesture: ViewModifier {
-    let action: (CGPoint, CGSize) -> Void
-    let space = UUID().uuidString
-
-    func body(content: Content) -> some View {
-        content
-            .allowsHitTesting(false)
-            .coordinateSpace(.named(space))
-            .background {
-                GeometryReader { geometry in
-                    Color.black
-                        .onTapGesture(count: 1, coordinateSpace: .named(space)) { position in
-                            action(position, geometry.size)
-                        }
-                }.padding(1)
-            }
-    }
-}
-
-extension View {
-    func onLocalTapGesture(_ action: @escaping (CGPoint, CGSize) -> Void) -> some View {
-        modifier(LocalTapGesture(action: action))
-    }
-}
