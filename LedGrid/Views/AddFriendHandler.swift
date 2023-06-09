@@ -9,10 +9,11 @@ import SwiftUI
 import AlertToast
 
 struct AddFriendHandler: View {
-    @EnvironmentObject var friendsViewModel: FriendsViewModel
     @State private var addedFriend = false
     @State private var failedToAddFriend = false
     @State private var alreadyFriend = false
+    
+    let model = FriendsModel()
     
     func parseUrl(_ url: URL) {
         if url.scheme == "widget" {
@@ -30,17 +31,19 @@ struct AddFriendHandler: View {
         }
         Task {
             do {
-                let added = try await friendsViewModel.addFriend(id: id)
+                let added = await model.addFriend(id: id)
                 try await PixeeProvider.addFriend(id)
                 await MainActor.run {
-                    if added {
+                    if added != nil {
                         addedFriend.toggle()
                     } else {
-                        alreadyFriend.toggle()
+                        failedToAddFriend.toggle()
                     }
                 }
             } catch {
-                failedToAddFriend.toggle()
+                await MainActor.run {
+                    failedToAddFriend = true
+                }
             }
         }
     }
@@ -60,7 +63,7 @@ struct AddFriendHandler: View {
     }
     
     var body: some View {
-        EmptyView()
+        Text("hi")
             .onOpenURL { parseUrl($0) }
             .toast(isPresenting: $addedFriend) {
                 AlertToast(type: .complete(.gray), title: "Added friend")

@@ -13,6 +13,9 @@
 		1F1A16E1290D679900033745 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C96D9F27F1D390008C52BB /* Utility.swift */; };
 		1F1A16E4290D67CB00033745 /* MUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB8A28B2A00800403F4D /* MUser.swift */; };
 		1F1D71FF2949382100BCA3FB /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D71FE2949382100BCA3FB /* SignInView.swift */; };
+		1F3F9FD02A324DC800376260 /* PixeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FCF2A324DC800376260 /* PixeeTests.swift */; };
+		1F3F9FD82A324DFD00376260 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FD72A324DFD00376260 /* App.swift */; };
+		1F3FA0132A3258A200376260 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3FA0122A3258A200376260 /* Home.swift */; };
 		1F44FEFB29046A40000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
 		1F44FEFC29046A41000BAFAB /* Reaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795128FC27EF0066AE71 /* Reaction+CoreDataProperties.swift */; };
 		1F44FEFD29046A44000BAFAB /* Reaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB1795028FC27EF0066AE71 /* Reaction+CoreDataClass.swift */; };
@@ -189,6 +192,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1F3F9FD12A324DC800376260 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5799B41A27F0D7E60039F621 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5799B42127F0D7E60039F621;
+			remoteInfo = LedGrid;
+		};
 		9F317B8228A9414E00105E8C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5799B41A27F0D7E60039F621 /* Project object */;
@@ -225,6 +235,10 @@
 		1F1A16DD290C8CB700033745 /* RotatingLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingLogoView.swift; sourceTree = "<group>"; };
 		1F1A16DF290D4F3800033745 /* WidgetNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetNameView.swift; sourceTree = "<group>"; };
 		1F1D71FE2949382100BCA3FB /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		1F3F9FCD2A324DC800376260 /* PixeeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixeeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F3F9FCF2A324DC800376260 /* PixeeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeTests.swift; sourceTree = "<group>"; };
+		1F3F9FD72A324DFD00376260 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		1F3FA0122A3258A200376260 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		1F502C312917B27700328353 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		1F502C332917B6DB00328353 /* ColorPickerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerSettingsView.swift; sourceTree = "<group>"; };
 		1F588A232924030A00BAFBE8 /* OnboardingFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFriendsView.swift; sourceTree = "<group>"; };
@@ -356,6 +370,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1F3F9FCA2A324DC800376260 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5799B41F27F0D7E60039F621 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -394,6 +415,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F3F9FCE2A324DC800376260 /* PixeeTests */ = {
+			isa = PBXGroup;
+			children = (
+				1F3F9FCF2A324DC800376260 /* PixeeTests.swift */,
+			);
+			path = PixeeTests;
+			sourceTree = "<group>";
+		};
+		1F3F9FD62A324DEC00376260 /* V2 */ = {
+			isa = PBXGroup;
+			children = (
+				1F3F9FD72A324DFD00376260 /* App.swift */,
+				1F3FA0122A3258A200376260 /* Home.swift */,
+			);
+			path = V2;
+			sourceTree = "<group>";
+		};
 		1F9D489D28E698C7004098B5 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,6 +480,7 @@
 				5799B42427F0D7E60039F621 /* LedGrid */,
 				9F317B7928A9414C00105E8C /* Pixee-Widget */,
 				9F626C0128AAE2A500587B57 /* Pixee-Intents */,
+				1F3F9FCE2A324DC800376260 /* PixeeTests */,
 				5799B42327F0D7E60039F621 /* Products */,
 				9F4FC810288CA28D00A2603F /* Frameworks */,
 			);
@@ -453,6 +492,7 @@
 				5799B42227F0D7E60039F621 /* LedGrid.app */,
 				9F317B7428A9414C00105E8C /* Pixee-WidgetExtension.appex */,
 				9F626BFF28AAE2A500587B57 /* Pixee-Intents.appex */,
+				1F3F9FCD2A324DC800376260 /* PixeeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -464,6 +504,7 @@
 				57A929692802BBAA0096CC96 /* LedGrid.entitlements */,
 				1FF3B3D02945F2E400867E85 /* Auth0.plist */,
 				9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */,
+				1F3F9FD62A324DEC00376260 /* V2 */,
 				9F28FB8528B29F2A00403F4D /* Managers */,
 				9F28FB8428B29F0500403F4D /* Views */,
 				1F9D489D28E698C7004098B5 /* ViewModels */,
@@ -702,6 +743,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1F3F9FCC2A324DC800376260 /* PixeeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F3F9FD32A324DC800376260 /* Build configuration list for PBXNativeTarget "PixeeTests" */;
+			buildPhases = (
+				1F3F9FC92A324DC800376260 /* Sources */,
+				1F3F9FCA2A324DC800376260 /* Frameworks */,
+				1F3F9FCB2A324DC800376260 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1F3F9FD22A324DC800376260 /* PBXTargetDependency */,
+			);
+			name = PixeeTests;
+			productName = PixeeTests;
+			productReference = 1F3F9FCD2A324DC800376260 /* PixeeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		5799B42127F0D7E60039F621 /* LedGrid */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5799B43027F0D7E70039F621 /* Build configuration list for PBXNativeTarget "LedGrid" */;
@@ -777,9 +836,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1400;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					1F3F9FCC2A324DC800376260 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 5799B42127F0D7E60039F621;
+					};
 					5799B42127F0D7E60039F621 = {
 						CreatedOnToolsVersion = 13.2;
 					};
@@ -816,11 +879,19 @@
 				5799B42127F0D7E60039F621 /* LedGrid */,
 				9F317B7328A9414C00105E8C /* Pixee-WidgetExtension */,
 				9F626BFE28AAE2A500587B57 /* Pixee-Intents */,
+				1F3F9FCC2A324DC800376260 /* PixeeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1F3F9FCB2A324DC800376260 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5799B42027F0D7E60039F621 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -870,6 +941,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1F3F9FC92A324DC800376260 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F3F9FD02A324DC800376260 /* PixeeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5799B41E27F0D7E60039F621 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -896,10 +975,12 @@
 				1F5BA8E629187741005BA5CE /* ColorPickerVariant.swift in Sources */,
 				9FC6245E28BAAEF300723C97 /* LargeButton.swift in Sources */,
 				1F5BA8C92917C730005BA5CE /* FriendsSettingsView.swift in Sources */,
+				1F3FA0132A3258A200376260 /* Home.swift in Sources */,
 				1FB1798829031B600066AE71 /* MReaction.swift in Sources */,
 				1F808DF729201A22005FE060 /* DrawTutorialView.swift in Sources */,
 				1F1D71FF2949382100BCA3FB /* SignInView.swift in Sources */,
 				1FB1795728FC351A0066AE71 /* CoreDataService.swift in Sources */,
+				1F3F9FD82A324DFD00376260 /* App.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
 				1FFB1A4E28F1A1AE00B126AE /* FriendsModel.swift in Sources */,
 				1F5BA8EC29187B10005BA5CE /* ArtAssociatedName+CoreDataProperties.swift in Sources */,
@@ -1053,6 +1134,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1F3F9FD22A324DC800376260 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5799B42127F0D7E60039F621 /* LedGrid */;
+			targetProxy = 1F3F9FD12A324DC800376260 /* PBXContainerItemProxy */;
+		};
 		9F317B8328A9414E00105E8C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9F317B7328A9414C00105E8C /* Pixee-WidgetExtension */;
@@ -1066,10 +1152,60 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1F3F9FD42A324DC800376260 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = pixee.PixeeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LedGrid.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LedGrid";
+			};
+			name = Debug;
+		};
+		1F3F9FD52A324DC800376260 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = pixee.PixeeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LedGrid.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LedGrid";
+			};
+			name = Release;
+		};
 		5799B42E27F0D7E70039F621 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1117,7 +1253,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1131,6 +1267,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1172,7 +1309,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1206,7 +1343,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1215,6 +1352,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1245,7 +1385,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1254,6 +1394,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1274,7 +1417,7 @@
 				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Pixee-Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1304,7 +1447,7 @@
 				INFOPLIST_FILE = "Pixee-Widget/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Pixee-Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1332,7 +1475,7 @@
 				INFOPLIST_FILE = "Pixee-Intents/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Pixee-Intents";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1360,7 +1503,7 @@
 				INFOPLIST_FILE = "Pixee-Intents/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Pixee-Intents";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1379,6 +1522,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1F3F9FD32A324DC800376260 /* Build configuration list for PBXNativeTarget "PixeeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F3F9FD42A324DC800376260 /* Debug */,
+				1F3F9FD52A324DC800376260 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5799B41D27F0D7E60039F621 /* Build configuration list for PBXProject "LedGrid" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

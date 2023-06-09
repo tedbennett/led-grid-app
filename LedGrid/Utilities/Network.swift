@@ -29,7 +29,8 @@ struct Network {
     
     static func request(_ urlRequest: URLRequest) async throws -> Data {
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
-        if let response = response as? HTTPURLResponse {
+        if let response = response as? HTTPURLResponse, response.statusCode >= 400 {
+            print("Request failed: \(urlRequest.url?.relativePath ?? "") \(response.statusCode)")
             switch response.statusCode {
             case 400: throw NetworkError.badRequest
             case 401: throw NetworkError.notAuthenticated

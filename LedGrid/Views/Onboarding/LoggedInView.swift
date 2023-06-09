@@ -21,7 +21,6 @@ struct LoggedInView: View {
     
     var body: some View {
         ZStack {
-            AddFriendHandler()
             TabView(selection: $navigationManager.currentTab) {
                 DrawView()
                     .tabItem {
@@ -39,6 +38,7 @@ struct LoggedInView: View {
                     }.tag(2)
                     .environmentObject(userViewModel)
             }
+            AddFriendHandler()
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active && loggedIn {
                     WidgetCenter.shared.reloadAllTimelines()

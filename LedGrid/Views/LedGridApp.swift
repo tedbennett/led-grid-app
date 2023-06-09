@@ -11,7 +11,6 @@ import Sentry
 import Mixpanel
 import FirebaseCore
 
-@main
 struct LedGridApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var viewModel: LoginViewModel

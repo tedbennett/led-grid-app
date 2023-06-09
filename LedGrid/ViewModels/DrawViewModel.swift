@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 class DrawViewModel: ObservableObject {
     @Published var sentGrid = false
     @Published var failedToSendGrid = false
