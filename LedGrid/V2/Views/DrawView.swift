@@ -48,6 +48,11 @@ struct DrawView: View {
     }
 
     var body: some View {
+        VStack {
+            DraftsView(selectedDraftId: $selectedDraftId) {
+                onChangeTab(.draw)
+            }
+        }.tag(Tab.drafts)
         ZStack {
             VStack {
                 Spacer()

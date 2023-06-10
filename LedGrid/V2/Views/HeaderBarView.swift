@@ -12,6 +12,7 @@ struct HeaderBarView: View {
 
     var body: some View {
         Picker("Selected Tab", selection: $tab) {
+            Text("Drafts").tag(Tab.drafts)
             Text("Draw").tag(Tab.draw)
             Text("Art").tag(Tab.art)
         }.pickerStyle(.segmented)

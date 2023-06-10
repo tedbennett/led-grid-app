@@ -16,6 +16,7 @@ struct AppV2: App {
         WindowGroup {
             Home()
         }.modelContainer(Persistence.container)
+            
     }
 }
 

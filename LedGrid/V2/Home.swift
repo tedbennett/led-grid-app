@@ -11,6 +11,7 @@ import SwiftData
 let logger = Logger(subsystem: "Pixee", category: "Canvas")
 
 enum Tab: Hashable {
+    case drafts
     case draw
     case art
 }
