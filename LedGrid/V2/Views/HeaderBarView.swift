@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct HeaderBarView: View {
-    @Binding var tab: Int
+    @Binding var tab: Tab
 
     var body: some View {
         Picker("Selected Tab", selection: $tab) {
-            Text("Draw").tag(0)
-            Text("Art").tag(1)
+            Text("Draw").tag(Tab.draw)
+            Text("Art").tag(Tab.art)
         }.pickerStyle(.segmented)
             .id("Picker")
             .padding()
@@ -21,5 +21,5 @@ struct HeaderBarView: View {
 }
 
 #Preview {
-    HeaderBarView(tab: .constant(0))
+    HeaderBarView(tab: .constant(.draw))
 }

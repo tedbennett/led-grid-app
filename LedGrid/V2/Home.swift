@@ -7,31 +7,25 @@
 
 import OSLog
 import SwiftUI
-
+import SwiftData
 let logger = Logger(subsystem: "Pixee", category: "Canvas")
 
-struct Home: View {
-    @State private var tab = 0
-    let model = GridModel()
-    @State private var color = Color.green
+enum Tab: Hashable {
+    case draw
+    case art
+}
 
+
+struct Home: View {
+    @State private var tab: Tab = .draw
+    @State private var currentDraft: DraftArt?
+    
     var body: some View {
         ZStack {
             TabView(selection: $tab) {
-                ZStack {
-                    VStack {
-                        Spacer()
-                        CanvasView(model: model, color: color)
-                        Spacer()
-                    }
-                    VStack {
-                        Spacer().allowsHitTesting(false)
-                        BottomBarView(model: model, color: $color)
-                    }
-                }.tag(0)
-                VStack {
-                    Text("First")
-                }.tag(1)
+                DrawView() {
+                    tab = $0
+                }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.easeOut(duration: 0.2), value: tab)

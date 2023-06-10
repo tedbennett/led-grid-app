@@ -11,15 +11,16 @@
 		1F3F9FD02A324DC800376260 /* PixeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FCF2A324DC800376260 /* PixeeTests.swift */; };
 		1F3F9FD82A324DFD00376260 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FD72A324DFD00376260 /* App.swift */; };
 		1F3FA0132A3258A200376260 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3FA0122A3258A200376260 /* Home.swift */; };
+		1F945C5F2A348D8000300416 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C5E2A348D8000300416 /* GridView.swift */; };
+		1F945C612A34B79700300416 /* ArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C602A34B79700300416 /* ArtView.swift */; };
 		1FD3A6472A3364D8005CCB9A /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A6462A3364D8005CCB9A /* CanvasView.swift */; };
 		1FD3A6492A336513005CCB9A /* GridModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A6482A336513005CCB9A /* GridModel.swift */; };
 		1FD3A64B2A33672D005CCB9A /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A64A2A33672D005CCB9A /* BottomBarView.swift */; };
 		1FD3A64D2A33681D005CCB9A /* HeaderBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A64C2A33681D005CCB9A /* HeaderBarView.swift */; };
 		1FD3A6502A345513005CCB9A /* Art.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A64F2A345513005CCB9A /* Art.swift */; };
 		1FD3A6522A345561005CCB9A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A6512A345561005CCB9A /* User.swift */; };
-		1FD3A6542A3455B7005CCB9A /* DraftArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A6532A3455B7005CCB9A /* DraftArt.swift */; };
+		1FD3A6562A346A8A005CCB9A /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A6552A346A8A005CCB9A /* DrawView.swift */; };
 		1FD8118F28DCF6A600D3F95C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8118E28DCF6A600D3F95C /* Sentry */; };
-		1FF3B3D12945F2E400867E85 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FF3B3D02945F2E400867E85 /* Auth0.plist */; };
 		5799B42A27F0D7E70039F621 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5799B42927F0D7E70039F621 /* Assets.xcassets */; };
 		5799B42D27F0D7E70039F621 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5799B42C27F0D7E70039F621 /* Preview Assets.xcassets */; };
 		9F28FB6D28B1038B00403F4D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F28FB6C28B1038B00403F4D /* StoreKit.framework */; };
@@ -28,7 +29,6 @@
 		9F28FB7F28B29EB700403F4D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7E28B29EB700403F4D /* String.swift */; };
 		9F28FB9628B2A11F00403F4D /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB9528B2A11F00403F4D /* Date.swift */; };
 		9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FBA328B2A8D900403F4D /* JSONDecoder.swift */; };
-		9FD8AE4F28AADB7B0005A4CF /* pixee-intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,14 +60,15 @@
 		1F3F9FCF2A324DC800376260 /* PixeeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeTests.swift; sourceTree = "<group>"; };
 		1F3F9FD72A324DFD00376260 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		1F3FA0122A3258A200376260 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		1F945C5E2A348D8000300416 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		1F945C602A34B79700300416 /* ArtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtView.swift; sourceTree = "<group>"; };
 		1FD3A6462A3364D8005CCB9A /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		1FD3A6482A336513005CCB9A /* GridModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridModel.swift; sourceTree = "<group>"; };
 		1FD3A64A2A33672D005CCB9A /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		1FD3A64C2A33681D005CCB9A /* HeaderBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBarView.swift; sourceTree = "<group>"; };
 		1FD3A64F2A345513005CCB9A /* Art.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Art.swift; sourceTree = "<group>"; };
 		1FD3A6512A345561005CCB9A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		1FD3A6532A3455B7005CCB9A /* DraftArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftArt.swift; sourceTree = "<group>"; };
-		1FF3B3D02945F2E400867E85 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
+		1FD3A6552A346A8A005CCB9A /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		5799B42227F0D7E60039F621 /* LedGrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LedGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5799B42927F0D7E70039F621 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5799B42C27F0D7E70039F621 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -80,10 +81,8 @@
 		9F28FBA328B2A8D900403F4D /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
 		9F317B7528A9414C00105E8C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		9F317B7728A9414C00105E8C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		9F317B8928A95A7600105E8C /* Pixee-WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pixee-WidgetExtension.entitlements"; sourceTree = "<group>"; };
 		9FD8AE2C28A9B3ED0005A4CF /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		9FD8AE3728A9B3ED0005A4CF /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
-		9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = "pixee-intents.intentdefinition"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,8 +118,8 @@
 			isa = PBXGroup;
 			children = (
 				1F3F9FD72A324DFD00376260 /* App.swift */,
-				1FD3A64E2A34550A005CCB9A /* Types */,
 				1F3FA0122A3258A200376260 /* Home.swift */,
+				1FD3A64E2A34550A005CCB9A /* Types */,
 				1FD3A6452A334FEC005CCB9A /* Views */,
 			);
 			path = V2;
@@ -130,8 +129,11 @@
 			isa = PBXGroup;
 			children = (
 				1FD3A6462A3364D8005CCB9A /* CanvasView.swift */,
+				1F945C5E2A348D8000300416 /* GridView.swift */,
 				1FD3A64A2A33672D005CCB9A /* BottomBarView.swift */,
 				1FD3A64C2A33681D005CCB9A /* HeaderBarView.swift */,
+				1FD3A6552A346A8A005CCB9A /* DrawView.swift */,
+				1F945C602A34B79700300416 /* ArtView.swift */,
 				1FD3A6482A336513005CCB9A /* GridModel.swift */,
 			);
 			path = Views;
@@ -142,7 +144,6 @@
 			children = (
 				1FD3A64F2A345513005CCB9A /* Art.swift */,
 				1FD3A6512A345561005CCB9A /* User.swift */,
-				1FD3A6532A3455B7005CCB9A /* DraftArt.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -150,7 +151,6 @@
 		5799B41927F0D7E60039F621 = {
 			isa = PBXGroup;
 			children = (
-				9F317B8928A95A7600105E8C /* Pixee-WidgetExtension.entitlements */,
 				5799B42427F0D7E60039F621 /* LedGrid */,
 				1F3F9FCE2A324DC800376260 /* PixeeTests */,
 				5799B42327F0D7E60039F621 /* Products */,
@@ -172,8 +172,6 @@
 			children = (
 				57A9296A28031F790096CC96 /* Info.plist */,
 				57A929692802BBAA0096CC96 /* LedGrid.entitlements */,
-				1FF3B3D02945F2E400867E85 /* Auth0.plist */,
-				9FD8AE4E28AADB7B0005A4CF /* pixee-intents.intentdefinition */,
 				1F3F9FD62A324DEC00376260 /* V2 */,
 				9F28FB7B28B29E8900403F4D /* Extensions */,
 				5799B42927F0D7E70039F621 /* Assets.xcassets */,
@@ -243,7 +241,6 @@
 				5799B41F27F0D7E60039F621 /* Frameworks */,
 				5799B42027F0D7E60039F621 /* Resources */,
 				9F317B8828A9414E00105E8C /* Embed Foundation Extensions */,
-				1F7E05E6299312D900597778 /* Configure Firebase PList for Environment */,
 			);
 			buildRules = (
 			);
@@ -313,33 +310,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5799B42D27F0D7E70039F621 /* Preview Assets.xcassets in Resources */,
-				1FF3B3D12945F2E400867E85 /* Auth0.plist in Resources */,
 				5799B42A27F0D7E70039F621 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1F7E05E6299312D900597778 /* Configure Firebase PList for Environment */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Configure Firebase PList for Environment";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Name of the resource we're selectively copying\nGOOGLESERVICE_INFO_PLIST=GoogleService-Info.plist\n\n# Get references to dev and prod versions of the GoogleService-Info.plist\n# NOTE: These should only live on the file system and should NOT be part of the target (since we'll be adding them to the target manually)\nGOOGLESERVICE_INFO_DEV=${PROJECT_DIR}/${TARGET_NAME}/Firebase/Dev/${GOOGLESERVICE_INFO_PLIST}\nGOOGLESERVICE_INFO_PROD=${PROJECT_DIR}/${TARGET_NAME}/Firebase/Prod/${GOOGLESERVICE_INFO_PLIST}\n\n# Make sure the dev version of GoogleService-Info.plist exists\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_DEV}\"\nif [ ! -f $GOOGLESERVICE_INFO_DEV ]\nthen\n    echo \"No Development GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\n    exit 1\nfi\n\n# Make sure the prod version of GoogleService-Info.plist exists\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_PROD}\"\nif [ ! -f $GOOGLESERVICE_INFO_PROD ]\nthen\n    echo \"No Production GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\n    exit 1\nfi\n\n# Get a reference to the destination location for the GoogleService-Info.plist\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\necho \"Will copy ${GOOGLESERVICE_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n\n# Copy over the prod GoogleService-Info.plist for Release builds\nif [ \"${CONFIGURATION}\" == \"Release\" ]\nthen\n    echo \"Using ${GOOGLESERVICE_INFO_PROD}\"\n    cp \"${GOOGLESERVICE_INFO_PROD}\" \"${PLIST_DESTINATION}\"\nelse\n    echo \"Using ${GOOGLESERVICE_INFO_DEV}\"\n    cp \"${GOOGLESERVICE_INFO_DEV}\" \"${PLIST_DESTINATION}\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1F3F9FC92A324DC800376260 /* Sources */ = {
@@ -356,6 +331,7 @@
 			files = (
 				1FD3A64D2A33681D005CCB9A /* HeaderBarView.swift in Sources */,
 				1F3FA0132A3258A200376260 /* Home.swift in Sources */,
+				1FD3A6562A346A8A005CCB9A /* DrawView.swift in Sources */,
 				1FD3A6472A3364D8005CCB9A /* CanvasView.swift in Sources */,
 				1F3F9FD82A324DFD00376260 /* App.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
@@ -363,11 +339,11 @@
 				1FD3A6522A345561005CCB9A /* User.swift in Sources */,
 				1FD3A64B2A33672D005CCB9A /* BottomBarView.swift in Sources */,
 				1FD3A6492A336513005CCB9A /* GridModel.swift in Sources */,
+				1F945C612A34B79700300416 /* ArtView.swift in Sources */,
 				1FD3A6502A345513005CCB9A /* Art.swift in Sources */,
 				9F28FB9628B2A11F00403F4D /* Date.swift in Sources */,
-				9FD8AE4F28AADB7B0005A4CF /* pixee-intents.intentdefinition in Sources */,
 				9F28FB7D28B29E9500403F4D /* Color.swift in Sources */,
-				1FD3A6542A3455B7005CCB9A /* DraftArt.swift in Sources */,
+				1F945C5F2A348D8000300416 /* GridView.swift in Sources */,
 				9F28FB7F28B29EB700403F4D /* String.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

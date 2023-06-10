@@ -8,40 +8,43 @@
 import SwiftUI
 
 struct CanvasView: View {
-    @Bindable var model: GridModel
+    @Bindable var art: DraftArt
     @State private var feedback = false
     var color: Color
 
     @State private var prevGrid: Grid?
 
+    var onChange: (Grid) -> Void
+
     var body: some View {
         Canvas { context, size in
-            let dim = size.width / CGFloat(model.grid.count)
+            let dim = size.width / CGFloat(art.grid.count)
             let size = CGSize(width: dim + 0.2, height: dim + 0.2)
-            for (y, row) in model.grid.enumerated() {
-                for (x, square) in row.enumerated() {
+            for (y, row) in art.grid.enumerated() {
+                for (x, color) in row.enumerated() {
                     let origin = CGPoint(x: (CGFloat(x) * dim) - 0.1, y: (CGFloat(y) * dim) - 0.1)
                     let rect = CGRect(origin: origin, size: size)
                     let path = Rectangle().path(in: rect)
-                    context.fill(path, with: .color(square))
+                    context.fill(path, with: .color(Color(hexString: color)))
                 }
             }
         }
         .sensoryFeedback(.impact(flexibility: .soft), trigger: feedback)
         .aspectRatio(contentMode: .fit)
         .onLocalDragGesture { position, size in
-            let x = Int(position.x / size.width * CGFloat(model.grid.count))
-            let y = Int(position.y / size.height * CGFloat(model.grid.count))
-            if 0...7 ~= x && 0...7 ~= y && model.grid[y][x] != color {
+            let x = Int(position.x / size.width * CGFloat(art.grid.count))
+            let y = Int(position.y / size.height * CGFloat(art.grid.count))
+            if 0...7 ~= x && 0...7 ~= y && art.grid[y][x] != color.hex {
                 if prevGrid == nil {
-                    prevGrid = model.grid
+                    prevGrid = art.grid
                 }
-                model.grid[y][x] = color
+                art.grid[y][x] = color.hex
                 feedback.toggle()
             }
         } onEnded: {
             guard let prevGrid else { return }
-            model.pushUndo(prevGrid)
+            art.lastUpdated = .now
+            onChange(prevGrid)
             self.prevGrid = nil
         }
         .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -49,9 +52,9 @@ struct CanvasView: View {
     }
 }
 
-#Preview {
-    CanvasView(model: GridModel(), color: .green)
-}
+// #Preview {
+//    CanvasView(art: ReceivedArt(), color: .green) { _ in }
+// }
 
 struct LocalDragGesture: ViewModifier {
     let action: (CGPoint, CGSize) -> Void

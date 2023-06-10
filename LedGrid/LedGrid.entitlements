@@ -10,7 +10,6 @@
 	</array>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:d129fc43yw8q6h.cloudfront.net</string>
 		<string>applinks:www.pixee-app.com</string>
 		<string>applinks:pixee-app.com</string>
 	</array>

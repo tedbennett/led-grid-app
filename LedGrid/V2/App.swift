@@ -6,16 +6,25 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct AppV2: App {
+    init() {
+    }
     var body: some Scene {
         WindowGroup {
             Home()
-        }
+        }.modelContainer(Persistence.container)
     }
 }
 
-//#Preview {
-//    AppV2()
-//}
+struct Persistence {
+    static let container = try! ModelContainer(for: [
+//        SentArt.self,
+//        ReceivedArt.self,
+        DraftArt.self,
+//        Friend.self
+    ])
+}
+

@@ -8,30 +8,35 @@
 import SwiftUI
 
 struct BottomBarView: View {
-    var model: GridModel
     @Binding var color: Color
     @State private var feedback = false
+
+    var canUndo: Bool
+    var canRedo: Bool
+    var undo: () -> Void
+    var redo: () -> Void
+    var send: () -> Void
 
     var body: some View {
         ZStack {
             HStack(alignment: .center, spacing: 10) {
                 Button {
-                    model.undo()
+                    undo()
                     feedback.toggle()
                 } label: {
                     Image(systemName: "arrow.counterclockwise").font(.title3)
                 }
                 .buttonStyle(StdButton())
-                .disabled(model.undoStack.isEmpty)
+                .disabled(!canUndo)
 
                 Button {
-                    model.redo()
+                    redo()
                     feedback.toggle()
                 } label: {
                     Image(systemName: "arrow.clockwise").font(.title3)
                 }
                 .buttonStyle(StdButton())
-                .disabled(model.redoStack.isEmpty)
+                .disabled(!canRedo)
                 Spacer()
 
                 Button {
@@ -57,7 +62,7 @@ struct BottomBarView: View {
                 Spacer()
                     .allowsHitTesting(false)
                 Button {
-                    logger.info("Pressed send")
+                    send()
                     feedback.toggle()
                 } label: {
                     Image(systemName: "paperplane").font(.title).padding(5)
@@ -70,12 +75,12 @@ struct BottomBarView: View {
 }
 
 #Preview {
-    BottomBarView(model: GridModel(), color: .constant(.green))
+    BottomBarView(color: .constant(.green), canUndo: true, canRedo: true, undo: {}, redo: {}, send: {})
 }
 
 struct StdButton: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
-    
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(10)
@@ -83,7 +88,6 @@ struct StdButton: ButtonStyle {
             .background(
                 Circle().fill(.primary.opacity(isEnabled ? 1 : 0.7))
             ).scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-            
     }
 }
 
@@ -101,7 +105,7 @@ extension UIColorWell {
 
 class UIColorWellHelper: NSObject {
     static let helper = UIColorWellHelper()
-    var execute: (() -> ())?
+    var execute: (() -> Void)?
     @objc func handler(_ sender: Any) {
         execute?()
     }

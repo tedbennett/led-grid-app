@@ -7,10 +7,35 @@
 
 import Foundation
 import Observation
+import SwiftUI
+import SwiftData
+
+typealias Grid = [[String]]
+extension Grid {
+    static let black = "#000000"
+    static let empty: Grid = [
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+    ]
+}
+
 
 @Observable
+@MainActor
 class GridModel {
-    var grid: Grid = .example
+    
+    
+    
+    
+    
+    
+    var grid: Grid = Grid.empty
     var undoStack: [Grid] = []
     var redoStack: [Grid] = []
 
@@ -30,4 +55,9 @@ class GridModel {
         undoStack.append(grid)
         grid = newGrid
     }
+    
+    func saveArt() {
+        
+    }
 }
+

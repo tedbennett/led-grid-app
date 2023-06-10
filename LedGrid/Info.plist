@@ -18,11 +18,7 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSUserActivityTypes</key>
-	<array>
-		<string>FriendIntentIntent</string>
-		<string>NamedArtIntent</string>
-		<string>SelectFriendIntent</string>
-	</array>
+	<array/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
