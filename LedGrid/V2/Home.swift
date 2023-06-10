@@ -13,6 +13,7 @@ let logger = Logger(subsystem: "Pixee", category: "Canvas")
 struct Home: View {
     @State private var tab = 0
     let model = GridModel()
+    @State private var color = Color.green
 
     var body: some View {
         ZStack {
@@ -20,12 +21,12 @@ struct Home: View {
                 ZStack {
                     VStack {
                         Spacer()
-                        CanvasView(model: model)
+                        CanvasView(model: model, color: color)
                         Spacer()
                     }
                     VStack {
                         Spacer().allowsHitTesting(false)
-                        BottomBarView()
+                        BottomBarView(model: model, color: $color)
                     }
                 }.tag(0)
                 VStack {
@@ -38,7 +39,7 @@ struct Home: View {
                 HeaderBarView(tab: $tab)
                 Spacer().allowsHitTesting(false)
             }
-        }
+        }.background(Color(uiColor: .secondarySystemBackground))
     }
 }
 
