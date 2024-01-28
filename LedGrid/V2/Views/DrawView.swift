@@ -51,38 +51,40 @@ struct DrawView: View {
         NavigationStack {
             GeometryReader { proxy in
                 ScrollView {
-                    ZStack {
-                        VStack {
-                            Spacer()
+                    VStack {
+                        HeaderView().padding(.top, 50).padding(.leading, 20)
+                        Spacer()
 
-                            let selectedDraft = if let selectedDraftId {
-                                drafts.first(where: { $0.id == selectedDraftId })
-                            } else {
-                                drafts.first
-                            }
-
-                            if let art = selectedDraft {
-                                CanvasView(art: art, color: color) { pushUndo($0) }
-
-                            } else {
-                                ProgressView()
-                                    .onAppear {
-                                        modelContext.insert(DraftArt())
-                                    }
-                            }
-                            Spacer()
+                        let selectedDraft = if let selectedDraftId {
+                            drafts.first(where: { $0.id == selectedDraftId })
+                        } else {
+                            drafts.first
                         }
-                        VStack {
-                            Spacer().allowsHitTesting(false)
-                            BottomBarView(color: $color, canUndo: !undoStack.isEmpty, canRedo: !redoStack.isEmpty) {
-                                undo()
-                            } redo: {
-                                redo()
-                            } send: {
-                                send()
+
+                        if let art = selectedDraft {
+                            CanvasView(art: art, color: color) { pushUndo($0) }
+
+                        } else {
+                            ProgressView()
+                                .onAppear {
+                                    modelContext.insert(DraftArt())
+                                }
+                        }
+                        Spacer()
+                        BottomBarView(color: $color, canUndo: !undoStack.isEmpty, canRedo: !redoStack.isEmpty) {
+                            undo()
+                        } redo: {
+                            redo()
+                        } send: {
+                            send()
+                        }
+                        Button {} label: {
+                            HStack {
+                                Text("View Drawings")
+                                Image(systemName: "chevron.down")
                             }
                         }
-                    }.frame(
+                    }.safeAreaPadding().frame(
                         width: proxy.size.width,
                         height: proxy.size.height
                     )
@@ -90,12 +92,14 @@ struct DrawView: View {
                         ArtView(selectedDraftId: $selectedDraftId) {
                             onChangeTab(.draw)
                         }
-                    }.frame(
+                    }.safeAreaPadding().frame(
                         width: proxy.size.width,
                         height: proxy.size.height
                     )
                 }.scrollIndicators(.never)
                     .scrollTargetBehavior(.paging).toolbar(.hidden)
+                    .scrollBounceBehavior(.basedOnSize)
+                    .frame(maxHeight: .infinity)
             }.ignoresSafeArea()
         }.background(Color(uiColor: .secondarySystemBackground))
     }

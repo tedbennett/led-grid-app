@@ -14,30 +14,46 @@ struct ArtView: View {
         GridItem(.flexible(minimum: 80)),
     ]
     @Binding var selectedDraftId: UUID?
-    
+
     @Query(sort: \DraftArt.lastUpdated, order: .reverse, animation: .bouncy) var drafts: [DraftArt] = []
-    
+
     @State private var feedback = false
 
     let changeTab: () -> Void
-    
+
     var body: some View {
+        HStack(alignment: .center) {
+            Menu {
+                Button {} label: {
+                    Text("Sent")
+                }
+                Button {} label: {
+                    Text("Received")
+                }
+                Button {} label: {
+                    Text("Drafts")
+                }
+            } label: {
+                Text("DRAFTS").font(.custom("SubwayTickerGrid", size: 40))
+                Image(systemName: "chevron.down").font(.system(size: 18, weight: .heavy))
+            }.buttonStyle(.plain)
+            Spacer()
+        }.padding(.top, 50).padding(.leading, 20)
         ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(drafts) { art in
                     GridView(grid: art.grid).aspectRatio(contentMode: .fit)
                         .border(Color.white, width: selectedDraftId == art.id ? 3 : 0)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
-                        
+
                         .onTapGesture {
                             selectedDraftId = art.id
                             feedback.toggle()
                             changeTab()
                         }
-                       
                 }
             }
-        } .sensoryFeedback(.success, trigger: feedback)
+        }.sensoryFeedback(.success, trigger: feedback)
     }
 }
 
@@ -52,9 +68,9 @@ struct ArtViewPreview: PreviewProvider {
         container.mainContext.insert(DraftArt())
         return container
     }()
-    
+
     static var previews: some View {
-        ArtView(selectedDraftId: .constant(selectedUUID)) { }
+        ArtView(selectedDraftId: .constant(selectedUUID)) {}
             .modelContainer(container)
     }
 }

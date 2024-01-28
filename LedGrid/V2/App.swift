@@ -5,27 +5,25 @@
 //  Created by Ted Bennett on 08/06/2023.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct AppV2: App {
-    init() {
-    }
+    init() {}
+
     var body: some Scene {
         WindowGroup {
             Home()
         }.modelContainer(Persistence.container)
-            
     }
 }
 
-struct Persistence {
-    static let container = try! ModelContainer(for: 
-                                                //        SentArt.self,
-                                               //        ReceivedArt.self,
-                                               DraftArt.self
-                                               //        Friend.self
+enum Persistence {
+    static let container = try! ModelContainer(for:
+        //        SentArt.self,
+        //        ReceivedArt.self,
+        DraftArt.self
+        //        Friend.self
     )
 }
-
