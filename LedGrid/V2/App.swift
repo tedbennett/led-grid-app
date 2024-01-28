@@ -21,11 +21,11 @@ struct AppV2: App {
 }
 
 struct Persistence {
-    static let container = try! ModelContainer(for: [
-//        SentArt.self,
-//        ReceivedArt.self,
-        DraftArt.self,
-//        Friend.self
-    ])
+    static let container = try! ModelContainer(for: 
+                                                //        SentArt.self,
+                                               //        ReceivedArt.self,
+                                               DraftArt.self
+                                               //        Friend.self
+    )
 }
 

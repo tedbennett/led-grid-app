@@ -10,8 +10,8 @@ import SwiftUI
 
 struct DrawView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \.lastUpdated, order: .reverse)
-    var drafts: [DraftArt]
+    @Query(sort: \DraftArt.lastUpdated, order: .reverse)
+    var drafts: [DraftArt] = []
     @State private var color = Color.green
 
     @State private var undoStack: [Grid] = []
@@ -48,51 +48,59 @@ struct DrawView: View {
     }
 
     var body: some View {
-        VStack {
-            DraftsView(selectedDraftId: $selectedDraftId) {
-                onChangeTab(.draw)
-            }
-        }.tag(Tab.drafts)
-        ZStack {
-            VStack {
-                Spacer()
+        NavigationStack {
+            GeometryReader { proxy in
+                ScrollView {
+                    ZStack {
+                        VStack {
+                            Spacer()
 
-                let selectedDraft = if let selectedDraftId {
-                    drafts.first(where: { $0.id == selectedDraftId })
-                } else {
-                    drafts.first
-                }
+                            let selectedDraft = if let selectedDraftId {
+                                drafts.first(where: { $0.id == selectedDraftId })
+                            } else {
+                                drafts.first
+                            }
 
-                if let art = selectedDraft {
-                    CanvasView(art: art, color: color) { pushUndo($0) }
+                            if let art = selectedDraft {
+                                CanvasView(art: art, color: color) { pushUndo($0) }
 
-                } else {
-                    ProgressView()
-                        .onAppear {
-                            modelContext.insert(DraftArt())
+                            } else {
+                                ProgressView()
+                                    .onAppear {
+                                        modelContext.insert(DraftArt())
+                                    }
+                            }
+                            Spacer()
                         }
-                }
-                Spacer()
-            }
-            VStack {
-                Spacer().allowsHitTesting(false)
-                BottomBarView(color: $color, canUndo: !undoStack.isEmpty, canRedo: !redoStack.isEmpty) {
-                    undo()
-                } redo: {
-                    redo()
-                } send: {
-                    send()
-                }
-            }
-        }.tag(Tab.draw)
-        VStack {
-            ArtView(selectedDraftId: $selectedDraftId) {
-                onChangeTab(.draw)
-            }
-        }.tag(Tab.art)
+                        VStack {
+                            Spacer().allowsHitTesting(false)
+                            BottomBarView(color: $color, canUndo: !undoStack.isEmpty, canRedo: !redoStack.isEmpty) {
+                                undo()
+                            } redo: {
+                                redo()
+                            } send: {
+                                send()
+                            }
+                        }
+                    }.frame(
+                        width: proxy.size.width,
+                        height: proxy.size.height
+                    )
+                    VStack {
+                        ArtView(selectedDraftId: $selectedDraftId) {
+                            onChangeTab(.draw)
+                        }
+                    }.frame(
+                        width: proxy.size.width,
+                        height: proxy.size.height
+                    )
+                }.scrollIndicators(.never)
+                    .scrollTargetBehavior(.paging).toolbar(.hidden)
+            }.ignoresSafeArea()
+        }.background(Color(uiColor: .secondarySystemBackground))
     }
 }
 
 #Preview {
-    DrawView {_ in}
+    DrawView { _ in }
 }

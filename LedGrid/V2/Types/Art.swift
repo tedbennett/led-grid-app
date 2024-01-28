@@ -14,32 +14,39 @@ class SentArt {
     var grid: Grid
     var receivers: [Friend]
     var sentAt: Date
+
+    init(id: String = UUID().uuidString, grid: Grid, receivers: [Friend], sentAt: Date = Date()) {
+        self.id = id
+        self.grid = grid
+        self.receivers = receivers
+        self.sentAt = sentAt
+    }
 }
 
 @Model
 class ReceivedArt {
     static let encoder = JSONEncoder()
     static let decoder = JSONDecoder()
-    
+
     @Attribute(.unique) var id: String
     var serializedGrid: Data
     var sender: Friend?
     var lastUpdated: Date
     @Transient var grid: Grid {
-        get  {
+        get {
             return (try? ReceivedArt.decoder.decode(Grid.self, from: serializedGrid)) ?? Grid.empty
         } set {
             guard let data = try? ReceivedArt.encoder.encode(newValue) else { return }
             serializedGrid = data
         }
     }
-    
-//    init(grid: Grid) {
-//        self.id = ""
-//        self.lastUpdated = .now
-//        self.sender = nil
-//        self.grid = grid
-//    }
+
+    init(id: String = UUID().uuidString, grid: Grid) {
+        self.id = id
+        lastUpdated = .now
+        sender = nil
+        serializedGrid = (try? ReceivedArt.encoder.encode(grid)) ?? Data()
+    }
 }
 
 @Model
@@ -61,8 +68,8 @@ final class DraftArt {
             serializedGrid = data
         }
     }
-    
-    init () {
+
+    init() {
         id = UUID()
         lastUpdated = .now
         createdAt = .now
@@ -70,7 +77,6 @@ final class DraftArt {
         serializedGrid = try! ReceivedArt.encoder.encode(Grid.empty)
     }
 }
-
 
 extension DraftArt: Hashable, Identifiable {
     static func == (lhs: DraftArt, rhs: DraftArt) -> Bool {

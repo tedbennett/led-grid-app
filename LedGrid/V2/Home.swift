@@ -6,8 +6,8 @@
 //
 
 import OSLog
-import SwiftUI
 import SwiftData
+import SwiftUI
 let logger = Logger(subsystem: "Pixee", category: "Canvas")
 
 enum Tab: Hashable {
@@ -16,25 +16,20 @@ enum Tab: Hashable {
     case art
 }
 
-
 struct Home: View {
     @State private var tab: Tab = .draw
     @State private var currentDraft: DraftArt?
-    
+    @State private var selectedDraftId: UUID?
+
     var body: some View {
-        ZStack {
-            TabView(selection: $tab) {
-                DrawView() {
-                    tab = $0
-                }
+            DrawView {
+                tab = $0
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.easeOut(duration: 0.2), value: tab)
-            VStack {
-                HeaderBarView(tab: $tab)
-                Spacer().allowsHitTesting(false)
-            }
-        }.background(Color(uiColor: .secondarySystemBackground))
+
+//                VStack {
+//                    HeaderBarView(tab: $tab)
+//                    Spacer().allowsHitTesting(false)
+//                }
     }
 }
 

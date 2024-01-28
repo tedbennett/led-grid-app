@@ -11,13 +11,16 @@ struct HeaderBarView: View {
     @Binding var tab: Tab
 
     var body: some View {
-        Picker("Selected Tab", selection: $tab) {
-            Text("Drafts").tag(Tab.drafts)
-            Text("Draw").tag(Tab.draw)
-            Text("Art").tag(Tab.art)
-        }.pickerStyle(.segmented)
-            .id("Picker")
-            .padding()
+        VStack {
+            Text("pixee").font(.custom("SubwayTickerGrid", size: 48))
+            Picker("Selected Tab", selection: $tab) {
+                Text("Drafts").tag(Tab.drafts)
+                Text("Draw").tag(Tab.draw)
+                Text("Art").tag(Tab.art)
+            }.pickerStyle(.segmented)
+                .id("Picker")
+                .padding()
+        }
     }
 }
 

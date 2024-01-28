@@ -11,6 +11,8 @@
 		1F3F9FD02A324DC800376260 /* PixeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FCF2A324DC800376260 /* PixeeTests.swift */; };
 		1F3F9FD82A324DFD00376260 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FD72A324DFD00376260 /* App.swift */; };
 		1F3FA0132A3258A200376260 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3FA0122A3258A200376260 /* Home.swift */; };
+		1F86FFF62B6658C9000F4667 /* DotsSpaced.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */; };
+		1F86FFF82B66590A000F4667 /* Dots.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F86FFF72B66590A000F4667 /* Dots.ttf */; };
 		1F945C5F2A348D8000300416 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C5E2A348D8000300416 /* GridView.swift */; };
 		1F945C612A34B79700300416 /* ArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C602A34B79700300416 /* ArtView.swift */; };
 		1F945C632A34C86B00300416 /* DraftsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C622A34C86B00300416 /* DraftsView.swift */; };
@@ -61,6 +63,8 @@
 		1F3F9FCF2A324DC800376260 /* PixeeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeTests.swift; sourceTree = "<group>"; };
 		1F3F9FD72A324DFD00376260 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		1F3FA0122A3258A200376260 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DotsSpaced.ttf; sourceTree = "<group>"; };
+		1F86FFF72B66590A000F4667 /* Dots.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dots.ttf; sourceTree = "<group>"; };
 		1F945C5E2A348D8000300416 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		1F945C602A34B79700300416 /* ArtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtView.swift; sourceTree = "<group>"; };
 		1F945C622A34C86B00300416 /* DraftsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftsView.swift; sourceTree = "<group>"; };
@@ -178,6 +182,8 @@
 				1F3F9FD62A324DEC00376260 /* V2 */,
 				9F28FB7B28B29E8900403F4D /* Extensions */,
 				5799B42927F0D7E70039F621 /* Assets.xcassets */,
+				1F86FFF72B66590A000F4667 /* Dots.ttf */,
+				1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */,
 				5799B42B27F0D7E70039F621 /* Preview Content */,
 			);
 			path = LedGrid;
@@ -313,6 +319,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5799B42D27F0D7E70039F621 /* Preview Assets.xcassets in Resources */,
+				1F86FFF82B66590A000F4667 /* Dots.ttf in Resources */,
+				1F86FFF62B6658C9000F4667 /* DotsSpaced.ttf in Resources */,
 				5799B42A27F0D7E70039F621 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

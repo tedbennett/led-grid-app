@@ -10,7 +10,9 @@ import SwiftData
 
 @Model
 class Friend {
-    @Attribute(.unique) var id: String
-    @Relationship(.cascade) var sentArt: [SentArt]
-    @Relationship(.cascade) var receivedArt: [ReceivedArt]
+    @Attribute(.unique) var id: String = UUID().uuidString
+    @Relationship(deleteRule: .cascade) var sentArt: [SentArt] = []
+    @Relationship(deleteRule: .cascade) var receivedArt: [ReceivedArt] = []
+
+    init() { }
 }

@@ -39,9 +39,10 @@ struct BottomBarView: View {
                 .disabled(!canRedo)
                 Spacer()
 
-                Button {
-                    logger.info("Pressed grid")
-                    feedback.toggle()
+                NavigationLink {
+//                    logger.info("Pressed grid")
+                    Text("Hello")
+//                    feedback.toggle()
                 } label: {
                     Image(systemName: "grid").font(.title3)
                 }

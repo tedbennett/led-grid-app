@@ -16,7 +16,7 @@ struct DraftsView: View {
     ]
     @Binding var selectedDraftId: UUID?
     
-    @Query(sort: \.lastUpdated, order: .reverse, animation: .bouncy) var drafts: [DraftArt]
+    @Query(sort: \DraftArt.lastUpdated, order: .reverse, animation: .bouncy) var drafts: [DraftArt] = []
     
     @State private var feedback = false
 
@@ -44,7 +44,7 @@ struct DraftsView: View {
 struct DraftsViewPreview: PreviewProvider {
     static var selectedUUID = UUID()
     static var container = {
-        let container = try! ModelContainer(for: [DraftArt.self], ModelConfiguration(inMemory: true))
+        let container = try! ModelContainer(for: DraftArt.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         let selected = DraftArt()
         selected.id = selectedUUID
         container.mainContext.insert(selected)
