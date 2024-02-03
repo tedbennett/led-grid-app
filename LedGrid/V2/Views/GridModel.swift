@@ -7,8 +7,8 @@
 
 import Foundation
 import Observation
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 typealias Grid = [[String]]
 extension Grid {
@@ -25,17 +25,10 @@ extension Grid {
     ]
 }
 
-
 @Observable
 @MainActor
 class GridModel {
-    
-    
-    
-    
-    
-    
-    var grid: Grid = Grid.empty
+    var grid: Grid = .empty
     var undoStack: [Grid] = []
     var redoStack: [Grid] = []
 
@@ -44,7 +37,7 @@ class GridModel {
         redoStack = []
     }
 
-    func undo() {
+    func undo() async {
         guard let newGrid = undoStack.popLast() else { return }
         redoStack.append(grid)
         grid = newGrid
@@ -55,9 +48,6 @@ class GridModel {
         undoStack.append(grid)
         grid = newGrid
     }
-    
-    func saveArt() {
-        
-    }
-}
 
+    func saveArt() {}
+}

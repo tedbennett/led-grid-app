@@ -1,0 +1,448 @@
+---
+openapi: 3.0.0
+info:
+  title: Pixee API
+  version: 0.1.0
+servers:
+- url: 0.0.0.0:8000
+  description: Local Server
+- url: "https://pixee--dev.fly.dev/v1"
+  description: Dev Server
+paths:
+# ==========================================================================
+# User endpoints
+# ==========================================================================
+  /user/me:
+    get:
+      operationId: getMe
+      responses:
+        "200":
+          description: Get profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+      security:
+        - BearerAuth: []
+    patch:
+      operationId: updateMe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserPayload"
+      responses:
+        "201":
+          description: Profile updated
+      security:
+        - BearerAuth: []
+    delete:
+      operationId: deleteMe
+      responses:
+        "201":
+          description: Account deleted
+      security:
+        - BearerAuth: []
+  /user/search:
+    get:
+      operationId: searchUsers
+      parameters:
+        - in: query
+          name: username
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: Username search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+      security:
+        - BearerAuth: []
+  /user/check:
+    get:
+      operationId: checkUsername
+      parameters:
+        - in: query
+          name: username
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: Username availibility results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CheckUsernameResponse"
+      security:
+        - BearerAuth: []
+  /user/device:
+    post:
+      operationId: createDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDevicePayload"
+      responses:
+        "201":
+          description: Device Created
+      security:
+        - BearerAuth: []
+# ==========================================================================
+# Friend endpoints
+# ==========================================================================
+  /user/friend:
+    get:
+      operationId: getFriends
+      responses:
+        "200":
+          description: Get friends
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Friend"
+      security:
+        - BearerAuth: []
+  /user/friend/{friendId}:
+    post:
+      operationId: addFriend
+      parameters:
+      - in: path
+        name: friendId
+        schema:
+            type: string
+            format: uuid
+        required: true
+      responses:
+        "201":
+          description: Created friend
+      security:
+        - BearerAuth: []
+    delete:
+      operationId: deleteFriend
+      parameters:
+      - in: path
+        name: friendId
+        schema:
+            type: string
+        required: true
+      responses:
+        "201":
+          description: Deleted friend
+      security:
+        - BearerAuth: []
+  /user/friend/request:
+    post:
+      operationId: sendFriendRequest
+      parameters:
+        - in: query
+          name: user
+          schema:
+            type: string
+          required: true
+      responses:
+        "201":
+          description: Created friend request
+      security:
+        - BearerAuth: []
+  /user/friend/request/sent:
+    get:
+      operationId: getSentFriendRequests
+      responses:
+        "200":
+          description: Sent friend requests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FriendRequest"
+      security:
+        - BearerAuth: []
+  /user/friend/request/received:
+    get:
+      operationId: getReceivedFriendRequests
+      responses:
+        "200":
+          description: Received friend requests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FriendRequest"
+      security:
+        - BearerAuth: []
+  /user/friend/request/{requestId}:
+    patch:
+      operationId: updateFriendRequest
+      parameters:
+        - in: path
+          name: requestId
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateFriendRequestPayload"
+      responses:
+        "201":
+          description: Updated friend request
+      security:
+        - BearerAuth: []
+
+# ==========================================================================
+# Drawings
+# ==========================================================================
+  
+  /drawing/:
+    get:
+      operationId: sendDrawing
+      responses:
+        "201":
+          description: Sent drawing
+  /drawing/sent:
+    get:
+      operationId: getSentDrawings
+      responses:
+        "200":
+          description: Got sent drawings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Drawing"
+  /drawing/receiverId:
+    get:
+      operationId: getReceivedDrawings
+      responses:
+        "200":
+          description: Got received drawings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Drawing"
+      security:
+        - BearerAuth: []
+
+# ==========================================================================
+# Components
+# ==========================================================================
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    User:
+      type: object
+      required:
+      - plus
+      - id
+      - username
+      - email
+      - createdAt
+      - updatedAt
+      - image
+      - name
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        email:
+          type: string
+        emailVerified:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: string
+          format: uuid
+        image:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        plus:
+          type: boolean
+        updatedAt:
+          type: string
+          format: date-time
+          nullable: true
+        username:
+          type: string
+    Friend:
+      type: object
+      required:
+      - id
+      - username
+      - email
+      - createdAt
+      - image
+      - name
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        email:
+          type: string
+        id:
+          type: string
+          format: uuid
+        image:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        username:
+          type: string
+    FriendRequest:
+      type: object
+      required:
+      - id
+      - senderId
+      - receiverId
+      - status
+      - createdAt
+      - updatedAt
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+          nullable: true
+        senderId:
+          type: string
+          format: uuid
+        receiverId:
+          type: string
+          format: uuid
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+    Drawing:
+      type: object
+      required:
+      - id
+      - senderId
+      - grid
+      - createdAt
+      - updatedAt
+      - receivers
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+          nullable: true
+        senderId:
+          type: string
+          format: uuid
+        receivers:
+          type: array
+          items:
+            type: string
+            format: uuid
+        id:
+          type: string
+          format: uuid
+        grid:
+          type: array
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: string
+
+    UpdateUserPayload:
+      type: object
+      required:
+        - image
+        - name
+        - plus
+        - username
+      properties:
+        image:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        plus:
+          type: boolean
+          nullable: true
+        username:
+          type: string
+          nullable: true
+    CheckUsernameResponse:
+      type: object
+      required:
+        - available
+      properties:
+        available:
+          type: boolean
+    CreateDevicePayload:
+      type: object
+      required:
+        - device_id
+        - sandbox
+        - os
+      properties:
+        device_id:
+          type: string
+        os:
+          type: string
+        sandbox:
+          type: boolean
+    UpdateFriendRequestPayload:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+    SendDrawingPayload:
+      type: object
+      required:
+        - drawing
+        - receivers
+      properties:
+        drawing:
+          type: array
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: string
+        receivers:
+          type: array
+          items:
+            type: string
+            format: uuid
+        title:
+          type: string
+          nullable: true

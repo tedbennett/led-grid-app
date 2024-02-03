@@ -11,9 +11,14 @@
 		1F3F9FD02A324DC800376260 /* PixeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FCF2A324DC800376260 /* PixeeTests.swift */; };
 		1F3F9FD82A324DFD00376260 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FD72A324DFD00376260 /* App.swift */; };
 		1F3FA0132A3258A200376260 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3FA0122A3258A200376260 /* Home.swift */; };
+		1F7031872B6AF98000B935F3 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7031862B6AF98000B935F3 /* Network.swift */; };
 		1F86FFF62B6658C9000F4667 /* DotsSpaced.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */; };
 		1F86FFF82B66590A000F4667 /* Dots.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F86FFF72B66590A000F4667 /* Dots.ttf */; };
 		1F86FFFB2B666625000F4667 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86FFFA2B666625000F4667 /* SettingsView.swift */; };
+		1F9209812B66766B001A9B83 /* openapi-generator-config.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 1F9209802B66766B001A9B83 /* openapi-generator-config.yaml */; };
+		1F9209832B6676C9001A9B83 /* openapi.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 1F9209822B6676C9001A9B83 /* openapi.yaml */; };
+		1F92098D2B667930001A9B83 /* OpenAPIRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 1F92098C2B667930001A9B83 /* OpenAPIRuntime */; };
+		1F9209902B667943001A9B83 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 1F92098F2B667943001A9B83 /* OpenAPIURLSession */; };
 		1F945C5F2A348D8000300416 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C5E2A348D8000300416 /* GridView.swift */; };
 		1F945C612A34B79700300416 /* ArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C602A34B79700300416 /* ArtView.swift */; };
 		1F945C632A34C86B00300416 /* DraftsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C622A34C86B00300416 /* DraftsView.swift */; };
@@ -64,9 +69,12 @@
 		1F3F9FCF2A324DC800376260 /* PixeeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeTests.swift; sourceTree = "<group>"; };
 		1F3F9FD72A324DFD00376260 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		1F3FA0122A3258A200376260 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		1F7031862B6AF98000B935F3 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DotsSpaced.ttf; sourceTree = "<group>"; };
 		1F86FFF72B66590A000F4667 /* Dots.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dots.ttf; sourceTree = "<group>"; };
 		1F86FFFA2B666625000F4667 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		1F9209802B66766B001A9B83 /* openapi-generator-config.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "openapi-generator-config.yaml"; sourceTree = "<group>"; };
+		1F9209822B6676C9001A9B83 /* openapi.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = openapi.yaml; sourceTree = "<group>"; };
 		1F945C5E2A348D8000300416 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		1F945C602A34B79700300416 /* ArtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtView.swift; sourceTree = "<group>"; };
 		1F945C622A34C86B00300416 /* DraftsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftsView.swift; sourceTree = "<group>"; };
@@ -107,6 +115,8 @@
 			files = (
 				1FD8118F28DCF6A600D3F95C /* Sentry in Frameworks */,
 				9F28FB7228B2773500403F4D /* SimpleKeychain in Frameworks */,
+				1F92098D2B667930001A9B83 /* OpenAPIRuntime in Frameworks */,
+				1F9209902B667943001A9B83 /* OpenAPIURLSession in Frameworks */,
 				9F28FB6D28B1038B00403F4D /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +137,7 @@
 			children = (
 				1F3F9FD72A324DFD00376260 /* App.swift */,
 				1F3FA0122A3258A200376260 /* Home.swift */,
+				1F7031862B6AF98000B935F3 /* Network.swift */,
 				1FD3A64E2A34550A005CCB9A /* Types */,
 				1FD3A6452A334FEC005CCB9A /* Views */,
 			);
@@ -195,6 +206,8 @@
 				5799B42927F0D7E70039F621 /* Assets.xcassets */,
 				1F86FFF72B66590A000F4667 /* Dots.ttf */,
 				1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */,
+				1F9209802B66766B001A9B83 /* openapi-generator-config.yaml */,
+				1F9209822B6676C9001A9B83 /* openapi.yaml */,
 				5799B42B27F0D7E70039F621 /* Preview Content */,
 			);
 			path = LedGrid;
@@ -265,11 +278,14 @@
 			buildRules = (
 			);
 			dependencies = (
+				1F9209892B6677E4001A9B83 /* PBXTargetDependency */,
 			);
 			name = LedGrid;
 			packageProductDependencies = (
 				9F28FB7128B2773500403F4D /* SimpleKeychain */,
 				1FD8118E28DCF6A600D3F95C /* Sentry */,
+				1F92098C2B667930001A9B83 /* OpenAPIRuntime */,
+				1F92098F2B667943001A9B83 /* OpenAPIURLSession */,
 			);
 			productName = LedGrid;
 			productReference = 5799B42227F0D7E60039F621 /* LedGrid.app */;
@@ -306,6 +322,9 @@
 			packageReferences = (
 				9F28FB7028B2773500403F4D /* XCRemoteSwiftPackageReference "SimpleKeychain" */,
 				1FD8118D28DCF6A600D3F95C /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				1F9209852B66777A001A9B83 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */,
+				1F9209862B6677A1001A9B83 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */,
+				1F9209872B6677C8001A9B83 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */,
 			);
 			productRefGroup = 5799B42327F0D7E60039F621 /* Products */;
 			projectDirPath = "";
@@ -332,7 +351,9 @@
 				5799B42D27F0D7E70039F621 /* Preview Assets.xcassets in Resources */,
 				1F86FFF82B66590A000F4667 /* Dots.ttf in Resources */,
 				1F86FFF62B6658C9000F4667 /* DotsSpaced.ttf in Resources */,
+				1F9209812B66766B001A9B83 /* openapi-generator-config.yaml in Resources */,
 				5799B42A27F0D7E70039F621 /* Assets.xcassets in Resources */,
+				1F9209832B6676C9001A9B83 /* openapi.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +384,7 @@
 				1FD3A6522A345561005CCB9A /* User.swift in Sources */,
 				1FD3A64B2A33672D005CCB9A /* BottomBarView.swift in Sources */,
 				1FD3A6492A336513005CCB9A /* GridModel.swift in Sources */,
+				1F7031872B6AF98000B935F3 /* Network.swift in Sources */,
 				1F945C612A34B79700300416 /* ArtView.swift in Sources */,
 				1FD3A6502A345513005CCB9A /* Art.swift in Sources */,
 				9F28FB9628B2A11F00403F4D /* Date.swift in Sources */,
@@ -379,6 +401,10 @@
 			isa = PBXTargetDependency;
 			target = 5799B42127F0D7E60039F621 /* LedGrid */;
 			targetProxy = 1F3F9FD12A324DC800376260 /* PBXContainerItemProxy */;
+		};
+		1F9209892B6677E4001A9B83 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 1F9209882B6677E4001A9B83 /* OpenAPIGenerator */;
 		};
 /* End PBXTargetDependency section */
 
@@ -667,6 +693,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1F9209852B66777A001A9B83 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-generator";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		1F9209862B6677A1001A9B83 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-runtime";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.2;
+			};
+		};
+		1F9209872B6677C8001A9B83 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-urlsession";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
 		1FD8118D28DCF6A600D3F95C /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
@@ -686,6 +736,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1F9209882B6677E4001A9B83 /* OpenAPIGenerator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1F9209852B66777A001A9B83 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */;
+			productName = "plugin:OpenAPIGenerator";
+		};
+		1F92098C2B667930001A9B83 /* OpenAPIRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1F9209862B6677A1001A9B83 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */;
+			productName = OpenAPIRuntime;
+		};
+		1F92098F2B667943001A9B83 /* OpenAPIURLSession */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1F9209872B6677C8001A9B83 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */;
+			productName = OpenAPIURLSession;
+		};
 		1FD8118E28DCF6A600D3F95C /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1FD8118D28DCF6A600D3F95C /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
