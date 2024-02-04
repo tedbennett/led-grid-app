@@ -37,7 +37,7 @@ class GridModel {
         redoStack = []
     }
 
-    func undo() async {
+    func undo() {
         guard let newGrid = undoStack.popLast() else { return }
         redoStack.append(grid)
         grid = newGrid

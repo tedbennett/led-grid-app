@@ -22,14 +22,7 @@ struct Home: View {
     @State private var selectedDraftId: UUID?
 
     var body: some View {
-            DrawView {
-                tab = $0
-            }
-
-//                VStack {
-//                    HeaderBarView(tab: $tab)
-//                    Spacer().allowsHitTesting(false)
-//                }
+            PageView()
     }
 }
 

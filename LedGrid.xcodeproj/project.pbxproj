@@ -12,6 +12,7 @@
 		1F3F9FD82A324DFD00376260 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FD72A324DFD00376260 /* App.swift */; };
 		1F3FA0132A3258A200376260 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3FA0122A3258A200376260 /* Home.swift */; };
 		1F7031872B6AF98000B935F3 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7031862B6AF98000B935F3 /* Network.swift */; };
+		1F70318A2B6EAADC00B935F3 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7031892B6EAADC00B935F3 /* PageView.swift */; };
 		1F86FFF62B6658C9000F4667 /* DotsSpaced.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */; };
 		1F86FFF82B66590A000F4667 /* Dots.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F86FFF72B66590A000F4667 /* Dots.ttf */; };
 		1F86FFFB2B666625000F4667 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86FFFA2B666625000F4667 /* SettingsView.swift */; };
@@ -70,6 +71,7 @@
 		1F3F9FD72A324DFD00376260 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		1F3FA0122A3258A200376260 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		1F7031862B6AF98000B935F3 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		1F7031892B6EAADC00B935F3 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DotsSpaced.ttf; sourceTree = "<group>"; };
 		1F86FFF72B66590A000F4667 /* Dots.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dots.ttf; sourceTree = "<group>"; };
 		1F86FFFA2B666625000F4667 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			children = (
 				1F3F9FD72A324DFD00376260 /* App.swift */,
 				1F3FA0122A3258A200376260 /* Home.swift */,
+				1F7031892B6EAADC00B935F3 /* PageView.swift */,
 				1F7031862B6AF98000B935F3 /* Network.swift */,
 				1FD3A64E2A34550A005CCB9A /* Types */,
 				1FD3A6452A334FEC005CCB9A /* Views */,
@@ -377,6 +380,7 @@
 				1FD3A6562A346A8A005CCB9A /* DrawView.swift in Sources */,
 				1F86FFFB2B666625000F4667 /* SettingsView.swift in Sources */,
 				1FD3A6472A3364D8005CCB9A /* CanvasView.swift in Sources */,
+				1F70318A2B6EAADC00B935F3 /* PageView.swift in Sources */,
 				1F3F9FD82A324DFD00376260 /* App.swift in Sources */,
 				1F945C632A34C86B00300416 /* DraftsView.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
