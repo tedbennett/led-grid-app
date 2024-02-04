@@ -43,8 +43,11 @@ struct DrawView: View {
     }
 
     func send() {
-        modelContext.insert(DraftArt())
-        try! modelContext.save()
+//        modelContext.insert(DraftArt())
+//        try! modelContext.save()
+        Task {
+            try await API.getMe()
+        }
     }
 
     var body: some View {

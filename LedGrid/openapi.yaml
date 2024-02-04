@@ -22,6 +22,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+        "403":
+          description: Unauthenticated
+        "404":
+          description: Not found
       security:
         - BearerAuth: []
     patch:
@@ -32,15 +36,19 @@ paths:
             schema:
               $ref: "#/components/schemas/UpdateUserPayload"
       responses:
-        "201":
+        "204":
           description: Profile updated
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
     delete:
       operationId: deleteMe
       responses:
-        "201":
+        "204":
           description: Account deleted
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
   /user/search:
@@ -61,6 +69,8 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/User"
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
   /user/check:
@@ -79,6 +89,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CheckUsernameResponse"
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
   /user/device:
@@ -90,8 +102,10 @@ paths:
             schema:
               $ref: "#/components/schemas/CreateDevicePayload"
       responses:
-        "201":
+        "204":
           description: Device Created
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
 # ==========================================================================
@@ -109,6 +123,8 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Friend"
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
   /user/friend/{friendId}:
@@ -122,8 +138,10 @@ paths:
             format: uuid
         required: true
       responses:
-        "201":
+        "204":
           description: Created friend
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
     delete:
@@ -133,10 +151,13 @@ paths:
         name: friendId
         schema:
             type: string
+            format: uuid
         required: true
       responses:
-        "201":
+        "204":
           description: Deleted friend
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
   /user/friend/request:
@@ -147,10 +168,13 @@ paths:
           name: user
           schema:
             type: string
+            format: uuid
           required: true
       responses:
-        "201":
+        "204":
           description: Created friend request
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
   /user/friend/request/sent:
@@ -165,6 +189,8 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/FriendRequest"
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
   /user/friend/request/received:
@@ -179,6 +205,8 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/FriendRequest"
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
   /user/friend/request/{requestId}:
@@ -189,6 +217,7 @@ paths:
           name: requestId
           schema:
             type: string
+            format: uuid
           required: true
       requestBody:
         content:
@@ -196,8 +225,12 @@ paths:
             schema:
               $ref: "#/components/schemas/UpdateFriendRequestPayload"
       responses:
-        "201":
+        "204":
           description: Updated friend request
+        "403":
+          description: Unauthenticated
+        "404":
+          description: Not Found
       security:
         - BearerAuth: []
 
@@ -205,12 +238,19 @@ paths:
 # Drawings
 # ==========================================================================
   
-  /drawing/:
-    get:
+  /drawing:
+    post:
       operationId: sendDrawing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendDrawingPayload"
       responses:
-        "201":
+        "204":
           description: Sent drawing
+        "403":
+          description: Unauthenticated
   /drawing/sent:
     get:
       operationId: getSentDrawings
@@ -223,7 +263,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Drawing"
-  /drawing/receiverId:
+        "403":
+          description: Unauthenticated
+  /drawing/received:
     get:
       operationId: getReceivedDrawings
       responses:
@@ -235,6 +277,8 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Drawing"
+        "403":
+          description: Unauthenticated
       security:
         - BearerAuth: []
 
@@ -407,11 +451,11 @@ components:
     CreateDevicePayload:
       type: object
       required:
-        - device_id
+        - deviceId
         - sandbox
         - os
       properties:
-        device_id:
+        deviceId:
           type: string
         os:
           type: string
