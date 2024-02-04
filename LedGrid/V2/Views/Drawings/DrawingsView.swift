@@ -1,5 +1,5 @@
 //
-//  ArtView.swift
+//  DrawingsView.swift
 //  LedGrid
 //
 //  Created by Ted Bennett on 10/06/2023.
@@ -8,11 +8,7 @@
 import SwiftData
 import SwiftUI
 
-struct ArtView: View {
-    let columns = [
-        GridItem(.flexible(minimum: 80)),
-        GridItem(.flexible(minimum: 80)),
-    ]
+struct DrawingsView: View {
     @Binding var selectedDraftId: UUID?
 
     @Query(sort: \DraftArt.lastUpdated, order: .reverse, animation: .bouncy) var drafts: [DraftArt] = []
@@ -40,23 +36,13 @@ struct ArtView: View {
                 }.buttonStyle(.plain)
                 Spacer()
             }.padding(.top, 50).padding(.leading, 20)
-            ScrollView {
-                LazyVGrid(columns: columns) {
-                    ForEach(drafts) { art in
-                        GridView(grid: art.grid).aspectRatio(contentMode: .fit)
-                            .border(Color.white, width: selectedDraftId == art.id ? 3 : 0)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-
-                            .onTapGesture {
-                                selectedDraftId = art.id
-                                feedback.toggle()
-                                withAnimation {
-                                    scrollToDrawView()
-                                }
-                            }
-                    }
+            DrawingList(drawings: drafts) { id in
+                selectedDraftId = id
+                feedback.toggle()
+                withAnimation {
+                    scrollToDrawView()
                 }
-            }.sensoryFeedback(.success, trigger: feedback)
+            }
         }
     }
 }
@@ -74,7 +60,7 @@ struct ArtViewPreview: PreviewProvider {
     }()
 
     static var previews: some View {
-        ArtView(selectedDraftId: .constant(selectedUUID)) {}
+        DrawingsView(selectedDraftId: .constant(selectedUUID)) {}
             .modelContainer(container)
     }
 }

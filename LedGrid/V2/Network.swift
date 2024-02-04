@@ -25,7 +25,7 @@ enum FriendRequestStatus: String {
 }
 
 struct API {
-    static var client = Client(
+    private static var client = Client(
         serverURL: try! Servers.server2(),
         transport: OpenAPIURLSession.URLSessionTransport(),
         middlewares: [AuthorisationMiddleware()]
@@ -287,7 +287,7 @@ struct API {
             throw handleError(e: .unknown(error))
         }
     }
-    
+
     // MARK: - Drawings
 
     static func getSentDrawings() async throws -> [APIDrawing] {
@@ -306,7 +306,7 @@ struct API {
             throw handleError(e: .unknown(error))
         }
     }
-    
+
     static func getReceivedDrawings() async throws -> [APIDrawing] {
         do {
             switch try await client.getReceivedDrawings() {
@@ -323,10 +323,10 @@ struct API {
             throw handleError(e: .unknown(error))
         }
     }
-   
-    static func sendDrawing(_ drawing: [[[String]]], to receivers: [String]) async throws {
+
+    static func sendDrawing(_ drawing: Grid, to receivers: [String]) async throws {
         do {
-            let payload: Components.Schemas.SendDrawingPayload = .init(drawing: drawing, receivers: receivers)
+            let payload: Components.Schemas.SendDrawingPayload = .init(drawing: [drawing], receivers: receivers)
             switch try await client.sendDrawing(body: .json(payload)) {
             case .noContent:
                 return

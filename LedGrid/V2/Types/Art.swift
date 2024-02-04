@@ -50,7 +50,7 @@ class ReceivedArt {
 }
 
 @Model
-final class DraftArt {
+final class DraftArt: Drawing {
     @Attribute(.unique) var id: UUID
     var lastUpdated: Date
     var createdAt: Date

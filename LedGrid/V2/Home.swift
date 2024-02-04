@@ -30,7 +30,7 @@ struct Home: View {
                             width: proxy.size.width,
                             height: proxy.size.height
                         ).id(Tab.draw)
-                        ArtView(selectedDraftId: $selectedDraftId) {
+                        DrawingsView(selectedDraftId: $selectedDraftId) {
                             scrollProxy.scrollTo(Tab.draw)
                         }.safeAreaPadding().frame(
                             width: proxy.size.width,

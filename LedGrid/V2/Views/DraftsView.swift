@@ -54,7 +54,7 @@ struct DraftsViewPreview: PreviewProvider {
     }()
     
     static var previews: some View {
-        ArtView(selectedDraftId: .constant(selectedUUID)) {}
+        DrawingsView(selectedDraftId: .constant(selectedUUID)) {}
             .modelContainer(container)
     }
 }

@@ -42,11 +42,16 @@ struct DrawView: View {
         try? modelContext.save()
     }
 
-    func send() {
+    func send(grid: Grid) {
+        
 //        modelContext.insert(DraftArt())
 //        try! modelContext.save()
         Task {
-            try await API.getMe()
+            do {
+                try await API.sendDrawing(grid, to: ["2eb1a078-c371-11ee-ba19-0f140ca0410c"])
+            } catch {
+                print(error)
+            }
         }
     }
 
@@ -76,7 +81,7 @@ struct DrawView: View {
             } redo: {
                 redo()
             } send: {
-                send()
+                send(grid: selectedDraft!.grid)
             }
             Button {
                 withAnimation {
