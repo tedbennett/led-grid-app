@@ -8,7 +8,7 @@
 import SwiftUI
 
 protocol Drawing: Identifiable {
-    var id: UUID { get set }
+    var id: String { get set }
     var grid: Grid { get set }
 }
 
@@ -20,7 +20,7 @@ struct DrawingList: View {
 
     var drawings: [any Drawing]
 
-    var onSelect: (UUID) -> Void
+    var onSelect: (String) -> Void
 
     var body: some View {
         ScrollView {

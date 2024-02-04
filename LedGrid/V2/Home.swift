@@ -17,7 +17,7 @@ enum Tab: Hashable {
 }
 
 struct Home: View {
-    @State private var selectedDraftId: UUID?
+    @State private var selectedDraftId: String?
 
     var body: some View {
         NavigationStack {

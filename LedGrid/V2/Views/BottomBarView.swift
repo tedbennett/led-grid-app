@@ -40,8 +40,15 @@ struct BottomBarView: View {
                 Spacer()
 
                 Button {
-                    logger.info("Pressed grid")
-                    feedback.toggle()
+                    Task.detached {
+                        do {
+                            let container = Container()
+                            let friends = try await API.getFriends()
+                            try await container.insertFriends(friends)
+                        } catch {
+                            logger.error("\(error.localizedDescription)")
+                        }
+                    }
                 } label: {
                     Image(systemName: "grid").font(.title3)
                 }
@@ -62,8 +69,8 @@ struct BottomBarView: View {
                 Spacer()
                     .allowsHitTesting(false)
                 Button {
-                    send()
                     feedback.toggle()
+                    send()
                 } label: {
                     Image(systemName: "paperplane").font(.title).padding(5)
                 }.buttonStyle(StdButton())

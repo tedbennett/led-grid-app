@@ -10,14 +10,13 @@ import SwiftUI
 
 struct DrawView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \DraftArt.lastUpdated, order: .reverse)
-    var drafts: [DraftArt] = []
+    @Query(sort: \DraftDrawing.updatedAt, order: .reverse) var drafts: [DraftDrawing] = []
     @State private var color = Color.green
 
     @State private var undoStack: [Grid] = []
     @State private var redoStack: [Grid] = []
 
-    @Binding var selectedDraftId: UUID?
+    @Binding var selectedDraftId: String?
 
     let scrollToArtView: () -> Void
 
@@ -43,14 +42,15 @@ struct DrawView: View {
     }
 
     func send(grid: Grid) {
-        
-//        modelContext.insert(DraftArt())
-//        try! modelContext.save()
-        Task {
+        Task.detached {
             do {
+                let container = Container()
+                let now = Date.now
                 try await API.sendDrawing(grid, to: ["2eb1a078-c371-11ee-ba19-0f140ca0410c"])
+                let drawings = try await API.getSentDrawings(since: now)
+                try await container.insertSentDrawings(drawings)
             } catch {
-                print(error)
+                logger.error("\(error.localizedDescription)")
             }
         }
     }
@@ -72,7 +72,7 @@ struct DrawView: View {
             } else {
                 ProgressView()
                     .onAppear {
-                        modelContext.insert(DraftArt())
+                        modelContext.insert(DraftDrawing())
                     }
             }
             Spacer()

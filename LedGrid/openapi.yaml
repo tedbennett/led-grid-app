@@ -254,6 +254,13 @@ paths:
   /drawing/sent:
     get:
       operationId: getSentDrawings
+      parameters:
+        - in: query
+          name: since
+          schema:
+            type: string
+            format: date-time
+          required: false
       responses:
         "200":
           description: Got sent drawings
@@ -268,6 +275,13 @@ paths:
   /drawing/received:
     get:
       operationId: getReceivedDrawings
+      parameters:
+        - in: query
+          name: since
+          schema:
+            type: string
+            format: date-time
+          required: false
       responses:
         "200":
           description: Got received drawings

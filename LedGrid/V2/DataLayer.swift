@@ -1,0 +1,82 @@
+//
+//  DataLayer.swift
+//  LedGrid
+//
+//  Created by Ted Bennett on 04/02/2024.
+//
+
+import Foundation
+import SwiftData
+
+// TODO: Better name
+actor Container: ModelActor {
+    nonisolated let modelContainer: ModelContainer
+    nonisolated let modelExecutor: ModelExecutor
+
+    static let modelContainer: ModelContainer = try! ModelContainer(for:
+        SentDrawing.self,
+        ReceivedDrawing.self,
+        DraftDrawing.self,
+        Friend.self)
+
+    let context: ModelContext
+
+    init(container: ModelContainer = Container.modelContainer) {
+        modelContainer = container
+        let context = ModelContext(modelContainer)
+        modelExecutor = DefaultSerialModelExecutor(modelContext: context)
+        self.context = context
+    }
+
+    func createDraft() async throws {
+        context.insert(DraftDrawing())
+        try context.save()
+    }
+
+    func insertFriends(_ friends: [APIFriend]) async throws {
+        for friend in friends {
+            let object = Friend(from: friend)
+            context.insert(object)
+        }
+        try context.save()
+    }
+
+    func insertSentDrawings(_ drawings: [APIDrawing]) async throws {
+        let friends = try context.fetch(FetchDescriptor<Friend>(predicate: .true))
+        for drawing in drawings {
+            // TODO: Handle failed insert
+            if let object = SentDrawing(from: drawing) {
+                // Parsed correctly
+                let receivers = friends.filter { friend in
+                    drawing.receivers.contains(friend.id)
+                }
+                object.receivers = receivers
+                context.insert(object)
+            }
+        }
+        try context.save()
+    }
+
+    func insertReceivedDrawings(_ drawings: [APIDrawing]) async throws {
+        let friends = try context.fetch(FetchDescriptor<Friend>(predicate: .true))
+        for drawing in drawings {
+            // TODO: Handle failed insert
+            if let sender = friends.first(where: { $0.id == drawing.senderId }) {
+                if let object = ReceivedDrawing(from: drawing) {
+                    object.sender = sender
+                    context.insert(object)
+                }
+            }
+        }
+        try context.save()
+    }
+}
+
+@ModelActor final actor DataActor {
+    init(container: ModelContainer) {
+        let context = ModelContext(container)
+        context.autosaveEnabled = true
+        modelContainer = container
+        modelExecutor = DefaultSerialModelExecutor(modelContext: context)
+    }
+}

@@ -11,8 +11,20 @@ import SwiftData
 @Model
 class Friend {
     @Attribute(.unique) var id: String = UUID().uuidString
-    @Relationship(deleteRule: .cascade) var sentArt: [SentArt] = []
-    @Relationship(deleteRule: .cascade) var receivedArt: [ReceivedArt] = []
+    var email: String
+    var username: String
+    var name: String?
+    var createdAt: Date
+    var image: String?
+    @Relationship(deleteRule: .cascade) var sentArt: [SentDrawing] = []
+    @Relationship(deleteRule: .cascade) var receivedArt: [ReceivedDrawing] = []
 
-    init() { }
+    init(from friend: APIFriend) {
+        name = friend.name
+        email = friend.email
+        id = friend.id
+        username = friend.username
+        createdAt = friend.createdAt
+        image = friend.image
+    }
 }

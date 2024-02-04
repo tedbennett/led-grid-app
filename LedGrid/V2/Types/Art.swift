@@ -8,78 +8,154 @@
 import Foundation
 import SwiftData
 
-@Model
-class SentArt {
-    @Attribute(.unique) var id: String
-    var grid: Grid
-    var receivers: [Friend]
-    var sentAt: Date
+struct GridEncoding {
+    static let encoder = JSONEncoder()
+    static let decoder = JSONDecoder()
+}
 
-    init(id: String = UUID().uuidString, grid: Grid, receivers: [Friend], sentAt: Date = Date()) {
+@Model
+class SentDrawing: Drawing {
+    @Attribute(.unique) var id: String
+    var receivers: [Friend]
+    var updatedAt: Date?
+    var createdAt: Date
+
+    var serializedGrid: Data
+    // Cached
+    @Transient private var _grid: [Grid]?
+    @Transient var grid: Grid {
+        get {
+            if let grid = _grid { return grid[0] }
+            let deser = (try? GridEncoding.decoder.decode([Grid].self, from: serializedGrid)) ?? [Grid.empty]
+            _grid = deser
+            return deser[0]
+        } set {
+            _grid = [newValue]
+            guard let data = try? GridEncoding.encoder.encode([newValue]) else { return }
+            serializedGrid = data
+        }
+    }
+
+    init(id: String = UUID().uuidString, grid: Grid, receivers: [Friend]) {
         self.id = id
-        self.grid = grid
         self.receivers = receivers
-        self.sentAt = sentAt
+        createdAt = .now
+        updatedAt = nil
+        _grid = [grid]
+        serializedGrid = try! GridEncoding.encoder.encode([grid])
+    }
+
+    init?(from drawing: APIDrawing) {
+        id = drawing.id
+        updatedAt = drawing.updatedAt
+        createdAt = drawing.createdAt
+        _grid = drawing.grid
+        receivers = []
+        guard let serialized = try? GridEncoding.encoder.encode(drawing.grid) else {
+            return nil
+        }
+        serializedGrid = serialized
     }
 }
 
 @Model
-class ReceivedArt {
-    static let encoder = JSONEncoder()
-    static let decoder = JSONDecoder()
-
+class ReceivedDrawing: Drawing {
     @Attribute(.unique) var id: String
-    var serializedGrid: Data
     var sender: Friend?
-    var lastUpdated: Date
+    var updatedAt: Date?
+    var createdAt: Date
+
+    var serializedGrid: Data
+    // Cached
+    @Transient private var _grid: [Grid]?
     @Transient var grid: Grid {
         get {
-            return (try? ReceivedArt.decoder.decode(Grid.self, from: serializedGrid)) ?? Grid.empty
+            if let grid = _grid { return grid[0] }
+            let deser = (try? GridEncoding.decoder.decode([Grid].self, from: serializedGrid)) ?? [Grid.empty]
+            _grid = deser
+            return deser[0]
         } set {
-            guard let data = try? ReceivedArt.encoder.encode(newValue) else { return }
+            _grid = [newValue]
+            guard let data = try? GridEncoding.encoder.encode([newValue]) else { return }
             serializedGrid = data
         }
     }
 
     init(id: String = UUID().uuidString, grid: Grid) {
         self.id = id
-        lastUpdated = .now
+        updatedAt = nil
+        createdAt = .now
         sender = nil
-        serializedGrid = (try? ReceivedArt.encoder.encode(grid)) ?? Data()
+        _grid = [grid]
+        serializedGrid = try! GridEncoding.encoder.encode([grid])
+    }
+
+    init?(from drawing: APIDrawing) {
+        id = drawing.id
+        updatedAt = drawing.updatedAt
+        createdAt = drawing.createdAt
+        sender = nil
+        _grid = drawing.grid
+        guard let serialized = try? GridEncoding.encoder.encode(drawing.grid) else {
+            return nil
+        }
+        serializedGrid = serialized
     }
 }
 
 @Model
-final class DraftArt: Drawing {
-    @Attribute(.unique) var id: UUID
-    var lastUpdated: Date
+final class DraftDrawing: Drawing {
+    @Attribute(.unique) var id: String
+    var updatedAt: Date
     var createdAt: Date
+
     private var serializedGrid: Data
-    @Transient private var _grid: Grid?
+    // Cached
+    @Transient private var _grid: [Grid]?
     @Transient var grid: Grid {
         get {
-            if let grid = _grid { return grid }
-            let deser = (try? ReceivedArt.decoder.decode(Grid.self, from: serializedGrid)) ?? Grid.empty
+            if let grid = _grid { return grid[0] }
+            let deser = (try? GridEncoding.decoder.decode([Grid].self, from: serializedGrid)) ?? [Grid.empty]
             _grid = deser
-            return deser
+            return deser[0]
         } set {
-            _grid = newValue
-            guard let data = try? ReceivedArt.encoder.encode(newValue) else { return }
+            _grid = [newValue]
+            guard let data = try? GridEncoding.encoder.encode([newValue]) else { return }
             serializedGrid = data
         }
     }
 
     init() {
-        id = UUID()
-        lastUpdated = .now
+        id = UUID().uuidString
+        updatedAt = .now
         createdAt = .now
-        _grid = .empty
-        serializedGrid = try! ReceivedArt.encoder.encode(Grid.empty)
+        _grid = [.empty]
+        serializedGrid = try! GridEncoding.encoder.encode([Grid.empty])
     }
 }
 
-extension DraftArt: Hashable, Identifiable {
-    static func == (lhs: DraftArt, rhs: DraftArt) -> Bool {
+extension DraftDrawing: Hashable, Identifiable {
+    static func == (lhs: DraftDrawing, rhs: DraftDrawing) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(id)
+    }
+}
+
+extension ReceivedDrawing: Hashable, Identifiable {
+    static func == (lhs: ReceivedDrawing, rhs: ReceivedDrawing) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(id)
+    }
+}
+
+extension SentDrawing: Hashable, Identifiable {
+    static func == (lhs: SentDrawing, rhs: SentDrawing) -> Bool {
         return lhs.id == rhs.id
     }
 

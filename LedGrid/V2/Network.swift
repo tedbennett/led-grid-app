@@ -290,9 +290,9 @@ struct API {
 
     // MARK: - Drawings
 
-    static func getSentDrawings() async throws -> [APIDrawing] {
+    static func getSentDrawings(since: Date?) async throws -> [APIDrawing] {
         do {
-            switch try await client.getSentDrawings() {
+            switch try await client.getSentDrawings(query: .init(since: since)) {
             case .ok(let ok):
                 return try ok.body.json
             case .forbidden:
@@ -307,9 +307,9 @@ struct API {
         }
     }
 
-    static func getReceivedDrawings() async throws -> [APIDrawing] {
+    static func getReceivedDrawings(since: Date?) async throws -> [APIDrawing] {
         do {
-            switch try await client.getReceivedDrawings() {
+            switch try await client.getReceivedDrawings(query: .init(since: since)) {
             case .ok(let ok):
                 return try ok.body.json
             case .forbidden:

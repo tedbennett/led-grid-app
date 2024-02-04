@@ -15,15 +15,7 @@ struct AppV2: App {
     var body: some Scene {
         WindowGroup {
             Home()
-        }.modelContainer(Persistence.container)
+        }.modelContainer(Container.modelContainer)
     }
 }
 
-enum Persistence {
-    static let container = try! ModelContainer(for:
-        //        SentArt.self,
-        //        ReceivedArt.self,
-        DraftArt.self
-        //        Friend.self
-    )
-}

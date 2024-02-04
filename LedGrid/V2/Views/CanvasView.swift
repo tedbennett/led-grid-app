@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CanvasView: View {
-    @Bindable var art: DraftArt
+    @Bindable var art: DraftDrawing
     @State private var feedback = false
     var color: Color
 
@@ -43,7 +43,7 @@ struct CanvasView: View {
             }
         } onEnded: {
             guard let prevGrid else { return }
-            art.lastUpdated = .now
+            art.updatedAt = .now
             onChange(prevGrid)
             self.prevGrid = nil
         }

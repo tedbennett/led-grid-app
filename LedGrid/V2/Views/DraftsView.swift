@@ -14,9 +14,9 @@ struct DraftsView: View {
         GridItem(.flexible(minimum: 80)),
         GridItem(.flexible(minimum: 80)),
     ]
-    @Binding var selectedDraftId: UUID?
+    @Binding var selectedDraftId: String?
     
-    @Query(sort: \DraftArt.lastUpdated, order: .reverse, animation: .bouncy) var drafts: [DraftArt] = []
+    @Query(sort: \DraftDrawing.updatedAt, order: .reverse, animation: .bouncy) var drafts: [DraftDrawing] = []
     
     @State private var feedback = false
 
@@ -42,14 +42,14 @@ struct DraftsView: View {
 }
 
 struct DraftsViewPreview: PreviewProvider {
-    static var selectedUUID = UUID()
+    static var selectedUUID = UUID().uuidString
     static var container = {
-        let container = try! ModelContainer(for: DraftArt.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-        let selected = DraftArt()
+        let container = try! ModelContainer(for: DraftDrawing.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        let selected = DraftDrawing()
         selected.id = selectedUUID
         container.mainContext.insert(selected)
-        container.mainContext.insert(DraftArt())
-        container.mainContext.insert(DraftArt())
+        container.mainContext.insert(DraftDrawing())
+        container.mainContext.insert(DraftDrawing())
         return container
     }()
     
