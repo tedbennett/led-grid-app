@@ -19,7 +19,7 @@ struct ArtView: View {
 
     @State private var feedback = false
 
-    let changeTab: () -> Void
+    let scrollToDrawView: () -> Void
 
     var body: some View {
         VStack {
@@ -46,11 +46,13 @@ struct ArtView: View {
                         GridView(grid: art.grid).aspectRatio(contentMode: .fit)
                             .border(Color.white, width: selectedDraftId == art.id ? 3 : 0)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
-                        
+
                             .onTapGesture {
                                 selectedDraftId = art.id
                                 feedback.toggle()
-                                changeTab()
+                                withAnimation {
+                                    scrollToDrawView()
+                                }
                             }
                     }
                 }

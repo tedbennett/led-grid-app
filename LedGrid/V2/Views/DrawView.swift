@@ -19,7 +19,8 @@ struct DrawView: View {
 
     @Binding var selectedDraftId: UUID?
 
-    let changeTab: () -> Void
+    let scrollToArtView: () -> Void
+
     func pushUndo(_ newGrid: Grid) {
         undoStack.append(newGrid)
         redoStack = []
@@ -76,7 +77,7 @@ struct DrawView: View {
             }
             Button {
                 withAnimation {
-                    changeTab()
+                    scrollToArtView()
                 }
             } label: {
                 HStack {
@@ -89,5 +90,5 @@ struct DrawView: View {
 }
 
 #Preview {
-    DrawView(selectedDraftId: .constant(UUID())) {}
+    DrawView(selectedDraftId: .constant(nil)) {}
 }
