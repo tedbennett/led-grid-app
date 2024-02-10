@@ -17,7 +17,8 @@ actor Container: ModelActor {
         SentDrawing.self,
         ReceivedDrawing.self,
         DraftDrawing.self,
-        Friend.self)
+        Friend.self,
+        FriendRequest.self)
 
     let context: ModelContext
 
@@ -28,9 +29,11 @@ actor Container: ModelActor {
         self.context = context
     }
 
-    func createDraft() async throws {
-        context.insert(DraftDrawing())
+    func createDraft() async throws -> String {
+        let draft = DraftDrawing()
+        context.insert(draft)
         try context.save()
+        return draft.id
     }
 
     func insertFriends(_ friends: [APIFriend]) async throws {
@@ -67,6 +70,14 @@ actor Container: ModelActor {
                     context.insert(object)
                 }
             }
+        }
+        try context.save()
+    }
+
+    func insertFriendRequests(_ requests: [APIFriendRequest], sent: Bool) async throws {
+        for request in requests {
+            let object = FriendRequest(from: request, sent: sent)
+            context.insert(object)
         }
         try context.save()
     }

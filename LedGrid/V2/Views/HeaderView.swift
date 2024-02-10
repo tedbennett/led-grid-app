@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HeaderView: View {
-
     var body: some View {
         HStack {
             Text("PIXEE").font(.custom("SubwayTickerGrid", size: 40))
@@ -18,10 +17,12 @@ struct HeaderView: View {
             } label: {
                 Image(systemName: "gear")
             }
+            .buttonStyle(StdButton())
         }
     }
 }
 
 #Preview {
     HeaderView()
+        .environment(UserManager(user: APIUser.example))
 }

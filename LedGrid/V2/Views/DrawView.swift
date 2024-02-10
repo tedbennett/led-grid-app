@@ -9,8 +9,10 @@ import SwiftData
 import SwiftUI
 
 struct DrawView: View {
+    var user: APIUser = LocalStorage.user!
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \DraftDrawing.updatedAt, order: .reverse) var drafts: [DraftDrawing] = []
+    @Query var friends: [Friend] = []
     @State private var color = Color.green
 
     @State private var undoStack: [Grid] = []
@@ -46,9 +48,14 @@ struct DrawView: View {
             do {
                 let container = Container()
                 let now = Date.now
-                try await API.sendDrawing(grid, to: ["2eb1a078-c371-11ee-ba19-0f140ca0410c"])
+                let friends = friends.map(\.id)
+                try await API.sendDrawing(grid, to: friends)
                 let drawings = try await API.getSentDrawings(since: now)
                 try await container.insertSentDrawings(drawings)
+                let id = try await container.createDraft()
+                await MainActor.run {
+                    selectedDraftId = id
+                }
             } catch {
                 logger.error("\(error.localizedDescription)")
             }
