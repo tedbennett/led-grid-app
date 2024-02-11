@@ -9,7 +9,6 @@ import SwiftData
 import SwiftUI
 
 struct DrawView: View {
-    var user: APIUser = LocalStorage.user!
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \DraftDrawing.updatedAt, order: .reverse) var drafts: [DraftDrawing] = []
     @Query var friends: [Friend] = []

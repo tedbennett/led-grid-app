@@ -10,10 +10,16 @@ import SwiftUI
 struct HeaderView: View {
     var body: some View {
         HStack {
-            Text("PIXEE").font(.custom("SubwayTickerGrid", size: 40))
+            Text("PIXEE").monospaced() // .font(.custom("SubwayTickerGrid", size: 40))
             Spacer()
             NavigationLink {
-                SettingsView()
+                FriendsRoot()
+            } label: {
+                Image(systemName: "person.2")
+            }
+            .buttonStyle(StdButton())
+            NavigationLink {
+                SettingsRoot()
             } label: {
                 Image(systemName: "gear")
             }
@@ -24,5 +30,4 @@ struct HeaderView: View {
 
 #Preview {
     HeaderView()
-        .environment(UserManager(user: APIUser.example))
 }

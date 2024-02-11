@@ -9,12 +9,7 @@ import SwiftData
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(UserManager.self) var manager
-    @Query var friends: [Friend] = []
-
-    var user: APIUser {
-        manager.user
-    }
+    var user: APIUser
 
     @State private var username: String = ""
     @State private var name: String = ""
@@ -49,22 +44,6 @@ struct SettingsView: View {
                 TextField("Name", text: $name)
                 Text(user.email).foregroundStyle(.gray)
             }
-
-            Section("Friends") {
-                ForEach(friends) { friend in
-                    VStack {
-                        if let name = friend.name {
-                            Text(name)
-                        }
-                        Text("@\(friend.username)")
-                            .font(.callout)
-                            .tint(.gray)
-                    }
-                }
-                NavigationLink("Find Friends") {
-                    UserSearchView()
-                }
-            }
         }
         .navigationTitle("Settings")
         .toolbarTitleDisplayMode(.inline)
@@ -88,8 +67,7 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView()
-        .environment(UserManager(user: APIUser.example))
+    SettingsView(user: APIUser.example)
 }
 
 extension APIUser {

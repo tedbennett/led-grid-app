@@ -18,7 +18,7 @@ enum ApiError: Error {
     case unknown(Error)
 }
 
-enum FriendRequestStatus: String {
+enum FriendRequestStatus: String, Codable {
     case accepted
     case revoked
     case sent

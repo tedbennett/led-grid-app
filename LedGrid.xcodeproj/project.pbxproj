@@ -21,6 +21,11 @@
 		1F7C1B762B77CD30005FF519 /* Debounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B752B77CD30005FF519 /* Debounce.swift */; };
 		1F7C1B792B77D525005FF519 /* UserCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B782B77D525005FF519 /* UserCard.swift */; };
 		1F7C1B7C2B77EF04005FF519 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B7B2B77EF04005FF519 /* FriendRequest.swift */; };
+		1F7C1B7F2B784291005FF519 /* UsernameEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B7E2B784291005FF519 /* UsernameEditor.swift */; };
+		1F7C1B842B78E5E0005FF519 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B832B78E5E0005FF519 /* FriendsView.swift */; };
+		1F7C1B872B78E666005FF519 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B862B78E666005FF519 /* SignUpView.swift */; };
+		1F7C1B892B78E678005FF519 /* SettingsRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B882B78E678005FF519 /* SettingsRoot.swift */; };
+		1F7C1B8B2B78E6BD005FF519 /* FriendsRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B8A2B78E6BD005FF519 /* FriendsRoot.swift */; };
 		1F86FFF62B6658C9000F4667 /* DotsSpaced.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */; };
 		1F86FFF82B66590A000F4667 /* Dots.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F86FFF72B66590A000F4667 /* Dots.ttf */; };
 		1F86FFFB2B666625000F4667 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86FFFA2B666625000F4667 /* SettingsView.swift */; };
@@ -88,6 +93,11 @@
 		1F7C1B752B77CD30005FF519 /* Debounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debounce.swift; sourceTree = "<group>"; };
 		1F7C1B782B77D525005FF519 /* UserCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCard.swift; sourceTree = "<group>"; };
 		1F7C1B7B2B77EF04005FF519 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
+		1F7C1B7E2B784291005FF519 /* UsernameEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameEditor.swift; sourceTree = "<group>"; };
+		1F7C1B832B78E5E0005FF519 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		1F7C1B862B78E666005FF519 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		1F7C1B882B78E678005FF519 /* SettingsRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRoot.swift; sourceTree = "<group>"; };
+		1F7C1B8A2B78E6BD005FF519 /* FriendsRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRoot.swift; sourceTree = "<group>"; };
 		1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DotsSpaced.ttf; sourceTree = "<group>"; };
 		1F86FFF72B66590A000F4667 /* Dots.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dots.ttf; sourceTree = "<group>"; };
 		1F86FFFA2B666625000F4667 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -183,11 +193,23 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		1F7C1B822B78E5D4005FF519 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				1F7C1B832B78E5E0005FF519 /* FriendsView.swift */,
+				1F7C1B8A2B78E6BD005FF519 /* FriendsRoot.swift */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
 		1F86FFF92B66661C000F4667 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				1F86FFFA2B666625000F4667 /* SettingsView.swift */,
+				1F7C1B7E2B784291005FF519 /* UsernameEditor.swift */,
 				1F7C1B782B77D525005FF519 /* UserCard.swift */,
+				1F7C1B862B78E666005FF519 /* SignUpView.swift */,
+				1F7C1B882B78E678005FF519 /* SettingsRoot.swift */,
 				1F7C1B712B77CBB3005FF519 /* UserSearchView.swift */,
 			);
 			path = Settings;
@@ -196,6 +218,7 @@
 		1FD3A6452A334FEC005CCB9A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1F7C1B822B78E5D4005FF519 /* Friends */,
 				1FD3A6462A3364D8005CCB9A /* CanvasView.swift */,
 				1F7C1B6E2B77C7B8005FF519 /* UserManager.swift */,
 				1F945C5E2A348D8000300416 /* GridView.swift */,
@@ -415,12 +438,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F7C1B842B78E5E0005FF519 /* FriendsView.swift in Sources */,
 				1FD3A64D2A33681D005CCB9A /* HeaderView.swift in Sources */,
+				1F7C1B892B78E678005FF519 /* SettingsRoot.swift in Sources */,
 				1F3FA0132A3258A200376260 /* Home.swift in Sources */,
 				1FD3A6562A346A8A005CCB9A /* DrawView.swift in Sources */,
 				1F7C1B722B77CBB3005FF519 /* UserSearchView.swift in Sources */,
 				1F7C1B792B77D525005FF519 /* UserCard.swift in Sources */,
 				1F7031962B70022700B935F3 /* DataLayer.swift in Sources */,
+				1F7C1B7F2B784291005FF519 /* UsernameEditor.swift in Sources */,
 				1F86FFFB2B666625000F4667 /* SettingsView.swift in Sources */,
 				1FD3A6472A3364D8005CCB9A /* CanvasView.swift in Sources */,
 				1F7C1B6F2B77C7B8005FF519 /* UserManager.swift in Sources */,
@@ -429,6 +455,7 @@
 				1F7C1B7C2B77EF04005FF519 /* FriendRequest.swift in Sources */,
 				1F7C1B762B77CD30005FF519 /* Debounce.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
+				1F7C1B872B78E666005FF519 /* SignUpView.swift in Sources */,
 				1F1A16DC290C13D600033745 /* View.swift in Sources */,
 				1F7C1B6C2B77B64E005FF519 /* LocalStorage.swift in Sources */,
 				1FD3A6522A345561005CCB9A /* User.swift in Sources */,
@@ -443,6 +470,7 @@
 				1F945C5F2A348D8000300416 /* GridView.swift in Sources */,
 				9F28FB7F28B29EB700403F4D /* String.swift in Sources */,
 				1F7031902B6FF61B00B935F3 /* DrawingList.swift in Sources */,
+				1F7C1B8B2B78E6BD005FF519 /* FriendsRoot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,12 +13,20 @@ class FriendRequest {
     @Attribute(.unique) var id: String = UUID().uuidString
     var sent: Bool
     var userId: String
+    var name: String?
+    var username: String
     var createdAt: Date
+    var status: FriendRequestStatus
 
     init(from request: APIFriendRequest, sent: Bool) {
         id = request.id
-        userId = sent ? request.receiverId : request.senderId
+        userId = request.userId
+        name = request.name
+        username = request.username
         self.sent = sent
-        createdAt = friend.createdAt
+        createdAt = request.createdAt
+        status = FriendRequestStatus(rawValue: request.status) ?? .sent
     }
 }
+
+extension FriendRequest: Identifiable {}

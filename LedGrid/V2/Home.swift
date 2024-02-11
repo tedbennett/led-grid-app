@@ -21,24 +21,21 @@ struct Home: View {
     @State private var isLoading = true
 
     func updateFromServer() {
-        let since = UserDefaults.standard.data(forKey: "LAST_RECEIVED_DRAWINGS").flatMap {
-            try? JSONDecoder().decode(Date.self, from: $0)
-        }
+        let since = LocalStorage.fetchDate
         Task {
             let container = Container()
             // Fetch drawings
             let drawings = try await API.getReceivedDrawings(since: since)
             try await container.insertReceivedDrawings(drawings)
 
-            // Fetch friends
+            // Fetch friends - may have changed names, etc.
             let friends = try await API.getFriends()
+            // TODO: Ensure we're upserting here
             try await container.insertFriends(friends)
 
             // Fetch user
             let user = try await API.getMe()
-            if let data = try? JSONEncoder().encode(user) {
-                UserDefaults.standard.set(data, forKey: "USER")
-            }
+            LocalStorage.user = user
             await MainActor.run {
                 isLoading = false
             }
@@ -85,5 +82,4 @@ struct Home: View {
 
 #Preview {
     Home()
-        .environment(UserManager(user: APIUser.example))
 }

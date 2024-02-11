@@ -374,8 +374,8 @@ components:
       type: object
       required:
       - id
-      - senderId
-      - receiverId
+      - userId
+      - username
       - status
       - createdAt
       - updatedAt
@@ -387,12 +387,13 @@ components:
           type: string
           format: date-time
           nullable: true
-        senderId:
+        userId:
           type: string
           format: uuid
-        receiverId:
+        name:
           type: string
-          format: uuid
+        username:
+          type: string
         id:
           type: string
           format: uuid
