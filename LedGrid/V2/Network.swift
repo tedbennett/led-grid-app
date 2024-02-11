@@ -254,7 +254,7 @@ struct API {
     static func sendFriendRequest(to userId: String) async throws {
         do {
             switch try await client.sendFriendRequest(query: .init(user: userId)) {
-            case .noContent:
+            case .ok:
                 return
             case .forbidden:
                 throw ApiError.forbidden

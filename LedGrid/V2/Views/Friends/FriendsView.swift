@@ -19,10 +19,10 @@ struct FriendsView: View {
         let sent = FriendRequestStatus.sent.rawValue
 
         let sentFilter = #Predicate<FriendRequest> { request in
-            request.status.rawValue == sent && request.sent
+            request.sent && request._status == sent
         }
         let receivedFilter = #Predicate<FriendRequest> { request in
-            request.status.rawValue == sent && !request.sent
+            !request.sent && request._status == sent
         }
         _sentRequests = Query(filter: sentFilter)
         _receivedRequests = Query(filter: receivedFilter)
@@ -30,19 +30,26 @@ struct FriendsView: View {
 
     var body: some View {
         List {
+            NavigationLink("Find Friends") {
+                FriendSearchView()
+            }
+
             Section("Friends") {
                 ForEach(friends) { friend in
                     VStack {
-                        if let name = friend.name {
-                            Text(name)
-                        }
-                        Text("@\(friend.username)")
-                            .font(.callout)
-                            .tint(.gray)
+                        UserCard(name: friend.name, username: friend.username) {}
                     }
                 }
-                NavigationLink("Find Friends") {
-                    UserSearchView()
+            }
+
+            Section("Sent Friend Requests") {
+                ForEach(sentRequests) { request in
+                    UserCard(name: request.name, username: request.username) {}
+                }
+            }
+            Section("Received Friend Requests") {
+                ForEach(receivedRequests) { request in
+                    UserCard(name: request.name, username: request.username) {}
                 }
             }
         }
@@ -51,4 +58,5 @@ struct FriendsView: View {
 
 #Preview {
     FriendsView(user: APIUser.example)
+        .modelContainer(Container.modelContainer)
 }

@@ -91,3 +91,22 @@ actor Container: ModelActor {
         modelExecutor = DefaultSerialModelExecutor(modelContext: context)
     }
 }
+
+@MainActor
+enum PreviewStore {
+    static var selectedUUID = UUID().uuidString
+    static var container = {
+        let container = try! ModelContainer(for: SentDrawing.self,
+                                            ReceivedDrawing.self,
+                                            DraftDrawing.self,
+                                            Friend.self,
+                                            FriendRequest.self,
+                                            configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        let selected = DraftDrawing()
+        selected.id = selectedUUID
+        container.mainContext.insert(selected)
+        container.mainContext.insert(DraftDrawing())
+        container.mainContext.insert(DraftDrawing())
+        return container
+    }()
+}

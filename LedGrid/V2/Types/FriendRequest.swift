@@ -16,7 +16,15 @@ class FriendRequest {
     var name: String?
     var username: String
     var createdAt: Date
-    var status: FriendRequestStatus
+    var _status: String
+    var status: FriendRequestStatus {
+        get {
+            FriendRequestStatus(rawValue: _status) ?? .sent
+        }
+        set {
+            _status = newValue.rawValue
+        }
+    }
 
     init(from request: APIFriendRequest, sent: Bool) {
         id = request.id
@@ -25,7 +33,7 @@ class FriendRequest {
         username = request.username
         self.sent = sent
         createdAt = request.createdAt
-        status = FriendRequestStatus(rawValue: request.status) ?? .sent
+        _status = request.status.lowercased()
     }
 }
 

@@ -25,7 +25,7 @@ struct DrawingsView: View {
     @State private var feedback = false
 
     let scrollToDrawView: () -> Void
-    
+
     var body: some View {
         VStack {
             let drawings: [any Drawing] = {
@@ -48,19 +48,8 @@ struct DrawingsView: View {
 }
 
 struct ArtViewPreview: PreviewProvider {
-    static var selectedUUID = UUID().uuidString
-    static var container = {
-        let container = try! ModelContainer(for: DraftDrawing.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-        let selected = DraftDrawing()
-        selected.id = selectedUUID
-        container.mainContext.insert(selected)
-        container.mainContext.insert(DraftDrawing())
-        container.mainContext.insert(DraftDrawing())
-        return container
-    }()
-
     static var previews: some View {
-        DrawingsView(selectedDraftId: .constant(selectedUUID)) {}
-            .modelContainer(container)
+        DrawingsView(selectedDraftId: .constant(PreviewStore.selectedUUID)) {}
+            .modelContainer(PreviewStore.container)
     }
 }

@@ -171,8 +171,13 @@ paths:
             format: uuid
           required: true
       responses:
-        "204":
+        "200":
           description: Created friend request
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
         "403":
           description: Unauthenticated
       security:
@@ -476,6 +481,14 @@ components:
           type: string
         sandbox:
           type: boolean
+    CreateFriendRequestResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
     UpdateFriendRequestPayload:
       type: object
       required:

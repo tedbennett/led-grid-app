@@ -10,7 +10,7 @@ import SwiftUI
 struct HeaderView: View {
     var body: some View {
         HStack {
-            Text("PIXEE").monospaced() // .font(.custom("SubwayTickerGrid", size: 40))
+            Text("PIXEE").monospaced().font(.largeTitle) // .font(.custom("SubwayTickerGrid", size: 40))
             Spacer()
             NavigationLink {
                 FriendsRoot()
