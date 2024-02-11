@@ -5,6 +5,7 @@
 //  Created by Ted Bennett on 10/02/2024.
 //
 
+import Combine
 import SwiftUI
 
 private enum UsernameStatus {
@@ -15,9 +16,40 @@ private enum UsernameStatus {
 }
 
 struct UsernameEditor: View {
-    var username: String
-    @State private var usernameField: String = ""
-    @State private var status: UsernameStatus = .notChanged
+    var initial: String
+    @Binding var username: String
+    @State private var status: UsernameStatus = .notChanged {
+        didSet {
+            ok = status == .available || status == .notChanged
+        }
+    }
+
+    @Binding var ok: Bool
+
+    let usernamePublisher = PassthroughSubject<String, Never>()
+    func check(username: String) {
+        let trimmed = username.trimmingCharacters(in: .whitespaces)
+        // Same as initial value
+        guard username != initial.trimmingCharacters(in: .whitespaces) else {
+            status = .notChanged
+            return
+        }
+        status = .loading
+
+        Task {
+            do {
+                let available = try await API.checkUsername(trimmed)
+                await MainActor.run {
+                    status = .available
+                }
+            } catch {
+                print(error)
+                await MainActor.run {
+                    status = .notAvailable
+                }
+            }
+        }
+    }
 
     var statusImage: some View {
         Group {
@@ -36,16 +68,19 @@ struct UsernameEditor: View {
 
     var body: some View {
         HStack {
-            TextField("Username", text: $usernameField)
+            TextField("Username", text: $username)
+                .debounce(username, publisher: usernamePublisher) {
+                    check(username: $0)
+                }
             statusImage
         }
         .onAppear {
-            usernameField = username
+            username = initial
             status = .notChanged
         }
     }
 }
 
 #Preview {
-    UsernameEditor(username: "Username")
+    UsernameEditor(initial: "Username", username: .constant("Username"), ok: .constant(true))
 }

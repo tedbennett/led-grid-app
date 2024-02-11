@@ -16,8 +16,17 @@ struct SettingsView: View {
 
     @State private var isLoading = false
 
+    @State private var usernameOK = true
+
     var canSave: Bool {
-        username.trimmingCharacters(in: .whitespaces) != user.username.trimmingCharacters(in: .whitespaces) ||
+        // Invalid/Taken username
+        if !usernameOK { return false }
+        // Empty name or username
+        if username.isEmpty || name.isEmpty {
+            return false
+        }
+        // Username and name have not changed
+        return username.trimmingCharacters(in: .whitespaces) != user.username.trimmingCharacters(in: .whitespaces) ||
             name.trimmingCharacters(in: .whitespaces) != user.name?.trimmingCharacters(in: .whitespaces)
     }
 
@@ -40,7 +49,7 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section("Your Details") {
-                TextField("Username", text: $username)
+                UsernameEditor(initial: user.username, username: $username, ok: $usernameOK)
                 TextField("Name", text: $name)
                 Text(user.email).foregroundStyle(.gray)
             }
@@ -58,9 +67,9 @@ struct SettingsView: View {
                         Text("Save")
                     }
                 }
-            }.disabled(canSave || isLoading)
+            }.disabled(!canSave || isLoading)
         }.onAppear {
-            if username != "" { return }
+            name = user.name ?? ""
             username = user.username
         }
     }
