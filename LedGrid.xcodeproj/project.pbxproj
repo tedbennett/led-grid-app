@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0E66372B7954E5005F8D1C /* RecentColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E66362B7954E5005F8D1C /* RecentColors.swift */; };
 		1F1A16DC290C13D600033745 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DB290C13D600033745 /* View.swift */; };
 		1F3F9FD02A324DC800376260 /* PixeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FCF2A324DC800376260 /* PixeeTests.swift */; };
 		1F3F9FD82A324DFD00376260 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FD72A324DFD00376260 /* App.swift */; };
@@ -78,6 +79,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F0E66362B7954E5005F8D1C /* RecentColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentColors.swift; sourceTree = "<group>"; };
 		1F1A16DB290C13D600033745 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		1F3F9FCD2A324DC800376260 /* PixeeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixeeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F3F9FCF2A324DC800376260 /* PixeeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeTests.swift; sourceTree = "<group>"; };
@@ -152,6 +154,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F0E66352B7954DD005F8D1C /* Draw */ = {
+			isa = PBXGroup;
+			children = (
+				1FD3A6552A346A8A005CCB9A /* DrawView.swift */,
+				1F0E66362B7954E5005F8D1C /* RecentColors.swift */,
+			);
+			path = Draw;
+			sourceTree = "<group>";
+		};
 		1F3F9FCE2A324DC800376260 /* PixeeTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,7 +243,7 @@
 				1F945C5E2A348D8000300416 /* GridView.swift */,
 				1FD3A64A2A33672D005CCB9A /* BottomBarView.swift */,
 				1FD3A64C2A33681D005CCB9A /* HeaderView.swift */,
-				1FD3A6552A346A8A005CCB9A /* DrawView.swift */,
+				1F0E66352B7954DD005F8D1C /* Draw */,
 				1F945C622A34C86B00300416 /* DraftsView.swift */,
 				1F70318D2B6FF60D00B935F3 /* Drawings */,
 				1FD3A6482A336513005CCB9A /* GridModel.swift */,
@@ -448,6 +459,7 @@
 			files = (
 				1F7C1B842B78E5E0005FF519 /* FriendsView.swift in Sources */,
 				1FD3A64D2A33681D005CCB9A /* HeaderView.swift in Sources */,
+				1F0E66372B7954E5005F8D1C /* RecentColors.swift in Sources */,
 				1F7C1B892B78E678005FF519 /* SettingsRoot.swift in Sources */,
 				1F3FA0132A3258A200376260 /* Home.swift in Sources */,
 				1FD3A6562A346A8A005CCB9A /* DrawView.swift in Sources */,

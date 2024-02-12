@@ -13,6 +13,8 @@ struct DrawView: View {
     @Query(sort: \DraftDrawing.updatedAt, order: .reverse) var drafts: [DraftDrawing] = []
     @Query var friends: [Friend] = []
     @State private var color = Color.green
+    @State private var prevColor = Color.green
+    @State private var recentColors: [Color] = []
 
     @State private var undoStack: [Grid] = []
     @State private var redoStack: [Grid] = []
@@ -20,6 +22,20 @@ struct DrawView: View {
     @Binding var selectedDraftId: String?
 
     let scrollToArtView: () -> Void
+
+    func handleGridChange(_ newGrid: Grid) {
+        pushUndo(newGrid)
+        if color != prevColor {
+            if !recentColors.contains(where: { $0.hex == prevColor.hex }) {
+                var recents = Array(recentColors.prefix(4))
+                recents.insert(prevColor, at: 0)
+                withAnimation {
+                    recentColors = recents
+                }
+            }
+            prevColor = color
+        }
+    }
 
     func pushUndo(_ newGrid: Grid) {
         undoStack.append(newGrid)
@@ -63,7 +79,9 @@ struct DrawView: View {
 
     var body: some View {
         VStack {
-            HeaderView().padding(.top, 50).padding(.leading, 20)
+            HeaderView()
+                .padding(.top, 50)
+                .padding(.horizontal, 20)
             Spacer()
 
             let selectedDraft = if let selectedDraftId {
@@ -73,7 +91,7 @@ struct DrawView: View {
             }
 
             if let art = selectedDraft {
-                CanvasView(art: art, color: color) { pushUndo($0) }
+                CanvasView(art: art, color: color) { handleGridChange($0) }
 
             } else {
                 ProgressView()
@@ -82,6 +100,9 @@ struct DrawView: View {
                     }
             }
             Spacer()
+            RecentColors(colors: recentColors, selectColor: {
+                color = $0
+            })
             BottomBarView(color: $color, canUndo: !undoStack.isEmpty, canRedo: !redoStack.isEmpty) {
                 undo()
             } redo: {
@@ -105,4 +126,5 @@ struct DrawView: View {
 
 #Preview {
     DrawView(selectedDraftId: .constant(nil)) {}
+        .modelContainer(PreviewStore.container)
 }
