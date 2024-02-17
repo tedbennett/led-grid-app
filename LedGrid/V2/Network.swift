@@ -359,12 +359,13 @@ struct AuthorisationMiddleware: ClientMiddleware {
         next: @Sendable (HTTPRequest, HTTPBody?, URL) async throws -> (HTTPResponse, HTTPBody?)
     ) async throws -> (HTTPResponse, HTTPBody?) {
         var mutableRequest = request
-        let accessToken = ProcessInfo.processInfo.environment["ACCESS_TOKEN"]!
-        let field = HTTPField(
-            name: .authorization,
-            value: "Bearer \(accessToken)"
-        )
-        mutableRequest.headerFields.append(field)
+        if let accessToken = Keychain.apiKey {
+            let field = HTTPField(
+                name: .authorization,
+                value: "Bearer \(accessToken)"
+            )
+            mutableRequest.headerFields.append(field)
+        }
         return try await next(mutableRequest, body, baseURL)
     }
 }

@@ -10,7 +10,13 @@ import SwiftUI
 
 @main
 struct AppV2: App {
-
+    init() {
+        if Keychain.apiKey == nil,
+           let accessToken = ProcessInfo.processInfo.environment["ACCESS_TOKEN"] {
+            Keychain.set(accessToken, for: .apiKey)
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
             Home()
