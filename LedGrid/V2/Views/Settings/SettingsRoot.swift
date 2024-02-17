@@ -16,7 +16,9 @@ struct SettingsRoot: View {
         if let user = user {
             SettingsView(user: user)
         } else {
-            SignUpView()
+            SignIn {
+                // TODO: refresh page here
+            }
         }
     }
 }
