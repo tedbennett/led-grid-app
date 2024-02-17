@@ -24,7 +24,7 @@ struct FriendCard: View {
             }
         }
         .padding(15)
-        .background(.bar)
+        .background(.fill)
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }

@@ -40,7 +40,7 @@ struct UsernameEditor: View {
             do {
                 let available = try await API.checkUsername(trimmed)
                 await MainActor.run {
-                    status = .available
+                    status = available ? .available : .notAvailable
                 }
             } catch {
                 print(error)

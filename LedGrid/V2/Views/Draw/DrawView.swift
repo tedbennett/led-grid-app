@@ -11,17 +11,17 @@ import SwiftUI
 struct DrawView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \DraftDrawing.updatedAt, order: .reverse) var drafts: [DraftDrawing] = []
-    @Query var friends: [Friend] = []
+
+    let scrollToArtView: () -> Void
+
+    @State private var isSending = false
+
     @State private var color = Color.green
     @State private var prevColor = Color.green
     @State private var recentColors: [Color] = []
 
     @State private var undoStack: [Grid] = []
     @State private var redoStack: [Grid] = []
-
-    @Binding var selectedDraftId: String?
-
-    let scrollToArtView: () -> Void
 
     func handleGridChange(_ newGrid: Grid) {
         pushUndo(newGrid)
@@ -58,22 +58,16 @@ struct DrawView: View {
         try? modelContext.save()
     }
 
-    func send(grid: Grid) {
-        Task.detached {
-            do {
-                let container = Container()
-                let now = Date.now
-                let friends = friends.map(\.id)
-                try await API.sendDrawing(grid, to: friends)
-                let drawings = try await API.getSentDrawings(since: now)
-                try await container.insertSentDrawings(drawings)
-                let id = try await container.createDraft()
-                await MainActor.run {
-                    selectedDraftId = id
-                }
-            } catch {
-                logger.error("\(error.localizedDescription)")
-            }
+    func send(_ grid: Grid, to friends: [String]) async {
+        do {
+            let container = Container()
+            let now = Date.now
+            try await API.sendDrawing(grid, to: friends)
+            let drawings = try await API.getSentDrawings(since: now)
+            try await container.insertSentDrawings(drawings)
+            _ = try await container.createDraft()
+        } catch {
+            logger.error("\(error.localizedDescription)")
         }
     }
 
@@ -84,11 +78,7 @@ struct DrawView: View {
                 .padding(.horizontal, 20)
             Spacer()
 
-            let selectedDraft = if let selectedDraftId {
-                drafts.first(where: { $0.id == selectedDraftId })
-            } else {
-                drafts.first
-            }
+            let selectedDraft = drafts.first
 
             if let art = selectedDraft {
                 CanvasView(art: art, color: color) { handleGridChange($0) }
@@ -107,8 +97,8 @@ struct DrawView: View {
                 undo()
             } redo: {
                 redo()
-            } send: {
-                send(grid: selectedDraft!.grid)
+            } send: { friends in
+                await send(selectedDraft!.grid, to: friends)
             }
             Button {
                 withAnimation {
@@ -118,13 +108,19 @@ struct DrawView: View {
                 HStack {
                     Text("View Drawings")
                     Image(systemName: "chevron.down")
-                }
+                }.foregroundStyle(.primary)
+                    .padding(8)
+                    .padding(.horizontal, 9)
+                    .background(.fill)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
             }
+            .buttonStyle(.plain)
+            .padding(.bottom, 10)
         }
     }
 }
 
 #Preview {
-    DrawView(selectedDraftId: .constant(nil)) {}
+    DrawView {}
         .modelContainer(PreviewStore.container)
 }

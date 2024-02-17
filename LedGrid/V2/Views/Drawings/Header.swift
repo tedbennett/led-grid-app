@@ -28,7 +28,7 @@ struct DrawingsHeader: View {
                     Text("Drafts")
                 }
             } label: {
-                Text(tab.rawValue.uppercased()).font(.custom("SubwayTickerGrid", size: 40))
+                Text(tab.rawValue.uppercased()).font(.custom("FiraMono Nerd Font", size: 40))
                 Image(systemName: "chevron.down").font(.system(size: 18, weight: .heavy))
             }.buttonStyle(.plain)
             Spacer()

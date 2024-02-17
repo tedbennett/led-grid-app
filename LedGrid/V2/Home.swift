@@ -17,7 +17,6 @@ enum Tab: Hashable {
 }
 
 struct Home: View {
-    @State private var selectedDraftId: String?
     @State private var isLoading = true
 
     func updateFromServer() {
@@ -53,7 +52,7 @@ struct Home: View {
                 GeometryReader { proxy in
                     ScrollViewReader { scrollProxy in
                         ScrollView {
-                            DrawView(selectedDraftId: $selectedDraftId) {
+                            DrawView {
                                 scrollProxy.scrollTo(Tab.art)
                             }.safeAreaPadding()
                                 .frame(
@@ -61,7 +60,7 @@ struct Home: View {
                                     height: proxy.size.height
                                 )
                                 .background(Color(uiColor: .secondarySystemBackground)).id(Tab.draw)
-                            DrawingsView(selectedDraftId: $selectedDraftId) {
+                            DrawingsView() {
                                 scrollProxy.scrollTo(Tab.draw)
                             }.safeAreaPadding()
                                 .frame(

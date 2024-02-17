@@ -15,7 +15,7 @@ struct BottomBarView: View {
     var canRedo: Bool
     var undo: () -> Void
     var redo: () -> Void
-    var send: () -> Void
+    var send: ([String]) async -> Void
 
     var body: some View {
         ZStack {
@@ -40,21 +40,6 @@ struct BottomBarView: View {
                 Spacer()
 
                 Button {
-                    Task.detached {
-                        do {
-                            let container = Container()
-                            let friends = try await API.getFriends()
-                            try await container.insertFriends(friends)
-                        } catch {
-                            logger.error("\(error.localizedDescription)")
-                        }
-                    }
-                } label: {
-                    Image(systemName: "grid").font(.title3)
-                }
-                .buttonStyle(StdButton())
-
-                Button {
                     UIColorWellHelper.helper.execute?()
                     feedback.toggle()
                 } label: {
@@ -68,12 +53,9 @@ struct BottomBarView: View {
             HStack {
                 Spacer()
                     .allowsHitTesting(false)
-                Button {
-                    feedback.toggle()
-                    send()
-                } label: {
-                    Image(systemName: "paperplane").font(.title).padding(5)
-                }.buttonStyle(StdButton())
+                SendArt { friends in
+                    await send(friends)
+                }
                 Spacer()
             }
         }.padding()
@@ -82,7 +64,7 @@ struct BottomBarView: View {
 }
 
 #Preview {
-    BottomBarView(color: .constant(.green), canUndo: true, canRedo: true, undo: {}, redo: {}, send: {})
+    BottomBarView(color: .constant(.green), canUndo: true, canRedo: true, undo: {}, redo: {}, send: { _ in })
 }
 
 struct StdButton: ButtonStyle {
@@ -91,9 +73,9 @@ struct StdButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(10)
-            .foregroundStyle(.background.opacity(configuration.isPressed ? 0.5 : 1))
+            .foregroundStyle(.primary.opacity(configuration.isPressed ? 0.5 : 1))
             .background(
-                Circle().fill(.primary.opacity(isEnabled ? 1 : 0.7))
+                Circle().fill(.fill.opacity(isEnabled ? 1 : 0.7))
             ).scaleEffect(configuration.isPressed ? 0.9 : 1.0)
     }
 }

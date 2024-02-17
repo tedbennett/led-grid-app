@@ -16,7 +16,8 @@ enum DrawingsTab: String {
 
 struct DrawingsView: View {
     @State private var tab = DrawingsTab.drafts
-    @Binding var selectedDraftId: String?
+
+    @Environment(\.modelContext) private var modelContext
 
     @Query(sort: \DraftDrawing.updatedAt, order: .reverse, animation: .bouncy) var drafts: [DraftDrawing] = []
     @Query(sort: \ReceivedDrawing.createdAt, order: .reverse, animation: .bouncy) var received: [ReceivedDrawing] = []
@@ -25,6 +26,20 @@ struct DrawingsView: View {
     @State private var feedback = false
 
     let scrollToDrawView: () -> Void
+
+    func selectDraft(at index: Int) {
+        do {
+            feedback.toggle()
+            let draft = drafts[index]
+            draft.updatedAt = .now
+            try modelContext.save()
+            withAnimation {
+                scrollToDrawView()
+            }
+        } catch {
+            print(error)
+        }
+    }
 
     var body: some View {
         VStack {
@@ -36,12 +51,11 @@ struct DrawingsView: View {
                 }
             }()
             DrawingsHeader(tab: $tab)
-            DrawingList(drawings: drawings) { id in
-                selectedDraftId = id
-                feedback.toggle()
-                withAnimation {
-                    scrollToDrawView()
+            DrawingList(drawings: drawings) { index in
+                guard tab != .drafts else {
+                    return
                 }
+                selectDraft(at: index)
             }
         }
     }
@@ -49,7 +63,7 @@ struct DrawingsView: View {
 
 struct ArtViewPreview: PreviewProvider {
     static var previews: some View {
-        DrawingsView(selectedDraftId: .constant(PreviewStore.selectedUUID)) {}
+        DrawingsView {}
             .modelContainer(PreviewStore.container)
     }
 }

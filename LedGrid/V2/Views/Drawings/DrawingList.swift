@@ -20,16 +20,16 @@ struct DrawingList: View {
 
     var drawings: [any Drawing]
 
-    var onSelect: (String) -> Void
+    var onSelectAtIndex: (Int) -> Void
 
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns) {
-                ForEach(drawings, id: \.id) { drawing in
+                ForEach(Array(drawings.enumerated()), id: \.element.id) { index, drawing in
                     GridView(grid: drawing.grid).aspectRatio(contentMode: .fit)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .onTapGesture {
-                            onSelect(drawing.id)
+                            onSelectAtIndex(index)
                         }
                 }
             }
@@ -38,5 +38,5 @@ struct DrawingList: View {
 }
 
 #Preview {
-    DrawingList(drawings: [], onSelect: { _ in })
+    DrawingList(drawings: [], onSelectAtIndex: { _ in })
 }
