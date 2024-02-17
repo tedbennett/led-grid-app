@@ -29,6 +29,7 @@ struct SendArt: View {
             .sheet(isPresented: $presentModal, content: {
                 SelectFriends { friends in
                     await handleSendArt(friends)
+                    presentModal = false
                 }
                 .presentationDetents([.medium, .large])
             }).fullScreenCover(isPresented: $presentSignInModal) {
@@ -90,9 +91,14 @@ struct SelectFriends: View {
                     }.buttonStyle(.plain)
                 }
             }
-            Button {} label: {
-                Text("Send").font(.custom("FiraMono Nerd Font", size: 24))
-            }.foregroundStyle(.primary)
+            Button {
+                sendArt()
+            } label: {
+                Group {
+                    if isLoading { ProgressView() } else { Text("Send").font(.custom("FiraMono Nerd Font", size: 24)) }
+                }
+            }.disabled(selectedFriends.isEmpty)
+                .foregroundStyle(.primary)
                 .padding(14)
                 .padding(.horizontal, 20)
                 .background(.fill)
