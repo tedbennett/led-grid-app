@@ -302,6 +302,27 @@ paths:
         - BearerAuth: []
 
 # ==========================================================================
+# Auth
+# ==========================================================================
+  
+  /auth/signin:
+    post:
+      operationId: signIn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignInPayload"
+      responses:
+        "200":
+          description: Successfully signed in or signed up
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenPayload"
+  
+        
+# ==========================================================================
 # Components
 # ==========================================================================
 
@@ -518,3 +539,29 @@ components:
         title:
           type: string
           nullable: true
+    SignInPayload:
+      type: object
+      required:
+        - code
+        - id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        code:
+          type: string
+    TokenPayload:
+      type: object
+      required:
+        - token
+        - created
+      properties:
+        token:
+          type: string
+        created:
+          type: boolean

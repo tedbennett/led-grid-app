@@ -53,6 +53,15 @@ struct SettingsView: View {
                 TextField("Name", text: $name)
                 Text(user.email).foregroundStyle(.gray)
             }
+            Section("Account") {
+                Button {
+                    LocalStorage.user = nil
+                    Keychain.clear(key: .apiKey)
+                   // TODO: Clear database
+                } label: {
+                    Text("Logout")
+                }
+            }
         }
         .navigationTitle("Settings")
         .toolbarTitleDisplayMode(.inline)

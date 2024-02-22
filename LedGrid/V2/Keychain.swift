@@ -22,4 +22,8 @@ struct Keychain {
     static func set(_ value: String, for key: Keys) {
         try? keychain.set(value, forKey: key.rawValue)
     }
+
+    static func clear(key: Keys) {
+        try? keychain.deleteItem(forKey: key.rawValue)
+    }
 }

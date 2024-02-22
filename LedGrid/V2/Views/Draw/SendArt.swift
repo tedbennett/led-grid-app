@@ -31,11 +31,14 @@ struct SendArt: View {
                     await handleSendArt(friends)
                     presentModal = false
                 }
-                .presentationDetents([.medium, .large])
+                //.presentationDetents([.medium, .large])
             }).fullScreenCover(isPresented: $presentSignInModal) {
-                Text("Sign In")
+                SignIn {
+                    presentSignInModal = false
+                }
             }
             .sensoryFeedback(.impact(flexibility: .solid), trigger: feedback)
+            .accessibilityLabel("send-button")
     }
 }
 

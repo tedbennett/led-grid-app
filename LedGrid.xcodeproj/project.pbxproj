@@ -37,6 +37,8 @@
 		1F9209902B667943001A9B83 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 1F92098F2B667943001A9B83 /* OpenAPIURLSession */; };
 		1F945C5F2A348D8000300416 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C5E2A348D8000300416 /* GridView.swift */; };
 		1F945C612A34B79700300416 /* DrawingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C602A34B79700300416 /* DrawingsView.swift */; };
+		1FA04A5C2B82CA3400BCF8A1 /* PixeeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA04A5B2B82CA3400BCF8A1 /* PixeeUITestsLaunchTests.swift */; };
+		1FA04A652B82CE1400BCF8A1 /* PixeeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA04A592B82CA3400BCF8A1 /* PixeeUITests.swift */; };
 		1FC3951F2B8106C900F074EB /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3951E2B8106C900F074EB /* Keychain.swift */; };
 		1FC395222B81076400F074EB /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC395212B81076400F074EB /* SignIn.swift */; };
 		1FC395272B810A0D00F074EB /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 1FC395262B810A0D00F074EB /* AlertToast */; };
@@ -60,6 +62,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		1F3F9FD12A324DC800376260 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5799B41A27F0D7E60039F621 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5799B42127F0D7E60039F621;
+			remoteInfo = LedGrid;
+		};
+		1FA04A5D2B82CA3400BCF8A1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5799B41A27F0D7E60039F621 /* Project object */;
 			proxyType = 1;
@@ -111,6 +120,9 @@
 		1F9209822B6676C9001A9B83 /* openapi.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = openapi.yaml; sourceTree = "<group>"; };
 		1F945C5E2A348D8000300416 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		1F945C602A34B79700300416 /* DrawingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingsView.swift; sourceTree = "<group>"; };
+		1FA04A572B82CA3400BCF8A1 /* PixeeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixeeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FA04A592B82CA3400BCF8A1 /* PixeeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeUITests.swift; sourceTree = "<group>"; };
+		1FA04A5B2B82CA3400BCF8A1 /* PixeeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1FC3951E2B8106C900F074EB /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		1FC395212B81076400F074EB /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		1FD3A6462A3364D8005CCB9A /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
@@ -138,6 +150,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		1F3F9FCA2A324DC800376260 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FA04A542B82CA3400BCF8A1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -243,6 +262,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		1FA04A582B82CA3400BCF8A1 /* PixeeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1FA04A592B82CA3400BCF8A1 /* PixeeUITests.swift */,
+				1FA04A5B2B82CA3400BCF8A1 /* PixeeUITestsLaunchTests.swift */,
+			);
+			path = PixeeUITests;
+			sourceTree = "<group>";
+		};
 		1FD3A6452A334FEC005CCB9A /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +302,7 @@
 			children = (
 				5799B42427F0D7E60039F621 /* LedGrid */,
 				1F3F9FCE2A324DC800376260 /* PixeeTests */,
+				1FA04A582B82CA3400BCF8A1 /* PixeeUITests */,
 				5799B42327F0D7E60039F621 /* Products */,
 				9F4FC810288CA28D00A2603F /* Frameworks */,
 			);
@@ -284,6 +313,7 @@
 			children = (
 				5799B42227F0D7E60039F621 /* LedGrid.app */,
 				1F3F9FCD2A324DC800376260 /* PixeeTests.xctest */,
+				1FA04A572B82CA3400BCF8A1 /* PixeeUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -359,6 +389,24 @@
 			productReference = 1F3F9FCD2A324DC800376260 /* PixeeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		1FA04A562B82CA3400BCF8A1 /* PixeeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FA04A612B82CA3400BCF8A1 /* Build configuration list for PBXNativeTarget "PixeeUITests" */;
+			buildPhases = (
+				1FA04A532B82CA3400BCF8A1 /* Sources */,
+				1FA04A542B82CA3400BCF8A1 /* Frameworks */,
+				1FA04A552B82CA3400BCF8A1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1FA04A5E2B82CA3400BCF8A1 /* PBXTargetDependency */,
+			);
+			name = PixeeUITests;
+			productName = PixeeUITests;
+			productReference = 1FA04A572B82CA3400BCF8A1 /* PixeeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		5799B42127F0D7E60039F621 /* LedGrid */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5799B43027F0D7E70039F621 /* Build configuration list for PBXNativeTarget "LedGrid" */;
@@ -392,11 +440,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					1F3F9FCC2A324DC800376260 = {
 						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 5799B42127F0D7E60039F621;
+					};
+					1FA04A562B82CA3400BCF8A1 = {
+						CreatedOnToolsVersion = 15.2;
 						TestTargetID = 5799B42127F0D7E60039F621;
 					};
 					5799B42127F0D7E60039F621 = {
@@ -427,12 +479,20 @@
 			targets = (
 				5799B42127F0D7E60039F621 /* LedGrid */,
 				1F3F9FCC2A324DC800376260 /* PixeeTests */,
+				1FA04A562B82CA3400BCF8A1 /* PixeeUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1F3F9FCB2A324DC800376260 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FA04A552B82CA3400BCF8A1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -461,6 +521,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F3F9FD02A324DC800376260 /* PixeeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FA04A532B82CA3400BCF8A1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FA04A5C2B82CA3400BCF8A1 /* PixeeUITestsLaunchTests.swift in Sources */,
+				1FA04A652B82CE1400BCF8A1 /* PixeeUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +587,11 @@
 			isa = PBXTargetDependency;
 			productRef = 1F9209882B6677E4001A9B83 /* OpenAPIGenerator */;
 		};
+		1FA04A5E2B82CA3400BCF8A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5799B42127F0D7E60039F621 /* LedGrid */;
+			targetProxy = 1FA04A5D2B82CA3400BCF8A1 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -538,10 +612,14 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = pixee.PixeeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LedGrid.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LedGrid";
 			};
 			name = Debug;
@@ -563,10 +641,69 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = pixee.PixeeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LedGrid.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LedGrid";
+			};
+			name = Release;
+		};
+		1FA04A5F2B82CA3400BCF8A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TB.PixeeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = LedGrid;
+			};
+			name = Debug;
+		};
+		1FA04A602B82CA3400BCF8A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TB.PixeeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = LedGrid;
 			};
 			name = Release;
 		};
@@ -782,6 +919,15 @@
 			buildConfigurations = (
 				1F3F9FD42A324DC800376260 /* Debug */,
 				1F3F9FD52A324DC800376260 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FA04A612B82CA3400BCF8A1 /* Build configuration list for PBXNativeTarget "PixeeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FA04A5F2B82CA3400BCF8A1 /* Debug */,
+				1FA04A602B82CA3400BCF8A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

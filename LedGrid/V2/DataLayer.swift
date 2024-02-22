@@ -8,6 +8,13 @@
 import Foundation
 import SwiftData
 
+protocol DataLayer {
+    func refreshDatabase()
+    func sendDrawing()
+}
+
+struct AppDataLayer {}
+
 // TODO: Better name
 actor Container: ModelActor {
     nonisolated let modelContainer: ModelContainer
@@ -96,15 +103,13 @@ actor Container: ModelActor {
 enum PreviewStore {
     static var selectedUUID = UUID().uuidString
     static var container = {
-        let container = try! ModelContainer(for: SentDrawing.self,
-                                            ReceivedDrawing.self,
-                                            DraftDrawing.self,
-                                            Friend.self,
-                                            FriendRequest.self,
-                                            configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-        let selected = DraftDrawing()
-        selected.id = selectedUUID
-        container.mainContext.insert(selected)
+        let container = try! ModelContainer(
+            for: SentDrawing.self,
+            ReceivedDrawing.self,
+            DraftDrawing.self,
+            Friend.self,
+            FriendRequest.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         container.mainContext.insert(DraftDrawing())
         container.mainContext.insert(DraftDrawing())
         return container

@@ -9,6 +9,7 @@ import Foundation
 import HTTPTypes
 import OpenAPIRuntime
 import OpenAPIURLSession
+import OSLog
 
 enum ApiError: Error {
     case forbidden
@@ -28,7 +29,7 @@ struct API {
     private static var client = Client(
         serverURL: try! Servers.server2(),
         transport: OpenAPIURLSession.URLSessionTransport(),
-        middlewares: [AuthorisationMiddleware()]
+        middlewares: [AuthorisationMiddleware(), LoggerMiddleware()]
     )
 
     private init() {}
@@ -36,8 +37,10 @@ struct API {
     static func handleError(e: ApiError) -> ApiError {
         switch e {
         case .forbidden:
-            // Logout
-            break
+            // TODO: Clear core data
+            Keychain.clear(key: .apiKey)
+            LocalStorage.user = nil
+        // Logout
         case .notFound:
             // do nothing
             break
@@ -45,13 +48,31 @@ struct API {
             // rethrow
             break
         case .undocumented:
-            // rethrow
-            break
+            networkLogger.error("Undocumented response from API")
+        // rethrow
         case .unknown:
             // rethrow
             break
         }
         return e
+    }
+
+    // MARK: - Auth
+
+    static func signIn(code: String, id: String, name: String?, email: String?) async throws -> APISignInResult {
+        do {
+            let payload: Components.Schemas.SignInPayload = .init(id: id, name: name, email: email, code: code)
+            switch try await client.signIn(body: .json(payload)) {
+            case .ok(let ok):
+                return try ok.body.json
+            case .undocumented(let statusCode, let payload):
+                throw ApiError.undocumented(statusCode, payload)
+            }
+        } catch let error as ApiError {
+            throw handleError(e: error)
+        } catch {
+            throw handleError(e: .unknown(error))
+        }
     }
 
     // MARK: - Users
@@ -349,6 +370,7 @@ typealias APIUser = Components.Schemas.User
 typealias APIFriend = Components.Schemas.Friend
 typealias APIFriendRequest = Components.Schemas.FriendRequest
 typealias APIDrawing = Components.Schemas.Drawing
+typealias APISignInResult = Components.Schemas.TokenPayload
 
 struct AuthorisationMiddleware: ClientMiddleware {
     func intercept(
@@ -367,5 +389,19 @@ struct AuthorisationMiddleware: ClientMiddleware {
             mutableRequest.headerFields.append(field)
         }
         return try await next(mutableRequest, body, baseURL)
+    }
+}
+
+let networkLogger = Logger(subsystem: "Pixee", category: "Network")
+struct LoggerMiddleware: ClientMiddleware {
+    func intercept(
+        _ request: HTTPRequest,
+        body: HTTPBody?,
+        baseURL: URL,
+        operationID: String,
+        next: @Sendable (HTTPRequest, HTTPBody?, URL) async throws -> (HTTPResponse, HTTPBody?)
+    ) async throws -> (HTTPResponse, HTTPBody?) {
+        networkLogger.info("Network operation: \(operationID) \n \(request.method) \(String(describing: request.path))")
+        return try await next(request, body, baseURL)
     }
 }

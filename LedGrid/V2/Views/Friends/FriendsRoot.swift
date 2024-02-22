@@ -16,7 +16,7 @@ struct FriendsRoot: View {
         if let user = user {
             FriendsView(user: user)
         } else {
-            SignUpView()
+            SignIn {}
         }
     }
 }

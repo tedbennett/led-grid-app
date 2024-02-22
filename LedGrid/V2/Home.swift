@@ -23,18 +23,23 @@ struct Home: View {
         let since = LocalStorage.fetchDate
         Task {
             let container = Container()
-            // Fetch drawings
-            let drawings = try await API.getReceivedDrawings(since: since)
-            try await container.insertReceivedDrawings(drawings)
-
-            // Fetch friends - may have changed names, etc.
-            let friends = try await API.getFriends()
-            // TODO: Ensure we're upserting here
-            try await container.insertFriends(friends)
-
-            // Fetch user
-            let user = try await API.getMe()
-            LocalStorage.user = user
+            do {
+                // Fetch drawings
+                let drawings = try await API.getReceivedDrawings(since: since)
+                try await container.insertReceivedDrawings(drawings)
+                
+                // Fetch friends - may have changed names, etc.
+                let friends = try await API.getFriends()
+                // TODO: Ensure we're upserting here
+                try await container.insertFriends(friends)
+                
+                // Fetch user
+                let user = try await API.getMe()
+                LocalStorage.user = user
+            } catch {
+                LocalStorage.user = .none
+                logger.error("Error retrieving initialization info: \(error.localizedDescription)")
+            }
             await MainActor.run {
                 isLoading = false
             }
