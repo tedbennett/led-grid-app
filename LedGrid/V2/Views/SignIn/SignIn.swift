@@ -20,6 +20,22 @@ struct SignIn: View {
 
     var dismiss: () -> Void
 
+    func importUserData() async throws {
+        let container = Container()
+        let receivedDrawings = try await API.getReceivedDrawings(since: nil)
+        try await container.insertReceivedDrawings(receivedDrawings)
+        let sentDrawings = try await API.getSentDrawings(since: nil)
+        try await container.insertSentDrawings(sentDrawings)
+
+        // Fetch friends - may have changed names, etc.
+        let friends = try await API.getFriends()
+        // TODO: Ensure we're upserting here
+        try await container.insertFriends(friends)
+
+        let user = try await API.getMe()
+        LocalStorage.user = user
+    }
+
     func handleSignIn(result: Result<ASAuthorization, Error>) {
         state = .signingIn
         switch result {
@@ -30,10 +46,10 @@ struct SignIn: View {
                 do {
                     let result = try await API.signIn(code: code, id: credential.user, name: credential.fullName?.formatted() ?? "", email: credential.email)
                     Keychain.set(result.token, for: .apiKey)
-                    let user = try await API.getMe()
-                    LocalStorage.user = user
-                    // TODO: Retrieve data etc.
-                    // TODO: Add parameter for whether the user is new or not
+
+                    // Import drawings, friends etc
+                    try await importUserData()
+
                     await MainActor.run {
                         if result.created {
                             state = .changeUsername
