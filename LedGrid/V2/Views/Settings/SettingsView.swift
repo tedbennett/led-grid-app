@@ -17,6 +17,8 @@ struct SettingsView: View {
     @State private var isLoading = false
 
     @State private var usernameOK = true
+    
+    var dismiss: () -> Void
 
     var canSave: Bool {
         // Invalid/Taken username
@@ -85,7 +87,7 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView(user: APIUser.example)
+    SettingsView(user: APIUser.example) { }
 }
 
 extension APIUser {

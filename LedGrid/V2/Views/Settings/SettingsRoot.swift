@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct SettingsRoot: View {
-    var user: APIUser? {
-        LocalStorage.user
-    }
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State private var user: APIUser? = LocalStorage.user
 
     var body: some View {
         if let user = user {
-            SettingsView(user: user)
+            SettingsView(user: user) {
+                presentationMode.wrappedValue.dismiss()
+            }
         } else {
             SignIn {
-                // TODO: refresh page here
+                user = LocalStorage.user
             }
         }
     }
