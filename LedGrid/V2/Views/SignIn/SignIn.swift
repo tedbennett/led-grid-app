@@ -64,7 +64,8 @@ struct SignIn: View {
                 }
             }
         case .failure(let failure):
-            print(failure)
+            logger.error("\(failure)")
+            Toast.signInFailed.present()
         }
     }
 

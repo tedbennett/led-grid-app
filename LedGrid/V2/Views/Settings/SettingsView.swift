@@ -68,6 +68,7 @@ struct SettingsView: View {
                         await MainActor.run {
                             LocalStorage.user = nil
                             Keychain.clear(key: .apiKey)
+                            Toast.logoutSuccess.present()
                             dismiss()
                         }
                     }

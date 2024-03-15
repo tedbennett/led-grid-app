@@ -66,8 +66,14 @@ struct DrawView: View {
             let drawings = try await API.getSentDrawings(since: now)
             try await container.insertSentDrawings(drawings)
             _ = try await container.createDraft()
+            await MainActor.run {
+                Toast.sentDrawingSuccess.present()
+            }
         } catch {
             logger.error("\(error.localizedDescription)")
+            await MainActor.run {
+                Toast.sentDrawingFailed.present()
+            }
         }
     }
 
