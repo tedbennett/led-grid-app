@@ -55,6 +55,7 @@ struct SignIn: View {
                         if result.created {
                             state = .changeUsername
                         } else {
+                            Toast.signInSuccess.present()
                             dismiss()
                         }
                     }
@@ -83,6 +84,7 @@ struct SignIn: View {
                     Task {
                         try await API.updateMe(name: nil, username: username, image: nil, plus: nil)
                         await MainActor.run {
+                            Toast.signInSuccess.present()
                             dismiss()
                         }
                     }

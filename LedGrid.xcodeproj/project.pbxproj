@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F0E66372B7954E5005F8D1C /* RecentColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E66362B7954E5005F8D1C /* RecentColors.swift */; };
 		1F0E663F2B799E5C005F8D1C /* FiraMonoNerdFont-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F0E663E2B799E5C005F8D1C /* FiraMonoNerdFont-Regular.otf */; };
+		1F1041F92BA5060400624B39 /* Toasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1041F82BA5060400624B39 /* Toasts.swift */; };
 		1F1A16DC290C13D600033745 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DB290C13D600033745 /* View.swift */; };
 		1F3F9FD02A324DC800376260 /* PixeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FCF2A324DC800376260 /* PixeeTests.swift */; };
 		1F3F9FD82A324DFD00376260 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FD72A324DFD00376260 /* App.swift */; };
@@ -94,6 +95,7 @@
 /* Begin PBXFileReference section */
 		1F0E66362B7954E5005F8D1C /* RecentColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentColors.swift; sourceTree = "<group>"; };
 		1F0E663E2B799E5C005F8D1C /* FiraMonoNerdFont-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMonoNerdFont-Regular.otf"; sourceTree = "<group>"; };
+		1F1041F82BA5060400624B39 /* Toasts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toasts.swift; sourceTree = "<group>"; };
 		1F1A16DB290C13D600033745 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		1F3F9FCD2A324DC800376260 /* PixeeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixeeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F3F9FCF2A324DC800376260 /* PixeeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeTests.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				1F3F9FD72A324DFD00376260 /* App.swift */,
 				1F7C1B6B2B77B64E005FF519 /* LocalStorage.swift */,
 				1F3FA0122A3258A200376260 /* Home.swift */,
+				1F1041F82BA5060400624B39 /* Toasts.swift */,
 				1FC3951E2B8106C900F074EB /* Keychain.swift */,
 				1F7C1B742B77CD25005FF519 /* Utils */,
 				1F7031862B6AF98000B935F3 /* Network.swift */,
@@ -566,6 +569,7 @@
 				1F7C1B762B77CD30005FF519 /* Debounce.swift in Sources */,
 				9F28FBA428B2A8D900403F4D /* JSONDecoder.swift in Sources */,
 				1F1A16DC290C13D600033745 /* View.swift in Sources */,
+				1F1041F92BA5060400624B39 /* Toasts.swift in Sources */,
 				1FC395222B81076400F074EB /* SignIn.swift in Sources */,
 				1F7C1B6C2B77B64E005FF519 /* LocalStorage.swift in Sources */,
 				1FD3A6522A345561005CCB9A /* User.swift in Sources */,
