@@ -17,7 +17,7 @@ struct SettingsView: View {
     @State private var isLoading = false
 
     @State private var usernameOK = true
-    
+
     var dismiss: () -> Void
 
     var canSave: Bool {
@@ -39,11 +39,16 @@ struct SettingsView: View {
                 try await API.updateMe(name: name, username: username, image: nil, plus: nil)
                 let user = try await API.getMe()
                 LocalStorage.user = user
+                await MainActor.run {
+                    isLoading = false
+                    Toast.profileUpdated.present()
+                }
             } catch {
                 logger.error("\(error.localizedDescription)")
-            }
-            await MainActor.run {
-                isLoading = false
+                await MainActor.run {
+                    isLoading = false
+                    Toast.errorOccurred.present()
+                }
             }
         }
     }

@@ -5,9 +5,9 @@
 //  Created by Ted Bennett on 15/03/2024.
 //
 
-import Swift
 import AlertToast
 import Foundation
+import Swift
 
 enum Toast {
     case signInSuccess
@@ -17,6 +17,7 @@ enum Toast {
     case sentDrawingFailed
     case friendInviteSent
     case errorOccurred
+    case profileUpdated
 
     func alert() -> AlertToast {
         switch self {
@@ -32,11 +33,13 @@ enum Toast {
             return AlertToast(displayMode: .hud, type: .error(.white), title: "Failed to send drawing")
         case .friendInviteSent:
             return AlertToast(displayMode: .hud, type: .complete(.white), title: "Friend invite sent")
+        case .profileUpdated:
+            return AlertToast(displayMode: .hud, type: .complete(.white), title: "Profile updated")
         case .errorOccurred:
             return AlertToast(displayMode: .hud, type: .error(.white), title: "An error occurred")
         }
     }
-    
+
     func present() {
         NotificationCenter.default.post(name: Notification.Name.toast, object: self)
     }
