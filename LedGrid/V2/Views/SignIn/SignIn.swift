@@ -34,6 +34,7 @@ struct SignIn: View {
 
         let user = try await API.getMe()
         LocalStorage.user = user
+        LocalStorage.fetchDate = .now
     }
 
     func handleSignIn(result: Result<ASAuthorization, Error>) {

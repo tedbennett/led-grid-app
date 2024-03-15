@@ -94,6 +94,7 @@ actor Container: ModelActor {
         try context.delete(model: FriendRequest.self)
         try context.delete(model: SentDrawing.self)
         try context.delete(model: ReceivedDrawing.self)
+        try context.save()
     }
 }
 

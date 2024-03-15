@@ -20,7 +20,7 @@ struct Home: View {
     @State private var isLoading = true
 
     func updateFromServer() {
-        let since: Date? = nil // LocalStorage.fetchDate
+        let since: Date? = LocalStorage.fetchDate
         Task {
             let container = Container()
             do {
@@ -36,6 +36,7 @@ struct Home: View {
                 // Fetch user
                 let user = try await API.getMe()
                 LocalStorage.user = user
+                LocalStorage.fetchDate = Date.now
             } catch {
                 LocalStorage.user = .none
                 logger.error("Error retrieving initialization info: \(error.localizedDescription)")

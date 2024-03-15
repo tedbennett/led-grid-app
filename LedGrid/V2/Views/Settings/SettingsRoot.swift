@@ -9,7 +9,9 @@ import SwiftUI
 
 struct SettingsRoot: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State private var user: APIUser? = LocalStorage.user
+    var user: APIUser? {
+        LocalStorage.user
+    }
 
     var body: some View {
         if let user = user {
@@ -18,7 +20,7 @@ struct SettingsRoot: View {
             }
         } else {
             SignIn {
-                user = LocalStorage.user
+                presentationMode.wrappedValue.dismiss()
             }
         }
     }
