@@ -8,6 +8,8 @@ servers:
   description: Local Server
 - url: "https://pixee--dev.fly.dev/v1"
   description: Dev Server
+- url: "https://pixee--prod.fly.dev/v1"
+  description: Dev Server
 paths:
 # ==========================================================================
 # User endpoints

@@ -26,6 +26,12 @@ enum FriendRequestStatus: String, Codable {
 }
 
 struct API {
+    private static var url = {
+        if let urlString = ProcessInfo.processInfo.environment["SERVER_URL"] {
+            return URL(string: urlString)!
+        }
+        return try! Servers.server3()
+    }
     private static var client = Client(
         serverURL: try! Servers.server2(),
         transport: OpenAPIURLSession.URLSessionTransport(),

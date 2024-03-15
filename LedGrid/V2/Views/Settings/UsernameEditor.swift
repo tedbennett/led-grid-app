@@ -8,7 +8,7 @@
 import Combine
 import SwiftUI
 
-private enum UsernameStatus {
+enum UsernameStatus {
     case available
     case notAvailable
     case loading
