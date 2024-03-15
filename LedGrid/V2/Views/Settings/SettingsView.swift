@@ -57,9 +57,15 @@ struct SettingsView: View {
             }
             Section("Account") {
                 Button {
-                    LocalStorage.user = nil
-                    Keychain.clear(key: .apiKey)
-                   // TODO: Clear database
+                    Task {
+                        let container = Container()
+                        try await container.clearDatabase()
+                        await MainActor.run {
+                            LocalStorage.user = nil
+                            Keychain.clear(key: .apiKey)
+                            dismiss()
+                        }
+                    }
                 } label: {
                     Text("Logout")
                 }
@@ -87,7 +93,7 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView(user: APIUser.example) { }
+    SettingsView(user: APIUser.example) {}
 }
 
 extension APIUser {

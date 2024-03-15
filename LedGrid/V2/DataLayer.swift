@@ -88,6 +88,13 @@ actor Container: ModelActor {
         }
         try context.save()
     }
+
+    func clearDatabase() throws {
+        try context.delete(model: Friend.self)
+        try context.delete(model: FriendRequest.self)
+        try context.delete(model: SentDrawing.self)
+        try context.delete(model: ReceivedDrawing.self)
+    }
 }
 
 @ModelActor final actor DataActor {
