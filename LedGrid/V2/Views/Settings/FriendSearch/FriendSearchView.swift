@@ -54,12 +54,17 @@ struct FriendSearchView: View {
         let container = Container()
         Task {
             do {
-                // TODO: Notify user
                 try await API.sendFriendRequest(to: userId)
                 let requests = try await API.getSentFriendRequests()
                 try await container.insertFriendRequests(requests, sent: true)
+                await MainActor.run {
+                    Toast.friendInviteSent.present()
+                }
             } catch {
                 print(error)
+                await MainActor.run {
+                    Toast.errorOccurred.present()
+                }
             }
         }
     }

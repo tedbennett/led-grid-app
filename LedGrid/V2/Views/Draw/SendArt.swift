@@ -31,7 +31,7 @@ struct SendArt: View {
                     await handleSendArt(friends)
                     presentModal = false
                 }
-                //.presentationDetents([.medium, .large])
+                .presentationDetents([.medium, .large])
             }).fullScreenCover(isPresented: $presentSignInModal) {
                 SignIn {
                     presentSignInModal = false
