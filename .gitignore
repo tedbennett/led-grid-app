@@ -1,3 +1,4 @@
 LedGrid.xcodeproj/xcshareddata/*
+!LedGrid.xcodeproj/xcshareddata/swiftpm/Package.resolved
 LedGrid.xcodeproj/xcuserdata/*
 LedGrid/Firebase/*
