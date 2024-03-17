@@ -9,7 +9,6 @@ import AlertToast
 import SwiftData
 import SwiftUI
 
-
 @main
 struct AppV2: App {
     init() {
@@ -22,6 +21,7 @@ struct AppV2: App {
 
     @State private var showToast = false
     @State private var currentToast: Toast?
+    @State private var presentSignIn = false
 
     var body: some Scene {
         WindowGroup {
@@ -32,10 +32,17 @@ struct AppV2: App {
                         showToast = true
                     }
                 }
-                .toast(isPresenting: $showToast) {
-                    currentToast?.alert() ?? AlertToast(displayMode: .alert, type: .loading)
+                .onReceive(NotificationCenter.default.publisher(for: Notification.Name.signIn)) {
+                    notif in
+                    if let present = notif.object as? Bool {
+                        presentSignIn = present
+                    }
                 }
+                .toast(isPresenting: $showToast, duration:2, offsetY: 10) {
+                    currentToast?.alert() ?? AlertToast(displayMode: .alert, type: .loading)
+                }  .fullScreenCover(isPresented: $presentSignIn) {
+            SignIn()       }
+
         }.modelContainer(Container.modelContainer)
     }
 }
-

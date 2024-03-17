@@ -26,7 +26,7 @@ enum Toast {
         case .signInFailed:
             return AlertToast(displayMode: .hud, type: .error(.white), title: "Sign in failed")
         case .logoutSuccess:
-            return AlertToast(displayMode: .hud, type: .complete(.white), title: "Logout failed")
+            return AlertToast(displayMode: .hud, type: .complete(.white), title: "Logged out successfully")
         case .sentDrawingSuccess:
             return AlertToast(displayMode: .hud, type: .complete(.white), title: "Drawing sent!")
         case .sentDrawingFailed:
@@ -47,4 +47,5 @@ enum Toast {
 
 extension Notification.Name {
     static var toast = Notification.Name("TOAST")
+    static var signIn = Notification.Name("SIGN_IN")
 }

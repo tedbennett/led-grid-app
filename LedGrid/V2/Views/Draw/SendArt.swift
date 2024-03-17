@@ -10,7 +10,6 @@ import SwiftUI
 
 struct SendArt: View {
     @State private var presentModal = false
-    @State private var presentSignInModal = false
     @State private var feedback = false
 
     var handleSendArt: ([String]) async -> Void
@@ -20,7 +19,7 @@ struct SendArt: View {
             if LocalStorage.user != nil {
                 presentModal.toggle()
             } else {
-                presentSignInModal.toggle()
+                NotificationCenter.default.post(name: Notification.Name.signIn, object: true)
             }
             feedback.toggle()
         } label: {
@@ -32,12 +31,7 @@ struct SendArt: View {
                     presentModal = false
                 }
                 .presentationDetents([.medium, .large])
-            }).fullScreenCover(isPresented: $presentSignInModal) {
-                SignIn {
-                    presentSignInModal = false
-                }
-            }
-            .sensoryFeedback(.impact(flexibility: .solid), trigger: feedback)
+            }).sensoryFeedback(.impact(flexibility: .solid), trigger: feedback)
             .accessibilityLabel("send-button")
     }
 }

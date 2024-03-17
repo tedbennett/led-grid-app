@@ -9,6 +9,7 @@ import SwiftData
 import SwiftUI
 
 struct SettingsView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var user: APIUser
 
     @State private var username: String = ""
@@ -18,7 +19,6 @@ struct SettingsView: View {
 
     @State private var usernameOK = true
 
-    var dismiss: () -> Void
 
     var canSave: Bool {
         // Invalid/Taken username
@@ -69,7 +69,7 @@ struct SettingsView: View {
                             LocalStorage.user = nil
                             Keychain.clear(key: .apiKey)
                             Toast.logoutSuccess.present()
-                            dismiss()
+                            presentationMode.wrappedValue.dismiss()
                         }
                     }
                 } label: {
@@ -99,7 +99,7 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView(user: APIUser.example) {}
+    SettingsView(user: APIUser.example) 
 }
 
 extension APIUser {

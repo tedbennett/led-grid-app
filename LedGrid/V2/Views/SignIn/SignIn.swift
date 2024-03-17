@@ -18,7 +18,7 @@ struct SignIn: View {
     @State private var state = SignInState.notStarted
     @Environment(\.colorScheme) var colorScheme
 
-    var dismiss: () -> Void
+    var showDismiss = true
 
     func importUserData() async throws {
         let container = Container()
@@ -69,6 +69,10 @@ struct SignIn: View {
         }
     }
 
+    func dismiss() {
+        NotificationCenter.default.post(name: Notification.Name.signIn, object: false)
+    }
+
     var body: some View {
         VStack {
             HStack {
@@ -76,8 +80,9 @@ struct SignIn: View {
                 Button {
                     dismiss()
                 } label: {
-                    Image(systemName: "xmark.circle")
+                    Image(systemName: "xmark")
                 }
+                .buttonStyle(StdButton())
                 .disabled(state != .notStarted)
             }
             if state == .changeUsername {
@@ -104,9 +109,10 @@ struct SignIn: View {
                 Spacer()
             }
         }
+        .navigationBarBackButtonHidden(state == .signingIn)
     }
 }
 
 #Preview {
-    SignIn {}
+    SignIn()
 }
