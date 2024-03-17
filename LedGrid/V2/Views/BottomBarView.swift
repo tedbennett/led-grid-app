@@ -73,9 +73,9 @@ struct StdButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(10)
-            .foregroundStyle(.primary.opacity(configuration.isPressed ? 0.5 : 1))
+            .foregroundStyle(.primary.opacity((configuration.isPressed || !isEnabled) ? 0.5 : 1))
             .background(
-                Circle().fill(.fill.opacity(isEnabled ? 1 : 0.7))
+                Circle().fill(.bar.opacity(isEnabled ? 1 : 0.7))
             ).scaleEffect(configuration.isPressed ? 0.9 : 1.0)
     }
 }

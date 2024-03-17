@@ -65,7 +65,6 @@ struct Home: View {
                                     width: proxy.size.width,
                                     height: proxy.size.height
                                 )
-                                .background(Color(uiColor: .secondarySystemBackground)).id(Tab.draw)
                             DrawingsView {
                                 scrollProxy.scrollTo(Tab.draw)
                             }.safeAreaPadding()
@@ -73,7 +72,6 @@ struct Home: View {
                                     width: proxy.size.width,
                                     height: proxy.size.height
                                 )
-                                .background(Color(uiColor: .secondarySystemBackground)).id(Tab.art)
                         }.scrollIndicators(.never)
                             .scrollTargetBehavior(.paging).toolbar(.hidden)
                             .scrollBounceBehavior(.basedOnSize)

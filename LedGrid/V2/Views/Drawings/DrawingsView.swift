@@ -26,6 +26,8 @@ struct DrawingsView: View {
     @State private var feedback = false
 
     let scrollToDrawView: () -> Void
+    
+    @State private var appeared = false
 
     func selectDraft(at index: Int) {
         do {
@@ -56,6 +58,11 @@ struct DrawingsView: View {
                     return
                 }
                 selectDraft(at: index)
+            }.onAppear {
+                if !received.isEmpty && !appeared {
+                    tab = .received
+                    appeared = true
+                }
             }
         }
     }

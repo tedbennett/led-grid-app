@@ -13,19 +13,11 @@ struct FriendSearchView: View {
     @State private var isLoading = false
     @State private var searchText = ""
     @State private var results: [APIUser] = []
-    @Query private var sentRequests: [FriendRequest] = []
+    @Query private var requests: [FriendRequest] = []
+    @Query private var friends: [Friend] = []
 
     let searchTextPublisher = PassthroughSubject<String, Never>()
-
-    init() {
-        let sent = FriendRequestStatus.sent.rawValue
-
-        let filter = #Predicate<FriendRequest> { request in
-            request._status == sent && request.sent
-        }
-        _sentRequests = Query(filter: filter)
-    }
-
+    
     func searchUsers(by term: String) {
         let trimmed = term.trimmingCharacters(in: .whitespaces)
         if trimmed.isEmpty {
@@ -70,7 +62,7 @@ struct FriendSearchView: View {
     }
 
     func addedFriend(_ user: APIUser) -> Bool {
-        sentRequests.contains { $0.userId == user.id }
+        requests.contains { $0.sent && $0.status == .sent && $0.userId == user.id } || friends.contains { $0.id == user.id }
     }
 
     var body: some View {

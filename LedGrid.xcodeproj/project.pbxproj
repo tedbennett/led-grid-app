@@ -247,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				1F7C1B832B78E5E0005FF519 /* FriendsView.swift */,
+				1F7C1B902B792627005FF519 /* FriendSearch */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -267,7 +268,6 @@
 				1F7C1B7E2B784291005FF519 /* UsernameEditor.swift */,
 				1F1041FC2BA7489700624B39 /* SignInWrapper.swift */,
 				1F7C1B782B77D525005FF519 /* UserCard.swift */,
-				1F7C1B902B792627005FF519 /* FriendSearch */,
 			);
 			path = Settings;
 			sourceTree = "<group>";

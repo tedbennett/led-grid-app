@@ -48,7 +48,11 @@ struct CanvasView: View {
             self.prevGrid = nil
         }
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .padding(5)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.gray.opacity(0.2), lineWidth: 2)
+        )
+        .padding(2)
     }
 }
 
