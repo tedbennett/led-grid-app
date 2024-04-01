@@ -10,12 +10,17 @@ import SwiftUI
 struct BottomBarView: View {
     @Binding var color: Color
     @State private var feedback = false
+    @Environment(\.modelContext) private var modelContext
 
     var canUndo: Bool
     var canRedo: Bool
     var undo: () -> Void
     var redo: () -> Void
     var send: ([String]) async -> Void
+
+    func createNewDraft() {
+        modelContext.insert(DraftDrawing())
+    }
 
     var body: some View {
         ZStack {
@@ -40,10 +45,20 @@ struct BottomBarView: View {
                 Spacer()
 
                 Button {
+                    createNewDraft()
+                    feedback.toggle()
+                } label: {
+                    Image(systemName: "plus.square").font(.title3)
+                }
+                .buttonStyle(StdButton())
+                Button {
                     UIColorWellHelper.helper.execute?()
                     feedback.toggle()
                 } label: {
-                    Circle().fill(color).frame(width: 40)
+                    Circle()
+                        .fill(color)
+                        .stroke(.bar, lineWidth: 4)
+                        .frame(width: 36)
                         .background(
                             ColorPicker("", selection: $color, supportsOpacity: false)
                                 .labelsHidden().opacity(0)
