@@ -103,6 +103,7 @@ class ReceivedDrawing: Drawing {
     }
 }
 
+
 @Model
 final class DraftDrawing: Drawing {
     @Attribute(.unique) var id: String
@@ -125,12 +126,13 @@ final class DraftDrawing: Drawing {
         }
     }
 
-    init() {
+    init(size: GridSize = .small) {
         id = UUID().uuidString
         updatedAt = .now
         createdAt = .now
-        _grid = [.empty]
-        serializedGrid = try! GridEncoding.encoder.encode([Grid.empty])
+        let grid = [Grid.emptyFor(size: size)]
+        _grid = grid
+        serializedGrid = try! GridEncoding.encoder.encode(grid)
     }
 }
 

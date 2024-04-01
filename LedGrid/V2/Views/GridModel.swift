@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum GridSize: Int {
+    case small = 8
+    case medium = 10
+    case large = 12
+}
+
 typealias Grid = [[String]]
 extension Grid {
     static let black = "#000000"
@@ -20,4 +26,10 @@ extension Grid {
         [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
         [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
     ]
+    
+    static func emptyFor(size: GridSize) -> Grid {
+        return (0..<size.rawValue).map { _ in
+            (0..<size.rawValue).map { _ in Grid.black }
+        }
+    }
 }

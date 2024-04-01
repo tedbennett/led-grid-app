@@ -18,8 +18,8 @@ struct BottomBarView: View {
     var redo: () -> Void
     var send: ([String]) async -> Void
 
-    func createNewDraft() {
-        modelContext.insert(DraftDrawing())
+    func createNewDraft(size: GridSize) {
+        modelContext.insert(DraftDrawing(size: size))
     }
 
     var body: some View {
@@ -43,10 +43,21 @@ struct BottomBarView: View {
                 .buttonStyle(StdButton())
                 .disabled(!canRedo)
                 Spacer()
-
-                Button {
-                    createNewDraft()
-                    feedback.toggle()
+                Menu {
+                    Section("Create New Draft") {
+                        Button("8 x 8") {
+                            createNewDraft(size: .small)
+                            feedback.toggle()
+                        }
+                        Button("10 x 10") {
+                            createNewDraft(size: .medium)
+                            feedback.toggle()
+                        }
+                        Button("12 x 12") {
+                            createNewDraft(size: .large)
+                            feedback.toggle()
+                        }
+                    }
                 } label: {
                     Image(systemName: "plus.square").font(.title3)
                 }

@@ -34,7 +34,7 @@ struct CanvasView: View {
         .onLocalDragGesture { position, size in
             let x = Int(position.x / size.width * CGFloat(art.grid.count))
             let y = Int(position.y / size.height * CGFloat(art.grid.count))
-            if 0...7 ~= x && 0...7 ~= y && art.grid[y][x] != color.hex {
+            if 0..<(art.grid.count) ~= x && 0..<(art.grid.count) ~= y && art.grid[y][x] != color.hex {
                 if prevGrid == nil {
                     prevGrid = art.grid
                 }
