@@ -17,20 +17,18 @@ enum SignInState {
 struct SignIn: View {
     @State private var state = SignInState.notStarted
     @Environment(\.colorScheme) var colorScheme
-
-    var showDismiss = true
+    @Environment(\.dismiss) var dismiss
 
     func importUserData() async throws {
         let container = Container()
+        let friends = try await API.getFriends()
+        // TODO: Ensure we're upserting here
+        try await container.insertFriends(friends)
+
         let receivedDrawings = try await API.getReceivedDrawings(since: nil)
         try await container.insertReceivedDrawings(receivedDrawings)
         let sentDrawings = try await API.getSentDrawings(since: nil)
         try await container.insertSentDrawings(sentDrawings)
-
-        // Fetch friends - may have changed names, etc.
-        let friends = try await API.getFriends()
-        // TODO: Ensure we're upserting here
-        try await container.insertFriends(friends)
 
         let user = try await API.getMe()
         LocalStorage.user = user
@@ -48,14 +46,11 @@ struct SignIn: View {
                     let result = try await API.signIn(code: code, id: credential.user, name: credential.fullName?.formatted() ?? "", email: credential.email)
                     Keychain.set(result.token, for: .apiKey)
 
-                    // Import drawings, friends etc
-                    try await importUserData()
-
                     await MainActor.run {
                         if result.created {
                             state = .changeUsername
                         } else {
-                            Toast.signInSuccess.present()
+                            NotificationCenter.default.post(name: Notification.Name.handleSignIn, object: nil)
                             dismiss()
                         }
                     }
@@ -66,11 +61,8 @@ struct SignIn: View {
         case .failure(let failure):
             logger.error("\(failure)")
             Toast.signInFailed.present()
+            dismiss()
         }
-    }
-
-    func dismiss() {
-        NotificationCenter.default.post(name: Notification.Name.signIn, object: false)
     }
 
     var body: some View {

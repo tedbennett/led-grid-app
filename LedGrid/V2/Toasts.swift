@@ -47,5 +47,6 @@ enum Toast {
 
 extension Notification.Name {
     static var toast = Notification.Name("TOAST")
-    static var signIn = Notification.Name("SIGN_IN")
+    static var showSignIn = Notification.Name("SHOW_SIGN_IN")
+    static var handleSignIn = Notification.Name("HANDLE_SIGN_IN")
 }

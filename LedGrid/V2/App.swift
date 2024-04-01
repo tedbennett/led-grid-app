@@ -29,19 +29,18 @@ struct AppV2: App {
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name.toast)) { notif in
                     if let toast = notif.object as? Toast {
                         currentToast = toast
-                        showToast = true
+                        showToast.toggle()
                     }
                 }
-                .onReceive(NotificationCenter.default.publisher(for: Notification.Name.signIn)) {
-                    notif in
-                    if let present = notif.object as? Bool {
-                        presentSignIn = present
-                    }
+                .onReceive(NotificationCenter.default.publisher(for: Notification.Name.showSignIn)) {
+                    _ in
+                    presentSignIn.toggle()
                 }
-                .toast(isPresenting: $showToast, duration:2, offsetY: 10) {
+                .toast(isPresenting: $showToast, duration: 2, offsetY: 10) {
                     currentToast?.alert() ?? AlertToast(displayMode: .alert, type: .loading)
-                }  .fullScreenCover(isPresented: $presentSignIn) {
-            SignIn()       }
+                }.fullScreenCover(isPresented: $presentSignIn) {
+                    SignIn()
+                }
 
         }.modelContainer(Container.modelContainer)
     }

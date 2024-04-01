@@ -10,7 +10,6 @@
 		1F0E66372B7954E5005F8D1C /* RecentColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E66362B7954E5005F8D1C /* RecentColors.swift */; };
 		1F0E663F2B799E5C005F8D1C /* FiraMonoNerdFont-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F0E663E2B799E5C005F8D1C /* FiraMonoNerdFont-Regular.otf */; };
 		1F1041F92BA5060400624B39 /* Toasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1041F82BA5060400624B39 /* Toasts.swift */; };
-		1F1041FD2BA7489700624B39 /* SignInWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1041FC2BA7489700624B39 /* SignInWrapper.swift */; };
 		1F1A16DC290C13D600033745 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DB290C13D600033745 /* View.swift */; };
 		1F3F9FD02A324DC800376260 /* PixeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FCF2A324DC800376260 /* PixeeTests.swift */; };
 		1F3F9FD82A324DFD00376260 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FD72A324DFD00376260 /* App.swift */; };
@@ -95,7 +94,6 @@
 		1F0E66362B7954E5005F8D1C /* RecentColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentColors.swift; sourceTree = "<group>"; };
 		1F0E663E2B799E5C005F8D1C /* FiraMonoNerdFont-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMonoNerdFont-Regular.otf"; sourceTree = "<group>"; };
 		1F1041F82BA5060400624B39 /* Toasts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toasts.swift; sourceTree = "<group>"; };
-		1F1041FC2BA7489700624B39 /* SignInWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWrapper.swift; sourceTree = "<group>"; };
 		1F1A16DB290C13D600033745 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		1F3F9FCD2A324DC800376260 /* PixeeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixeeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F3F9FCF2A324DC800376260 /* PixeeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeTests.swift; sourceTree = "<group>"; };
@@ -266,7 +264,6 @@
 			children = (
 				1F86FFFA2B666625000F4667 /* SettingsView.swift */,
 				1F7C1B7E2B784291005FF519 /* UsernameEditor.swift */,
-				1F1041FC2BA7489700624B39 /* SignInWrapper.swift */,
 				1F7C1B782B77D525005FF519 /* UserCard.swift */,
 			);
 			path = Settings;
@@ -580,7 +577,6 @@
 				9F28FB9628B2A11F00403F4D /* Date.swift in Sources */,
 				9F28FB7D28B29E9500403F4D /* Color.swift in Sources */,
 				1F945C5F2A348D8000300416 /* GridView.swift in Sources */,
-				1F1041FD2BA7489700624B39 /* SignInWrapper.swift in Sources */,
 				9F28FB7F28B29EB700403F4D /* String.swift in Sources */,
 				1F7031902B6FF61B00B935F3 /* DrawingList.swift in Sources */,
 				1FC3951F2B8106C900F074EB /* Keychain.swift in Sources */,

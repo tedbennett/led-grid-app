@@ -80,6 +80,12 @@ struct Home: View {
                 }.ignoresSafeArea()
             }
         }.ignoresSafeArea()
+            .onReceive(NotificationCenter.default.publisher(for: Notification.Name.handleSignIn)) {
+                _ in
+                isLoading = true
+                updateFromServer()
+                Toast.signInSuccess.present()
+            }
     }
 }
 

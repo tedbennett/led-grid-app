@@ -19,7 +19,7 @@ struct SendArt: View {
             if LocalStorage.user != nil {
                 presentModal.toggle()
             } else {
-                NotificationCenter.default.post(name: Notification.Name.signIn, object: true)
+                NotificationCenter.default.post(name: Notification.Name.showSignIn, object: true)
             }
             feedback.toggle()
         } label: {
