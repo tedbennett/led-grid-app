@@ -39,6 +39,11 @@ struct FriendsView: View {
                 }
             }
         }
+        .toolbar {
+            ShareLink(item: URL(string: "https://www.pixee-app.com")!) {
+                Image(systemName: "square.and.arrow.up")
+            }
+        }
     }
 }
 
