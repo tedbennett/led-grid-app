@@ -78,10 +78,12 @@ struct SelectFriends: View {
                             VStack(alignment: .leading) {
                                 Text(friend.name ?? username)
                                 if friend.name != nil {
-                                    Text(username)
+                                    Text(username).font(.caption).italic().foregroundStyle(.secondary)
                                 }
-                            }.foregroundStyle(isSelected(friend) ? .black : .white)
-                        }
+                            }
+                            Spacer()
+                            Image(systemName: "checkmark").opacity(isSelected(friend) ? 1 : 0)
+                        }.foregroundStyle(isSelected(friend) ? .black : .white)
                         .padding(15)
                         .background(isSelected(friend) ? .primary : .quinary)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
