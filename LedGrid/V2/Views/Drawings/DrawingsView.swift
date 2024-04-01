@@ -54,7 +54,7 @@ struct DrawingsView: View {
             }()
             DrawingsHeader(tab: $tab)
             DrawingList(drawings: drawings) { index in
-                guard tab != .drafts else {
+                guard tab == .drafts else {
                     return
                 }
                 selectDraft(at: index)

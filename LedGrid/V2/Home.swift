@@ -11,7 +11,6 @@ import SwiftUI
 let logger = Logger(subsystem: "Pixee", category: "Canvas")
 
 enum Tab: Hashable {
-    case drafts
     case draw
     case art
 }
@@ -65,6 +64,7 @@ struct Home: View {
                                     width: proxy.size.width,
                                     height: proxy.size.height
                                 )
+                                .id(Tab.draw)
                             DrawingsView {
                                 scrollProxy.scrollTo(Tab.draw)
                             }.safeAreaPadding()
@@ -72,6 +72,7 @@ struct Home: View {
                                     width: proxy.size.width,
                                     height: proxy.size.height
                                 )
+                                .id(Tab.art)
                         }.scrollIndicators(.never)
                             .scrollTargetBehavior(.paging).toolbar(.hidden)
                             .scrollBounceBehavior(.basedOnSize)
@@ -86,6 +87,7 @@ struct Home: View {
                 updateFromServer()
                 Toast.signInSuccess.present()
             }
+            .tint(.white)
     }
 }
 

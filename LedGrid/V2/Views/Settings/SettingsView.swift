@@ -19,7 +19,6 @@ struct SettingsView: View {
 
     @State private var usernameOK = true
 
-
     var canSave: Bool {
         // Invalid/Taken username
         if !usernameOK { return false }
@@ -55,9 +54,13 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            Section("Your Details") {
+            Section("Username") {
                 UsernameEditor(initial: user.username, username: $username, ok: $usernameOK)
+            }
+            Section("Full Name") {
                 TextField("Name", text: $name)
+            }
+            Section("Email") {
                 Text(user.email).foregroundStyle(.gray)
             }
             Section("Account") {
@@ -74,6 +77,22 @@ struct SettingsView: View {
                     }
                 } label: {
                     Text("Logout")
+                }
+
+                Button {
+                    Task {
+                        let container = Container()
+                        try await container.clearDatabase()
+                        await MainActor.run {
+                            LocalStorage.user = nil
+                            Keychain.clear(key: .apiKey)
+                            Toast.logoutSuccess.present()
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                } label: {
+                    Text("Delete Account")
+                        .tint(.red)
                 }
             }
         }
@@ -99,7 +118,7 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView(user: APIUser.example) 
+    SettingsView(user: APIUser.example)
 }
 
 extension APIUser {
