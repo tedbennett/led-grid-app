@@ -11,6 +11,9 @@ import SwiftUI
 struct DrawView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \DraftDrawing.updatedAt, order: .reverse) var drafts: [DraftDrawing] = []
+    @Query(filter: #Predicate<ReceivedDrawing> {
+        !$0.opened
+    }) var receivedDrawing: [ReceivedDrawing] = []
 
     let scrollToArtView: () -> Void
 
@@ -112,6 +115,9 @@ struct DrawView: View {
                 }
             } label: {
                 HStack {
+                    if !receivedDrawing.isEmpty {
+                        Circle().fill(Color.red).frame(width: 10, height: 10)
+                    }
                     Text("View Drawings")
                     Image(systemName: "chevron.down")
                 }.foregroundStyle(.primary)

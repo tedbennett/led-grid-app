@@ -7,30 +7,41 @@
 
 import Foundation
 
+enum UserDefaultKey: String, CaseIterable {
+    case user = "USER"
+    case lastReceivedDrawings = "LAST_RECEIVED_DRAWINGS"
+}
+
 /// Typesafe wrapper around UserDefaults
-struct LocalStorage {
+enum LocalStorage {
+    static func clear() {
+        UserDefaultKey.allCases.forEach {
+            UserDefaults.standard.removeObject(forKey: $0.rawValue)
+        }
+    }
+
     static var user: APIUser? {
         get {
-            return UserDefaults.standard.data(forKey: "USER").flatMap {
+            return UserDefaults.standard.data(forKey: UserDefaultKey.user.rawValue).flatMap {
                 try? JSONDecoder().decode(APIUser.self, from: $0)
             }
         }
         set {
             if let data = try? JSONEncoder().encode(newValue) {
-                UserDefaults.standard.set(data, forKey: "USER")
+                UserDefaults.standard.set(data, forKey: UserDefaultKey.user.rawValue)
             }
         }
     }
 
     static var fetchDate: Date? {
         get {
-            return UserDefaults.standard.data(forKey: "LAST_RECEIVED_DRAWINGS").flatMap {
+            return UserDefaults.standard.data(forKey: UserDefaultKey.lastReceivedDrawings.rawValue).flatMap {
                 try? JSONDecoder().decode(Date.self, from: $0)
             }
         }
         set {
             if let data = try? JSONEncoder().encode(newValue) {
-                UserDefaults.standard.set(data, forKey: "LAST_RECEIVED_DRAWINGS")
+                UserDefaults.standard.set(data, forKey: UserDefaultKey.lastReceivedDrawings.rawValue)
             }
         }
     }

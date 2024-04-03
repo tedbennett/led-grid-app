@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DrawingsHeader: View {
     @Binding var tab: DrawingsTab
+    var scrollUp: () -> Void
     var body: some View {
         HStack(alignment: .center) {
             Menu {
@@ -32,10 +33,17 @@ struct DrawingsHeader: View {
                 Image(systemName: "chevron.down").font(.system(size: 18, weight: .heavy))
             }.buttonStyle(.plain)
             Spacer()
-        }.padding(.top, 50).padding(.leading, 20)
+            Button {
+                withAnimation {
+                    scrollUp()
+                }
+            } label: {
+                Image(systemName: "chevron.up").padding(5)
+            }.buttonStyle(StdButton())
+        }.padding(.top, 50).padding(.horizontal, 20)
     }
 }
 
 #Preview {
-    DrawingsHeader(tab: .constant(.sent))
+    DrawingsHeader(tab: .constant(.sent)) { }
 }

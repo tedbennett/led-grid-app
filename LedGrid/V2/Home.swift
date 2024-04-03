@@ -18,6 +18,24 @@ enum Tab: Hashable {
 struct Home: View {
     @State private var isLoading = true
 
+    func logout() {
+        LocalStorage.clear()
+        Keychain.clear(key: .apiKey)
+        Task {
+            let container = Container()
+            do {
+                try await container.clearDatabase()
+                await MainActor.run {
+                    isLoading = false
+                    Toast.logoutSuccess.present()
+                }
+            } catch {
+                logger.error("Error logging user out: \(error.localizedDescription)")
+                Toast.errorOccurred.present()
+            }
+        }
+    }
+
     func updateFromServer() {
         let since: Date? = LocalStorage.fetchDate
         Task {
@@ -86,6 +104,11 @@ struct Home: View {
                 isLoading = true
                 updateFromServer()
                 Toast.signInSuccess.present()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: Notification.Name.logout)) {
+                _ in
+                isLoading = true
+                logout()
             }
             .tint(.white)
     }

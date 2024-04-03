@@ -22,24 +22,64 @@ struct DrawingsView: View {
     @Query(sort: \DraftDrawing.updatedAt, order: .reverse, animation: .bouncy) var drafts: [DraftDrawing] = []
     @Query(sort: \ReceivedDrawing.createdAt, order: .reverse, animation: .bouncy) var received: [ReceivedDrawing] = []
     @Query(sort: \SentDrawing.createdAt, order: .reverse, animation: .bouncy) var sent: [SentDrawing] = []
+    @Query var friends: [Friend] = []
 
     @State private var feedback = false
 
     let scrollToDrawView: () -> Void
-    
+
     @State private var appeared = false
+
+    func scrollUp() {
+        feedback.toggle()
+        withAnimation {
+            scrollToDrawView()
+        }
+    }
 
     func selectDraft(at index: Int) {
         do {
-            feedback.toggle()
             let draft = drafts[index]
             draft.updatedAt = .now
             try modelContext.save()
-            withAnimation {
-                scrollToDrawView()
-            }
+            scrollUp()
         } catch {
             print(error)
+        }
+    }
+
+    var noDrawingsMessage: String {
+        if LocalStorage.user == nil {
+            return "Sign in to send and receive drawings"
+        }
+        switch tab {
+        case .sent: return "No drawings sent yet"
+        case .received: return "No drawings received yet"
+        case .drafts: return "No drafts"
+        }
+    }
+
+    @ViewBuilder
+    var noDrawingsButton: some View {
+        if LocalStorage.user == nil {
+            Button {
+                feedback.toggle()
+                NotificationCenter.default.post(name: Notification.Name.showSignIn, object: nil)
+            } label: {
+                Text("Sign In")
+            }
+        } else if friends.isEmpty {
+            NavigationLink {
+                FriendsView(user: LocalStorage.user!)
+            } label: {
+                Text("Add Friends")
+            }
+        } else {
+            Button {
+                scrollUp()
+            } label: {
+                Text("Create Drawings")
+            }
         }
     }
 
@@ -52,19 +92,35 @@ struct DrawingsView: View {
                 case .drafts: return drafts
                 }
             }()
-            DrawingsHeader(tab: $tab)
-            DrawingList(drawings: drawings) { index in
-                guard tab == .drafts else {
-                    return
+            DrawingsHeader(tab: $tab) {
+                scrollUp()
+            }
+            if drawings.isEmpty {
+                VStack(spacing: 20) {
+                    Spacer()
+                    Text(noDrawingsMessage).font(.caption).foregroundStyle(.secondary)
+                    noDrawingsButton
+                        .foregroundStyle(.primary)
+                        .padding(8)
+                        .padding(.horizontal, 9)
+                        .background(.fill)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                    Spacer()
                 }
-                selectDraft(at: index)
-            }.onAppear {
-                if !received.isEmpty && !appeared {
-                    tab = .received
-                    appeared = true
+            } else {
+                DrawingList(drawings: drawings) { index in
+                    guard tab == .drafts else {
+                        return
+                    }
+                    selectDraft(at: index)
+                }.onAppear {
+                    if !received.isEmpty && !appeared {
+                        tab = .received
+                        appeared = true
+                    }
                 }
             }
-        }
+        }.sensoryFeedback(.impact(flexibility: .solid), trigger: feedback)
     }
 }
 

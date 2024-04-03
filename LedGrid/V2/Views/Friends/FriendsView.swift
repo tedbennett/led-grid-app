@@ -26,9 +26,9 @@ struct FriendsView: View {
 
     var body: some View {
         List {
-//            if !received.isEmpty {
-//                CardList(items: received, title: "Received Friend Requests")
-//            }
+            if !received.isEmpty {
+                CardList(items: received, title: "Received Friend Requests")
+            }
 
             NavigationLink("Find Friends") {
                 FriendSearchView()
@@ -45,6 +45,8 @@ struct FriendsView: View {
                 Image(systemName: "square.and.arrow.up")
             }
         }
+        .navigationTitle("Friends")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

@@ -8,37 +8,38 @@
 import SwiftUI
 
 struct HeaderView: View {
+    @State private var path = NavigationPath()
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             HStack {
                 Text("PIXEE").font(.custom("FiraMono Nerd Font", size: 40))
                 Spacer()
-                if let user = LocalStorage.user {
-                    NavigationLink(destination: {
-                        FriendsView(user: user)
-                    }, label: {
-                        Image(systemName: "person.2")
-                    })
-                    .buttonStyle(StdButton())
-                    NavigationLink(destination: {
-                        SettingsView(user: user)
-                    }, label: {
-                        Image(systemName: "gear")
-                    })
-                    .buttonStyle(StdButton())
-                } else {
-                    Button {
+                Button {
+                    if LocalStorage.user == nil {
                         NotificationCenter.default.post(name: Notification.Name.showSignIn, object: true)
-                    } label: {
-                        Image(systemName: "person.2")
+                    } else {
+                        path.append("friends")
                     }
-                    .buttonStyle(StdButton())
-                    Button {
+                } label: {
+                    Image(systemName: "person.2")
+                }
+                .buttonStyle(StdButton())
+                Button {
+                    if LocalStorage.user == nil {
                         NotificationCenter.default.post(name: Notification.Name.showSignIn, object: nil)
-                    } label: {
-                        Image(systemName: "gear")
+                    } else {
+                        path.append("settings")
                     }
-                    .buttonStyle(StdButton())
+                } label: {
+                    Image(systemName: "gear")
+                }
+                .buttonStyle(StdButton())
+            }.navigationDestination(for: String.self) { path in
+                if path == "settings", let user = LocalStorage.user {
+                    SettingsView(user: user)
+                }
+                if path == "friends", let user = LocalStorage.user {
+                    FriendsView(user: user)
                 }
             }
         }

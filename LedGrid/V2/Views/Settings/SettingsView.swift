@@ -65,31 +65,15 @@ struct SettingsView: View {
             }
             Section("Account") {
                 Button {
-                    Task {
-                        let container = Container()
-                        try await container.clearDatabase()
-                        await MainActor.run {
-                            LocalStorage.user = nil
-                            Keychain.clear(key: .apiKey)
-                            Toast.logoutSuccess.present()
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    }
+                    NotificationCenter.default.post(name: .logout, object: nil)
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("Logout")
                 }
 
                 Button {
-                    Task {
-                        let container = Container()
-                        try await container.clearDatabase()
-                        await MainActor.run {
-                            LocalStorage.user = nil
-                            Keychain.clear(key: .apiKey)
-                            Toast.logoutSuccess.present()
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    }
+                    NotificationCenter.default.post(name: .logout, object: nil)
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("Delete Account")
                         .tint(.red)

@@ -64,6 +64,7 @@ class ReceivedDrawing: Drawing {
     var sender: Friend?
     var updatedAt: Date?
     var createdAt: Date
+    var opened: Bool = true
 
     var serializedGrid: Data
     // Cached
@@ -88,6 +89,7 @@ class ReceivedDrawing: Drawing {
         sender = nil
         _grid = [grid]
         serializedGrid = try! GridEncoding.encoder.encode([grid])
+        opened = false
     }
 
     init?(from drawing: APIDrawing) {
@@ -100,9 +102,9 @@ class ReceivedDrawing: Drawing {
             return nil
         }
         serializedGrid = serialized
+        opened = false
     }
 }
-
 
 @Model
 final class DraftDrawing: Drawing {
