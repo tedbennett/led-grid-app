@@ -72,7 +72,7 @@ struct Home: View {
     var body: some View {
         NavigationStack {
             if isLoading {
-                ProgressView()
+                Spinner()
                     .onAppear {
                         updateFromServer()
                     }

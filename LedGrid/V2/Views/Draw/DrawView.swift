@@ -94,7 +94,7 @@ struct DrawView: View {
                 CanvasView(art: art, color: color) { handleGridChange($0) }
 
             } else {
-                ProgressView()
+                Spinner()
                     .onAppear {
                         modelContext.insert(DraftDrawing(size: .small, color: colorScheme == .dark ? Grid.black : Grid.white))
                     }
