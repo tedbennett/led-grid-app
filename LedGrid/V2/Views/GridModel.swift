@@ -16,6 +16,7 @@ enum GridSize: Int {
 typealias Grid = [[String]]
 extension Grid {
     static let black = "#000000"
+    static let white = "#ffffff"
     static let empty: Grid = [
         [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
         [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
@@ -27,9 +28,9 @@ extension Grid {
         [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
     ]
     
-    static func emptyFor(size: GridSize) -> Grid {
+    static func emptyFor(size: GridSize, color: String = Grid.black) -> Grid {
         return (0..<size.rawValue).map { _ in
-            (0..<size.rawValue).map { _ in Grid.black }
+            (0..<size.rawValue).map { _ in color }
         }
     }
 }

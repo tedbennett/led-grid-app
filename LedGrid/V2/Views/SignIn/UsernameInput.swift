@@ -77,7 +77,7 @@ struct UsernameInput: View {
                 statusImage
             }.font(.title3)
                 .padding(10)
-                .background(RoundedRectangle(cornerRadius: 10).fill(.bar))
+                .background(RoundedRectangle(cornerRadius: 10).fill(.placeholder.opacity(0.4)))
                 .padding(.horizontal, 20)
             Button {
                 onSubmit(username)

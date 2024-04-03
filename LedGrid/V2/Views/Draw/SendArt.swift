@@ -84,9 +84,9 @@ struct SelectFriends: View {
                             Spacer()
                             Image(systemName: "checkmark").opacity(isSelected(friend) ? 1 : 0)
                         }.foregroundStyle(isSelected(friend) ? .black : .white)
-                        .padding(15)
-                        .background(isSelected(friend) ? .primary : .quinary)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .padding(15)
+                            .background(isSelected(friend) ? .primary : .quinary)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                     }.buttonStyle(.plain)
                 }
             }
@@ -94,15 +94,19 @@ struct SelectFriends: View {
                 sendArt()
             } label: {
                 Group {
-                    if isLoading { ProgressView() } else { Text("Send").font(.custom("FiraMono Nerd Font", size: 24)) }
+                    if isLoading {
+                        ProgressView()
+                    } else {
+                        Text("Send").font(.custom("FiraMono Nerd Font", size: 24))
+                    }
                 }
-            }.disabled(selectedFriends.isEmpty)
-                .foregroundStyle(.primary)
+            }.foregroundStyle(.primary)
                 .padding(14)
                 .padding(.horizontal, 20)
-                .background(.fill)
+                .background(.placeholder.opacity(0.4))
                 .clipShape(RoundedRectangle(cornerRadius: 40))
                 .disabled(selectedFriends.isEmpty || isLoading)
+                .opacity(selectedFriends.isEmpty || isLoading ? 0.5 : 1)
         }
         .padding()
     }

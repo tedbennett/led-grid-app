@@ -11,6 +11,7 @@ struct BottomBarView: View {
     @Binding var color: Color
     @State private var feedback = false
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.colorScheme) private var colorScheme
 
     var canUndo: Bool
     var canRedo: Bool
@@ -19,7 +20,7 @@ struct BottomBarView: View {
     var send: ([String]) async -> Void
 
     func createNewDraft(size: GridSize) {
-        modelContext.insert(DraftDrawing(size: size))
+        modelContext.insert(DraftDrawing(size: size, color: colorScheme == .dark ? Grid.black : Grid.white))
     }
 
     var body: some View {
@@ -101,7 +102,7 @@ struct StdButton: ButtonStyle {
             .padding(10)
             .foregroundStyle(.primary.opacity((configuration.isPressed || !isEnabled) ? 0.5 : 1))
             .background(
-                Circle().fill(.bar.opacity(isEnabled ? 1 : 0.7))
+                Circle().fill(.placeholder.opacity(isEnabled ? 0.4 : 0.2))
             ).scaleEffect(configuration.isPressed ? 0.9 : 1.0)
     }
 }

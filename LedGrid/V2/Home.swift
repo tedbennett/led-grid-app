@@ -115,7 +115,7 @@ struct Home: View {
                 isLoading = true
                 logout()
             }
-            .tint(.white)
+            .tint(.primary)
     }
 }
 

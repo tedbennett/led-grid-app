@@ -103,7 +103,7 @@ struct DrawingsView: View {
                         .foregroundStyle(.primary)
                         .padding(8)
                         .padding(.horizontal, 9)
-                        .background(.fill)
+                        .background(.placeholder.opacity(0.4))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     Spacer()
                 }

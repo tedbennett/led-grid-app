@@ -128,11 +128,11 @@ final class DraftDrawing: Drawing {
         }
     }
 
-    init(size: GridSize = .small) {
+    init(size: GridSize = .small, color: String = Grid.black) {
         id = UUID().uuidString
         updatedAt = .now
         createdAt = .now
-        let grid = [Grid.emptyFor(size: size)]
+        let grid = [Grid.emptyFor(size: size, color: color)]
         _grid = grid
         serializedGrid = try! GridEncoding.encoder.encode(grid)
     }

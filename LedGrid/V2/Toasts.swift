@@ -22,21 +22,21 @@ enum Toast {
     func alert() -> AlertToast {
         switch self {
         case .signInSuccess:
-            return AlertToast(displayMode: .hud, type: .complete(.white), title: "Signed in successfully")
+            return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Signed in successfully")
         case .signInFailed:
-            return AlertToast(displayMode: .hud, type: .error(.white), title: "Sign in failed")
+            return AlertToast(displayMode: .hud, type: .error(.primary), title: "Sign in failed")
         case .logoutSuccess:
-            return AlertToast(displayMode: .hud, type: .complete(.white), title: "Logged out successfully")
+            return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Logged out successfully")
         case .sentDrawingSuccess:
-            return AlertToast(displayMode: .hud, type: .complete(.white), title: "Drawing sent!")
+            return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Drawing sent!")
         case .sentDrawingFailed:
-            return AlertToast(displayMode: .hud, type: .error(.white), title: "Failed to send drawing")
+            return AlertToast(displayMode: .hud, type: .error(.primary), title: "Failed to send drawing")
         case .friendInviteSent:
-            return AlertToast(displayMode: .hud, type: .complete(.white), title: "Friend invite sent")
+            return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Friend invite sent")
         case .profileUpdated:
-            return AlertToast(displayMode: .hud, type: .complete(.white), title: "Profile updated")
+            return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Profile updated")
         case .errorOccurred:
-            return AlertToast(displayMode: .hud, type: .error(.white), title: "An error occurred")
+            return AlertToast(displayMode: .hud, type: .error(.primary), title: "An error occurred")
         }
     }
 

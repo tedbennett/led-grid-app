@@ -81,7 +81,7 @@ struct FriendSearchView: View {
                     }
                 }
             }.padding(.horizontal, 10)
-                .background(.fill)
+                .background(.placeholder.opacity(0.4))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             if searchText.isEmpty {
                 Spacer()

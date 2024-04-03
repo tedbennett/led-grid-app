@@ -10,6 +10,7 @@ import SwiftUI
 
 struct DrawView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.colorScheme) private var colorScheme
     @Query(sort: \DraftDrawing.updatedAt, order: .reverse) var drafts: [DraftDrawing] = []
     @Query(filter: #Predicate<ReceivedDrawing> {
         !$0.opened
@@ -95,7 +96,7 @@ struct DrawView: View {
             } else {
                 ProgressView()
                     .onAppear {
-                        modelContext.insert(DraftDrawing())
+                        modelContext.insert(DraftDrawing(size: .small, color: colorScheme == .dark ? Grid.black : Grid.white))
                     }
             }
             Spacer()
@@ -123,7 +124,7 @@ struct DrawView: View {
                 }.foregroundStyle(.primary)
                     .padding(8)
                     .padding(.horizontal, 9)
-                    .background(.fill)
+                    .background(.placeholder.opacity(0.4))
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             }
             .buttonStyle(.plain)
