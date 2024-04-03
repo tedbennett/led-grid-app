@@ -28,6 +28,13 @@ struct DrawingList: View {
                 ForEach(Array(drawings.enumerated()), id: \.element.id) { index, drawing in
                     GridView(grid: drawing.grid).aspectRatio(contentMode: .fit)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(
+                                    Color.gray.opacity(0.2), lineWidth: 1
+                                )
+                        )
+                        .padding(1)
                         .onTapGesture {
                             onSelectAtIndex(index)
                         }

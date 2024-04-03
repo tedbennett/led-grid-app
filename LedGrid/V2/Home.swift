@@ -36,19 +36,24 @@ struct Home: View {
         }
     }
 
-    func updateFromServer() {
+    func updateFromServer(fetchSent: Bool = false) {
         let since: Date? = LocalStorage.fetchDate
         Task {
             let container = Container()
             do {
-                // Fetch drawings
-                let drawings = try await API.getReceivedDrawings(since: since)
-                try await container.insertReceivedDrawings(drawings)
-
                 // Fetch friends - may have changed names, etc.
                 let friends = try await API.getFriends()
                 // TODO: Ensure we're upserting here
                 try await container.insertFriends(friends)
+                
+                // Fetch drawings
+                let drawings = try await API.getReceivedDrawings(since: since)
+                try await container.insertReceivedDrawings(drawings)
+                
+                if fetchSent {
+                    let drawings = try await API.getSentDrawings(since: since)
+                    try await container.insertSentDrawings(drawings)
+                }
 
                 // Fetch user
                 let user = try await API.getMe()
@@ -102,7 +107,7 @@ struct Home: View {
             .onReceive(NotificationCenter.default.publisher(for: Notification.Name.handleSignIn)) {
                 _ in
                 isLoading = true
-                updateFromServer()
+                updateFromServer(fetchSent: true)
                 Toast.signInSuccess.present()
             }
             .onReceive(NotificationCenter.default.publisher(for: Notification.Name.logout)) {
