@@ -68,50 +68,69 @@ struct SelectFriends: View {
                 Text("Select Friends").font(.custom("FiraMono Nerd Font", size: 24))
                 Spacer()
             }
-            ScrollView {
-                ForEach(friends) { friend in
-                    let username = "@\(friend.username)"
-                    Button {
-                        toggleFriend(friend)
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(friend.name ?? username)
-                                if friend.name != nil {
-                                    Text(username).font(.caption).italic().foregroundStyle(.secondary)
-                                }
-                            }
-                            Spacer()
-                            Image(systemName: "checkmark").opacity(isSelected(friend) ? 1 : 0)
-                        }.foregroundStyle(isSelected(friend) ? .black : .white)
-                            .padding(15)
-                            .background(isSelected(friend) ? .primary : .quinary)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }.buttonStyle(.plain)
+            .padding(.top, 12)
+            if friends.isEmpty, let user = LocalStorage.user {
+                Spacer()
+                Text("You have no friends :(").font(.caption).foregroundStyle(.secondary)
+                    .padding(.bottom, 5)
+                NavigationLink {
+                    FriendsView(user: user)
+                } label: {
+                    Text("Add Friends")
                 }
-            }
-            Button {
-                sendArt()
-            } label: {
-                Group {
-                    if isLoading {
-                        ProgressView()
-                    } else {
-                        Text("Send").font(.custom("FiraMono Nerd Font", size: 24))
+                .foregroundStyle(.primary)
+                .padding(8)
+                .padding(.horizontal, 9)
+                .background(.placeholder.opacity(0.4))
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                Spacer()
+
+            } else {
+                ScrollView {
+                    ForEach(friends) { friend in
+                        let username = "@\(friend.username)"
+                        Button {
+                            toggleFriend(friend)
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(friend.name ?? username)
+                                    if friend.name != nil {
+                                        Text(username).font(.caption).italic().foregroundStyle(.secondary)
+                                    }
+                                }
+                                Spacer()
+                                Image(systemName: "checkmark").opacity(isSelected(friend) ? 1 : 0)
+                            }.foregroundStyle(isSelected(friend) ? .primary : .primary)
+                                .padding(15)
+                                .background(isSelected(friend) ? .tertiary : .quinary)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        }.buttonStyle(.plain)
                     }
                 }
-            }.foregroundStyle(.primary)
-                .padding(14)
-                .padding(.horizontal, 20)
-                .background(.placeholder.opacity(0.4))
-                .clipShape(RoundedRectangle(cornerRadius: 40))
-                .disabled(selectedFriends.isEmpty || isLoading)
-                .opacity(selectedFriends.isEmpty || isLoading ? 0.5 : 1)
+                Button {
+                    sendArt()
+                } label: {
+                    Group {
+                        if isLoading {
+                            ProgressView()
+                        } else {
+                            Text("Send").font(.custom("FiraMono Nerd Font", size: 24))
+                        }
+                    }
+                }.foregroundStyle(.primary)
+                    .padding(14)
+                    .padding(.horizontal, 20)
+                    .background(.placeholder.opacity(0.4))
+                    .clipShape(RoundedRectangle(cornerRadius: 40))
+                    .disabled(selectedFriends.isEmpty || isLoading)
+                    .opacity(selectedFriends.isEmpty || isLoading ? 0.5 : 1)
+            }
         }
         .padding()
     }
 }
 
 #Preview {
-    SendArt { _ in }
+    SendArt { _ in }.modelContainer(PreviewStore.container)
 }

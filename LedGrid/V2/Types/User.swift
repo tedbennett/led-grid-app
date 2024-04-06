@@ -27,4 +27,9 @@ class Friend {
         createdAt = friend.createdAt
         image = friend.image
     }
+    
+    static func example() -> Friend {
+        let friend = APIFriend(createdAt: .now, email: "example@email.com", id: UUID().uuidString, username: "username")
+        return .init(from: friend)
+    }
 }

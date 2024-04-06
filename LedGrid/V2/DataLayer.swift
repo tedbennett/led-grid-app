@@ -120,6 +120,7 @@ enum PreviewStore {
             configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         container.mainContext.insert(DraftDrawing())
         container.mainContext.insert(DraftDrawing())
+        container.mainContext.insert(Friend.example())
         return container
     }()
 }
