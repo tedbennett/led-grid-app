@@ -136,10 +136,9 @@ struct API {
         }
     }
 
-    static func createDevice(deviceId: String) async throws {
+    static func createDevice(deviceId: String, sandbox: Bool) async throws {
         do {
-            // TODO: Update sandbox to stage
-            let payload: Components.Schemas.CreateDevicePayload = .init(deviceId: deviceId, os: "apple", sandbox: true)
+            let payload: Components.Schemas.CreateDevicePayload = .init(deviceId: deviceId, os: "apple", sandbox: sandbox)
             switch try await client.createDevice(body: .json(payload)) {
             case .noContent:
                 return

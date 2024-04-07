@@ -50,4 +50,5 @@ extension Notification.Name {
     static var showSignIn = Notification.Name("SHOW_SIGN_IN")
     static var handleSignIn = Notification.Name("HANDLE_SIGN_IN")
     static var logout = Notification.Name("LOGOUT")
+    static var navigate = Notification.Name("NAVIGATE")
 }

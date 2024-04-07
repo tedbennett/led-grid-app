@@ -19,7 +19,7 @@ struct SendArt: View {
             if LocalStorage.user != nil {
                 presentModal.toggle()
             } else {
-                NotificationCenter.default.post(name: Notification.Name.showSignIn, object: true)
+                NotificationCenter.default.post(name: .showSignIn, object: true)
             }
             feedback.toggle()
         } label: {
@@ -40,6 +40,7 @@ struct SelectFriends: View {
     @Query var friends: [Friend] = []
     @State var selectedFriends: Set<String> = Set()
     @State var isLoading = false
+    @Environment(\.dismiss) var dismiss
     var handleSendArt: ([String]) async -> Void
 
     func isSelected(_ friend: Friend) -> Bool {
@@ -69,12 +70,13 @@ struct SelectFriends: View {
                 Spacer()
             }
             .padding(.top, 12)
-            if friends.isEmpty, let user = LocalStorage.user {
+            if friends.isEmpty {
                 Spacer()
                 Text("You have no friends :(").font(.caption).foregroundStyle(.secondary)
                     .padding(.bottom, 5)
-                NavigationLink {
-                    FriendsView(user: user)
+                Button {
+                    dismiss()
+                    NotificationCenter.default.post(name: .navigate, object: "friends")
                 } label: {
                     Text("Add Friends")
                 }

@@ -41,7 +41,11 @@ struct HeaderView: View {
                 if path == "friends", let user = LocalStorage.user {
                     FriendsView(user: user)
                 }
-            }
+            }.onReceive(NotificationCenter.default.publisher(for: .navigate), perform: { notif in
+                if let destination = notif.object as? String {
+                    path.append(destination)
+                }
+            })
         }
     }
 }

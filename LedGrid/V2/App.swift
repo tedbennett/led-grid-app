@@ -8,17 +8,19 @@
 import AlertToast
 import SwiftData
 import SwiftUI
+import UserNotifications
 
 @main
 struct AppV2: App {
     init() {
-//        if Keychain.apiKey == nil,
-//           let accessToken = ProcessInfo.processInfo.environment["ACCESS_TOKEN"]
-//        {
-//            Keychain.set(accessToken, for: .apiKey)
-//        }
+        if Keychain.apiKey == nil,
+           let accessToken = ProcessInfo.processInfo.environment["ACCESS_TOKEN"]
+        {
+            Keychain.set(accessToken, for: .apiKey)
+        }
     }
 
+    @UIApplicationDelegateAdaptor var appDelegate: MyAppDelegate
     @State private var showToast = false
     @State private var currentToast: Toast?
     @State private var presentSignIn = false
@@ -43,5 +45,41 @@ struct AppV2: App {
                 }
 
         }.modelContainer(Container.modelContainer)
+    }
+}
+
+class MyAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+        UNUserNotificationCenter.current().delegate = self
+
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current()
+            .requestAuthorization(
+                options: authOptions,
+                completionHandler: { _, _ in
+                }
+            )
+        UIApplication.shared.registerForRemoteNotifications()
+        return true
+    }
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        Task {
+            do {
+                #if DEBUG
+                let sandbox = true
+                #else
+                let sandbox = false
+                #endif
+                try await API.createDevice(deviceId: token, sandbox: sandbox)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
