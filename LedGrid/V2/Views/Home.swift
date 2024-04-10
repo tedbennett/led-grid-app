@@ -17,6 +17,7 @@ enum Tab: Hashable {
 
 struct Home: View {
     @State private var isLoading = true
+    @Environment(\.toast) var toast: Binding<Toast?>
 
     func logout() {
         LocalStorage.clear()
@@ -39,25 +40,8 @@ struct Home: View {
     func updateFromServer(fetchSent: Bool = false) {
         let since: Date? = LocalStorage.fetchDate
         Task {
-            let container = Container()
             do {
-                // Fetch friends - may have changed names, etc.
-                let friends = try await API.getFriends()
-                // TODO: Ensure we're upserting here
-                try await container.insertFriends(friends)
-                
-                // Fetch drawings
-                let drawings = try await API.getReceivedDrawings(since: since)
-                try await container.insertReceivedDrawings(drawings)
-                
-                if fetchSent {
-                    let drawings = try await API.getSentDrawings(since: since)
-                    try await container.insertSentDrawings(drawings)
-                }
-
-                // Fetch user
-                let user = try await API.getMe()
-                LocalStorage.user = user
+                try await DataLayer().importData(since: since, fetchSent: fetchSent)
                 LocalStorage.fetchDate = Date.now
             } catch {
                 LocalStorage.user = .none
@@ -106,19 +90,32 @@ struct Home: View {
         }.ignoresSafeArea()
             .onReceive(NotificationCenter.default.publisher(for: Notification.Name.handleSignIn)) {
                 _ in
-                isLoading = true
                 updateFromServer(fetchSent: true)
                 Toast.signInSuccess.present()
             }
             .onReceive(NotificationCenter.default.publisher(for: Notification.Name.logout)) {
                 _ in
-                isLoading = true
                 logout()
             }
             .tint(.primary)
+            .toast(toast)
     }
 }
 
 #Preview {
     Home()
+}
+
+private struct ToastKey: EnvironmentKey {
+    static let defaultValue: Binding<Toast?> = .constant(.none)
+}
+
+extension EnvironmentValues {
+    var toast: Binding<Toast?> {
+        get { self[ToastKey.self] }
+        set {
+            print(newValue)
+            self[ToastKey.self].wrappedValue = newValue.wrappedValue
+        }
+    }
 }

@@ -17,7 +17,7 @@ struct FriendSearchView: View {
     @Query private var friends: [Friend] = []
 
     let searchTextPublisher = PassthroughSubject<String, Never>()
-    
+
     func searchUsers(by term: String) {
         let trimmed = term.trimmingCharacters(in: .whitespaces)
         if trimmed.isEmpty {
@@ -43,15 +43,12 @@ struct FriendSearchView: View {
     }
 
     func sendFriendRequest(to userId: String) {
-        let container = Container()
         Task {
             do {
-                try await API.sendFriendRequest(to: userId)
-                let requests = try await API.getSentFriendRequests()
-                try await container.insertFriendRequests(requests, sent: true)
-                await MainActor.run {
-                    Toast.friendInviteSent.present()
-                }
+                try await DataLayer().sendFriendRequest(to: userId)
+//                await MainActor.run {
+//                    Toast.friendInviteSent.present()
+//                }
             } catch {
                 print(error)
                 await MainActor.run {

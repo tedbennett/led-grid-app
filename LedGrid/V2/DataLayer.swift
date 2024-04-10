@@ -8,12 +8,78 @@
 import Foundation
 import SwiftData
 
-protocol DataLayer {
-    func refreshDatabase()
-    func sendDrawing()
-}
+struct DataLayer {
+    var container: Container
 
-struct AppDataLayer {}
+    init(container: Container) {
+        self.container = container
+    }
+
+    init() {
+        self.container = Container()
+    }
+
+    func importFriends() async throws {
+        async let friends = API.getFriends()
+        try await container.insertFriends(friends)
+    }
+
+    func importSentRequests() async throws {
+        async let sent = API.getSentFriendRequests()
+        try await container.insertFriendRequests(sent, sent: true)
+    }
+
+    func importReceivedRequests() async throws {
+        async let received = API.getReceivedFriendRequests()
+        try await container.insertFriendRequests(received, sent: false)
+    }
+
+    func importReceivedDrawings(since: Date?) async throws {
+        async let drawings = API.getReceivedDrawings(since: since)
+        try await container.insertReceivedDrawings(drawings)
+    }
+
+    func importSentDrawings(since: Date?) async throws {
+        async let drawings = API.getSentDrawings(since: since)
+        try await container.insertSentDrawings(drawings)
+    }
+
+    func importUser() async throws {
+        let user = try await API.getMe()
+        LocalStorage.user = user
+    }
+
+    func importData(since: Date?, fetchSent: Bool) async throws {
+        try await importFriends()
+        if fetchSent {
+            _ = try await (importSentRequests(), importReceivedRequests(), importFriends(), importReceivedDrawings(since: since), importSentDrawings(since: since), importUser())
+        } else {
+            _ = try await (importSentRequests(), importReceivedRequests(), importFriends(), importReceivedDrawings(since: since), importUser())
+        }
+    }
+
+    func refreshFriends() async throws {
+        _ = try await (importSentRequests(), importReceivedRequests(), importFriends())
+    }
+
+    func sendDrawing(_ grid: Grid, to friends: [String]) async throws {
+        let now = Date.now
+        try await API.sendDrawing(grid, to: friends)
+        let drawings = try await API.getSentDrawings(since: now)
+        try await container.insertSentDrawings(drawings)
+        _ = try await container.createDraft()
+    }
+
+    func sendFriendRequest(to userId: String) async throws {
+        try await API.sendFriendRequest(to: userId)
+        let requests = try await API.getSentFriendRequests()
+        try await container.insertFriendRequests(requests, sent: true)
+    }
+
+    func clearDatabase() async throws {
+        try await container.clearDatabase()
+    }
+}
 
 // TODO: Better name
 actor Container: ModelActor {
@@ -30,9 +96,9 @@ actor Container: ModelActor {
     let context: ModelContext
 
     init(container: ModelContainer = Container.modelContainer) {
-        modelContainer = container
+        self.modelContainer = container
         let context = ModelContext(modelContainer)
-        modelExecutor = DefaultSerialModelExecutor(modelContext: context)
+        self.modelExecutor = DefaultSerialModelExecutor(modelContext: context)
         self.context = context
     }
 

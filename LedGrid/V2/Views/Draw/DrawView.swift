@@ -64,12 +64,7 @@ struct DrawView: View {
 
     func send(_ grid: Grid, to friends: [String]) async {
         do {
-            let container = Container()
-            let now = Date.now
-            try await API.sendDrawing(grid, to: friends)
-            let drawings = try await API.getSentDrawings(since: now)
-            try await container.insertSentDrawings(drawings)
-            _ = try await container.createDraft()
+            try await DataLayer().sendDrawing(grid, to: friends)
             await MainActor.run {
                 Toast.sentDrawingSuccess.present()
             }

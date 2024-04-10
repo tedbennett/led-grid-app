@@ -16,6 +16,8 @@ enum Toast {
     case sentDrawingSuccess
     case sentDrawingFailed
     case friendInviteSent
+    case friendRequestAccepted
+    case friendRequestRejected
     case errorOccurred
     case profileUpdated
 
@@ -37,6 +39,10 @@ enum Toast {
             return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Profile updated")
         case .errorOccurred:
             return AlertToast(displayMode: .hud, type: .error(.primary), title: "An error occurred")
+        case .friendRequestAccepted:
+            return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Friend request accepted")
+        case .friendRequestRejected:
+            return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Friend request dismissed")
         }
     }
 

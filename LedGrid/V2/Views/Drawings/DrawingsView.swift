@@ -83,6 +83,18 @@ struct DrawingsView: View {
         }
     }
 
+    func selectReceived(at index: Int) {
+        feedback.toggle()
+        do {
+            // TODO: Move to api
+            let received = received[index]
+            received.opened = true
+            try modelContext.save()
+        } catch {
+            print(error)
+        }
+    }
+
     var body: some View {
         VStack {
             let drawings: [any Drawing] = {
@@ -109,10 +121,11 @@ struct DrawingsView: View {
                 }
             } else {
                 DrawingList(drawings: drawings) { index in
-                    guard tab == .drafts else {
-                        return
+                    switch tab {
+                    case .drafts: selectDraft(at: index)
+                    case .received: selectReceived(at: index)
+                    case .sent: return
                     }
-                    selectDraft(at: index)
                 }.onAppear {
                     if !received.isEmpty && !appeared {
                         tab = .received

@@ -13,11 +13,6 @@ import UserNotifications
 @main
 struct AppV2: App {
     init() {
-        if Keychain.apiKey == nil,
-           let accessToken = ProcessInfo.processInfo.environment["ACCESS_TOKEN"]
-        {
-            Keychain.set(accessToken, for: .apiKey)
-        }
     }
 
     @UIApplicationDelegateAdaptor var appDelegate: MyAppDelegate
@@ -45,6 +40,7 @@ struct AppV2: App {
                 }
 
         }.modelContainer(Container.modelContainer)
+            .environment(\.toast, .constant(nil))
     }
 }
 
@@ -53,6 +49,13 @@ class MyAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDe
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+        logger.info("Remote server url: \(API.url.absoluteString)")
+        
+        if let accessToken = ProcessInfo.processInfo.environment["ACCESS_TOKEN"] {
+            logger.info("Loaded access token from environment")
+            Keychain.set(accessToken, for: .apiKey)
+        }
+
         UNUserNotificationCenter.current().delegate = self
 
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]

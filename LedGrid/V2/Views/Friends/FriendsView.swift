@@ -5,8 +5,30 @@
 //  Created by Ted Bennett on 11/02/2024.
 //
 
+import AlertToast
 import SwiftData
 import SwiftUI
+
+struct PresentToast: ViewModifier {
+    @Binding var toast: Toast?
+
+    func body(content: Content) -> some View {
+        content
+            .toast(isPresenting: .init(get: { toast != nil }, set: { if $0 == false { toast = nil }})) {
+                if let toast = toast {
+                    return toast.alert()
+                } else {
+                    return AlertToast(displayMode: .hud, type: .loading)
+                }
+            }
+    }
+}
+
+extension View {
+    func toast(_ toast: Binding<Toast?>) -> some View {
+        modifier(PresentToast(toast: toast))
+    }
+}
 
 struct FriendsView: View {
     var user: APIUser
@@ -15,6 +37,7 @@ struct FriendsView: View {
     @State var showAllFriends = false
     @State var showAllSent = false
     @State var showAllReceived = false
+    @Environment(\.toast) var toast
 
     var sent: [FriendRequest] {
         requests.filter { $0.sent && $0.status == .sent }
@@ -24,21 +47,43 @@ struct FriendsView: View {
         requests.filter { !$0.sent && $0.status == .sent }
     }
 
+    func updateRequest(id: String, accept: Bool) {
+        Task {
+            try await API.updateFriendRequest(id, status: accept ? .accepted : .revoked)
+            let dataLayer = DataLayer()
+            try await dataLayer.refreshFriends()
+        }
+    }
+
     var body: some View {
         List {
-            if !received.isEmpty {
-                CardList(items: received, title: "Received Friend Requests")
+            CardList(items: received, title: "Received Friend Requests") { id in
+                HStack(spacing: 20) {
+                    Menu {
+                        Button {
+                            updateRequest(id: id, accept: true)
+                        } label: {
+                            Label("Accept", systemImage: "checkmark")
+                        }
+                        Button {
+                            updateRequest(id: id, accept: false)
+                        } label: {
+                            Label("Dismiss", systemImage: "xmark")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                    }
+                    
+                }
             }
 
             NavigationLink("Find Friends") {
                 FriendSearchView()
             }
 
-            CardList(items: friends, title: "Friends")
+            CardList(items: friends, title: "Friends") { _ in }
 
-            if !sent.isEmpty {
-                CardList(items: sent, title: "Sent Friend Requests")
-            }
+            CardList(items: sent, title: "Sent Friend Requests") { _ in }
         }
         .toolbar {
             ShareLink(item: URL(string: "https://www.pixee-app.com")!) {
@@ -64,16 +109,17 @@ protocol Card: Identifiable {
 extension Friend: Card {}
 extension FriendRequest: Card {}
 
-struct CardList: View {
+struct CardList<Content: View>: View {
     var items: [any Card]
     var title: String
     @State private var showAll = false
+    @ViewBuilder var content: (String) -> Content
 
     var body: some View {
         if !items.isEmpty {
             Section {
                 ForEach(items.prefix(showAll ? Int.max : 5), id: \.id) { item in
-                    UserCard(name: item.name, username: item.username) {}
+                    UserCard(name: item.name, username: item.username) { content(item.id) }
                 }
             } header: {
                 HStack {

@@ -26,7 +26,9 @@ struct DrawingList: View {
         ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(Array(drawings.enumerated()), id: \.element.id) { index, drawing in
-                    GridView(grid: drawing.grid).aspectRatio(contentMode: .fit)
+                    GridView(grid: drawing.grid)
+                        .aspectRatio(contentMode: .fit)
+//                        .blur(radius: 20)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)

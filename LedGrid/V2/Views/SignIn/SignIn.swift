@@ -19,22 +19,6 @@ struct SignIn: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
 
-    func importUserData() async throws {
-        let container = Container()
-        let friends = try await API.getFriends()
-        // TODO: Ensure we're upserting here
-        try await container.insertFriends(friends)
-
-        let receivedDrawings = try await API.getReceivedDrawings(since: nil)
-        try await container.insertReceivedDrawings(receivedDrawings)
-        let sentDrawings = try await API.getSentDrawings(since: nil)
-        try await container.insertSentDrawings(sentDrawings)
-
-        let user = try await API.getMe()
-        LocalStorage.user = user
-        LocalStorage.fetchDate = .now
-    }
-
     func handleSignIn(result: Result<ASAuthorization, Error>) {
         state = .signingIn
         switch result {
@@ -45,12 +29,13 @@ struct SignIn: View {
                 do {
                     let result = try await API.signIn(code: code, id: credential.user, name: credential.fullName?.formatted() ?? "", email: credential.email)
                     Keychain.set(result.token, for: .apiKey)
+                    LocalStorage.fetchDate = nil
 
                     await MainActor.run {
                         if result.created {
                             state = .changeUsername
                         } else {
-                            NotificationCenter.default.post(name: Notification.Name.handleSignIn, object: nil)
+                            NotificationCenter.default.post(name: .handleSignIn, object: nil)
                             dismiss()
                         }
                     }
@@ -83,6 +68,7 @@ struct SignIn: View {
                         try await API.updateMe(name: nil, username: username, image: nil, plus: nil)
                         await MainActor.run {
                             Toast.signInSuccess.present()
+                            NotificationCenter.default.post(name: .handleSignIn, object: nil)
                             dismiss()
                         }
                     }
