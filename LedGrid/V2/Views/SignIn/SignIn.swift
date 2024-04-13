@@ -36,6 +36,8 @@ struct SignIn: View {
                             state = .changeUsername
                         } else {
                             NotificationCenter.default.post(name: .handleSignIn, object: nil)
+
+                            requestNotifications()
                             dismiss()
                         }
                     }
@@ -48,6 +50,17 @@ struct SignIn: View {
             Toast.signInFailed.present()
             dismiss()
         }
+    }
+
+    func requestNotifications() {
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current()
+            .requestAuthorization(
+                options: authOptions,
+                completionHandler: { _, _ in
+                }
+            )
+        UIApplication.shared.registerForRemoteNotifications()
     }
 
     var body: some View {
@@ -69,6 +82,7 @@ struct SignIn: View {
                         await MainActor.run {
                             Toast.signInSuccess.present()
                             NotificationCenter.default.post(name: .handleSignIn, object: nil)
+                            requestNotifications()
                             dismiss()
                         }
                     }

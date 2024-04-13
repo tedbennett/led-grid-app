@@ -12,8 +12,7 @@ import UserNotifications
 
 @main
 struct AppV2: App {
-    init() {
-    }
+    init() {}
 
     @UIApplicationDelegateAdaptor var appDelegate: MyAppDelegate
     @State private var showToast = false
@@ -50,7 +49,7 @@ class MyAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDe
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         logger.info("Remote server url: \(API.url.absoluteString)")
-        
+
         if let accessToken = ProcessInfo.processInfo.environment["ACCESS_TOKEN"] {
             logger.info("Loaded access token from environment")
             Keychain.set(accessToken, for: .apiKey)
@@ -58,15 +57,26 @@ class MyAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDe
 
         UNUserNotificationCenter.current().delegate = self
 
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current()
-            .requestAuthorization(
-                options: authOptions,
-                completionHandler: { _, _ in
-                }
-            )
-        UIApplication.shared.registerForRemoteNotifications()
+        if Keychain.apiKey != nil {
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current()
+                .requestAuthorization(
+                    options: authOptions,
+                    completionHandler: { _, _ in
+                    }
+                )
+            UIApplication.shared.registerForRemoteNotifications()
+        }
         return true
+    }
+
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler:
+        @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .sound, .badge])
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
