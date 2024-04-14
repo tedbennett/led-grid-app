@@ -50,11 +50,11 @@ struct DataLayer {
     }
 
     func importData(since: Date?, fetchSent: Bool) async throws {
-        try await importFriends()
+        _ = try await (importFriends(), importUser())
         if fetchSent {
-            _ = try await (importSentRequests(), importReceivedRequests(), importFriends(), importReceivedDrawings(since: since), importSentDrawings(since: since), importUser())
+            _ = try await (importSentRequests(), importReceivedRequests(), importFriends(), importReceivedDrawings(since: since), importSentDrawings(since: since))
         } else {
-            _ = try await (importSentRequests(), importReceivedRequests(), importFriends(), importReceivedDrawings(since: since), importUser())
+            _ = try await (importSentRequests(), importReceivedRequests(), importFriends(), importReceivedDrawings(since: since))
         }
     }
 

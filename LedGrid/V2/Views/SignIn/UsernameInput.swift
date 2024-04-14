@@ -83,12 +83,12 @@ struct UsernameInput: View {
                 onSubmit(username)
             } label: {
                 Text("Continue")
-                    .font(.title3)
                     .fontWeight(.semibold)
-                    .padding()
-                    .foregroundStyle(.background)
-                    .background(.primary)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .foregroundStyle(.primary)
+                    .padding(8)
+                    .padding(.horizontal, 9)
+                    .background(.placeholder.opacity(0.4))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                     .opacity(status == .available ? 1 : 0.8)
             }
             .disabled(status != .available)

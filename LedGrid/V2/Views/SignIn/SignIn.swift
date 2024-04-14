@@ -43,6 +43,8 @@ struct SignIn: View {
                     }
                 } catch {
                     logger.error("\(error.localizedDescription)")
+                    Toast.signInFailed.present()
+                    dismiss()
                 }
             }
         case .failure(let failure):
@@ -73,34 +75,48 @@ struct SignIn: View {
                     Image(systemName: "xmark")
                 }
                 .buttonStyle(StdButton())
-                .disabled(state != .notStarted)
+                .opacity(state == .notStarted ? 1 : 0)
             }
             if state == .changeUsername {
                 UsernameInput { username in
                     Task {
-                        try await API.updateMe(name: nil, username: username, image: nil, plus: nil)
-                        await MainActor.run {
-                            Toast.signInSuccess.present()
-                            NotificationCenter.default.post(name: .handleSignIn, object: nil)
-                            requestNotifications()
+                        do {
+                            try await API.updateMe(name: nil, username: username, image: nil, plus: nil)
+                            await MainActor.run {
+                                Toast.signInSuccess.present()
+                                NotificationCenter.default.post(name: .handleSignIn, object: nil)
+                                requestNotifications()
+                                dismiss()
+                            }
+                        } catch {
+                            // TODO: Show error
                             dismiss()
                         }
                     }
                 }
             } else {
                 Spacer()
-                SignInWithAppleButton { request in
+                Text("SIGN IN")
+                    .font(.custom("FiraMono Nerd Font", size: 32))
+
+                SignInWithAppleButton(.continue) { request in
                     request.requestedScopes = [.fullName, .email]
                 } onCompletion: {
                     handleSignIn(result: $0)
-                }.signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
-                    .cornerRadius(15)
-                    .centered(.horizontal)
-                    .frame(height: 55)
-                    .padding(.horizontal, 30)
+                }
+                .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
+                .cornerRadius(15)
+                .centered(.horizontal)
+                .frame(height: 55)
+                .disabled(state != .notStarted)
+                Text("Sign in or create an account to share drawings with your friends!")
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.secondary)
+                    .padding(.vertical, 10)
                 Spacer()
             }
         }
+        .padding(.horizontal, 30)
         .navigationBarBackButtonHidden(state == .signingIn)
     }
 }
