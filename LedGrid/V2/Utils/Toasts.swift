@@ -45,14 +45,9 @@ enum Toast {
             return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Friend request dismissed")
         }
     }
-
-    func present() {
-        NotificationCenter.default.post(name: Notification.Name.toast, object: self)
-    }
 }
 
 extension Notification.Name {
-    static var toast = Notification.Name("TOAST")
     static var showSignIn = Notification.Name("SHOW_SIGN_IN")
     static var handleSignIn = Notification.Name("HANDLE_SIGN_IN")
     static var logout = Notification.Name("LOGOUT")

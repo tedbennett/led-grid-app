@@ -69,8 +69,8 @@ struct UsernameEditor: View {
     var body: some View {
         HStack {
             TextField("Username", text: $username)
-                .debounce(username, publisher: usernamePublisher) {
-                    check(username: $0)
+                .onChange(of: username) {
+                    check(username: username)
                 }
             statusImage
         }

@@ -14,7 +14,7 @@ struct PresentToast: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .toast(isPresenting: .init(get: { toast != nil }, set: { if $0 == false { toast = nil }})) {
+            .toast(isPresenting: .init(get: { toast != nil }, set: { if $0 == false { toast = nil }}), offsetY: 20) {
                 if let toast = toast {
                     return toast.alert()
                 } else {
@@ -38,7 +38,7 @@ struct FriendsView: View {
     @State var showAllSent = false
     @State var showAllReceived = false
     @State var loadingRequest: String?
-    @Environment(\.toast) var toast
+    @Environment(ToastManager.self) var toastManager
 
     var sent: [FriendRequest] {
         requests.filter { $0.sent && $0.status == .sent }
@@ -51,11 +51,16 @@ struct FriendsView: View {
     func updateRequest(id: String, accept: Bool) {
         loadingRequest = id
         Task {
-            try await API.updateFriendRequest(id, status: accept ? .accepted : .revoked)
-            let dataLayer = DataLayer()
-            try await dataLayer.refreshFriends()
-            await MainActor.run {
-                loadingRequest = nil
+            do {
+                try await API.updateFriendRequest(id, status: accept ? .accepted : .revoked)
+                let dataLayer = DataLayer()
+                try await dataLayer.refreshFriends()
+                await MainActor.run {
+                    loadingRequest = nil
+                    toastManager.toast = accept ? .friendRequestAccepted : .friendRequestRejected
+                }
+            } catch {
+                toastManager.toast = .errorOccurred
             }
         }
     }
@@ -82,7 +87,6 @@ struct FriendsView: View {
                             Image(systemName: "ellipsis")
                         }.disabled(loadingRequest != nil)
                     }
-                    
                 }
             }
 

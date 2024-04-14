@@ -17,7 +17,7 @@ enum Tab: Hashable {
 
 struct Home: View {
     @State private var isLoading = true
-    @Environment(\.toast) var toast: Binding<Toast?>
+    @Environment(ToastManager.self) var toastManager
 
     func logout() {
         LocalStorage.clear()
@@ -28,11 +28,11 @@ struct Home: View {
                 try await container.clearDatabase()
                 await MainActor.run {
                     isLoading = false
-                    Toast.logoutSuccess.present()
+                    toastManager.toast = .logoutSuccess
                 }
             } catch {
                 logger.error("Error logging user out: \(error.localizedDescription)")
-                Toast.errorOccurred.present()
+                toastManager.toast = .errorOccurred
             }
         }
     }
@@ -54,6 +54,7 @@ struct Home: View {
     }
 
     var body: some View {
+        @Bindable var toastManager = toastManager
         NavigationStack {
             if isLoading {
                 Spinner()
@@ -91,14 +92,15 @@ struct Home: View {
             .onReceive(NotificationCenter.default.publisher(for: Notification.Name.handleSignIn)) {
                 _ in
                 updateFromServer(fetchSent: true)
-                Toast.signInSuccess.present()
+                toastManager.toast = .signInSuccess
+
             }
             .onReceive(NotificationCenter.default.publisher(for: Notification.Name.logout)) {
                 _ in
                 logout()
             }
             .tint(.primary)
-            .toast(toast)
+            .toast($toastManager.toast)
     }
 }
 
@@ -106,16 +108,7 @@ struct Home: View {
     Home()
 }
 
-private struct ToastKey: EnvironmentKey {
-    static let defaultValue: Binding<Toast?> = .constant(.none)
-}
-
-extension EnvironmentValues {
-    var toast: Binding<Toast?> {
-        get { self[ToastKey.self] }
-        set {
-            print(newValue)
-            self[ToastKey.self].wrappedValue = newValue.wrappedValue
-        }
-    }
+@Observable
+class ToastManager {
+    var toast: Toast? = nil
 }

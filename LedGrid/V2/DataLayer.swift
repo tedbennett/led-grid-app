@@ -34,9 +34,9 @@ struct DataLayer {
         try await container.insertFriendRequests(received, sent: false)
     }
 
-    func importReceivedDrawings(since: Date?) async throws {
+    func importReceivedDrawings(since: Date?, opened: Bool) async throws {
         async let drawings = API.getReceivedDrawings(since: since)
-        try await container.insertReceivedDrawings(drawings)
+        try await container.insertReceivedDrawings(drawings, opened: opened)
     }
 
     func importSentDrawings(since: Date?) async throws {
@@ -52,9 +52,9 @@ struct DataLayer {
     func importData(since: Date?, fetchSent: Bool) async throws {
         _ = try await (importFriends(), importUser())
         if fetchSent {
-            _ = try await (importSentRequests(), importReceivedRequests(), importFriends(), importReceivedDrawings(since: since), importSentDrawings(since: since))
+            _ = try await (importSentRequests(), importReceivedRequests(), importFriends(), importReceivedDrawings(since: since, opened: true), importSentDrawings(since: since))
         } else {
-            _ = try await (importSentRequests(), importReceivedRequests(), importFriends(), importReceivedDrawings(since: since))
+            _ = try await (importSentRequests(), importReceivedRequests(), importFriends(), importReceivedDrawings(since: since, opened: false))
         }
     }
 
@@ -133,12 +133,12 @@ actor Container: ModelActor {
         try context.save()
     }
 
-    func insertReceivedDrawings(_ drawings: [APIDrawing]) async throws {
+    func insertReceivedDrawings(_ drawings: [APIDrawing], opened: Bool) async throws {
         let friends = try context.fetch(FetchDescriptor<Friend>(predicate: .true))
         for drawing in drawings {
             // TODO: Handle failed insert
             if let sender = friends.first(where: { $0.id == drawing.senderId }) {
-                if let object = ReceivedDrawing(from: drawing) {
+                if let object = ReceivedDrawing(from: drawing, opened: opened) {
                     object.sender = sender
                     context.insert(object)
                 }

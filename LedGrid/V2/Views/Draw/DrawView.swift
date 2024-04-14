@@ -11,6 +11,7 @@ import SwiftUI
 struct DrawView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(ToastManager.self) var toastManager
     @Query(sort: \DraftDrawing.updatedAt, order: .reverse) var drafts: [DraftDrawing] = []
     @Query(filter: #Predicate<ReceivedDrawing> {
         !$0.opened
@@ -66,12 +67,12 @@ struct DrawView: View {
         do {
             try await DataLayer().sendDrawing(grid, to: friends)
             await MainActor.run {
-                Toast.sentDrawingSuccess.present()
+                toastManager.toast = .sentDrawingSuccess
             }
         } catch {
             logger.error("\(error.localizedDescription)")
             await MainActor.run {
-                Toast.sentDrawingFailed.present()
+                toastManager.toast = .sentDrawingFailed
             }
         }
     }

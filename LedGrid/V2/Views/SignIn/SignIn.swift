@@ -18,6 +18,7 @@ struct SignIn: View {
     @State private var state = SignInState.notStarted
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
+    @Environment(ToastManager.self) var toastManager
 
     func handleSignIn(result: Result<ASAuthorization, Error>) {
         state = .signingIn
@@ -43,13 +44,13 @@ struct SignIn: View {
                     }
                 } catch {
                     logger.error("\(error.localizedDescription)")
-                    Toast.signInFailed.present()
+                    toastManager.toast = .signInFailed
                     dismiss()
                 }
             }
         case .failure(let failure):
             logger.error("\(failure)")
-            Toast.signInFailed.present()
+            toastManager.toast = .signInFailed
             dismiss()
         }
     }
@@ -83,7 +84,7 @@ struct SignIn: View {
                         do {
                             try await API.updateMe(name: nil, username: username, image: nil, plus: nil)
                             await MainActor.run {
-                                Toast.signInSuccess.present()
+                                toastManager.toast = .signInSuccess
                                 NotificationCenter.default.post(name: .handleSignIn, object: nil)
                                 requestNotifications()
                                 dismiss()

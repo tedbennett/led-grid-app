@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(ToastManager.self) var toastManager
     var user: APIUser
 
     @State private var username: String = ""
@@ -40,13 +41,13 @@ struct SettingsView: View {
                 LocalStorage.user = user
                 await MainActor.run {
                     isLoading = false
-                    Toast.profileUpdated.present()
+                    toastManager.toast = .profileUpdated
                 }
             } catch {
                 logger.error("\(error.localizedDescription)")
                 await MainActor.run {
                     isLoading = false
-                    Toast.errorOccurred.present()
+                    toastManager.toast = .errorOccurred
                 }
             }
         }

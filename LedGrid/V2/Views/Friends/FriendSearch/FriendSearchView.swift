@@ -15,6 +15,8 @@ struct FriendSearchView: View {
     @State private var results: [APIUser] = []
     @Query private var requests: [FriendRequest] = []
     @Query private var friends: [Friend] = []
+    @Environment(ToastManager.self) var toastManager
+
 
     let searchTextPublisher = PassthroughSubject<String, Never>()
 
@@ -46,13 +48,13 @@ struct FriendSearchView: View {
         Task {
             do {
                 try await DataLayer().sendFriendRequest(to: userId)
-//                await MainActor.run {
-//                    Toast.friendInviteSent.present()
-//                }
+                await MainActor.run {
+                    toastManager.toast = .friendInviteSent
+                }
             } catch {
                 print(error)
                 await MainActor.run {
-                    Toast.errorOccurred.present()
+                    toastManager.toast = .errorOccurred
                 }
             }
         }

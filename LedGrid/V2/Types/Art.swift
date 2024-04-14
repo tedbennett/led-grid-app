@@ -100,7 +100,7 @@ class ReceivedDrawing: Drawing {
         opened = false
     }
 
-    init?(from drawing: APIDrawing) {
+    init?(from drawing: APIDrawing, opened: Bool = false) {
         id = drawing.id
         updatedAt = drawing.updatedAt
         createdAt = drawing.createdAt
@@ -110,7 +110,7 @@ class ReceivedDrawing: Drawing {
             return nil
         }
         serializedGrid = serialized
-        opened = false
+        self.opened = opened
     }
 }
 
