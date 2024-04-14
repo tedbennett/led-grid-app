@@ -76,6 +76,18 @@ class MyAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDe
         withCompletionHandler completionHandler:
         @escaping (UNNotificationPresentationOptions) -> Void
     ) {
+        print("Received notification")
+        if let type = notification.request.content.userInfo["type"] as? NotificationType {
+            switch type {
+            case .drawing:
+                let since = LocalStorage.fetchDate
+                Task {
+                    try await DataLayer().importReceivedDrawings(since: since)
+                    LocalStorage.fetchDate = .now
+                }
+            default: break
+            }
+        }
         completionHandler([.banner, .sound, .badge])
     }
 
@@ -95,4 +107,11 @@ class MyAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDe
             }
         }
     }
+}
+
+enum NotificationType: String {
+    case requestSent = "FriendRequestSent"
+    case requestAccepted = "FriendRequestAccepted"
+    case drawing = "Drawing"
+    case reaction = "Reaction"
 }
