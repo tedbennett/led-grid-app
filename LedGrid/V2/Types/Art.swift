@@ -19,6 +19,14 @@ class SentDrawing: Drawing {
     var receivers: [Friend]
     var updatedAt: Date?
     var createdAt: Date
+    var opened: Bool {
+        get {
+            true
+        }
+        set {}
+    }
+
+    var sender: Friend? { nil }
 
     var serializedGrid: Data
     // Cached
@@ -111,6 +119,15 @@ final class DraftDrawing: Drawing {
     @Attribute(.unique) var id: String
     var updatedAt: Date
     var createdAt: Date
+    // Fields to conform with Drawing
+    var opened: Bool {
+        get {
+            true
+        }
+        set {}
+    }
+
+    var sender: Friend? { nil }
 
     private var serializedGrid: Data
     // Cached

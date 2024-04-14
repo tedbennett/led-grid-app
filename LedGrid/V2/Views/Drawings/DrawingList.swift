@@ -10,6 +10,8 @@ import SwiftUI
 protocol Drawing: Identifiable {
     var id: String { get set }
     var grid: Grid { get set }
+    var opened: Bool { get set }
+    var sender: Friend? { get }
 }
 
 struct DrawingList: View {
@@ -26,20 +28,31 @@ struct DrawingList: View {
         ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(Array(drawings.enumerated()), id: \.element.id) { index, drawing in
-                    GridView(grid: drawing.grid)
-                        .aspectRatio(contentMode: .fit)
-//                        .blur(radius: 20)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(
-                                    Color.gray.opacity(0.2), lineWidth: 1
-                                )
-                        )
-                        .padding(1)
-                        .onTapGesture {
-                            onSelectAtIndex(index)
+                    VStack(alignment: .center) {
+                        GridView(grid: drawing.grid)
+                            .aspectRatio(contentMode: .fit)
+                            .blur(radius: drawing.opened ? 0 : 20)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(
+                                        Color.gray.opacity(0.2), lineWidth: 1
+                                    )
+                            )
+                            .overlay(
+                                Image(systemName: "eye")
+                                    .foregroundStyle(.gray)
+                                    .opacity(drawing.opened ? 0 : 1))
+                            .font(.title)
+                            .padding(1)
+                            .onTapGesture {
+                                onSelectAtIndex(index)
+                            }
+                        if let friend = drawing.sender {
+                            Text("From \(friend.name ?? friend.username)").foregroundStyle(.secondary).italic().font(.caption)
+                                .multilineTextAlignment(.center)
                         }
+                    }
                 }
             }
         }
