@@ -37,6 +37,7 @@ struct FriendsView: View {
     @State var showAllFriends = false
     @State var showAllSent = false
     @State var showAllReceived = false
+    @State var loadingRequest: String?
     @Environment(\.toast) var toast
 
     var sent: [FriendRequest] {
@@ -48,10 +49,14 @@ struct FriendsView: View {
     }
 
     func updateRequest(id: String, accept: Bool) {
+        loadingRequest = id
         Task {
             try await API.updateFriendRequest(id, status: accept ? .accepted : .revoked)
             let dataLayer = DataLayer()
             try await dataLayer.refreshFriends()
+            await MainActor.run {
+                loadingRequest = nil
+            }
         }
     }
 
@@ -59,19 +64,23 @@ struct FriendsView: View {
         List {
             CardList(items: received, title: "Received Friend Requests") { id in
                 HStack(spacing: 20) {
-                    Menu {
-                        Button {
-                            updateRequest(id: id, accept: true)
+                    if id == loadingRequest {
+                        ProgressView()
+                    } else {
+                        Menu {
+                            Button {
+                                updateRequest(id: id, accept: true)
+                            } label: {
+                                Label("Accept", systemImage: "checkmark")
+                            }
+                            Button {
+                                updateRequest(id: id, accept: false)
+                            } label: {
+                                Label("Dismiss", systemImage: "xmark")
+                            }
                         } label: {
-                            Label("Accept", systemImage: "checkmark")
-                        }
-                        Button {
-                            updateRequest(id: id, accept: false)
-                        } label: {
-                            Label("Dismiss", systemImage: "xmark")
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis")
+                            Image(systemName: "ellipsis")
+                        }.disabled(loadingRequest != nil)
                     }
                     
                 }
