@@ -8,6 +8,12 @@
 import SwiftData
 import SwiftUI
 
+func initialColor() -> Color {
+    let colors = [Color.green, Color.blue, Color.red, Color.yellow, Color.orange, Color.purple]
+    let index = Int.random(in: 0 ... colors.count)
+    return colors[index]
+}
+
 struct DrawView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.colorScheme) private var colorScheme
@@ -21,8 +27,8 @@ struct DrawView: View {
 
     @State private var isSending = false
 
-    @State private var color = Color.green
-    @State private var prevColor = Color.green
+    @State private var color = initialColor()
+    @State private var prevColor: Color?
     @State private var recentColors: [Color] = []
 
     @State private var undoStack: [Grid] = []
@@ -31,7 +37,7 @@ struct DrawView: View {
     func handleGridChange(_ newGrid: Grid) {
         pushUndo(newGrid)
         if color != prevColor {
-            if !recentColors.contains(where: { $0.hex == prevColor.hex }) {
+            if let prevColor = prevColor, !recentColors.contains(where: { $0.hex == prevColor.hex }) {
                 var recents = Array(recentColors.prefix(4))
                 recents.insert(prevColor, at: 0)
                 withAnimation {
@@ -132,4 +138,5 @@ struct DrawView: View {
 #Preview {
     DrawView {}
         .modelContainer(PreviewStore.container)
+        .environment(ToastManager())
 }
