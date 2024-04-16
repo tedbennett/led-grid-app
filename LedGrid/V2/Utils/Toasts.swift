@@ -13,13 +13,14 @@ enum Toast {
     case signInSuccess
     case signInFailed
     case logoutSuccess
+    case deleteSuccess
     case sentDrawingSuccess
     case sentDrawingFailed
     case friendInviteSent
     case friendRequestAccepted
     case friendRequestRejected
-    case errorOccurred
     case profileUpdated
+    case errorOccurred
 
     func alert() -> AlertToast {
         switch self {
@@ -43,6 +44,8 @@ enum Toast {
             return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Friend request accepted")
         case .friendRequestRejected:
             return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Friend request dismissed")
+        case .deleteSuccess:
+            return AlertToast(displayMode: .hud, type: .complete(.primary), title: "Account deleted")
         }
     }
 }

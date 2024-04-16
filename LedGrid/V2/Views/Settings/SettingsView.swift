@@ -19,6 +19,7 @@ struct SettingsView: View {
     @State private var isLoading = false
 
     @State private var usernameOK = true
+    @State private var showDeleteAlert = false
 
     var canSave: Bool {
         // Invalid/Taken username
@@ -53,6 +54,17 @@ struct SettingsView: View {
         }
     }
 
+    func deleteUser() {
+        Task {
+            try await API.deleteMe()
+            await MainActor.run {
+                toastManager.toast = .logoutSuccess
+                NotificationCenter.default.post(name: .logout, object: nil)
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+    }
+
     var body: some View {
         Form {
             Section("Username") {
@@ -73,8 +85,7 @@ struct SettingsView: View {
                 }
 
                 Button {
-                    NotificationCenter.default.post(name: .logout, object: nil)
-                    presentationMode.wrappedValue.dismiss()
+                    showDeleteAlert.toggle()
                 } label: {
                     Text("Delete Account")
                         .tint(.red)
@@ -99,11 +110,16 @@ struct SettingsView: View {
             name = user.name ?? ""
             username = user.username
         }
+        .alert("Delete account?", isPresented: $showDeleteAlert) {
+            Button("Delete", role: .destructive) { deleteUser() }
+        } message: {
+            Text("This action cannot be reversed.")
+        }
     }
 }
 
 #Preview {
-    SettingsView(user: APIUser.example)
+    SettingsView(user: APIUser.example).environment(ToastManager())
 }
 
 extension APIUser {
