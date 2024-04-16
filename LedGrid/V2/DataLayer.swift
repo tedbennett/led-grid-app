@@ -67,7 +67,8 @@ struct DataLayer {
         try await API.sendDrawing(grid, to: friends)
         let drawings = try await API.getSentDrawings(since: now)
         try await container.insertSentDrawings(drawings)
-        _ = try await container.createDraft()
+        // TODO: Removed creating draft on send
+        //_ = try await container.createDraft()
     }
 
     func sendFriendRequest(to userId: String) async throws {
