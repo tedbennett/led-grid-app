@@ -18,6 +18,7 @@ struct AppV2: App {
     @State private var showToast = false
     @State private var currentToast: Toast?
     @State private var presentSignIn = false
+    @Environment(\.scenePhase) var scenePhase
 
     var body: some Scene {
         WindowGroup {
@@ -28,6 +29,15 @@ struct AppV2: App {
                 }
                 .fullScreenCover(isPresented: $presentSignIn) {
                     SignIn()
+                }
+                .onChange(of: scenePhase) { _, newPhase in
+                    if newPhase == .active {
+                        let since = LocalStorage.fetchDate
+                        Task {
+                            try await DataLayer().importReceivedDrawings(since: since, opened: false)
+                            LocalStorage.fetchDate = .now
+                        }
+                    }
                 }
 
         }.modelContainer(Container.modelContainer)
