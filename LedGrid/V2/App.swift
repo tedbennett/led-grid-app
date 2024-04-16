@@ -79,8 +79,11 @@ class MyAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDe
         @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         print("Received notification")
-        if let type = notification.request.content.userInfo["type"] as? NotificationType {
-            switch type {
+        if let string = notification.request.content.userInfo["payload"] as? String,
+           let data = string.data(using: .utf8),
+           let payload = try? JSONDecoder().decode(Payload.self, from: data)
+        {
+            switch payload.type {
             case .drawing:
                 let since = LocalStorage.fetchDate
                 Task {
@@ -111,9 +114,13 @@ class MyAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDe
     }
 }
 
-enum NotificationType: String {
+enum NotificationType: String, Codable {
     case requestSent = "FriendRequestSent"
     case requestAccepted = "FriendRequestAccepted"
     case drawing = "Drawing"
     case reaction = "Reaction"
+}
+
+struct Payload: Codable {
+    var type: NotificationType
 }

@@ -85,6 +85,15 @@ struct Home: View {
                             .scrollTargetBehavior(.paging).toolbar(.hidden)
                             .scrollBounceBehavior(.basedOnSize)
                             .frame(maxHeight: .infinity)
+                            .refreshable {
+                                do {
+                                    let since = LocalStorage.fetchDate
+                                    try await DataLayer().importReceivedDrawings(since: since, opened: false)
+                                    LocalStorage.fetchDate = .now
+                                } catch {
+                                    logger.error("\(error)")
+                                }
+                            }
                     }
                 }.ignoresSafeArea()
             }
@@ -93,7 +102,6 @@ struct Home: View {
                 _ in
                 updateFromServer(fetchSent: true)
                 toastManager.toast = .signInSuccess
-
             }
             .onReceive(NotificationCenter.default.publisher(for: Notification.Name.logout)) {
                 _ in
@@ -105,10 +113,11 @@ struct Home: View {
 }
 
 #Preview {
-    Home()
+    Home().environment(ToastManager())
+        .modelContainer(PreviewStore.container)
 }
 
 @Observable
 class ToastManager {
-    var toast: Toast? = nil
+    var toast: Toast?
 }
