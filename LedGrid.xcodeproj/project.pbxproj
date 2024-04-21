@@ -28,8 +28,6 @@
 		1F7C1B7F2B784291005FF519 /* UsernameEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B7E2B784291005FF519 /* UsernameEditor.swift */; };
 		1F7C1B842B78E5E0005FF519 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B832B78E5E0005FF519 /* FriendsView.swift */; };
 		1F7C1B932B79263C005FF519 /* FriendCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B922B79263C005FF519 /* FriendCard.swift */; };
-		1F86FFF62B6658C9000F4667 /* DotsSpaced.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */; };
-		1F86FFF82B66590A000F4667 /* Dots.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F86FFF72B66590A000F4667 /* Dots.ttf */; };
 		1F86FFFB2B666625000F4667 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86FFFA2B666625000F4667 /* SettingsView.swift */; };
 		1F9209812B66766B001A9B83 /* openapi-generator-config.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 1F9209802B66766B001A9B83 /* openapi-generator-config.yaml */; };
 		1F9209832B6676C9001A9B83 /* openapi.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 1F9209822B6676C9001A9B83 /* openapi.yaml */; };
@@ -39,6 +37,7 @@
 		1F945C612A34B79700300416 /* DrawingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C602A34B79700300416 /* DrawingsView.swift */; };
 		1FA04A5C2B82CA3400BCF8A1 /* PixeeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA04A5B2B82CA3400BCF8A1 /* PixeeUITestsLaunchTests.swift */; };
 		1FA04A652B82CE1400BCF8A1 /* PixeeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA04A592B82CA3400BCF8A1 /* PixeeUITests.swift */; };
+		1FA35BA02BD4FC9200B6B1C0 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA35B9F2BD4FC9200B6B1C0 /* Delegate.swift */; };
 		1FB355412BBCF1D200BBD96E /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB355402BBCF1D200BBD96E /* Spinner.swift */; };
 		1FC3951F2B8106C900F074EB /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3951E2B8106C900F074EB /* Keychain.swift */; };
 		1FC395222B81076400F074EB /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC395212B81076400F074EB /* SignIn.swift */; };
@@ -47,7 +46,7 @@
 		1FD3A6492A336513005CCB9A /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A6482A336513005CCB9A /* Grid.swift */; };
 		1FD3A64B2A33672D005CCB9A /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A64A2A33672D005CCB9A /* BottomBarView.swift */; };
 		1FD3A64D2A33681D005CCB9A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A64C2A33681D005CCB9A /* HeaderView.swift */; };
-		1FD3A6502A345513005CCB9A /* Art.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A64F2A345513005CCB9A /* Art.swift */; };
+		1FD3A6502A345513005CCB9A /* Drawings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A64F2A345513005CCB9A /* Drawings.swift */; };
 		1FD3A6522A345561005CCB9A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A6512A345561005CCB9A /* User.swift */; };
 		1FD3A6562A346A8A005CCB9A /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A6552A346A8A005CCB9A /* DrawView.swift */; };
 		1FD8118F28DCF6A600D3F95C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 1FD8118E28DCF6A600D3F95C /* Sentry */; };
@@ -114,8 +113,6 @@
 		1F7C1B7E2B784291005FF519 /* UsernameEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameEditor.swift; sourceTree = "<group>"; };
 		1F7C1B832B78E5E0005FF519 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		1F7C1B922B79263C005FF519 /* FriendCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCard.swift; sourceTree = "<group>"; };
-		1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DotsSpaced.ttf; sourceTree = "<group>"; };
-		1F86FFF72B66590A000F4667 /* Dots.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dots.ttf; sourceTree = "<group>"; };
 		1F86FFFA2B666625000F4667 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1F9209802B66766B001A9B83 /* openapi-generator-config.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "openapi-generator-config.yaml"; sourceTree = "<group>"; };
 		1F9209822B6676C9001A9B83 /* openapi.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = openapi.yaml; sourceTree = "<group>"; };
@@ -124,6 +121,7 @@
 		1FA04A572B82CA3400BCF8A1 /* PixeeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixeeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA04A592B82CA3400BCF8A1 /* PixeeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeUITests.swift; sourceTree = "<group>"; };
 		1FA04A5B2B82CA3400BCF8A1 /* PixeeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1FA35B9F2BD4FC9200B6B1C0 /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		1FB355402BBCF1D200BBD96E /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		1FC3951E2B8106C900F074EB /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		1FC395212B81076400F074EB /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
@@ -131,7 +129,7 @@
 		1FD3A6482A336513005CCB9A /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		1FD3A64A2A33672D005CCB9A /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		1FD3A64C2A33681D005CCB9A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		1FD3A64F2A345513005CCB9A /* Art.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Art.swift; sourceTree = "<group>"; };
+		1FD3A64F2A345513005CCB9A /* Drawings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawings.swift; sourceTree = "<group>"; };
 		1FD3A6512A345561005CCB9A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1FD3A6552A346A8A005CCB9A /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		5799B42227F0D7E60039F621 /* LedGrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LedGrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,19 +200,6 @@
 			path = PixeeTests;
 			sourceTree = "<group>";
 		};
-		1F3F9FD62A324DEC00376260 /* V2 */ = {
-			isa = PBXGroup;
-			children = (
-				1F3F9FD72A324DFD00376260 /* App.swift */,
-				1F7031862B6AF98000B935F3 /* Network.swift */,
-				1F7031952B70022700B935F3 /* DataLayer.swift */,
-				1FD3A6452A334FEC005CCB9A /* Views */,
-				1FD3A64E2A34550A005CCB9A /* Types */,
-				1F7C1B742B77CD25005FF519 /* Utils */,
-			);
-			path = V2;
-			sourceTree = "<group>";
-		};
 		1F4C4FAE2B87F56200906CDC /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +268,16 @@
 			path = PixeeUITests;
 			sourceTree = "<group>";
 		};
+		1FA35B9E2BD4FC8100B6B1C0 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				1F3F9FD72A324DFD00376260 /* App.swift */,
+				1F3FA0122A3258A200376260 /* Home.swift */,
+				1FA35B9F2BD4FC9200B6B1C0 /* Delegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		1FB3553E2BBCF13B00BBD96E /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,26 +289,26 @@
 		1FD3A6452A334FEC005CCB9A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1F3FA0122A3258A200376260 /* Home.swift */,
-				1FB3553E2BBCF13B00BBD96E /* Common */,
-				1F4C4FAE2B87F56200906CDC /* SignIn */,
-				1F7C1B822B78E5D4005FF519 /* Friends */,
+				1FA35B9E2BD4FC8100B6B1C0 /* App */,
 				1F0E66352B7954DD005F8D1C /* Draw */,
 				1F70318D2B6FF60D00B935F3 /* Drawings */,
+				1F7C1B822B78E5D4005FF519 /* Friends */,
 				1F86FFF92B66661C000F4667 /* Settings */,
+				1F4C4FAE2B87F56200906CDC /* SignIn */,
+				1FB3553E2BBCF13B00BBD96E /* Common */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		1FD3A64E2A34550A005CCB9A /* Types */ = {
+		1FD3A64E2A34550A005CCB9A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1FD3A64F2A345513005CCB9A /* Art.swift */,
+				1FD3A64F2A345513005CCB9A /* Drawings.swift */,
 				1FD3A6512A345561005CCB9A /* User.swift */,
 				1FD3A6482A336513005CCB9A /* Grid.swift */,
 				1F7C1B7B2B77EF04005FF519 /* FriendRequest.swift */,
 			);
-			path = Types;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		5799B41927F0D7E60039F621 = {
@@ -342,11 +337,13 @@
 			children = (
 				57A9296A28031F790096CC96 /* Info.plist */,
 				57A929692802BBAA0096CC96 /* LedGrid.entitlements */,
-				1F3F9FD62A324DEC00376260 /* V2 */,
+				1F7031862B6AF98000B935F3 /* Network.swift */,
+				1F7031952B70022700B935F3 /* DataLayer.swift */,
+				1FD3A6452A334FEC005CCB9A /* Views */,
+				1FD3A64E2A34550A005CCB9A /* Models */,
+				1F7C1B742B77CD25005FF519 /* Utils */,
 				9F28FB7B28B29E8900403F4D /* Extensions */,
 				5799B42927F0D7E70039F621 /* Assets.xcassets */,
-				1F86FFF72B66590A000F4667 /* Dots.ttf */,
-				1F86FFF52B6658C9000F4667 /* DotsSpaced.ttf */,
 				1F0E663E2B799E5C005F8D1C /* FiraMonoNerdFont-Regular.otf */,
 				1F9209802B66766B001A9B83 /* openapi-generator-config.yaml */,
 				1F9209822B6676C9001A9B83 /* openapi.yaml */,
@@ -524,8 +521,6 @@
 			files = (
 				5799B42D27F0D7E70039F621 /* Preview Assets.xcassets in Resources */,
 				1F0E663F2B799E5C005F8D1C /* FiraMonoNerdFont-Regular.otf in Resources */,
-				1F86FFF82B66590A000F4667 /* Dots.ttf in Resources */,
-				1F86FFF62B6658C9000F4667 /* DotsSpaced.ttf in Resources */,
 				1F9209812B66766B001A9B83 /* openapi-generator-config.yaml in Resources */,
 				5799B42A27F0D7E70039F621 /* Assets.xcassets in Resources */,
 				1F9209832B6676C9001A9B83 /* openapi.yaml in Resources */,
@@ -562,6 +557,7 @@
 				1F3FA0132A3258A200376260 /* Home.swift in Sources */,
 				1FD3A6562A346A8A005CCB9A /* DrawView.swift in Sources */,
 				1F7C1B722B77CBB3005FF519 /* FriendSearchView.swift in Sources */,
+				1FA35BA02BD4FC9200B6B1C0 /* Delegate.swift in Sources */,
 				1F7C1B792B77D525005FF519 /* UserCard.swift in Sources */,
 				1F7031962B70022700B935F3 /* DataLayer.swift in Sources */,
 				1F7C1B7F2B784291005FF519 /* UsernameEditor.swift in Sources */,
@@ -585,7 +581,7 @@
 				1F7031872B6AF98000B935F3 /* Network.swift in Sources */,
 				1F4C4FB12B87F60400906CDC /* UsernameInput.swift in Sources */,
 				1F945C612A34B79700300416 /* DrawingsView.swift in Sources */,
-				1FD3A6502A345513005CCB9A /* Art.swift in Sources */,
+				1FD3A6502A345513005CCB9A /* Drawings.swift in Sources */,
 				9F28FB9628B2A11F00403F4D /* Date.swift in Sources */,
 				9F28FB7D28B29E9500403F4D /* Color.swift in Sources */,
 				1F945C5F2A348D8000300416 /* GridView.swift in Sources */,

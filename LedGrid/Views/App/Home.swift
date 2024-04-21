@@ -116,8 +116,3 @@ struct Home: View {
     Home().environment(ToastManager())
         .modelContainer(PreviewStore.container)
 }
-
-@Observable
-class ToastManager {
-    var toast: Toast?
-}

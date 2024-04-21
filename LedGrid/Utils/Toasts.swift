@@ -8,6 +8,7 @@
 import AlertToast
 import Foundation
 import Swift
+import SwiftUI
 
 enum Toast {
     case signInSuccess
@@ -55,4 +56,30 @@ extension Notification.Name {
     static var handleSignIn = Notification.Name("HANDLE_SIGN_IN")
     static var logout = Notification.Name("LOGOUT")
     static var navigate = Notification.Name("NAVIGATE")
+}
+
+struct PresentToast: ViewModifier {
+    @Binding var toast: Toast?
+
+    func body(content: Content) -> some View {
+        content
+            .toast(isPresenting: .init(get: { toast != nil }, set: { if $0 == false { toast = nil }}), offsetY: 20) {
+                if let toast = toast {
+                    return toast.alert()
+                } else {
+                    return AlertToast(displayMode: .hud, type: .loading)
+                }
+            }
+    }
+}
+
+extension View {
+    func toast(_ toast: Binding<Toast?>) -> some View {
+        modifier(PresentToast(toast: toast))
+    }
+}
+
+@Observable
+class ToastManager {
+    var toast: Toast?
 }

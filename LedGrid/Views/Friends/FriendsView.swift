@@ -5,30 +5,8 @@
 //  Created by Ted Bennett on 11/02/2024.
 //
 
-import AlertToast
 import SwiftData
 import SwiftUI
-
-struct PresentToast: ViewModifier {
-    @Binding var toast: Toast?
-
-    func body(content: Content) -> some View {
-        content
-            .toast(isPresenting: .init(get: { toast != nil }, set: { if $0 == false { toast = nil }}), offsetY: 20) {
-                if let toast = toast {
-                    return toast.alert()
-                } else {
-                    return AlertToast(displayMode: .hud, type: .loading)
-                }
-            }
-    }
-}
-
-extension View {
-    func toast(_ toast: Binding<Toast?>) -> some View {
-        modifier(PresentToast(toast: toast))
-    }
-}
 
 struct FriendsView: View {
     var user: APIUser

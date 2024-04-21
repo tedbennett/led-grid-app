@@ -69,7 +69,7 @@ struct FriendSearchView: View {
             HStack {
                 Image(systemName: "magnifyingglass")
                     .tint(.secondary)
-                TextField("Search", text: $searchText)
+                TextField("Search for username", text: $searchText)
                     .padding(.vertical, 10)
                 if !searchText.isEmpty {
                     Button {
