@@ -10,7 +10,7 @@ import SwiftUI
 
 func initialColor() -> Color {
     let colors = [Color.green, Color.blue, Color.red, Color.yellow, Color.orange, Color.purple]
-    let index = Int.random(in: 0 ... colors.count)
+    let index = Int.random(in: 0 ..< colors.count)
     return colors[index]
 }
 

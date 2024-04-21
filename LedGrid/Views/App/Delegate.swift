@@ -5,6 +5,7 @@
 //  Created by Ted Bennett on 21/04/2024.
 //
 
+import Sentry
 import UIKit
 import UserNotifications
 
@@ -19,7 +20,6 @@ struct Payload: Codable {
     var type: NotificationType
 }
 
-
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     func application(
         _ application: UIApplication,
@@ -32,6 +32,19 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             Keychain.set(accessToken, for: .apiKey)
         }
 
+        #if DEBUG
+        SentrySDK.start { options in
+            options.dsn = "https://e29612af279847dda6037ba43aa31e1a@o1421379.ingest.sentry.io/6769769"
+            options.releaseName = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            options.environment = Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt" ? "testflight" : "production"
+            options.tracesSampleRate = 0.5
+            options.attachViewHierarchy = true
+            options.enableMetricKit = true
+            options.enableTimeToFullDisplayTracing = true
+            options.swiftAsyncStacktraces = true
+            options.enableAppLaunchProfiling = true
+        }
+        #endif
         UNUserNotificationCenter.current().delegate = self
 
         if Keychain.apiKey != nil {
@@ -44,6 +57,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 )
             UIApplication.shared.registerForRemoteNotifications()
         }
+
         return true
     }
 

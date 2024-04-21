@@ -10,6 +10,7 @@ import HTTPTypes
 import OpenAPIRuntime
 import OpenAPIURLSession
 import OSLog
+import Sentry
 
 enum ApiError: Error {
     case forbidden
@@ -17,6 +18,25 @@ enum ApiError: Error {
     case jsonDecodingError(Error)
     case undocumented(Int, UndocumentedPayload)
     case unknown(Error)
+    
+    public var errorDescription: String? {
+        switch self {
+        case .forbidden:
+            return NSLocalizedString("API returned status Forbidden", comment: "Status Code 403")
+        case .notFound:
+            return NSLocalizedString("API returned status Not Found", comment: "Status Code 404")
+
+        case .jsonDecodingError(let error):
+            return NSLocalizedString("Failed to decode json response", comment: "\(error.localizedDescription)")
+
+        case .undocumented(let status, let response):
+            return NSLocalizedString("API returned unexpected status code \(status)", comment: "Response body: \(String(describing: response.body))")
+
+        case .unknown(let error):
+            return NSLocalizedString("An unknown error occurred", comment: "\(error.localizedDescription)")
+
+        }
+    }
 }
 
 enum FriendRequestStatus: String, Codable {
@@ -49,15 +69,19 @@ struct API {
             LocalStorage.user = nil
         // Logout
         case .notFound:
+            SentrySDK.capture(error: e)
             // do nothing
             break
         case .jsonDecodingError:
+            SentrySDK.capture(error: e)
             // rethrow
             break
         case .undocumented:
+            SentrySDK.capture(error: e)
             networkLogger.error("Undocumented response from API")
         // rethrow
         case .unknown:
+            SentrySDK.capture(error: e)
             // rethrow
             break
         }
