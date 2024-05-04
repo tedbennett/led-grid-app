@@ -8,6 +8,13 @@
 import Foundation
 import SwiftData
 
+protocol Drawing: Identifiable {
+    var id: String { get set }
+    var grid: Grid { get set }
+    var opened: Bool { get set }
+    var sender: Friend? { get }
+}
+
 struct GridEncoding {
     static let encoder = JSONEncoder()
     static let decoder = JSONDecoder()
@@ -44,22 +51,13 @@ class SentDrawing: Drawing {
         }
     }
 
-    init(id: String = UUID().uuidString, grid: Grid, receivers: [Friend]) {
+    init?(id: String, grid: [Grid], createdAt: Date, updatedAt: Date?) {
         self.id = id
-        self.receivers = receivers
-        createdAt = .now
-        updatedAt = nil
-        _grid = [grid]
-        serializedGrid = try! GridEncoding.encoder.encode([grid])
-    }
-
-    init?(from drawing: APIDrawing) {
-        id = drawing.id
-        updatedAt = drawing.updatedAt
-        createdAt = drawing.createdAt
-        _grid = drawing.grid
+        self.updatedAt = updatedAt
+        self.createdAt = createdAt
+        _grid = grid
         receivers = []
-        guard let serialized = try? GridEncoding.encoder.encode(drawing.grid) else {
+        guard let serialized = try? GridEncoding.encoder.encode(grid) else {
             return nil
         }
         serializedGrid = serialized
@@ -76,7 +74,7 @@ class ReceivedDrawing: Drawing {
 
     var serializedGrid: Data
     // Cached
-    @Transient private var _grid: [Grid]?
+    @Transient var _grid: [Grid]?
     @Transient var grid: Grid {
         get {
             if let grid = _grid { return grid[0] }
@@ -90,23 +88,13 @@ class ReceivedDrawing: Drawing {
         }
     }
 
-    init(id: String = UUID().uuidString, grid: Grid) {
+    init?(id: String, grid: [Grid], createdAt: Date, updatedAt: Date?, opened: Bool) {
         self.id = id
-        updatedAt = nil
-        createdAt = .now
+        self.updatedAt = updatedAt
+        self.createdAt = createdAt
         sender = nil
-        _grid = [grid]
-        serializedGrid = try! GridEncoding.encoder.encode([grid])
-        opened = false
-    }
-
-    init?(from drawing: APIDrawing, opened: Bool = false) {
-        id = drawing.id
-        updatedAt = drawing.updatedAt
-        createdAt = drawing.createdAt
-        sender = nil
-        _grid = drawing.grid
-        guard let serialized = try? GridEncoding.encoder.encode(drawing.grid) else {
+        _grid = grid
+        guard let serialized = try? GridEncoding.encoder.encode(grid) else {
             return nil
         }
         serializedGrid = serialized

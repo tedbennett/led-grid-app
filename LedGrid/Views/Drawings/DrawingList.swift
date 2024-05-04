@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-protocol Drawing: Identifiable {
-    var id: String { get set }
-    var grid: Grid { get set }
-    var opened: Bool { get set }
-    var sender: Friend? { get }
-}
 
 struct DrawingList: View {
     let columns = [

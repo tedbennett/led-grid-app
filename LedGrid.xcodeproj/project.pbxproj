@@ -11,6 +11,20 @@
 		1F0E663F2B799E5C005F8D1C /* FiraMonoNerdFont-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F0E663E2B799E5C005F8D1C /* FiraMonoNerdFont-Regular.otf */; };
 		1F1041F92BA5060400624B39 /* Toasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1041F82BA5060400624B39 /* Toasts.swift */; };
 		1F1A16DC290C13D600033745 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1A16DB290C13D600033745 /* View.swift */; };
+		1F3EF9532BE4D68D00D9DAC0 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F317B7528A9414C00105E8C /* WidgetKit.framework */; };
+		1F3EF9542BE4D68D00D9DAC0 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F317B7728A9414C00105E8C /* SwiftUI.framework */; };
+		1F3EF9572BE4D68D00D9DAC0 /* DrawingWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3EF9562BE4D68D00D9DAC0 /* DrawingWidgetBundle.swift */; };
+		1F3EF9592BE4D68D00D9DAC0 /* DrawingWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3EF9582BE4D68D00D9DAC0 /* DrawingWidget.swift */; };
+		1F3EF95B2BE4D68E00D9DAC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F3EF95A2BE4D68E00D9DAC0 /* Assets.xcassets */; };
+		1F3EF95F2BE4D68E00D9DAC0 /* DrawingWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1F3EF9522BE4D68D00D9DAC0 /* DrawingWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1F3EF9632BE4D69900D9DAC0 /* Drawings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A64F2A345513005CCB9A /* Drawings.swift */; };
+		1F3EF9642BE4D6A200D9DAC0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A6512A345561005CCB9A /* User.swift */; };
+		1F3EF9652BE4D6A900D9DAC0 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD3A6482A336513005CCB9A /* Grid.swift */; };
+		1F3EF9672BE4DE0400D9DAC0 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F945C5E2A348D8000300416 /* GridView.swift */; };
+		1F3EF96A2BE4DE6800D9DAC0 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3EF9692BE4DE6800D9DAC0 /* Container.swift */; };
+		1F3EF96B2BE4DE9A00D9DAC0 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3EF9692BE4DE6800D9DAC0 /* Container.swift */; };
+		1F3EF96C2BE4DF6100D9DAC0 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F28FB7C28B29E9500403F4D /* Color.swift */; };
+		1F3EF96E2BE4DFE000D9DAC0 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C1B7B2B77EF04005FF519 /* FriendRequest.swift */; };
 		1F3F9FD02A324DC800376260 /* PixeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FCF2A324DC800376260 /* PixeeTests.swift */; };
 		1F3F9FD82A324DFD00376260 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F9FD72A324DFD00376260 /* App.swift */; };
 		1F3FA0132A3258A200376260 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3FA0122A3258A200376260 /* Home.swift */; };
@@ -61,6 +75,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1F3EF95D2BE4D68E00D9DAC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5799B41A27F0D7E60039F621 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F3EF9512BE4D68D00D9DAC0;
+			remoteInfo = DrawingWidgetExtension;
+		};
 		1F3F9FD12A324DC800376260 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5799B41A27F0D7E60039F621 /* Project object */;
@@ -84,6 +105,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				1F3EF95F2BE4D68E00D9DAC0 /* DrawingWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +117,13 @@
 		1F0E663E2B799E5C005F8D1C /* FiraMonoNerdFont-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMonoNerdFont-Regular.otf"; sourceTree = "<group>"; };
 		1F1041F82BA5060400624B39 /* Toasts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toasts.swift; sourceTree = "<group>"; };
 		1F1A16DB290C13D600033745 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		1F3EF9522BE4D68D00D9DAC0 /* DrawingWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DrawingWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F3EF9562BE4D68D00D9DAC0 /* DrawingWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingWidgetBundle.swift; sourceTree = "<group>"; };
+		1F3EF9582BE4D68D00D9DAC0 /* DrawingWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingWidget.swift; sourceTree = "<group>"; };
+		1F3EF95A2BE4D68E00D9DAC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1F3EF95C2BE4D68E00D9DAC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F3EF9692BE4DE6800D9DAC0 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		1F3EF9732BE553F600D9DAC0 /* DrawingWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DrawingWidgetExtension.entitlements; sourceTree = "<group>"; };
 		1F3F9FCD2A324DC800376260 /* PixeeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixeeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F3F9FCF2A324DC800376260 /* PixeeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixeeTests.swift; sourceTree = "<group>"; };
 		1F3F9FD72A324DFD00376260 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -149,6 +178,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1F3EF94F2BE4D68D00D9DAC0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F3EF9542BE4D68D00D9DAC0 /* SwiftUI.framework in Frameworks */,
+				1F3EF9532BE4D68D00D9DAC0 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F3F9FCA2A324DC800376260 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -190,6 +228,17 @@
 				1F0E66362B7954E5005F8D1C /* RecentColors.swift */,
 			);
 			path = Draw;
+			sourceTree = "<group>";
+		};
+		1F3EF9552BE4D68D00D9DAC0 /* DrawingWidget */ = {
+			isa = PBXGroup;
+			children = (
+				1F3EF9562BE4D68D00D9DAC0 /* DrawingWidgetBundle.swift */,
+				1F3EF9582BE4D68D00D9DAC0 /* DrawingWidget.swift */,
+				1F3EF95A2BE4D68E00D9DAC0 /* Assets.xcassets */,
+				1F3EF95C2BE4D68E00D9DAC0 /* Info.plist */,
+			);
+			path = DrawingWidget;
 			sourceTree = "<group>";
 		};
 		1F3F9FCE2A324DC800376260 /* PixeeTests */ = {
@@ -314,9 +363,11 @@
 		5799B41927F0D7E60039F621 = {
 			isa = PBXGroup;
 			children = (
+				1F3EF9732BE553F600D9DAC0 /* DrawingWidgetExtension.entitlements */,
 				5799B42427F0D7E60039F621 /* LedGrid */,
 				1F3F9FCE2A324DC800376260 /* PixeeTests */,
 				1FA04A582B82CA3400BCF8A1 /* PixeeUITests */,
+				1F3EF9552BE4D68D00D9DAC0 /* DrawingWidget */,
 				5799B42327F0D7E60039F621 /* Products */,
 				9F4FC810288CA28D00A2603F /* Frameworks */,
 			);
@@ -328,6 +379,7 @@
 				5799B42227F0D7E60039F621 /* LedGrid.app */,
 				1F3F9FCD2A324DC800376260 /* PixeeTests.xctest */,
 				1FA04A572B82CA3400BCF8A1 /* PixeeUITests.xctest */,
+				1F3EF9522BE4D68D00D9DAC0 /* DrawingWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,6 +391,7 @@
 				57A929692802BBAA0096CC96 /* LedGrid.entitlements */,
 				1F7031862B6AF98000B935F3 /* Network.swift */,
 				1F7031952B70022700B935F3 /* DataLayer.swift */,
+				1F3EF9692BE4DE6800D9DAC0 /* Container.swift */,
 				1FD3A6452A334FEC005CCB9A /* Views */,
 				1FD3A64E2A34550A005CCB9A /* Models */,
 				1F7C1B742B77CD25005FF519 /* Utils */,
@@ -387,6 +440,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1F3EF9512BE4D68D00D9DAC0 /* DrawingWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F3EF9622BE4D68E00D9DAC0 /* Build configuration list for PBXNativeTarget "DrawingWidgetExtension" */;
+			buildPhases = (
+				1F3EF94E2BE4D68D00D9DAC0 /* Sources */,
+				1F3EF94F2BE4D68D00D9DAC0 /* Frameworks */,
+				1F3EF9502BE4D68D00D9DAC0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DrawingWidgetExtension;
+			productName = DrawingWidgetExtension;
+			productReference = 1F3EF9522BE4D68D00D9DAC0 /* DrawingWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		1F3F9FCC2A324DC800376260 /* PixeeTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F3F9FD32A324DC800376260 /* Build configuration list for PBXNativeTarget "PixeeTests" */;
@@ -436,6 +506,7 @@
 			);
 			dependencies = (
 				1F9209892B6677E4001A9B83 /* PBXTargetDependency */,
+				1F3EF95E2BE4D68E00D9DAC0 /* PBXTargetDependency */,
 			);
 			name = LedGrid;
 			packageProductDependencies = (
@@ -456,9 +527,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					1F3EF9512BE4D68D00D9DAC0 = {
+						CreatedOnToolsVersion = 15.3;
+					};
 					1F3F9FCC2A324DC800376260 = {
 						CreatedOnToolsVersion = 15.0;
 						TestTargetID = 5799B42127F0D7E60039F621;
@@ -496,11 +570,20 @@
 				5799B42127F0D7E60039F621 /* LedGrid */,
 				1F3F9FCC2A324DC800376260 /* PixeeTests */,
 				1FA04A562B82CA3400BCF8A1 /* PixeeUITests */,
+				1F3EF9512BE4D68D00D9DAC0 /* DrawingWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1F3EF9502BE4D68D00D9DAC0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F3EF95B2BE4D68E00D9DAC0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F3F9FCB2A324DC800376260 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -530,6 +613,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1F3EF94E2BE4D68D00D9DAC0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F3EF9642BE4D6A200D9DAC0 /* User.swift in Sources */,
+				1F3EF9632BE4D69900D9DAC0 /* Drawings.swift in Sources */,
+				1F3EF9592BE4D68D00D9DAC0 /* DrawingWidget.swift in Sources */,
+				1F3EF9652BE4D6A900D9DAC0 /* Grid.swift in Sources */,
+				1F3EF96B2BE4DE9A00D9DAC0 /* Container.swift in Sources */,
+				1F3EF96E2BE4DFE000D9DAC0 /* FriendRequest.swift in Sources */,
+				1F3EF96C2BE4DF6100D9DAC0 /* Color.swift in Sources */,
+				1F3EF9672BE4DE0400D9DAC0 /* GridView.swift in Sources */,
+				1F3EF9572BE4D68D00D9DAC0 /* DrawingWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F3F9FC92A324DC800376260 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -574,6 +673,7 @@
 				1FB355412BBCF1D200BBD96E /* Spinner.swift in Sources */,
 				1F7C1B6C2B77B64E005FF519 /* LocalStorage.swift in Sources */,
 				1FD3A6522A345561005CCB9A /* User.swift in Sources */,
+				1F3EF96A2BE4DE6800D9DAC0 /* Container.swift in Sources */,
 				1F7C1B932B79263C005FF519 /* FriendCard.swift in Sources */,
 				1F7031932B6FF90D00B935F3 /* Header.swift in Sources */,
 				1FD3A64B2A33672D005CCB9A /* BottomBarView.swift in Sources */,
@@ -594,6 +694,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1F3EF95E2BE4D68E00D9DAC0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1F3EF9512BE4D68D00D9DAC0 /* DrawingWidgetExtension */;
+			targetProxy = 1F3EF95D2BE4D68E00D9DAC0 /* PBXContainerItemProxy */;
+		};
 		1F3F9FD22A324DC800376260 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5799B42127F0D7E60039F621 /* LedGrid */;
@@ -611,6 +716,75 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1F3EF9602BE4D68E00D9DAC0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = DrawingWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DrawingWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DrawingWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid.DrawingWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1F3EF9612BE4D68E00D9DAC0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = DrawingWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Y2AMH5S23;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DrawingWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DrawingWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.edwardbennett.LedGrid.DrawingWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		1F3F9FD42A324DC800376260 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -930,6 +1104,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1F3EF9622BE4D68E00D9DAC0 /* Build configuration list for PBXNativeTarget "DrawingWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F3EF9602BE4D68E00D9DAC0 /* Debug */,
+				1F3EF9612BE4D68E00D9DAC0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1F3F9FD32A324DC800376260 /* Build configuration list for PBXNativeTarget "PixeeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

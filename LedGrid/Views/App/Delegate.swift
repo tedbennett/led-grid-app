@@ -8,6 +8,7 @@
 import Sentry
 import UIKit
 import UserNotifications
+import WidgetKit
 
 enum NotificationType: String, Codable {
     case requestSent = "FriendRequestSent"
@@ -61,12 +62,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         return true
     }
 
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification,
-        withCompletionHandler completionHandler:
-        @escaping (UNNotificationPresentationOptions) -> Void
-    ) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
         if let string = notification.request.content.userInfo["payload"] as? String,
            let data = string.data(using: .utf8),
            let payload = try? JSONDecoder().decode(Payload.self, from: data)
@@ -74,14 +74,16 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             switch payload.type {
             case .drawing:
                 let since = LocalStorage.fetchDate
-                Task {
+                do {
                     try await DataLayer().importReceivedDrawings(since: since, opened: false)
                     LocalStorage.fetchDate = .now
+                } catch {
+                    logger.error("\(error)")
                 }
-            default: break
+                default: break
             }
         }
-        completionHandler([.banner, .sound, .badge])
+        return [.banner, .sound, .badge]
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

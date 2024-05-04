@@ -8,6 +8,12 @@
 import Foundation
 import SwiftData
 
+enum FriendRequestStatus: String, Codable {
+    case accepted
+    case revoked
+    case sent
+}
+
 @Model
 class FriendRequest {
     @Attribute(.unique) var id: String = UUID().uuidString
@@ -26,14 +32,21 @@ class FriendRequest {
         }
     }
 
-    init(from request: APIFriendRequest, sent: Bool) {
-        id = request.id
-        userId = request.userId
-        name = request.name
-        username = request.username
+    init(id: String,
+         sent: Bool,
+         userId: String,
+         name: String?,
+         username: String,
+         createdAt: Date,
+         status: String)
+    {
+        self.id = id
+        self.userId = userId
+        self.name = name
+        self.username = username
         self.sent = sent
-        createdAt = request.createdAt
-        _status = request.status.lowercased()
+        self.createdAt = createdAt
+        _status = status.lowercased()
     }
 }
 

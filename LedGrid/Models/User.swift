@@ -19,17 +19,13 @@ class Friend {
     @Relationship(deleteRule: .cascade) var sentArt: [SentDrawing] = []
     @Relationship(deleteRule: .cascade) var receivedArt: [ReceivedDrawing] = []
 
-    init(from friend: APIFriend) {
-        name = friend.name
-        email = friend.email
-        id = friend.id
-        username = friend.username
-        createdAt = friend.createdAt
-        image = friend.image
+    init(name: String?, email: String, id: String, username: String, createdAt: Date, image: String?) {
+        self.name = name
+        self.email = email
+        self.id = id
+        self.username = username
+        self.createdAt = createdAt
+        self.image = image
     }
     
-    static func example() -> Friend {
-        let friend = APIFriend(createdAt: .now, email: "example@email.com", id: UUID().uuidString, username: "username")
-        return .init(from: friend)
-    }
 }

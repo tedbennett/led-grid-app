@@ -18,7 +18,7 @@ enum ApiError: Error {
     case jsonDecodingError(Error)
     case undocumented(Int, UndocumentedPayload)
     case unknown(Error)
-    
+
     public var errorDescription: String? {
         switch self {
         case .forbidden:
@@ -34,15 +34,8 @@ enum ApiError: Error {
 
         case .unknown(let error):
             return NSLocalizedString("An unknown error occurred", comment: "\(error.localizedDescription)")
-
         }
     }
-}
-
-enum FriendRequestStatus: String, Codable {
-    case accepted
-    case revoked
-    case sent
 }
 
 struct API {
@@ -70,12 +63,10 @@ struct API {
         // Logout
         case .notFound:
             SentrySDK.capture(error: e)
-            // do nothing
-            break
+        // do nothing
         case .jsonDecodingError:
             SentrySDK.capture(error: e)
-            // rethrow
-            break
+        // rethrow
         case .undocumented:
             SentrySDK.capture(error: e)
             networkLogger.error("Undocumented response from API")
@@ -83,7 +74,6 @@ struct API {
         case .unknown:
             SentrySDK.capture(error: e)
             // rethrow
-            break
         }
         return e
     }
@@ -433,5 +423,34 @@ struct LoggerMiddleware: ClientMiddleware {
     ) async throws -> (HTTPResponse, HTTPBody?) {
         networkLogger.info("Network operation: \(operationID) \n \(request.method) \(String(describing: request.path))")
         return try await next(request, body, baseURL)
+    }
+}
+
+extension ReceivedDrawing {
+    convenience init?(from drawing: APIDrawing, opened: Bool = false) {
+        self.init(id: drawing.id, grid: drawing.grid, createdAt: drawing.createdAt, updatedAt: drawing.updatedAt, opened: opened)
+    }
+}
+
+extension SentDrawing {
+    convenience init?(from drawing: APIDrawing) {
+        self.init(id: drawing.id, grid: drawing.grid, createdAt: drawing.createdAt, updatedAt: drawing.updatedAt)
+    }
+}
+
+extension Friend {
+    convenience init(from friend: APIFriend) {
+        self.init(name: friend.name, email: friend.email, id: friend.id, username: friend.username, createdAt: friend.createdAt, image: friend.image)
+    }
+
+    static func example() -> Friend {
+        let friend = APIFriend(createdAt: .now, email: "example@email.com", id: UUID().uuidString, username: "username")
+        return .init(from: friend)
+    }
+}
+
+extension FriendRequest {
+    convenience init(from request: APIFriendRequest, sent: Bool) {
+        self.init(id: request.id, sent: sent, userId: request.userId, name: request.name, username: request.username, createdAt: request.createdAt, status: request.status)
     }
 }

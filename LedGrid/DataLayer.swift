@@ -83,26 +83,7 @@ struct DataLayer {
 }
 
 // TODO: Better name
-actor Container: ModelActor {
-    nonisolated let modelContainer: ModelContainer
-    nonisolated let modelExecutor: ModelExecutor
-
-    static let modelContainer: ModelContainer = try! ModelContainer(for:
-        SentDrawing.self,
-        ReceivedDrawing.self,
-        DraftDrawing.self,
-        Friend.self,
-        FriendRequest.self)
-
-    let context: ModelContext
-
-    init(container: ModelContainer = Container.modelContainer) {
-        self.modelContainer = container
-        let context = ModelContext(modelContainer)
-        self.modelExecutor = DefaultSerialModelExecutor(modelContext: context)
-        self.context = context
-    }
-
+extension Container {
     func createDraft() async throws -> String {
         let draft = DraftDrawing()
         context.insert(draft)
