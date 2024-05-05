@@ -28,3 +28,10 @@ actor Container: ModelActor {
         self.context = context
     }
 }
+
+extension Container {
+    func getLatestReceivedDrawing() -> ReceivedDrawing? {
+        let drawings = try? context.fetch(FetchDescriptor<ReceivedDrawing>(sortBy: [SortDescriptor(\.createdAt, order: .reverse)]))
+        return drawings?.first
+    }
+}

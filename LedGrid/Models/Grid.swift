@@ -27,7 +27,18 @@ extension Grid {
         [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
         [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
     ]
-    
+
+    static let smiley: Grid = [
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.white, Grid.black, Grid.black, Grid.white, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.white, Grid.black, Grid.black, Grid.white, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+        [Grid.black, Grid.white, Grid.black, Grid.black, Grid.black, Grid.black, Grid.white, Grid.black],
+        [Grid.black, Grid.black, Grid.white, Grid.white, Grid.white, Grid.white, Grid.black, Grid.black],
+        [Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black, Grid.black],
+    ]
+
     static func emptyFor(size: GridSize, color: String = Grid.black) -> Grid {
         return (0..<size.rawValue).map { _ in
             (0..<size.rawValue).map { _ in color }

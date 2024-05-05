@@ -15,7 +15,7 @@ enum DrawingsTab: String {
 }
 
 struct DrawingsView: View {
-    @State private var tab = DrawingsTab.drafts
+    @State private var tab = DrawingsTab.received
 
     @Environment(\.modelContext) private var modelContext
 
@@ -27,8 +27,6 @@ struct DrawingsView: View {
     @State private var feedback = false
 
     let scrollToDrawView: () -> Void
-
-    @State private var appeared = false
 
     func scrollUp() {
         feedback.toggle()
@@ -44,7 +42,7 @@ struct DrawingsView: View {
             try modelContext.save()
             scrollUp()
         } catch {
-            print(error)
+            logger.error("\(error.localizedDescription)")
         }
     }
 
@@ -91,8 +89,21 @@ struct DrawingsView: View {
             received.opened = true
             try modelContext.save()
         } catch {
-            print(error)
+            logger.error("\(error.localizedDescription)")
         }
+    }
+
+    func copy(drawing: any Drawing) {
+        tab = .drafts
+        do {
+            let draft = DraftDrawing(size: .small)
+            draft.grid = drawing.grid
+            modelContext.insert(draft)
+            try modelContext.save()
+        } catch {
+            logger.error("\(error.localizedDescription)")
+        }
+        scrollUp()
     }
 
     var body: some View {
@@ -120,16 +131,22 @@ struct DrawingsView: View {
                     Spacer()
                 }
             } else {
-                DrawingList(drawings: drawings) { index in
+                DrawingList(drawings: drawings) { drawing, index in
                     switch tab {
-                    case .drafts: selectDraft(at: index)
-                    case .received: selectReceived(at: index)
-                    case .sent: return
-                    }
-                }.onAppear {
-                    if !received.isEmpty && !appeared {
-                        tab = .received
-                        appeared = true
+                    case .drafts:
+                        DraftDrawingView(drawing: drawing) {
+                            selectDraft(at: index)
+                        }
+                    case .received:
+                        ReceivedDrawingView(drawing: drawing) {
+                            selectReceived(at: index)
+                        } onCopy: {
+                            copy(drawing: drawing)
+                        }
+                    case .sent:
+                        SentDrawingView(drawing: drawing) {
+                            copy(drawing: drawing)
+                        }
                     }
                 }
             }
@@ -141,5 +158,94 @@ struct ArtViewPreview: PreviewProvider {
     static var previews: some View {
         DrawingsView {}
             .modelContainer(PreviewStore.container)
+    }
+}
+
+struct SentDrawingView: View {
+    var drawing: any Drawing
+    var onSelect: () -> Void
+
+    var body: some View {
+        GridView(grid: drawing.grid)
+            .aspectRatio(contentMode: .fit)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(
+                        Color.gray.opacity(0.2), lineWidth: 1
+                    )
+            )
+            .font(.title)
+            .padding(1)
+            .contextMenu(ContextMenu(menuItems: {
+                Button {
+                    onSelect()
+                } label: {
+                    Text("Copy to draft")
+                }
+            }))
+    }
+}
+
+struct ReceivedDrawingView: View {
+    var drawing: any Drawing
+    var onSelect: () -> Void
+    var onCopy: () -> Void
+
+    var body: some View {
+        VStack(alignment: .center) {
+            GridView(grid: drawing.grid)
+                .aspectRatio(contentMode: .fit)
+                .blur(radius: drawing.opened ? 0 : 20)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(
+                            Color.gray.opacity(0.2), lineWidth: 1
+                        )
+                )
+                .overlay(
+                    Image(systemName: "eye")
+                        .foregroundStyle(.gray)
+                        .opacity(drawing.opened ? 0 : 1))
+                .font(.title)
+                .padding(1)
+                .contextMenu(ContextMenu(menuItems: {
+                    Button {
+                        onCopy()
+                    } label: {
+                        Text("Copy to draft")
+                    }
+                }))
+                .onTapGesture {
+                    onSelect()
+                }
+            if let friend = drawing.sender {
+                Text("From \(friend.name ?? friend.username)").foregroundStyle(.secondary).italic().font(.caption)
+                    .multilineTextAlignment(.center)
+            }
+        }
+    }
+}
+
+struct DraftDrawingView: View {
+    var drawing: any Drawing
+    var onSelect: () -> Void
+
+    var body: some View {
+        GridView(grid: drawing.grid)
+            .aspectRatio(contentMode: .fit)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(
+                        Color.gray.opacity(0.2), lineWidth: 1
+                    )
+            )
+            .font(.title)
+            .padding(1)
+            .onTapGesture {
+                onSelect()
+            }
     }
 }

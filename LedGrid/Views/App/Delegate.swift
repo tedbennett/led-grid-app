@@ -33,7 +33,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             Keychain.set(accessToken, for: .apiKey)
         }
 
-        #if DEBUG
+        #if !DEBUG
         SentrySDK.start { options in
             options.dsn = "https://e29612af279847dda6037ba43aa31e1a@o1421379.ingest.sentry.io/6769769"
             options.releaseName = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
@@ -47,7 +47,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
         #endif
         UNUserNotificationCenter.current().delegate = self
-
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        // Initiate remote notifs
         if Keychain.apiKey != nil {
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
             UNUserNotificationCenter.current()
@@ -58,12 +59,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 )
             UIApplication.shared.registerForRemoteNotifications()
         }
+        // Reload widgets
+        WidgetCenter.shared.reloadAllTimelines()
 
         return true
-    }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
-        WidgetCenter.shared.reloadAllTimelines()
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
@@ -101,5 +100,21 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
+        do {
+            let since = LocalStorage.fetchDate
+            try await DataLayer().importReceivedDrawings(since: since, opened: false)
+            LocalStorage.fetchDate = .now
+            return .newData
+        } catch {
+            logger.error("Error fetching in background: \(error)")
+            return .failed
+        }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }

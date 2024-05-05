@@ -9,6 +9,7 @@ import AlertToast
 import SwiftData
 import SwiftUI
 import UserNotifications
+import WidgetKit
 
 @main
 struct AppV2: App {
@@ -37,6 +38,7 @@ struct AppV2: App {
                             try await DataLayer().importReceivedDrawings(since: since, opened: false)
                             LocalStorage.fetchDate = .now
                         }
+                        WidgetCenter.shared.reloadAllTimelines()
                     }
                 }
 

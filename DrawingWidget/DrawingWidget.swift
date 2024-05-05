@@ -10,25 +10,29 @@ import SwiftUI
 import WidgetKit
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date())
+    func placeholder(in context: Context) -> DrawingEntry {
+        DrawingEntry(drawing: Grid.smiley, opened: true)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date())
+    func getSnapshot(in context: Context, completion: @escaping (DrawingEntry) -> ()) {
+        let entry = DrawingEntry(drawing: Grid.smiley, opened: true)
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        let entries: [SimpleEntry] = [SimpleEntry(date: .now)]
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
+        Task {
+            let drawing = await Container().getLatestReceivedDrawing()
+            let entries = [DrawingEntry(drawing: drawing?.grid, opened: drawing?.opened ?? true)]
+            let timeline = Timeline(entries: entries, policy: .atEnd)
+            completion(timeline)
+        }
     }
 }
 
-struct SimpleEntry: TimelineEntry {
-    let date: Date
+struct DrawingEntry: TimelineEntry {
+    let date: Date = .now
+    let drawing: Grid?
+    let opened: Bool
 }
 
 struct DrawingWidgetEntryView: View {
@@ -36,12 +40,13 @@ struct DrawingWidgetEntryView: View {
     var entry: Provider.Entry
 
     var body: some View {
-        if let drawing = received.first {
+        if let drawing = entry.drawing {
             ZStack {
-                GridView(grid: drawing.grid).padding(0)
-                    .blur(radius: drawing.opened ? 0 : 20)
-                    .overlay(.black.opacity(!drawing.opened ? 0.4 : 0))
-                if !drawing.opened {
+                GridView(grid: drawing).padding(0)
+                    .blur(radius: entry.opened ? 0 : 20)
+                    .overlay(.black.opacity(!entry.opened ? 0.4 : 0))
+                    .aspectRatio(contentMode: .fit)
+                if !entry.opened {
                     VStack(spacing: 8) {
                         Image(systemName: "eye")
                             .foregroundStyle(.white)
@@ -80,8 +85,8 @@ struct DrawingWidget: Widget {
                 .modelContainer(Container.modelContainer)
         }
         .contentMarginsDisabled()
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Latest Drawing Widget")
+        .description("Your most recently received drawing.")
         .supportedFamilies([.systemSmall])
     }
 }
@@ -89,5 +94,5 @@ struct DrawingWidget: Widget {
 #Preview(as: .systemSmall) {
     DrawingWidget()
 } timeline: {
-    SimpleEntry(date: .now)
+    DrawingEntry(drawing: nil, opened: false)
 }
